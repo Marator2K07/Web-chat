@@ -1,10 +1,18 @@
 import React from 'react'
-import classes from './MyButton.module.css'
+import classes from './TopBlock.module.css'
 
-const TopBlock = ({children, ...props}) => {
+const TopBlock = ({pageText, miniAccount, ...props}) => {
   return (
     <div className={classes.TopBlock} {...props}>
-        TopBlock
+        <div className='left'>
+            <p>AwesomeChat</p>
+        </div>
+        <div className='mid'>
+            <p>{pageText}</p>
+        </div>
+        <div className='right'>
+            {miniAccount}
+        </div>        
     </div>
   )
 }
