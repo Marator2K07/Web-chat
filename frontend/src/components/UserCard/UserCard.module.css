@@ -1,0 +1,8 @@
+.UserCard {
+    background-color:slategrey; 
+    color:darkorange;
+    font-weight: 400;
+    font-size: 19px;
+    font-family: emoji;
+    display: flex;
+}
