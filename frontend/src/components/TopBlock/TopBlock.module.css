@@ -1,0 +1,8 @@
+.TopBlock {
+    background-color:slategrey; 
+    color:darkorange;
+    padding: 10px 35px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
