@@ -1,0 +1,11 @@
+.TopBlock {
+    background-color:slategrey; 
+    color:darkorange;
+    font-weight: 400;
+    font-size: 19px;
+    font-family: emoji;
+    padding: 10px 35px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
