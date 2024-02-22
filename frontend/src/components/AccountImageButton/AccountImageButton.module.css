@@ -1,0 +1,16 @@
+.AccountImageButton {
+    background-color:slategrey; 
+    color:rgb(255, 140, 100);
+}
+
+.AccountImageButton button {
+    background-color:slategrey; 
+    padding: 5px;
+    display: inline-flex;
+    border: none; 
+}
+
+.AccountImageButton button p {
+    margin: 6px 5px;
+    color:rgb(255, 140, 100);
+}
