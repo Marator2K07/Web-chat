@@ -1,7 +1,13 @@
 import React from 'react'
 import classes from './TopBlock.module.css'
+import AccountImageButton from '../AccountImageButton/AccountImageButton';
+import MiniMenu from '../MiniMenu/MiniMenu';
 
-const TopBlock = ({pageText, miniAccount, ...props}) => {
+const TopBlock = ({pageText, userInfo, ...props}) => {
+  if (userInfo.image === null) {
+    userInfo.image = "\DefUserIcon.png";
+  }
+
   return (
     <div className={classes.TopBlock} {...props}>
         <div className='left'>
@@ -11,8 +17,8 @@ const TopBlock = ({pageText, miniAccount, ...props}) => {
             <p>{pageText}</p>
         </div>
         <div className='right'>
-            {miniAccount}
-        </div>        
+            <AccountImageButton userImg={userInfo.image}/>
+        </div>             
     </div>
   )
 }
