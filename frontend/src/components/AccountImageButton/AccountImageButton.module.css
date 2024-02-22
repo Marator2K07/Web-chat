@@ -7,7 +7,18 @@
     background-color:slategrey; 
     padding: 5px;
     display: inline-flex;
-    border: none; 
+    border: 2px solid transparent;
+    transition: background-color 0.5s; 
+    transition: border 0.5s; 
+}
+
+.AccountImageButton button:hover {
+    background-color:rgb(96, 100, 104); 
+    padding: 5px;
+    display: inline-flex;
+    border: 2px solid;
+    transition: background-color 0.5s; 
+    transition: border 0.5s; 
 }
 
 .AccountImageButton button p {
