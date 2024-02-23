@@ -1,7 +1,8 @@
 .MiniMenu {
     background-color:rgb(96, 100, 104); 
-    position: absolute;
-    top: 63px;
+    position: absolute;    
+    border-radius: 10px;
     width: 444px;
     height: 333px;
+    opacity: 0;
 }
