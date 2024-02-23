@@ -1,9 +1,9 @@
 import React from 'react'
 import classes from './MiniMenu.module.css'
 
-export default function MiniMenu({...props}) {    
+export default function MiniMenu({innerRef, ...props}) {    
     return (
-        <div className={classes.MiniMenu} {...props}>
+        <div ref={innerRef} className={classes.MiniMenu} {...props}>
             
         </div>
     )
