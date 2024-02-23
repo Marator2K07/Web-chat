@@ -27,3 +27,32 @@
     pointer-events: none;
 }
 /* End of CSSTransition for MiniMenu className */
+
+/* Start of CSSTransition for AccountImageButton className */
+.AccountImageButton-init {  
+    background-color:slategrey; 
+    display: inline-flex;
+    border: 2px solid transparent;
+    padding: 5px;
+}
+.AccountImageButton-enter {
+    background-color:rgb(96, 100, 104); 
+}
+.AccountImageButton-enter-active {
+    background-color:rgb(96, 100, 104); 
+    transition: background-color 0.5s;
+}
+.AccountImageButton-enter-done {
+    background-color:rgb(96, 100, 104); 
+}
+.AccountImageButton-exit {
+    background-color:rgb(96, 100, 104); 
+}
+.AccountImageButton-exit-active {
+    background-color:slategrey; 
+    transition: background-color 0.5s;
+}
+.AccountImageButton-exit-done {
+    background-color:slategrey; 
+}
+/* End of CSSTransition for AccountImageButton className */
