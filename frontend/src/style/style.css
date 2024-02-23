@@ -13,6 +13,7 @@
 }
 .MiniMenu-enter-done {
     opacity: 1;
+    pointer-events: all;
 }
 .MiniMenu-exit {
     opacity: 1;
@@ -23,5 +24,6 @@
 }
 .MiniMenu-exit-done {
     opacity: 0;
+    pointer-events: none;
 }
 /* End of CSSTransition for MiniMenu className */
