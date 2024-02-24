@@ -18,6 +18,8 @@ export default function AccountImageButton({userImg, ...props}) {
     const anotherRef = useRef(null);
     
     return (
+        <div className={classes.AccountImageButton} {...props}
+        onMouseLeave={() => setHov(false)}>
             <CSSTransition 
             in={hov}
             nodeRef={nodeRef}
