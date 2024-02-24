@@ -2,7 +2,7 @@ import { React, useRef, useState } from 'react'
 import classes from './AccountImageButton.module.css'
 import MiniMenu from '../MiniMenu/MiniMenu';
 import { CSSTransition } from 'react-transition-group';
-import '../../style/style.css';
+import './AccountImageButtonCSSTransition.css';
 
 function setMenuOffset(idBtn, idMenu) {
     const btnRect = document.getElementById(idBtn).getBoundingClientRect();
