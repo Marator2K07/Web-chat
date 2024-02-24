@@ -15,6 +15,8 @@ function setMenuOffset(idBtn, idMenu) {
 export default function AccountImageButton({userImg, ...props}) {
     const [hov, setHov] = useState(false);
     const nodeRef = useRef(null);
+    const anotherRef = useRef(null);
+    
     return (
             <CSSTransition 
             in={hov}
@@ -30,6 +32,14 @@ export default function AccountImageButton({userImg, ...props}) {
                     <img src={userImg} alt="" />
                     <p>&#10094; &#10094; &#10094;</p>
                 </button> 
+            </CSSTransition>
+            <CSSTransition
+            in={hov}
+            nodeRef={anotherRef}                               
+            timeout={600}
+            classNames="MiniMenu"
+            >
+                <MiniMenu innerRef={anotherRef} id='miniMenu'/>  
             </CSSTransition>
         </div>
     )
