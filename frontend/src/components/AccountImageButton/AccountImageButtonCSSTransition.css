@@ -1,24 +1,30 @@
 /* Start of CSSTransition for MiniMenu className */
 .MiniMenu-enter {
     opacity: 0;
+    border: 2px solid black transparent;
 }
 .MiniMenu-enter-active {
     opacity: 1;
+    border: 2px solid black;
     transition: opacity 500ms;
 }
 .MiniMenu-enter-done {
     opacity: 1;
+    border: 2px solid black;
     pointer-events: all;
 }
 .MiniMenu-exit {
+    border: 2px solid black;
     opacity: 1;
 }
 .MiniMenu-exit-active {
     opacity: 0;
+    border: 2px solid black transparent;
     transition: opacity 500ms;
 }
 .MiniMenu-exit-done {
     opacity: 0;
+    border: 2px solid black transparent;
     pointer-events: none;
 }
 /* End of CSSTransition for MiniMenu className */
@@ -31,23 +37,29 @@
     padding: 5px;
 }
 .AccountImageButton-enter {
-    background-color:rgb(96, 100, 104); 
+    background-color:slategrey; 
+    border: 2px solid transparent;
 }
 .AccountImageButton-enter-active {
     background-color:rgb(96, 100, 104); 
-    transition: background-color 0.5s;
+    border: 2px solid;
+    transition: all 0.5s;
 }
 .AccountImageButton-enter-done {
+    border: 2px solid;
     background-color:rgb(96, 100, 104); 
 }
 .AccountImageButton-exit {
+    border: 2px solid;
     background-color:rgb(96, 100, 104); 
 }
 .AccountImageButton-exit-active {
     background-color:slategrey; 
-    transition: background-color 0.5s;
+    border: 2px solid transparent;
+    transition: all 0.5s;
 }
 .AccountImageButton-exit-done {
+    border: 2px solid transparent;
     background-color:slategrey; 
 }
 /* End of CSSTransition for AccountImageButton className */
