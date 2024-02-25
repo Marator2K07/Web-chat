@@ -1,11 +1,12 @@
 .TopBlock {
-    background-color:slategrey; 
+    background-color:rgb(106, 111, 116); 
     color:rgb(255, 140, 100);
     font-weight: 400;
     font-size: 19px;
     font-family: emoji;
-    padding: 10px 35px;
+    height: 10vh;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    border-bottom: 2px solid rgb(255, 140, 100);
 }
