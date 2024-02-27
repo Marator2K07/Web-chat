@@ -1,6 +1,7 @@
 import './App.css';
-import DownBlock from './components/DownBlock/DownBlock';
-import TopBlock from './components/TopBlock/TopBlock';
+import SignInPage from './components/Pages/SignInPage/SignInPage';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 
 function App() {
 
@@ -11,10 +12,13 @@ function App() {
     image: null
   }
 
-  return (
+  return (    
     <div className="App">
-      <TopBlock pageText="Вход в аккаунт" userInfo={userInfo}></TopBlock>
-      <DownBlock>Text</DownBlock>
+        <BrowserRouter>
+            <Routes>
+                <Route path='/signin' element={<SignInPage userInfo={userInfo}/>}/> 
+            </Routes>
+        </BrowserRouter>
     </div>
   );
 }
