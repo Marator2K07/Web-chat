@@ -13,6 +13,7 @@
         "doctrine/orm": "^2.18",
         "lexik/jwt-authentication-bundle": "^2.18",
         "nelmio/cors-bundle": "^2.4",
+        "swiftmailer/swiftmailer": "^6.3",
         "symfony/console": "6.0.*",
         "symfony/dotenv": "6.0.*",
         "symfony/flex": "^2",
