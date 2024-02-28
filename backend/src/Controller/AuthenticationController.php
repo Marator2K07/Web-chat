@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class AuthenticatorController extends AbstractController
+class AuthenticationController extends AbstractController
 {
     #[Route(path: '/signin', name: 'app_sign_in')]
     public function appSignIn(AuthenticationUtils $authenticationUtils): JsonResponse
