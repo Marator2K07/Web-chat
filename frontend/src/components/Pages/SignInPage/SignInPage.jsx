@@ -6,7 +6,7 @@ import DownBlock from '../../DownBlock/DownBlock'
 import MainBlock from '../../MainBlock/MainBlock'
 import ResponseErrorBlock from '../../ResponseErrorBlock/ResponseErrorBlock'
 
-const ApiUrl = 'http://127.0.0.1:8000/signin';
+const ApiUrl = 'http://127.0.0.1:8000/login';
 
 export default function SignInPage({userInfo, ...props}) {
     const [username, setUsername] = useState('');

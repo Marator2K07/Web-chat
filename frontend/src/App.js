@@ -16,7 +16,7 @@ function App() {
     <div className="App">
         <BrowserRouter>
             <Routes>
-                <Route path='/signin' element={<SignInPage userInfo={userInfo}/>}/> 
+                <Route path='/login' element={<SignInPage userInfo={userInfo}/>}/> 
             </Routes>
         </BrowserRouter>
     </div>
