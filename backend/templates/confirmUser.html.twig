@@ -1,0 +1,18 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Подтверждение регистрации</title>
+</head>
+<body>
+<div class="container">
+    <p>Добро пожаловать, {{ user.username }}!</p>
+    <p>Чтобы завершить регистрацию, активируйте свой аккаунт перейдя по 
+        <a href="http://localhost:8000/user_activation?key=".
+        user['activationKey']>данной ссылке</a>
+    </p>
+</div>
+</body>
+</html>
