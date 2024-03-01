@@ -5,3 +5,37 @@
     align-items: center;
     justify-content: center;
 }
+
+.MainBlock form input {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    padding: 3px;
+    background-color: rgb(232,240,254);     
+    font-weight: 400;
+    font-family: emoji;
+    font-size: 19px;
+}
+
+.MainBlock form input, select {
+    color: rgb(0, 0, 0);    
+}
+
+.MainBlock form button {
+    margin: 10px;
+    padding: 3px;
+    width: max-content;
+    background-color: rgb(232,240,254);     
+    font-weight: 400;
+    font-family: emoji;
+    font-size: 19px;
+}
+
+.MainBlock form p {
+    color: rgb(255, 140, 100);
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-weight: 400;
+    font-family: emoji;
+    font-size: 19px;
+}
