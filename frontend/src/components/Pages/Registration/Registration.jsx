@@ -15,25 +15,31 @@ export default function Registration({userInfo, ...props}) {
             <MainBlock>
                 <div className={classes.Registration} {...props}>
                     <form>
+                        <p>Придумайте имя аккаунта:</p>
                         <input
                         type='username'
                         name='username'
                         value={credentials.username}
-                        onChange={handleChange}
-                        placeholder='Имя аккаунта'/>
+                        onChange={handleChange}/>
+                        <p>Задайте почту для привязки:</p>
                         <input
                         type='email'
                         name='email'
                         value={credentials.email} 
-                        onChange={handleChange} 
-                        placeholder='Почта аккаунта'/>
+                        onChange={handleChange}/>
+                        <p>А теперь придумайте пароль:</p>
                         <input
                         type='password'
                         name='password'
                         value={credentials.password} 
-                        onChange={handleChange} 
-                        placeholder='Пароль от аккаунта'/>
-                        <button type='button' onClick={handleSubmit}>Войти в аккаунт</button>
+                        onChange={handleChange}/>
+                        <p>И теперь повторите его:</p>
+                        <input
+                        type='password'
+                        name='password'
+                        value={credentials.password} 
+                        onChange={handleChange}/>
+                        <button type='button' onClick={handleSubmit}>Зарегистрироваться</button>
                     </form>
                     {error === null ? '' : <ResponseErrorBlock responseError={error}/>}   
                 </div>                         
