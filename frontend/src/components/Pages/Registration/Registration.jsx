@@ -9,7 +9,8 @@ import ResponseErrorBlock from '../../ResponseErrorBlock/ResponseErrorBlock'
 const ApiUrl = 'http://127.0.0.1:8000/register';
 
 export default function Registration({userInfo, ...props}) {
-    const [responce, setResponce] = useState(null);
+    const [passwordRepeat, setPasswordRepeat] = useState(true); 
+    const [responce, setResponce] = useState(null);    
     const [error, setError] = useState(null);
     // идентификационные данные
     const [credentials, setCredentials] = useState({
@@ -39,7 +40,24 @@ export default function Registration({userInfo, ...props}) {
             return true;
         }
     }
-
+    // проверка на повторение пароля
+    function passwordIsRepeated(formName,
+                                formPassName,
+                                formPassNameAgain) {
+        var passInput = document.forms[formName][formPassName];
+        var passAgainInput = document.forms[formName][formPassNameAgain];
+        console.log(passInput.value);
+        console.log(passAgainInput.value);
+        if (passInput.value === passAgainInput.value) {
+            setPasswordRepeat(true);
+            return true;
+        } else {
+            
+            setPasswordRepeat(false);
+            return false;
+        }
+    } 
+    
     // обработка нажатия подтверждения на форме
     async function handleSubmit(e) { 
         e.preventDefault();
@@ -52,6 +70,9 @@ export default function Registration({userInfo, ...props}) {
             validated = false;
         }
         if (!formParamIsEmptyOrSmall('registerForm', 'passwordAgain') && validated) {
+            validated = false;
+        }
+        if (!passwordIsRepeated('registerForm', 'password', 'passwordAgain') && validated) {
             validated = false;
         }
         if (!validated) {
@@ -91,7 +112,7 @@ export default function Registration({userInfo, ...props}) {
                         name='password'
                         value={credentials.password} 
                         onChange={handleChange}/>
-                        <p>И повторите его:</p>
+                        {passwordRepeat === true ? <p>И повторите его:</p> : <p>И повторите его (не совпадают):</p>}
                         <input
                         type='password'
                         name='passwordAgain'
