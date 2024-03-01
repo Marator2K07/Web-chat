@@ -10,7 +10,7 @@ const ApiUrl = 'http://127.0.0.1:8000/register';
 
 export default function Registration({userInfo, ...props}) {
     const [responce, setResponce] = useState(null);
-    const [error, setError] = useState(null);    
+    const [error, setError] = useState(null);
     // идентификационные данные
     const [credentials, setCredentials] = useState({
         username: '',
@@ -23,11 +23,41 @@ export default function Registration({userInfo, ...props}) {
         setCredentials({
             ...credentials,
             [e.target.name]: e.target.value
-        });
+        }); 
     }
+    // валидация по размеру и содержанию параметра формы
+    function formParamIsEmptyOrSmall(formName, formParamName) {
+        var input = document.forms[formName][formParamName];
+        if (input.value === '') {            
+            input.style.backgroundColor = 'rgb(231, 189, 198)'; 
+            input.setAttribute('placeholder', 'Заполните данное поле');
+            console.log(input);
+            return false;
+        } else {
+            input.setAttribute('placeholder', '');
+            input.style.backgroundColor = 'rgb(232,240,254)';             
+            return true;
+        }
+    }
+
     // обработка нажатия подтверждения на форме
     async function handleSubmit(e) { 
         e.preventDefault();
+        // предпроверка перед отправкой запроса
+        let validated = formParamIsEmptyOrSmall('registerForm', 'username');
+        if (!formParamIsEmptyOrSmall('registerForm', 'email') && validated) {
+            validated = false;
+        }
+        if (!formParamIsEmptyOrSmall('registerForm', 'password') && validated) {
+            validated = false;
+        }
+        if (!formParamIsEmptyOrSmall('registerForm', 'passwordAgain') && validated) {
+            validated = false;
+        }
+        if (!validated) {
+            return;
+        }
+        // если прошли предпроверку
         await axios.post(ApiUrl, credentials)
         .then(function (responce) {
             setResponce(responce);
@@ -42,7 +72,7 @@ export default function Registration({userInfo, ...props}) {
             <TopBlock pageText='Вход в аккаунт' userInfo={userInfo}/>
             <MainBlock>
                 <div className={classes.Registration} {...props}>
-                    <form>
+                    <form name='registerForm'>
                         <p>Придумайте имя аккаунта:</p>
                         <input
                         type='username'
