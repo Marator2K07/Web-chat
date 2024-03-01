@@ -9,6 +9,34 @@ import ResponseErrorBlock from '../../ResponseErrorBlock/ResponseErrorBlock'
 const ApiUrl = 'http://127.0.0.1:8000/register';
 
 export default function Registration({userInfo, ...props}) {
+    const [responce, setResponce] = useState(null);
+    const [error, setError] = useState(null);    
+    // идентификационные данные
+    const [credentials, setCredentials] = useState({
+        username: '',
+        email: '', 
+        password: '',
+        passwordAgain: ''           
+    });
+    // установка изменений в идентификационных данных
+    const handleChange = (e) => {
+        setCredentials({
+            ...credentials,
+            [e.target.name]: e.target.value
+        });
+    }
+    // обработка нажатия подтверждения на форме
+    async function handleSubmit(e) { 
+        e.preventDefault();
+        await axios.post(ApiUrl, credentials)
+        .then(function (responce) {
+            setResponce(responce);
+        })
+        .catch(function (error) {
+            setError(error);
+        })
+    };
+
     return (
         <div className='all'>
             <TopBlock pageText='Вход в аккаунт' userInfo={userInfo}/>
@@ -33,11 +61,11 @@ export default function Registration({userInfo, ...props}) {
                         name='password'
                         value={credentials.password} 
                         onChange={handleChange}/>
-                        <p>И теперь повторите его:</p>
+                        <p>И повторите его:</p>
                         <input
                         type='password'
-                        name='password'
-                        value={credentials.password} 
+                        name='passwordAgain'
+                        value={credentials.passwordAgain} 
                         onChange={handleChange}/>
                         <button type='button' onClick={handleSubmit}>Зарегистрироваться</button>
                     </form>
