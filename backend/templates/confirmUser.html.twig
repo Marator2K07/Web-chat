@@ -11,7 +11,7 @@
     <p>Добро пожаловать, {{ user.username }}!</p>
     <p>Чтобы завершить регистрацию, активируйте свой аккаунт перейдя по 
         <a href="http://localhost:8000/user_activation?key=".
-        user['activationKey']>данной ссылке</a>
+        { key }>данной ссылке</a>
     </p>
 </div>
 </body>

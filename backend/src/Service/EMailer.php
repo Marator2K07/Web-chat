@@ -18,16 +18,15 @@ class EMailer
     {  
         // хэшируем ключ активации
         $userActivationKey = md5(rand().time());
-        $user['activationKey'] = $userActivationKey;
-        log($userActivationKey);
         // используем специальный шаблон для подтверждения аккаунта
         $messageBody = $this->twig->render('confirmUser.html.twig', [
-            'user' => $user
+            'user' => $user, 
+            'key' => $userActivationKey
         ]);    
         // составляем сообщение и отправляем    
         $email = (new Email())
             ->from($this->serverEmail)
-            ->to('manager@example.com')
+            ->to($user->getEmail())
             ->subject('Site update just happened!')
             ->text($messageBody);
         $this->mailer->send($email);
