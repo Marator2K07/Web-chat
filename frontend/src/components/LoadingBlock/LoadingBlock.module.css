@@ -1,0 +1,10 @@
+.LoadingBlock {
+    position: absolute;
+    top: 0;
+    background-color: slategrey;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+}
