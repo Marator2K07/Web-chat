@@ -1,0 +1,30 @@
+/* Start of CSSTransition for MiniMenu className */
+.MiniMenu-enter {
+    opacity: 0;
+    border: 2px solid black transparent;
+}
+.MiniMenu-enter-active {
+    opacity: 1;
+    border: 2px solid black;
+    transition: opacity 500ms;
+}
+.MiniMenu-enter-done {
+    opacity: 1;
+    border: 2px solid black;
+    pointer-events: all;
+}
+.MiniMenu-exit {
+    border: 2px solid black;
+    opacity: 1;
+}
+.MiniMenu-exit-active {
+    opacity: 0;
+    border: 2px solid black transparent;
+    transition: opacity 500ms;
+}
+.MiniMenu-exit-done {
+    opacity: 0;
+    border: 2px solid black transparent;
+    pointer-events: none;
+}
+/* End of CSSTransition for MiniMenu className */
