@@ -1,0 +1,24 @@
+/* Start of CSSTransition for LoadingBlock className */
+.LoadingBlock-enter {
+    opacity: 0;
+}
+.LoadingBlock-enter-active {
+    opacity: 1;
+    transition: opacity 250ms;
+}
+.LoadingBlock-enter-done {
+    opacity: 1;
+    pointer-events: all;
+}
+.LoadingBlock-exit {
+    opacity: 1;
+}
+.LoadingBlock-exit-active {
+    opacity: 0;
+    transition: opacity 250ms;
+}
+.LoadingBlock-exit-done {
+    opacity: 0;
+    pointer-events: none;
+}
+/* End of CSSTransition for MiniMenu className */

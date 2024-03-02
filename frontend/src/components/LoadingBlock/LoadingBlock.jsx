@@ -1,9 +1,9 @@
 import React from 'react'
 import classes from './LoadingBlock.module.css'
 
-export default function LoadingBlock({...props}) {
+export default function LoadingBlock({innerRef, ...props}) {
     return (
-        <div className={classes.LoadingBlock} {...props}>
+        <div ref={innerRef} className={classes.LoadingBlock} {...props}>
                             
         </div>
     )
