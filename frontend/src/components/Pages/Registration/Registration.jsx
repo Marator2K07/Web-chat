@@ -139,7 +139,7 @@ export default function Registration({userInfo, ...props}) {
             nodeRef={nodeRef}
             timeout={250}
             classNames="LoadingBlock">
-                <LoadingBlock innerRef={nodeRef}/>
+                <LoadingBlock loading={loading} innerRef={nodeRef}/>
             </CSSTransition>                        
             <DownBlock/>
         </div>
