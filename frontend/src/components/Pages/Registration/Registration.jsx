@@ -1,17 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
+import { CSSTransition } from 'react-transition-group';
 import axios from 'axios'
 import classes from './Registration.module.css'
 import TopBlock from '../../TopBlock/TopBlock'
 import DownBlock from '../../DownBlock/DownBlock'
 import MainBlock from '../../MainBlock/MainBlock'
 import ResponseErrorBlock from '../../ResponseErrorBlock/ResponseErrorBlock'
+import LoadingBlock from '../../LoadingBlock/LoadingBlock'
+import '../../LoadingBlock/LoadingBlockCSSTransition.css';
 
 const ApiUrl = 'http://127.0.0.1:8000/register';
 
 export default function Registration({userInfo, ...props}) {
     const [passwordRepeat, setPasswordRepeat] = useState(true); 
-    const [responce, setResponce] = useState(null);    
+    const [responce, setResponce] = useState(null);      
     const [error, setError] = useState(null);
+
+    // для анимации загрузки
+    const [loading, setLoading] = useState(false);  
+    const nodeRef = useRef(null);
+
     // идентификационные данные
     const [credentials, setCredentials] = useState({
         username: '',
@@ -79,18 +87,21 @@ export default function Registration({userInfo, ...props}) {
             return;
         }
         // если прошли предпроверку
-        await axios.post(ApiUrl, credentials)
+        setLoading(true)
+        await axios.post(ApiUrl, credentials)        
         .then(function (responce) {
             setResponce(responce);
+            setLoading(false);
         })
         .catch(function (error) {
             setError(error);
+            setLoading(false);
         })
     };
 
     return (
         <div className='all'>
-            <TopBlock pageText='Вход в аккаунт' userInfo={userInfo}/>
+            <TopBlock pageText='Вход в аккаунт' userInfo={userInfo}/>            
             <MainBlock>
                 <div className={classes.Registration} {...props}>
                     <form name='registerForm'>
@@ -122,7 +133,14 @@ export default function Registration({userInfo, ...props}) {
                     </form>
                     {error === null ? '' : <ResponseErrorBlock responseError={error}/>}   
                 </div>                         
-            </MainBlock>
+            </MainBlock>  
+            <CSSTransition 
+            in={loading}
+            nodeRef={nodeRef}
+            timeout={250}
+            classNames="LoadingBlock">
+                <LoadingBlock innerRef={nodeRef}/>
+            </CSSTransition>                        
             <DownBlock/>
         </div>
     )
