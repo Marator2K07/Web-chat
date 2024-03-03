@@ -5,7 +5,7 @@ import classes from './Registration.module.css'
 import TopBlock from '../../TopBlock/TopBlock'
 import DownBlock from '../../DownBlock/DownBlock'
 import MainBlock from '../../MainBlock/MainBlock'
-import ResponseErrorBlock from '../../ResponseErrorBlock/ResponseErrorBlock'
+import ResponseErrorBlock from '../../Messages/ResponseError/ResponseError'
 import LoadingBlock from '../../LoadingBlock/LoadingBlock'
 import '../../LoadingBlock/LoadingBlockCSSTransition.css';
 
