@@ -1,0 +1,7 @@
+.ResponseError {
+    background-color: rgb(231, 189, 198);    
+    color: red;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
