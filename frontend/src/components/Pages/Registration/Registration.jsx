@@ -14,7 +14,6 @@ export default function Registration({userInfo, ...props}) {
     const [passwordRepeat, setPasswordRepeat] = useState(true); 
     const [responce, setResponce] = useState(null);      
     const [error, setError] = useState(null);
-
     // для анимации загрузки
     const [loading, setLoading] = useState(false);  
     const nodeRef = useRef(null);
@@ -26,13 +25,6 @@ export default function Registration({userInfo, ...props}) {
         password: '',
         passwordAgain: ''           
     });
-    // установка изменений в идентификационных данных
-    const handleChange = (e) => {
-        setCredentials({
-            ...credentials,
-            [e.target.name]: e.target.value
-        }); 
-    }
     // валидация по размеру и содержанию параметра формы
     function formParamIsEmptyOrSmall(formName, formParamName) {
         var input = document.forms[formName][formParamName];
@@ -58,13 +50,23 @@ export default function Registration({userInfo, ...props}) {
         if (passInput.value === passAgainInput.value) {
             setPasswordRepeat(true);
             return true;
-        } else {
-            
+        } else {            
             setPasswordRepeat(false);
             return false;
         }
     } 
     
+    // установка изменений в идентификационных данных
+    const handleChange = (e) => {
+        setCredentials({
+            ...credentials,
+            [e.target.name]: e.target.value
+        }); 
+    }
+    // вынесенная смена состояния загрузки
+    const handleLoading = () => {        
+        setLoading(!loading);
+    }
     // обработка нажатия подтверждения на форме
     async function handleSubmit(e) { 
         e.preventDefault();
@@ -86,15 +88,15 @@ export default function Registration({userInfo, ...props}) {
             return;
         }
         // если прошли предпроверку
-        setLoading(true)
+        setLoading(true);
+        setResponce(null);
+        setError(null);
         await axios.post(ApiUrl, credentials)        
         .then(function (responce) {
-            setResponce(responce);
-            setLoading(false);
+            setResponce(responce);            
         })
         .catch(function (error) {
             setError(error);
-            setLoading(false);
         })
     };
 
@@ -135,12 +137,13 @@ export default function Registration({userInfo, ...props}) {
             <CSSTransition 
             in={loading}
             nodeRef={nodeRef}
-            timeout={250}
+            timeout={333}
             classNames="LoadingBlock">
-                <LoadingBlock loading={loading}                                
-                              errorMsg={error}  
-                              responceMsg={responce}
-                              innerRef={nodeRef}/>
+                <LoadingBlock innerRef={nodeRef}
+                              loading={loading}
+                              handleLoading={handleLoading}                             
+                              error={error}  
+                              responce={responce}/>
             </CSSTransition>                        
             <DownBlock/>
         </div>
