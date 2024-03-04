@@ -5,7 +5,6 @@ import classes from './Registration.module.css'
 import TopBlock from '../../TopBlock/TopBlock'
 import DownBlock from '../../DownBlock/DownBlock'
 import MainBlock from '../../MainBlock/MainBlock'
-import ResponseErrorBlock from '../../Messages/ResponseError/ResponseError'
 import LoadingBlock from '../../LoadingBlock/LoadingBlock'
 import '../../LoadingBlock/LoadingBlockCSSTransition.css';
 
@@ -130,8 +129,7 @@ export default function Registration({userInfo, ...props}) {
                         value={credentials.passwordAgain} 
                         onChange={handleChange}/>
                         <button type='button' onClick={handleSubmit}>Зарегистрироваться</button>
-                    </form>
-                    {error === null ? '' : <ResponseErrorBlock responseError={error}/>}   
+                    </form>                     
                 </div>                         
             </MainBlock>  
             <CSSTransition 
@@ -139,7 +137,10 @@ export default function Registration({userInfo, ...props}) {
             nodeRef={nodeRef}
             timeout={250}
             classNames="LoadingBlock">
-                <LoadingBlock loading={loading} innerRef={nodeRef}/>
+                <LoadingBlock loading={loading}                                
+                              errorMsg={error}  
+                              responceMsg={responce}
+                              innerRef={nodeRef}/>
             </CSSTransition>                        
             <DownBlock/>
         </div>
