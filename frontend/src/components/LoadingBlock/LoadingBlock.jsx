@@ -5,14 +5,15 @@ import ResponseError from '../Messages/ResponseError/ResponseError'
 
 export default function LoadingBlock({innerRef,
                                       loading,
-                                      errorMsg,
-                                      responceMsg,
+                                      handleLoading,
+                                      error,
+                                      responce,
                                       ...props}) {
     return (
         <div ref={innerRef} className={classes.LoadingBlock} {...props}>   
-            {loading ? <img src='LoadingIcon.png' alt=''/> : <p/>}            
-            {errorMsg ? <ResponseError message={errorMsg}/> : <p/>}  
-            {responceMsg ? <Info message={responceMsg}/> : <p/>}
+            {loading ? <div className="Image"><img src='LoadingIcon.png' alt=''/></div> : <p/>}            
+            {error ? <ResponseError handleLoading={handleLoading} message={error}/> : <p/>}  
+            {responce ? <Info message={responce.data}/> : <p/>}
         </div>
     )
 }
