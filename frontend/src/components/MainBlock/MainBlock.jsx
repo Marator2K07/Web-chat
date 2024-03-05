@@ -14,10 +14,6 @@ export default function MainBlock({user,
     const [loading, setLoading] = useState(false);  
     const nodeRef = useRef(null); // для анимации загрузки
 
-    const handleLoading = () => {        
-        setLoading(!loading);
-    }
-
     return (
         <div className={classes.MainBlock} {...props}>
             <DynamicComponent 
@@ -34,7 +30,7 @@ export default function MainBlock({user,
                 <LoadingBlock 
                     innerRef={nodeRef}
                     loading={loading}
-                    handleLoading={handleLoading}                             
+                    setLoading={setLoading}                             
                     error={error}  
                     responce={responce}/>
             </CSSTransition>
