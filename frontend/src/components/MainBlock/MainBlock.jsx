@@ -20,18 +20,24 @@ export default function MainBlock({user,
 
     return (
         <div className={classes.MainBlock} {...props}>
-            <DynamicComponent component={currentMainBlock}/>
+            <DynamicComponent 
+                component={currentMainBlock}
+                user={user}
+                setLoading={setLoading}
+                setResponce={setResponce}
+                setError={setError}/>
             <CSSTransition 
-            in={loading}
-            nodeRef={nodeRef}
-            timeout={333}
-            classNames="LoadingBlock">
-                <LoadingBlock innerRef={nodeRef}
-                              loading={loading}
-                              handleLoading={handleLoading}                             
-                              error={error}  
-                              responce={responce}/>
-            </CSSTransition>  
+                in={loading}
+                nodeRef={nodeRef}
+                timeout={333}
+                classNames="LoadingBlock">
+                <LoadingBlock 
+                    innerRef={nodeRef}
+                    loading={loading}
+                    handleLoading={handleLoading}                             
+                    error={error}  
+                    responce={responce}/>
+            </CSSTransition>
         </div>
     )
 }
