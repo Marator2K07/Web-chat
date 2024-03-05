@@ -1,9 +1,9 @@
 .ResponseError {
     padding: 25px;
-    background-color: rgb(231, 189, 198); 
-    border: 2px solid red;   
+    background-color: rgb(247, 221, 226); 
+    border: 2px solid rgb(168, 0, 0);   
     border-radius: 10px;
-    color: red;
+    color: rgb(168, 0, 0);
     font-weight: 400;
     font-family: emoji;
     font-size: 19px;
@@ -11,7 +11,8 @@
     text-wrap: true;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+}
 
 .ResponseError button {
     margin-top: 15px;
