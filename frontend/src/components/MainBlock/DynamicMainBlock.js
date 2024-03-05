@@ -10,7 +10,11 @@ const components = {
 // посредник, через который мы сможем рендерить нужный компонент
 function DynamicComponent(props) {
     const SelectedComponent = components[props.component];
-    return <SelectedComponent/>
+    return <SelectedComponent
+                user={props.user}
+                setLoading={props.setLoading}
+                setResponce={props.setResponce}
+                setError={props.setError}/>
 }
 
 export default DynamicComponent;
