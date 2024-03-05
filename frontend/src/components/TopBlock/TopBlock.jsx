@@ -2,11 +2,7 @@ import { React } from 'react'
 import classes from './TopBlock.module.css'
 import AccountImageButton from '../AccountImageButton/AccountImageButton';
 
-const TopBlock = ({pageText, userInfo, ...props}) => {
-    if (userInfo.image === null) {
-        userInfo.image = "DefUserIcon.png";
-    }
-
+const TopBlock = ({pageText, user, ...props}) => {
     return (
         <div className={classes.TopBlock} {...props}>
             <div className='left'>
@@ -16,7 +12,7 @@ const TopBlock = ({pageText, userInfo, ...props}) => {
                 <p>{pageText}</p>
             </div>
             <div className='right'>            
-                <AccountImageButton userImg={userInfo.image}/>
+                <AccountImageButton userImg={!user ? "DefUserIcon.png" : user.image}/>
             </div>             
         </div>
     )
