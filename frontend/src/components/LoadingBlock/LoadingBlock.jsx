@@ -1,19 +1,33 @@
 import React from 'react'
 import classes from './LoadingBlock.module.css'
-import Info from '../Messages/Info/Info'
 import ResponseError from '../Messages/ResponseError/ResponseError'
+import BadResponse from '../Messages/BadResponse/BadResponse'
+import OkResponse from '../Messages/OkResponse/OkResponse'
 
 export default function LoadingBlock({innerRef,
                                       loading,
-                                      handleLoading,
+                                      setLoading,
                                       error,
                                       responce,
                                       ...props}) {
     return (
         <div ref={innerRef} className={classes.LoadingBlock} {...props}>   
-            {loading ? <div className="Image"><img src='LoadingIcon.png' alt=''/></div> : <p/>}            
-            {error ? <ResponseError handleLoading={handleLoading} message={error}/> : <p/>}  
-            {responce ? <Info message={responce.data}/> : <p/>}
+            {loading ? <div><img src='LoadingIcon.png' alt=''/></div> : ''} 
+            {error ? <ResponseError setLoading={setLoading} message={error}/> : ''}    
+            {
+                (() => {
+                    if (responce) {
+                        switch (responce.data.status) {
+                            case 'Ok':
+                                return <OkResponse setLoading={setLoading} message={responce.data}/>
+                            case 'Bad': 
+                                return <BadResponse setLoading={setLoading} message={responce.data}/>    
+                            default:
+                                return <p>Что-то пошло не так</p>                                  
+                        }
+                    }
+                })()
+            }
         </div>
     )
 }
