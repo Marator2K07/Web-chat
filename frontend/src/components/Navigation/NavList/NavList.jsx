@@ -1,16 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './NavList.module.css'
 import NavItem from '../NavItem/NavItem'
 import { CSSTransition } from 'react-transition-group';
 import './NavListCSSTransition.css';
 
 export default function NavList({handleNavigate, ...props}) {
-    const [currentIndex, setCurrentIndex] = useState(0);    
+    const [currentIndex, setCurrentIndex] = useState(null);    
     // можно сразу здесь обьявить весь рутинг
     const data = {
         loginRoot: {path: 'login', description: 'Вход в аккаунт'},
         registerRoot: {path: 'register', description: 'Регистрация'}
     }
+
+    useEffect(() => {
+        setCurrentIndex(0);
+    }, []);
 
     return (
         <div className={classes.NavList} {...props}>
