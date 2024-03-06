@@ -1,4 +1,4 @@
-.Warning {
+.BadResponse {
     padding: 25px;
     background-color: rgb(255, 252, 223);
     border: 2px solid rgb(136, 122, 0);   
@@ -14,7 +14,7 @@
     align-items: center;
 }
 
-.Warning button {
+.BadResponse button {
     margin-top: 15px;
     padding: 3px;
     width: max-content;
