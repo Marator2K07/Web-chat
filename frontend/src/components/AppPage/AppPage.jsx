@@ -6,7 +6,7 @@ import MainBlock from '../MainBlock/MainBlock';
 
 export default function AppPage({user, ...props}) {  
     const [headerText, setHeaderText] = useState("Вход в аккаунт");
-    const [currentMainBlock, setCurrentMainBlock] = useState('loginMainBlock');
+    const [currentMainBlock, setCurrentMainBlock] = useState('login');
     
     return (
         <div className={classes.AppPage} {...props}>

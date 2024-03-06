@@ -4,8 +4,8 @@ import RegisterMainBlock from "./Components/RegisterMainBlock/RegisterMainBlock"
 
 // основные страницы/блоки приложения
 const components = {
-    registerMainBlock: RegisterMainBlock,
-    loginMainBlock: LoginMainBlock 
+    register: RegisterMainBlock,
+    login: LoginMainBlock 
 }
 // посредник, через который мы сможем рендерить нужный компонент
 function DynamicComponent(props) {
