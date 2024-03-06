@@ -4,7 +4,7 @@
 }
 .LoadingBlock-enter-active {
     opacity: 1;
-    transition: opacity 250ms;
+    transition: opacity 333ms;
 }
 .LoadingBlock-enter-done {
     opacity: 1;
@@ -15,7 +15,7 @@
 }
 .LoadingBlock-exit-active {
     opacity: 0;
-    transition: opacity 250ms;
+    transition: opacity 333ms;
 }
 .LoadingBlock-exit-done {
     opacity: 0;
