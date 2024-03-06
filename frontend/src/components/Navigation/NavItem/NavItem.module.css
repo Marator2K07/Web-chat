@@ -1,0 +1,17 @@
+.NavItem button {
+    padding: 5px;
+    margin-left: 3px;
+    margin-right: 3px;
+    width: max-content;
+    border-bottom: 2px solid rgb(255, 140, 100);
+    border-left: 2px solid rgb(255, 140, 100);
+    border-right: 2px solid rgb(255, 140, 100);
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: rgb(106, 111, 116);   
+    color: rgb(180, 188, 196);  
+    font-weight: 400;
+    font-family: emoji;
+    font-size: 19px;
+    cursor: pointer;
+}
