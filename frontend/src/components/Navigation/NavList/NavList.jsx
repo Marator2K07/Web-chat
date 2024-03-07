@@ -4,13 +4,8 @@ import NavItem from '../NavItem/NavItem'
 import { CSSTransition } from 'react-transition-group';
 import './NavListCSSTransition.css';
 
-export default function NavList({handleNavigate, ...props}) {
+export default function NavList({handleNavigate, pagesData, ...props}) {
     const [currentIndex, setCurrentIndex] = useState(null);    
-    // можно сразу здесь обьявить весь рутинг
-    const data = {
-        loginRoot: {path: 'login', description: 'Вход в аккаунт'},
-        registerRoot: {path: 'register', description: 'Регистрация'}
-    }
 
     useEffect(() => {
         setCurrentIndex(0);
@@ -18,7 +13,7 @@ export default function NavList({handleNavigate, ...props}) {
 
     return (
         <div className={classes.NavList} {...props}>
-            {Object.keys(data).map((key, index) => (
+            {Object.keys(pagesData).map((key, index) => (
                 <CSSTransition 
                     key={index}
                     in={currentIndex !== index}
@@ -26,8 +21,8 @@ export default function NavList({handleNavigate, ...props}) {
                     classNames="NavList">
                     <div key={key}>
                         <NavItem 
-                            path={data[key].path}
-                            description={data[key].description}
+                            root={key}
+                            description={pagesData[key].description}
                             index={index}
                             handleNavigate={handleNavigate}
                             setCurrentIndex={setCurrentIndex}/>
