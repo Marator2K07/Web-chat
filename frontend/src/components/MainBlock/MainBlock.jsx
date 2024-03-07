@@ -5,6 +5,7 @@ import LoadingBlock from '../LoadingBlock/LoadingBlock';
 import DynamicComponent from './DynamicMainBlock';
 
 export default function MainBlock({user, 
+                                   handleNavigate, 
                                    currentMainBlock,
                                    setCurrentMainBlock,
                                    setHeaderText,
@@ -30,7 +31,8 @@ export default function MainBlock({user,
                 <LoadingBlock 
                     innerRef={nodeRef}
                     loading={loading}
-                    setLoading={setLoading}                             
+                    setLoading={setLoading}  
+                    handleNavigate={handleNavigate}                           
                     error={error}  
                     responce={responce}/>
             </CSSTransition>

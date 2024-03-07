@@ -25,6 +25,7 @@ export default function AppPage({user, ...props}) {
             <NavList handleNavigate={handleNavigate} pagesData={pagesData}/>  
             <MainBlock 
                 user={user}
+                handleNavigate={handleNavigate}
                 currentMainBlock={currentMainBlock}
                 setCurrentMainBlock={setCurrentMainBlock}
                 setHeaderText={setHeaderText}/>
