@@ -8,6 +8,7 @@
     font-family: emoji;
     font-size: 19px;
     max-width: 333px;
+    min-width: 222px;
     text-wrap: true;
     display: flex;
     flex-direction: column;
@@ -22,4 +23,9 @@
     font-weight: 400;
     font-family: emoji;
     font-size: 19px;
+}
+
+.ResponseError p {
+    margin-top: 0px;
+    margin-bottom: 8px;
 }
