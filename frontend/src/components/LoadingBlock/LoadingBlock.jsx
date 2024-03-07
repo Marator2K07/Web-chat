@@ -7,6 +7,7 @@ import OkResponse from '../Messages/OkResponse/OkResponse'
 export default function LoadingBlock({innerRef,
                                       loading,
                                       setLoading,
+                                      handleNavigate,
                                       error,
                                       responce,
                                       ...props}) {
@@ -19,7 +20,10 @@ export default function LoadingBlock({innerRef,
                     if (responce) {
                         switch (responce.data.status) {
                             case 'Ok':
-                                return <OkResponse setLoading={setLoading} message={responce.data}/>
+                                return <OkResponse
+                                    setLoading={setLoading}
+                                    handleNavigate={handleNavigate}
+                                    message={responce.data}/>
                             case 'Bad': 
                                 return <BadResponse setLoading={setLoading} message={responce.data}/>    
                             default:
