@@ -1,7 +1,4 @@
 /* Start of CSSTransition for Clue className */
-.Clue-init {
-    opacity: 1;
-}
 .Clue-enter {
     opacity: 0;
 }  
