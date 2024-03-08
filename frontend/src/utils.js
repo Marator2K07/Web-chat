@@ -15,14 +15,42 @@ export const formParamIsSmall = (formName,
                                  paramName,
                                  userInfo,
                                  setTips) => {
-    let form = document.forms[formName];
-    let formInput = form[paramName];
+    let formInput = document.forms[formName][paramName];
     if (formInput.value.length <= 5) {
+        // пишем подсказку
         setTips(prevState => ({
             ...prevState,
             [paramName]: userInfo
         }))
         return false;
-    }          
+    }    
+    // таким образом убираем подсказку
+    setTips(nextState => {
+        let {password, ...newTips} = nextState;
+        return newTips;
+    });      
     return true;
 }
+
+export const passwordIsRepeated = (formName,
+                                   formPassName,
+                                   formPassNameAgain,
+                                   userInfo,
+                                   setTips) => {
+    var passInput = document.forms[formName][formPassName];
+    var passAgainInput = document.forms[formName][formPassNameAgain];    
+    if (passInput.value !== passAgainInput.value) {
+        // пишем подсказку
+        setTips(prevState => ({
+            ...prevState,
+            [formPassNameAgain]: userInfo
+        }))
+        return false;
+    }     
+    // таким образом убираем подсказку
+    setTips(nextState => {
+        let {passwordAgain, ...newTips} = nextState;
+        return newTips;
+    });
+    return true;
+} 
