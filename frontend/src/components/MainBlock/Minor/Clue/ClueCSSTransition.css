@@ -1,0 +1,25 @@
+/* Start of CSSTransition for Clue className */
+.Clue-init {
+    opacity: 1;
+}
+.Clue-enter {
+    opacity: 0;
+}  
+.Clue-enter-active {
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+.Clue-enter-done {
+    opacity: 1;
+}
+.Clue-exit {
+    opacity: 1;
+}
+.Clue-exit-active {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+.Clue-exit-done {
+    opacity: 0;
+}
+/* End of CSSTransition for Clue className */
