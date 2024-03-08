@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import classes from './RegisterMainBlock.module.css'
 import '../../../LoadingBlock/LoadingBlockCSSTransition.css';
+import { formParamIsEmpty, formParamIsSmall, passwordIsRepeated } from '../../../../utils';
+import Clue from '../../Minor/Clue/Clue';
 
 const ApiUrl = 'http://127.0.0.1:8000/register';
 
@@ -10,8 +12,10 @@ export default function RegisterMainBlock({user,
                                            setResponce,
                                            setError,
                                            ...props}) {
-    const [passwordRepeat, setPasswordRepeat] = useState(true); 
-
+    // подсказки для пользователя
+    const [tips, setTips] = useState({});  
+    // состояние предпроверки
+    const [validated, setValidated] = useState(false);                                           
     // идентификационные данные
     const [credentials, setCredentials] = useState({
         username: '',
@@ -19,37 +23,32 @@ export default function RegisterMainBlock({user,
         password: '',
         passwordAgain: ''           
     });
-    // валидация по размеру и содержанию параметра формы
-    function formParamIsEmptyOrSmall(formName, formParamName) {
-        var input = document.forms[formName][formParamName];
-        if (input.value === '') {            
-            input.style.backgroundColor = 'rgb(231, 189, 198)'; 
-            input.setAttribute('placeholder', 'Заполните данное поле');
-            console.log(input);
-            return false;
+
+    // анализ ввода строки пароля пользователя
+    useEffect(() => {        
+        if (credentials.password !== '' &&
+            !formParamIsSmall('registerForm', 'password',
+                              'Пароль слишком короткий', setTips)) {
+            setValidated(false);
         } else {
-            input.setAttribute('placeholder', '');
-            input.style.backgroundColor = 'rgb(232,240,254)';             
-            return true;
+            setValidated(true);
         }
-    }
-    // проверка на повторение пароля
-    function passwordIsRepeated(formName,
-                                formPassName,
-                                formPassNameAgain) {
-        var passInput = document.forms[formName][formPassName];
-        var passAgainInput = document.forms[formName][formPassNameAgain];
-        console.log(passInput.value);
-        console.log(passAgainInput.value);
-        if (passInput.value === passAgainInput.value) {
-            setPasswordRepeat(true);
-            return true;
-        } else {            
-            setPasswordRepeat(false);
-            return false;
-        }
-    } 
-    
+    }, [credentials.password]);
+
+    // анализ ввода строки подтверждения пароля пользователя
+    useEffect(() => {        
+        if (credentials.passwordAgain !== '' &&
+            !passwordIsRepeated('registerForm', 'password', 'passwordAgain', 
+                                'Пароли не совпадают', setTips)) {
+            setValidated(false);
+        } else {
+            setValidated(true);
+        }     
+    }, [
+        credentials.passwordAgain,
+        credentials.password
+    ]);
+
     // установка изменений в идентификационных данных
     const handleChange = (e) => {
         setCredentials({
@@ -57,26 +56,23 @@ export default function RegisterMainBlock({user,
             [e.target.name]: e.target.value
         }); 
     }
-    // обработка нажатия подтверждения на форме
+
     async function handleSubmit(e) { 
         e.preventDefault();
+        
         // предпроверка перед отправкой запроса
-        let validated = formParamIsEmptyOrSmall('registerForm', 'username');
-        if (!formParamIsEmptyOrSmall('registerForm', 'email') && validated) {
-            validated = false;
-        }
-        if (!formParamIsEmptyOrSmall('registerForm', 'password') && validated) {
-            validated = false;
-        }
-        if (!formParamIsEmptyOrSmall('registerForm', 'passwordAgain') && validated) {
-            validated = false;
-        }
-        if (!passwordIsRepeated('registerForm', 'password', 'passwordAgain') && validated) {
-            validated = false;
-        }
-        if (!validated) {
+        let validatedFinal = true;
+        let usernameOk = !formParamIsEmpty('registerForm', 'username');
+        let emailOk = !formParamIsEmpty('registerForm', 'email');
+        let passwordOk = !formParamIsEmpty('registerForm', 'password');
+        let passwordAgainOk = !formParamIsEmpty('registerForm', 'passwordAgain');
+        validatedFinal = (usernameOk && emailOk &&
+                          passwordOk && passwordAgainOk && 
+                          validated && validatedFinal);
+        if (!validatedFinal) {
             return;
         }
+        
         // если прошли предпроверку
         setLoading(true);
         setResponce(null);
@@ -111,14 +107,15 @@ export default function RegisterMainBlock({user,
                     name='password'
                     value={credentials.password} 
                     onChange={handleChange}/>
-                {passwordRepeat === true ? <p>И повторите его:</p> : <p>И повторите его (не совпадают):</p>}
+                <p>И повторите его:</p>
                 <input
                     type='password'
                     name='passwordAgain'
                     value={credentials.passwordAgain} 
                     onChange={handleChange}/>
                 <button type='button' onClick={handleSubmit}>Зарегистрироваться</button>
-            </form>                     
-        </div>   
+            </form>  
+            <Clue tips={tips}/>                     
+        </div>
     )
 }
