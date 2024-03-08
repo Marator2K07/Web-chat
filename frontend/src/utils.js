@@ -10,3 +10,19 @@ export const formParamIsEmpty = (formName, paramName) => {
         return false;
     }
 }
+
+export const formParamIsSmall = (formName,
+                                 paramName,
+                                 userInfo,
+                                 setTips) => {
+    let form = document.forms[formName];
+    let formInput = form[paramName];
+    if (formInput.value.length <= 5) {
+        setTips(prevState => ({
+            ...prevState,
+            [paramName]: userInfo
+        }))
+        return false;
+    }          
+    return true;
+}
