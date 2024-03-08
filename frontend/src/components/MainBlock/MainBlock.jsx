@@ -7,8 +7,6 @@ import DynamicComponent from './DynamicMainBlock';
 export default function MainBlock({user, 
                                    handleNavigate, 
                                    currentMainBlock,
-                                   setCurrentMainBlock,
-                                   setHeaderText,
                                    ...props}) {
     const [responce, setResponce] = useState(null);      
     const [error, setError] = useState(null);

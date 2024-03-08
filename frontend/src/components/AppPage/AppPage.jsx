@@ -35,9 +35,7 @@ export default function AppPage({user, ...props}) {
             <MainBlock 
                 user={user}
                 handleNavigate={handleNavigate}
-                currentMainBlock={currentMainBlock}
-                setCurrentMainBlock={setCurrentMainBlock}
-                setHeaderText={setHeaderText}/>
+                currentMainBlock={currentMainBlock}/>
             <DownBlock/>
         </div>
     )
