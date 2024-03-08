@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import classes from './LoginMainBlock.module.css'
+import { formParamIsEmpty } from '../../../../utils';
 
 const ApiUrl = 'http://127.0.0.1:8000/login';
 
@@ -13,7 +14,10 @@ export default function LoginMainBlock({user,
     const [credentials, setCredentials] = useState({
         username: '',
         password: ''
-    });
+    });    
+    // состояние предпроверки
+    const [validated, setValidated] = useState(false);    
+
     // установка изменений в идентификационных данных
     const handleChange = (e) => {
         setCredentials({
@@ -25,8 +29,14 @@ export default function LoginMainBlock({user,
     async function handleSubmit(e) { 
         e.preventDefault();
 
-        // место для предпроверок
-
+        // предпроверка перед отправкой запроса
+        let usernameOk = !formParamIsEmpty('loginForm', 'username');
+        let passwordOk = !formParamIsEmpty('loginForm', 'password');        
+        setValidated(usernameOk && passwordOk);    
+        if (!validated) {            
+            return;
+        }
+        
         // если прошли предпроверку
         setLoading(true);
         setResponce(null);
@@ -48,7 +58,7 @@ export default function LoginMainBlock({user,
 
     return (
         <div className={classes.LoginMainBlock} {...props}>
-            <form>
+            <form name='loginForm'>
                 <p>Введите имя аккаунта:</p>
                 <input
                     type='username'
@@ -59,10 +69,10 @@ export default function LoginMainBlock({user,
                 <input
                     type='password'
                     name='password'
-                    value={credentials.password} 
+                    value={credentials.password}                     
                     onChange={handleChange}/>
                 <button type='button' onClick={handleSubmit}>Войти</button>
-            </form>         
+            </form>     
         </div>
     )
 }
