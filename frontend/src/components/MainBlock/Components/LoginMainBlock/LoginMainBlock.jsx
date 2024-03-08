@@ -14,9 +14,7 @@ export default function LoginMainBlock({user,
     const [credentials, setCredentials] = useState({
         username: '',
         password: ''
-    });    
-    // состояние предпроверки
-    const [validated, setValidated] = useState(false);    
+    }); 
 
     // установка изменений в идентификационных данных
     const handleChange = (e) => {
@@ -30,10 +28,11 @@ export default function LoginMainBlock({user,
         e.preventDefault();
 
         // предпроверка перед отправкой запроса
+        let validated = true;
         let usernameOk = !formParamIsEmpty('loginForm', 'username');
-        let passwordOk = !formParamIsEmpty('loginForm', 'password');        
-        setValidated(usernameOk && passwordOk);    
-        if (!validated) {            
+        let passwordOk = !formParamIsEmpty('loginForm', 'password');     
+        validated = (usernameOk && passwordOk && validated); 
+        if (!validated) {
             return;
         }
         
