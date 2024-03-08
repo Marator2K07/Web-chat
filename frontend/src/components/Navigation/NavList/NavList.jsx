@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import classes from './NavList.module.css'
 import NavItem from '../NavItem/NavItem'
 import { CSSTransition } from 'react-transition-group';
 import './NavListCSSTransition.css';
 
-export default function NavList({handleNavigate, pagesData, ...props}) {
-    const [currentIndex, setCurrentIndex] = useState(null);    
-
-    useEffect(() => {
-        setCurrentIndex(0);
-    }, []);
-
+export default function NavList({handleNavigate,
+                                 pagesData,
+                                 currentIndex,
+                                 ...props}) {
     return (
         <div className={classes.NavList} {...props}>
             {Object.keys(pagesData).map((key, index) => (
@@ -24,8 +21,7 @@ export default function NavList({handleNavigate, pagesData, ...props}) {
                             root={key}
                             description={pagesData[key].description}
                             index={index}
-                            handleNavigate={handleNavigate}
-                            setCurrentIndex={setCurrentIndex}/>
+                            handleNavigate={handleNavigate}/>
                     </div>
                 </CSSTransition>
             ))}
