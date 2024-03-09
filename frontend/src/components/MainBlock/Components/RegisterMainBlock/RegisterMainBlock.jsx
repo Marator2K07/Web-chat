@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import classes from './RegisterMainBlock.module.css'
 import '../../../LoadingBlock/LoadingBlockCSSTransition.css';
-import { formParamIsEmpty, formParamIsSmall, passwordIsRepeated } from '../../../../utils';
+import { formEmailIsCorrect,
+         formParamIsEmpty,
+         formParamIsSmall,
+         passwordIsRepeated } from '../../../../utils';
 import Clue from '../../Minor/Clue/Clue';
 
 const ApiUrl = 'http://127.0.0.1:8000/register';
@@ -23,6 +26,17 @@ export default function RegisterMainBlock({user,
         password: '',
         passwordAgain: ''           
     });
+
+    // анализ ввода строки почты пользователя
+    useEffect(() => {        
+        if (credentials.email !== '' &&
+            !formEmailIsCorrect('registerForm', 'email',
+                                'Неверный формат почты', setTips)) {
+            setValidated(false);
+        } else {
+            setValidated(true);
+        }
+    }, [credentials.email]);
 
     // анализ ввода строки пароля пользователя
     useEffect(() => {        
