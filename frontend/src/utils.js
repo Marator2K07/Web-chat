@@ -54,3 +54,24 @@ export const passwordIsRepeated = (formName,
     });
     return true;
 } 
+
+export const formEmailIsCorrect = (formName,
+                                   paramName,
+                                   userInfo,
+                                   setTips) => {
+    let formInput = document.forms[formName][paramName];
+    if (!(/^\S+@\S+\.\S+$/.test(formInput.value))) {
+        // пишем подсказку
+        setTips(prevState => ({
+            ...prevState,
+            [paramName]: userInfo
+        }))
+        return false;
+    }
+    // таким образом убираем подсказку
+    setTips(nextState => {
+        let {email, ...newTips} = nextState;
+        return newTips;
+    });
+    return true;
+}
