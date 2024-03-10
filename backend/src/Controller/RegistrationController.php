@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use App\Service\EMailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,11 +14,30 @@ use Symfony\Component\Routing\Annotation\Route;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register', methods: "POST")]
-    public function register(Request $request,   
+    public function register(Request $request, 
+                             UserRepository $userRepository,     
                              EntityManagerInterface $entityManager,
                              EMailer $emailer): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
+
+        // если имя не уникально 
+        $user = $userRepository->findOneByUsernameField($data['username']);
+        if ($user) {
+            return new JsonResponse(['status' => 'Bad',
+                'main' => 'Ошибка при регистрации.',
+                'addition' => 'Заданное имя аккаунта занято.'
+            ]);
+        }
+        // если почта не уникальна 
+        $user = $userRepository->findOneByEmailField($data['email']);
+        if ($user) {
+            return new JsonResponse(['status' => 'Bad',
+                'main' => 'Ошибка при регистрации.',
+                'addition' => 'Данная почта уже использовалась при регистрации.'
+            ]);
+        }
+
         // задаем и инициализируем нового пользователя
         $user = new User();
         $user->setUsername($data['username']);
