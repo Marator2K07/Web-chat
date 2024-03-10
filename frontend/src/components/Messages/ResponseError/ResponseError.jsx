@@ -13,11 +13,15 @@ export default function ResponseError({message, setLoading, ...props}) {
             <div className='info'>
                 <p>Сообщение: <br/><span style={{color:'#704949'}}>{message.message}</span></p> 
             </div>
+            {message.response ? 
             <div className='addition'>
                 <p>Дополнительная информация: <br/><span style={{color:'#704949'}}>{
-                    message.response.data.substring(0, message.response.data.indexOf('of &quot;'))
+                    message.response.data.substring(
+                        0, message.response.data.indexOf('(500 Internal Server Error)')
+                    )
                 }</span></p> 
-            </div>
+            </div> : ''}
+            
             <button type="button" onClick={() => setLoading(false)}>
                 Вернуться
             </button>
