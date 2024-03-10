@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import bcrypt from 'bcryptjs-react';
 import classes from './RegisterMainBlock.module.css'
 import '../../../LoadingBlock/LoadingBlockCSSTransition.css';
 import { formEmailIsCorrect,
@@ -91,11 +92,27 @@ export default function RegisterMainBlock({user,
         setLoading(true);
         setResponce(null);
         setError(null);
-        await axios.post(ApiUrl, credentials)        
+        // хэшируем пароль перед отправкой
+        var hashedPassword;
+        await bcrypt.hash(credentials.password, 10)
+        .then((responce) => {
+            hashedPassword = responce;
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+
+        // отправка запроса и управление
+        await axios.post(ApiUrl, {
+            username: credentials.username,
+            email: credentials.email,
+            password: hashedPassword
+        })        
         .then(function (responce) {
             setResponce(responce);            
         })
         .catch(function (error) {
+            console.log(error);
             setError(error);
         })
     };
