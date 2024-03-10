@@ -24,10 +24,13 @@ class RegistrationController extends AbstractController
         $user->setEmail($data['email']);
         $user->setConfirmed(false); // по умолчанию аккаунт не активирован
         $user->setPassword($data['password']);
+        // хэшируем ключ активации и сохраняем
+        $userActivationKey = md5(rand().time());
+        $user->setConfirmToken($userActivationKey);
         
         $entityManager->persist($user);
         $entityManager->flush();        
-        $emailer->sendConfirmMessage($user);
+        $emailer->sendConfirmMessage($user, $userActivationKey);
 
         return new JsonResponse(['status' => 'Ok',
             'main' => 'Мы выслали подверждение на указанный при регистрации емайл.',

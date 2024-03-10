@@ -14,20 +14,18 @@ class EMailer
                                 private $serverEmail)
     { }
     
-    public function sendConfirmMessage(User $user)
+    public function sendConfirmMessage(User $user, string $confirmToken)
     {  
         // создали основной экземпляр емайл
         $email = (new TemplatedEmail())->
             from($this->serverEmail)->
             to($user->getEmail())->
-            subject('Подтверждение регистрации аккаунта');
-        // хэшируем ключ активации
-        $userActivationKey = md5(rand().time());
+            subject('Подтверждение регистрации аккаунта');        
         // используем twig шаблон 
         $email->htmlTemplate('confirmUser.html.twig')->
             context([
                 'user' => $user, 
-                'key' => $userActivationKey
+                'key' => $confirmToken
             ]);         
 
         // и наконец отправляем    
