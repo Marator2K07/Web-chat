@@ -10,8 +10,9 @@
 <div class="container">
     <p>Добро пожаловать, {{ user.username }}!</p>
     <p>Чтобы завершить регистрацию, активируйте свой аккаунт перейдя по 
-        <a href="http://localhost:8000/user_activation?key=".
-        { key }>данной ссылке</a>
+        <a href="http://localhost:3000/user_activation?key={{key}}">
+            данной ссылке
+        </a>
     </p>
 </div>
 </body>
