@@ -9,8 +9,9 @@ import { useSearchParams } from 'react-router-dom';
 const ApiUrl = 'http://127.0.0.1:8000/user_activation';
 
 export default function UserActivationPage({...props}) {
-    const [responce, setResponce] = useState(null);
-    const [error, setError] = useState(null);
+    const [response, setResponse] = useState(null);
+    const [error, setError] = useState(null);      
+    const [holding, setHolding] = useState(false);
     const [loading, setLoading] = useState(false); 
     // анализ переданных параметров в url
     const [searchParams] = useSearchParams(); 
@@ -18,17 +19,29 @@ export default function UserActivationPage({...props}) {
 
     const handleActivation = async () => {
         var confirmToken = searchParams.get('key');
-
+        // подготовка
         setLoading(true);
-        setResponce(null);
+        setHolding(true);
+        setResponse(null);
         setError(null);
+        // сам запрос и его обработка
         await axios.post(ApiUrl, { confirmToken: confirmToken })
         .then(function (response) {
-            setResponce(response);
+            // ---- console.log(response); ---- //
+            setResponse(response);
+            // если не было команды оставить сообщение, то оно
+            // автоматически исчезнет через 2.5 секунды                                    
+            if (!response.data.hasOwnProperty("holding")) {
+                setTimeout(() => {
+                    setHolding(false);
+                }, 2500);
+            } 
         })
         .catch(function (error) {
+            // ---- console.log(error); ---- //
             setError(error);
-        })
+        });
+        setLoading(false);
     }
 
     // вызов активации при запуске страницы
@@ -42,16 +55,17 @@ export default function UserActivationPage({...props}) {
             className={classes.UserActivationPage} {...props}>
             <h3>Активация аккаунта</h3>    
             <CSSTransition 
-                in={loading}
+                in={holding}
                 nodeRef={nodeRef}
                 timeout={333}
                 classNames="LoadingBlock">
                 <LoadingBlock 
                     innerRef={nodeRef}
                     loading={loading}
-                    setLoading={setLoading}
+                    holding={holding}
+                    setHolding={setHolding}
                     error={error}  
-                    responce={responce}/>
+                    response={response}/>
             </CSSTransition>
         </div>
     )
