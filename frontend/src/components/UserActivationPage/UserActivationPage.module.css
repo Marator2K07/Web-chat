@@ -1,0 +1,15 @@
+.UserActivationPage {
+    background-color: slategray;
+    width: 100vw;
+    height: 100vh;
+}
+
+.UserActivationPage h3 {
+    color: rgb(255, 140, 100);
+    margin: 0;
+    text-align: center;
+    font-weight: 500;
+    font-family: emoji;
+    font-size: 19px;
+}
+
