@@ -14,7 +14,8 @@ function DynamicComponent(props) {
                 user={props.user}
                 setLoading={props.setLoading}
                 setResponce={props.setResponce}
-                setError={props.setError}/>
+                setError={props.setError}
+                setHolding={props.setHolding}/>
 }
 
 export default DynamicComponent;

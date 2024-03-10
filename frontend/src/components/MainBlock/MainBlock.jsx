@@ -11,6 +11,7 @@ export default function MainBlock({user,
     const [responce, setResponce] = useState(null);      
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);  
+    const [holding, setHolding] = useState(false);
     const nodeRef = useRef(null); // для анимации загрузки
 
     return (
@@ -20,17 +21,19 @@ export default function MainBlock({user,
                 user={user}
                 setLoading={setLoading}
                 setResponce={setResponce}
-                setError={setError}/>
+                setError={setError}
+                setHolding={setHolding}/>
             <CSSTransition 
-                in={loading}
+                in={holding}
                 nodeRef={nodeRef}
                 timeout={333}
                 classNames="LoadingBlock">
                 <LoadingBlock 
                     innerRef={nodeRef}
                     loading={loading}
-                    setLoading={setLoading}  
-                    handleNavigate={handleNavigate}                           
+                    holding={holding}
+                    setHolding={setHolding}  
+                    handleNavigate={handleNavigate}
                     error={error}  
                     responce={responce}/>
             </CSSTransition>
