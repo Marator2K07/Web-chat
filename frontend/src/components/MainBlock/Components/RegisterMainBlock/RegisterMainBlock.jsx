@@ -13,8 +13,9 @@ const ApiUrl = 'http://127.0.0.1:8000/register';
 
 export default function RegisterMainBlock({user,
                                            setLoading,
-                                           setResponce,
+                                           setResponse,
                                            setError,
+                                           setHolding,
                                            ...props}) {
     // подсказки для пользователя
     const [tips, setTips] = useState({});  
@@ -88,18 +89,19 @@ export default function RegisterMainBlock({user,
             return;
         }
         
-        // если прошли предпроверку
+        // подготовка
         setLoading(true);
-        setResponce(null);
+        setHolding(true);
+        setResponse(null);
         setError(null);
         // хэшируем пароль перед отправкой
         var hashedPassword;
         await bcrypt.hash(credentials.password, 10)
-        .then((responce) => {
-            hashedPassword = responce;
+        .then((response) => {
+            hashedPassword = response;
         })
         .catch((error) => {
-            console.log(error);
+            // ---- console.log(error); ---- //
         })
 
         // отправка запроса и управление
@@ -108,13 +110,22 @@ export default function RegisterMainBlock({user,
             email: credentials.email,
             password: hashedPassword
         })        
-        .then(function (responce) {
-            setResponce(responce);            
+        .then(function (response) {
+            // ---- console.log(response); ---- //
+            setResponse(response);  
+            // если не было команды оставить сообщение, то оно
+            // автоматически исчезнет через 2.5 секунды                                    
+            if (!response.data.hasOwnProperty("holding")) {
+                setTimeout(() => {
+                    setHolding(false);
+                }, 2500);
+            }          
         })
         .catch(function (error) {
-            console.log(error);
+            // ---- console.log(error); ---- //
             setError(error);
         })
+        setLoading(false);        
     };
 
     return (  

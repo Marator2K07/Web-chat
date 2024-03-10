@@ -7,8 +7,9 @@ const ApiUrl = 'http://127.0.0.1:8000/login';
 
 export default function LoginMainBlock({user,
                                         setLoading,
-                                        setResponce,
+                                        setResponse,
                                         setError,
+                                        setHolding,
                                         ...props}) {
     // идентификационные данные
     const [credentials, setCredentials] = useState({
@@ -36,10 +37,12 @@ export default function LoginMainBlock({user,
             return;
         }
         
-        // если прошли предпроверку
+        // подготовка
         setLoading(true);
-        setResponce(null);
+        setHolding(true);
+        setResponse(null);
         setError(null);
+        // отправка запроса и управление
         await axios.post(ApiUrl, credentials)
         .then(function (response) {
             // обрабатываем JWT токены (тестовый код)
@@ -47,12 +50,22 @@ export default function LoginMainBlock({user,
             // сохранение в локальное хранилище не безопасно, но пока так 
             localStorage.setItem('token', token);
             localStorage.setItem('refreshToken', refreshToken);
-            setResponce(response);
-            console.log(response.data);
+
+            // ---- console.log(response); ---- //
+            setResponse(response);
+            // если не было команды оставить сообщение, то оно
+            // автоматически исчезнет через 2.5 секунды                                    
+            if (!response.data.hasOwnProperty("holding")) {
+                setTimeout(() => {
+                    setHolding(false);
+                }, 2500);
+            }                           
         })
         .catch(function (error) {
+            // ---- console.log(error); ---- //
             setError(error);
-        })
+        })        
+        setLoading(false);        
     };
 
     return (
