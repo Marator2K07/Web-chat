@@ -8,7 +8,7 @@ export default function MainBlock({user,
                                    handleNavigate, 
                                    currentMainBlock,
                                    ...props}) {
-    const [responce, setResponce] = useState(null);      
+    const [response, setResponse] = useState(null);      
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);  
     const [holding, setHolding] = useState(false);
@@ -20,7 +20,7 @@ export default function MainBlock({user,
                 component={currentMainBlock}
                 user={user}
                 setLoading={setLoading}
-                setResponce={setResponce}
+                setResponse={setResponse}
                 setError={setError}
                 setHolding={setHolding}/>
             <CSSTransition 
@@ -35,7 +35,7 @@ export default function MainBlock({user,
                     setHolding={setHolding}  
                     handleNavigate={handleNavigate}
                     error={error}  
-                    responce={responce}/>
+                    response={response}/>
             </CSSTransition>
         </div>
     )

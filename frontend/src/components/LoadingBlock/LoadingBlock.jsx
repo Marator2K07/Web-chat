@@ -12,7 +12,7 @@ export default function LoadingBlock({innerRef,
                                       setHolding,
                                       handleNavigate,
                                       error,
-                                      responce,
+                                      response,
                                       ...props}) {    
     return (
         <div ref={innerRef} className={classes.LoadingBlock} {...props}>   
@@ -23,17 +23,17 @@ export default function LoadingBlock({innerRef,
             {error && <ResponseError setHolding={setHolding} message={error}/>}    
             {
                 (() => {
-                    if (responce) {
-                        switch (responce.data.status) {
+                    if (response) {
+                        switch (response.data.status) {
                             case 'Ok':
                                 return <OkResponse
                                     setHolding={setHolding}
                                     handleNavigate={handleNavigate}
-                                    message={responce.data}/>
+                                    message={response.data}/>
                             case 'Bad': 
                                 return <BadResponse
                                     setHolding={setHolding}
-                                    message={responce.data}/>    
+                                    message={response.data}/>    
                             default:
                                 return <p>Что-то пошло не так</p>                                  
                         }

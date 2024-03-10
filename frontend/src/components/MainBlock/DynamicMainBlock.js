@@ -13,7 +13,7 @@ function DynamicComponent(props) {
     return <SelectedComponent
                 user={props.user}
                 setLoading={props.setLoading}
-                setResponce={props.setResponce}
+                setResponse={props.setResponse}
                 setError={props.setError}
                 setHolding={props.setHolding}/>
 }
