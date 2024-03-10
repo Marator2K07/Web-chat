@@ -27,5 +27,7 @@
 
 .OkResponse p {
     color: rgb(232,240,254);   
-    margin-top: 8px;
+    margin-top: 2px;
+    margin-bottom: 8px;
+    padding-bottom: 0px;
 }
