@@ -27,11 +27,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column]
     private ?bool $confirmed = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $confirmToken = null;
 
     public function getId(): ?int
     {
@@ -123,6 +126,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setConfirmed(bool $confirmed): static
     {
         $this->confirmed = $confirmed;
+
+        return $this;
+    }
+
+    public function getConfirmToken(): ?string
+    {
+        return $this->confirmToken;
+    }
+
+    public function setConfirmToken(string $confirmToken): static
+    {
+        $this->confirmToken = $confirmToken;
 
         return $this;
     }
