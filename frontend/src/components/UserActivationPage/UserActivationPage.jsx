@@ -16,14 +16,9 @@ export default function UserActivationPage({...props}) {
     const [searchParams] = useSearchParams(); 
     const nodeRef = useRef(null); // для анимации загрузки
 
-    // вызов активации при запуске страницы
-    useEffect(() => {        
-        handleActivation(); 
-    }, []);
-
-    async function handleActivation() {
+    const handleActivation = async () => {
         var confirmToken = searchParams.get('key');
-        
+
         setLoading(true);
         setResponce(null);
         setError(null);
@@ -35,6 +30,12 @@ export default function UserActivationPage({...props}) {
             setError(error);
         })
     }
+
+    // вызов активации при запуске страницы
+    useEffect(() => {        
+        handleActivation(); 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div 
