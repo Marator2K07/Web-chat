@@ -7,7 +7,7 @@ import { formEmailIsCorrect,
          formParamIsEmpty,
          formParamIsSmall,
          passwordIsRepeated } from '../../../../utils';
-import Clue from '../../Minor/Clue/Clue';
+import Clue from '../SubElements/Clue/Clue';
 
 const ApiUrl = 'http://127.0.0.1:8000/register';
 

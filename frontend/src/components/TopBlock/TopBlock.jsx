@@ -1,6 +1,6 @@
 import { React } from 'react'
 import classes from './TopBlock.module.css'
-import AccountImageButton from '../AccountImageButton/AccountImageButton';
+import AccountImageButton from './Elements/AccountImageButton/AccountImageButton';
 
 const TopBlock = ({headerText, user, ...props}) => {
     return (

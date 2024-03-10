@@ -1,9 +1,9 @@
 import { React, useEffect, useState } from 'react'
 import classes from './AppPage.module.css'
-import TopBlock from '../TopBlock/TopBlock'
-import DownBlock from '../DownBlock/DownBlock'
-import MainBlock from '../MainBlock/MainBlock';
-import NavList from '../Navigation/NavList/NavList';
+import TopBlock from '../../TopBlock/TopBlock'
+import DownBlock from '../../DownBlock/DownBlock'
+import MainBlock from '../../MainBlock/MainBlock';
+import NavList from '../../Navigation/NavList/NavList';
 
 export default function AppPage({user, ...props}) {
     // можно сразу объявить весь рутинг

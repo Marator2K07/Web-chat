@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group';
 import classes from './UserActivationPage.module.css'
-import LoadingBlock from '../LoadingBlock/LoadingBlock'
+import LoadingBlock from '../../LoadingBlock/LoadingBlock'
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';

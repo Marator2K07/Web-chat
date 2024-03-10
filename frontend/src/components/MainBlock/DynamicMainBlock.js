@@ -1,6 +1,6 @@
 import React from "react";
-import LoginMainBlock from "./Components/LoginMainBlock/LoginMainBlock";
-import RegisterMainBlock from "./Components/RegisterMainBlock/RegisterMainBlock";
+import LoginMainBlock from "./Elements/LoginMainBlock/LoginMainBlock";
+import RegisterMainBlock from "./Elements/RegisterMainBlock/RegisterMainBlock";
 
 // основные страницы/блоки приложения
 const components = {

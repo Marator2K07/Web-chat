@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import AppPage from './components/AppPage/AppPage';
-import UserActivationPage from './components/UserActivationPage/UserActivationPage';
+import AppPage from './components/Pages/AppPage/AppPage';
+import UserActivationPage from './components/Pages/UserActivationPage/UserActivationPage';
 
 function App() {
   	// заглушка
