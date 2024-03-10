@@ -12,16 +12,3 @@
     align-items: center;
     justify-content: center;
 }
-
-.LoadingBlock img {
-    animation: rotating 1.25s linear;
-    margin: 15px;
-}
-@keyframes rotating {
-    from{
-        transform: rotate(0deg);
-    }
-    to{
-        transform: rotate(540deg);
-    }
-}
