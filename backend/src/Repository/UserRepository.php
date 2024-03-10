@@ -57,6 +57,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getOneOrNullResult();
     }
 
+    public function findOneByConfirmTokenField($value): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.confirmToken = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
