@@ -1,5 +1,7 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import AppPage from './components/AppPage/AppPage';
+import UserActivationPage from './components/UserActivationPage/UserActivationPage';
 
 function App() {
   	// заглушка
@@ -7,7 +9,12 @@ function App() {
 
 	return (    
 		<div className="App">
-			<AppPage user={user}></AppPage>
+			<BrowserRouter>
+				<Routes>
+					<Route path='/' element={<AppPage user={user}/>}/> 
+					<Route path='/user_activation' element={<UserActivationPage/>}/> 
+				</Routes>
+        	</BrowserRouter>
 		</div>
 	);
 }
