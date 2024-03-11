@@ -51,8 +51,7 @@ export default function UserActivationPage({...props}) {
     }, []);
 
     return (
-        <div 
-            className={classes.UserActivationPage} {...props}>
+        <div className={classes.UserActivationPage} {...props}>
             <h3>Активация аккаунта</h3>    
             <CSSTransition 
                 in={holding}
