@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import classes from './LoginMainBlock.module.css'
 import { formParamIsEmpty } from '../../../../utils';
+import { useNavigate } from 'react-router-dom';
 
 const ApiUrl = 'http://127.0.0.1:8000/login';
 
@@ -11,6 +12,8 @@ export default function LoginMainBlock({user,
                                         setError,
                                         setHolding,
                                         ...props}) {
+    // отдельно используем веб-хук для навигации
+    const navigate = useNavigate();
     // идентификационные данные
     const [credentials, setCredentials] = useState({
         username: '',
@@ -45,19 +48,23 @@ export default function LoginMainBlock({user,
         // отправка запроса и управление
         await axios.post(ApiUrl, credentials)
         .then(function (response) {
-            // обрабатываем JWT токены (тестовый код)
-            const { token, refreshToken } = response.data;
-            // сохранение в локальное хранилище не безопасно, но пока так 
-            localStorage.setItem('token', token);
-            localStorage.setItem('refreshToken', refreshToken);
-
-            // ---- console.log(response); ---- //
+            // ---- console.log(response); ---- //            
             setResponse(response);
+
+            // сохраняем JWT токен
+            // (сохранение в локальное хранилище не безопасно, но пока так)
+            const token = response.data.token;            
+            localStorage.setItem('token', token);            
+
             // если не было команды оставить сообщение, то оно
             // автоматически исчезнет через 2.5 секунды                                    
             if (!response.data.hasOwnProperty("holding")) {
                 setTimeout(() => {
                     setHolding(false);
+                    // если вошли успешно в аккаунт 
+                    if (response.data.hasOwnProperty("link")) {                        
+                        navigate(response.data.link, { replace: true });
+                    }
                 }, 2500);
             }                           
         })
