@@ -26,7 +26,8 @@ class RegistrationController extends AbstractController
         if ($user) {
             return new JsonResponse(['status' => 'Bad',
                 'main' => 'Ошибка при регистрации.',
-                'addition' => 'Заданное имя аккаунта занято.'
+                'addition' => 'Заданное имя аккаунта занято.',
+                'holding' => true
             ]);
         }
         // если почта не уникальна 
@@ -34,7 +35,8 @@ class RegistrationController extends AbstractController
         if ($user) {
             return new JsonResponse(['status' => 'Bad',
                 'main' => 'Ошибка при регистрации.',
-                'addition' => 'Данная почта уже использовалась при регистрации.'
+                'addition' => 'Данная почта уже использовалась при регистрации.',
+                'holding' => true
             ]);
         }
 
@@ -55,6 +57,7 @@ class RegistrationController extends AbstractController
         return new JsonResponse(['status' => 'Ok',
             'main' => 'Мы выслали подверждение на указанный при регистрации емайл.',
             'addition' => 'Чтобы зайти под своим новым аккаунтом, нужно сначала активировать его.',
+            'holding' => true,
             'button' => [
                 'text' => 'Перейти ко входу',
                 'key' => 'loginRoot'
