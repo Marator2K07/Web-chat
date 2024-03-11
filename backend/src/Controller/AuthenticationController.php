@@ -41,6 +41,19 @@ class AuthenticationController extends AbstractController
             ]);
         }
 
+        if (!$user->isConfirmed()) {
+            return new JsonResponse(['status' => 'Bad',
+                'main' => 'Ошибка при входе.',
+                'addition' => 'Аккаунт не активирован.',
+                'holding' => true
+            ]);
+        } else {
+            return new JsonResponse(['status' => 'Ok',
+                'main' => 'Успешный вход.',
+                'token' => $JWTManager->create($user),
+                'link' => '/authorized_user/'.$user->getUsername()
+            ]);  
+        }         
     }
 
     #[Route(path: '/logout', name: 'app_logout')]
