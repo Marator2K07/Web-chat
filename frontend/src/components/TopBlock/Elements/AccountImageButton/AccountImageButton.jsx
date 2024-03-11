@@ -24,11 +24,11 @@ export default function AccountImageButton({userImg, ...props}) {
         <div className={classes.AccountImageButton} {...props}
         onMouseLeave={() => setHov(false)}>
             <CSSTransition 
-            in={hov}
-            nodeRef={nodeRef}
-            timeout={500}
-            className="AccountImageButton-init"
-            classNames="AccountImageButton">
+                in={hov}
+                nodeRef={nodeRef}
+                timeout={500}
+                className="AccountImageButton-init"
+                classNames="AccountImageButton">
                 <button ref={nodeRef} id='btn' 
                     onMouseEnter={() => {
                         setHov(true);                    
@@ -39,11 +39,10 @@ export default function AccountImageButton({userImg, ...props}) {
                 </button> 
             </CSSTransition>
             <CSSTransition
-            in={hov}
-            nodeRef={anotherRef}                               
-            timeout={600}
-            classNames="MiniMenu"
-            >
+                in={hov}
+                nodeRef={anotherRef}                               
+                timeout={600}
+                classNames="MiniMenu">
                 <MiniMenu innerRef={anotherRef} id='miniMenu'/>  
             </CSSTransition>
         </div>

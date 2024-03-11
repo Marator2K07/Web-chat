@@ -12,7 +12,9 @@ const TopBlock = ({headerText, user, ...props}) => {
                 <p>{headerText}</p>
             </div>
             <div className='right'>            
-                <AccountImageButton userImg={!user ? "DefUserIcon.png" : user.image}/>
+                <AccountImageButton userImg={
+                    !user || !user.image ? `${window.location.origin}/DefUserIcon.png` : user.image
+                }/>
             </div>             
         </div>
     )
