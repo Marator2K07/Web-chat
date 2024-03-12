@@ -12,23 +12,25 @@ security:
                 property: username
 
     firewalls:
-        login:
-            pattern: ^/login
+        api:
+            pattern: ^/api
             stateless: true
+            entry_point: jwt
             json_login:
-                check_path: /login_check # or api_login_check as defined in config/routes.yaml
+                check_path: /api/login # or, if you have defined a route for your login path, the route name you used
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
-        api:
-            pattern: ^/
-            stateless: true
             jwt: ~
+            refresh_jwt:
+                check_path: /api/token/refresh # or, you may use the `api_refresh_token` route name
 
     access_control:
-        - { path: ^/login,      roles: PUBLIC_ACCESS }
-        - { path: ^/register,   roles: PUBLIC_ACCESS }        
-        - { path: ^/user_activation,   roles: PUBLIC_ACCESS }
-        - { path: ^/,           roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/login,           roles: PUBLIC_ACCESS }
+        - { path: ^/api/token/refresh,   roles: PUBLIC_ACCESS }
+        - { path: ^/api/logout,          roles: PUBLIC_ACCESS }
+        - { path: ^/api/register,        roles: PUBLIC_ACCESS }        
+        - { path: ^/api/user_activation, roles: PUBLIC_ACCESS }
+        - { path: ^/api,                 roles: IS_AUTHENTICATED_FULLY }
 
 #when@test:
 #    security:
