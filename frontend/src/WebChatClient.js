@@ -1,15 +1,12 @@
 import axios from "axios";
 
-const api = axios.create({
+const WebChatClient = axios.create({
     baseURL: 'http://127.0.0.1:8000',
-    headers: {
-        'Access-Control-Allow-Origin': 'http://127.0.0.1:8000',
-        'Access-Control-Allow-Methods': 'GET, POST'        
-    }
+    timeout: 5000       
 });
 
-// в каждый запрос мы спомощью перехватчика интегрируем ключ
-api.interceptors.request.use(
+// в каждый запрос мы с помощью перехватчика интегрируем ключ
+WebChatClient.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -21,23 +18,24 @@ api.interceptors.request.use(
 );
 
 // если срок действия ключа истек, то пытаемся получить новый
-api.interceptors.response.use(
+WebChatClient.interceptors.response.use(
     (response) => response,
     async (error) => {
-        const originalRequest = error.config;
+        const originalRequest = error.config;        
         // условие ниже эквивалентно истечению срока ключа (токена)
         if (error.response.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;            
             try {
                 // пытаемся получить новый ключ
-                const refreshToken = localStorage.getItem('refreshToken');
-                const response = await axios.post(`${api.baseURL}/refresh-token`, {refreshToken});
-                const { token } = response.data;
+                const refreshToken = localStorage.getItem('refreshToken');                
+                const response = await axios.post(`${WebChatClient.baseURL}/refresh-token`, {refreshToken});
+                const token = response.data.token;
                 localStorage.setItem('token', token);
-                // с новым ключом повторяем предыдущих запрос 
+                // с новым ключом повторяем предыдущий запрос 
                 originalRequest.headers.Authorization = `Bearer ${token}`;
                 return axios(originalRequest);
             } catch (error) {
+                // ---- console.log(error); ---- //
                 // место будущей обработки ошибки 
             }            
         }
@@ -45,4 +43,4 @@ api.interceptors.response.use(
     }
 )
 
-export default api;
+export default WebChatClient;
