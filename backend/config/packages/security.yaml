@@ -23,6 +23,8 @@ security:
             jwt: ~
             refresh_jwt:
                 check_path: /api/token/refresh # or, you may use the `api_refresh_token` route name
+            logout:
+                path: api_token_invalidate
 
     access_control:
         - { path: ^/api/login,           roles: PUBLIC_ACCESS }
