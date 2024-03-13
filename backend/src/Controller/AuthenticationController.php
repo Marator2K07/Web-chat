@@ -3,30 +3,25 @@
 namespace App\Controller;
 
 use App\Repository\UserRepository;
-use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 class AuthenticationController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login', methods: "POST")]
     public function login(Request $request,
                           UserRepository $userRepository,                      
-                          UserPasswordHasherInterface $passwordHasher,
-                          JWTTokenManagerInterface $JWTManager): JsonResponse
+                          UserPasswordHasherInterface $passwordHasher): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $user = $userRepository->findOneByUsernameField($data['username']);
 
         if (!$user) {
-            return new JsonResponse(['status' => 'Bad',
+            return new JsonResponse([
+                'status' => 'Bad',
                 'main' => 'Ошибка при входе.',
                 'addition' => 'Неверные идентификационные данные.',
                 'holding' => true
@@ -34,7 +29,8 @@ class AuthenticationController extends AbstractController
         }
 
         if (!$passwordHasher->isPasswordValid($user, $data['password'])) {
-            return new JsonResponse(['status' => 'Bad',
+            return new JsonResponse([
+                'status' => 'Bad',
                 'main' => 'Ошибка при входе.',
                 'addition' => 'Неверные идентификационные данные.',
                 'holding' => true
@@ -42,15 +38,17 @@ class AuthenticationController extends AbstractController
         }
 
         if (!$user->isConfirmed()) {
-            return new JsonResponse(['status' => 'Bad',
+            return new JsonResponse([
+                'status' => 'Bad',
                 'main' => 'Ошибка при входе.',
                 'addition' => 'Аккаунт не активирован.',
                 'holding' => true
             ]);
         } else {
-            return new JsonResponse(['status' => 'Ok',
+            return new JsonResponse([
+                'status' => 'Ok',
                 'main' => 'Успешный вход.',
-                'token' => $JWTManager->create($user),
+                'next_stage' => true, // даем согласие на оставшуюся часть запроса
                 'link' => '/authorized_user/'.$user->getUsername()
             ]);  
         }         
@@ -61,7 +59,11 @@ class AuthenticationController extends AbstractController
     {
         $session = $request->getSession();
         $session->invalidate();
-        return new JsonResponse(['status' => 'Ok', 
-            'message' => 'Выход из аккаунта выполнен успешно']);
+        return new JsonResponse([
+            'status' => 'Ok', 
+            'main' => 'Успешный выход из аккаунта',
+            'next_stage' => true, // даем согласие на оставшуюся часть запроса
+            'link' => '/'
+        ]);
     }
 }
