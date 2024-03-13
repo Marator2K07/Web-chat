@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import bcrypt from 'bcryptjs-react';
 import classes from './RegisterMainBlock.module.css'
 import '../../../LoadingBlock/LoadingBlockCSSTransition.css';
@@ -8,8 +7,9 @@ import { formEmailIsCorrect,
          formParamIsSmall,
          passwordIsRepeated } from '../../../../utils';
 import Clue from '../../../Tips/Clue/Clue';
+import WebChatClient from '../../../../WebChatClient';
 
-const ApiUrl = 'http://127.0.0.1:8000/register';
+const registerUrl = '/register';
 
 export default function RegisterMainBlock({user,
                                            setLoading,
@@ -94,6 +94,7 @@ export default function RegisterMainBlock({user,
         setHolding(true);
         setResponse(null);
         setError(null);
+
         // хэшируем пароль перед отправкой
         var hashedPassword;
         await bcrypt.hash(credentials.password, 10)
@@ -101,17 +102,16 @@ export default function RegisterMainBlock({user,
             hashedPassword = response;
         })
         .catch((error) => {
-            // ---- console.log(error); ---- //
+            console.log(error);
         })
 
         // отправка запроса и управление
-        await axios.post(ApiUrl, {
+        await WebChatClient.post(registerUrl, {
             username: credentials.username,
             email: credentials.email,
             password: hashedPassword
         })        
         .then(function (response) {
-            // ---- console.log(response); ---- //
             setResponse(response);  
             // если не было команды оставить сообщение, то оно
             // автоматически исчезнет через 2.5 секунды                                    
@@ -122,7 +122,6 @@ export default function RegisterMainBlock({user,
             }          
         })
         .catch(function (error) {
-            // ---- console.log(error); ---- //
             setError(error);
         })
         setLoading(false);        
