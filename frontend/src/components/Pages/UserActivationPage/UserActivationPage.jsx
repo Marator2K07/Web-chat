@@ -2,13 +2,13 @@ import React, { useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group';
 import classes from './UserActivationPage.module.css'
 import LoadingBlock from '../../LoadingBlock/LoadingBlock'
-import axios from 'axios';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import WebChatClient from '../../../WebChatClient';
 
-const ApiUrl = 'http://127.0.0.1:8000/user_activation';
+const ApiUrl = '/user_activation';
 
-export default function UserActivationPage({...props}) {
+export default function UserActivationPage({...props}) { 
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);      
     const [holding, setHolding] = useState(false);
@@ -19,15 +19,16 @@ export default function UserActivationPage({...props}) {
 
     const handleActivation = async () => {
         var confirmToken = searchParams.get('key');
+
         // подготовка
         setLoading(true);
         setHolding(true);
         setResponse(null);
         setError(null);
+
         // сам запрос и его обработка
-        await axios.post(ApiUrl, { confirmToken: confirmToken })
+        await WebChatClient.post(ApiUrl, { confirmToken: confirmToken })
         .then(function (response) {
-            // ---- console.log(response); ---- //
             setResponse(response);
             // если не было команды оставить сообщение, то оно
             // автоматически исчезнет через 2.5 секунды                                    
@@ -38,7 +39,6 @@ export default function UserActivationPage({...props}) {
             } 
         })
         .catch(function (error) {
-            // ---- console.log(error); ---- //
             setError(error);
         });
         setLoading(false);
