@@ -1,17 +1,22 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import AppPage from './components/Pages/AppPage/AppPage';
+import BeforeLoginPage from './components/Pages/BeforeLoginPage/BeforeLoginPage';
 import UserActivationPage from './components/Pages/UserActivationPage/UserActivationPage';
 import AfterLoginPage from './components/Pages/AfterLoginPage/AfterLoginPage';
+import { UserContextProvider } from './contexts/UserContextProvider';
 
 function App() {
 	return (    
 		<div className="App">
 			<BrowserRouter>
 				<Routes>
-					<Route path='/' element={<AppPage/>}/> 
-					<Route path='/user_activation' element={<UserActivationPage/>}/>
-					<Route path='/authorized_user/:username' element={<AfterLoginPage/>}/>
+					<Route path='/' element={ <BeforeLoginPage/> }/> 
+					<Route path='/user_activation' element={ <UserActivationPage/> }/>
+					<Route path='/authorized_user/:username' element={
+						<UserContextProvider>
+							<AfterLoginPage/>
+						</UserContextProvider>						
+					}/>
 				</Routes>
         	</BrowserRouter>
 		</div>
