@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 import classes from './LoginMainBlock.module.css'
 import { formParamIsEmpty } from '../../../../utils';
 import { useNavigate } from 'react-router-dom';
+import WebChatClient from '../../../../WebChatClient';
+import { cookies } from '../../../../CookieContext';
 
-const ApiUrl = 'http://127.0.0.1:8000/login';
+const loginUrl = '/login';
+const getTokensUrl = '/api/login_check';
 
 export default function LoginMainBlock({user,
                                         setLoading,
@@ -28,7 +30,7 @@ export default function LoginMainBlock({user,
         });
     }
 
-    async function handleSubmit(e) { 
+    async function handleSubmit(e) {
         e.preventDefault();
 
         // предпроверка перед отправкой запроса
@@ -45,17 +47,26 @@ export default function LoginMainBlock({user,
         setHolding(true);
         setResponse(null);
         setError(null);
-        // отправка запроса и управление
-        await axios.post(ApiUrl, credentials)
-        .then(function (response) {
-            // ---- console.log(response); ---- //            
+
+        // внешний запрос для проверки идентификационных данных
+        await WebChatClient.post(loginUrl, credentials)
+        .then(async function (response) {         
             setResponse(response);
-
-            // сохраняем JWT токен
-            // (сохранение в локальное хранилище не безопасно, но пока так)
-            const token = response.data.token;            
-            localStorage.setItem('token', token);            
-
+            // внутренний запрос для получения токенов авторизации 
+            if (response.data.hasOwnProperty("next_stage")) {
+                await WebChatClient.post(getTokensUrl, { ...credentials })
+                .then(function (tokens) {
+                    const { token, refreshToken } = tokens.data;  
+                    // сохраняем JWT токен используя куки                 
+                    cookies.set('username', credentials.username, { maxAge: 3600 });
+                    cookies.set('token', token, { maxAge: 3600 });
+                    cookies.set('refreshToken', refreshToken, { maxAge: 2592000 });
+                    console.log(cookies.get('username'));
+                })
+                .catch(function (error) {
+                    setError(error);
+                })
+            }   
             // если не было команды оставить сообщение, то оно
             // автоматически исчезнет через 2.5 секунды                                    
             if (!response.data.hasOwnProperty("holding")) {
@@ -69,7 +80,6 @@ export default function LoginMainBlock({user,
             }                           
         })
         .catch(function (error) {
-            // ---- console.log(error); ---- //
             setError(error);
         })        
         setLoading(false);        
