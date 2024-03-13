@@ -1,11 +1,11 @@
 import { React, useEffect, useState } from 'react'
-import classes from './AppPage.module.css'
+import classes from './BeforeLoginPage.module.css'
 import TopBlock from '../../TopBlock/TopBlock'
 import DownBlock from '../../DownBlock/DownBlock'
 import MainBlock from '../../MainBlock/MainBlock';
 import NavList from '../../Navigation/NavList/NavList';
 
-export default function AppPage({...props}) {
+export default function BeforeLoginPage({...props}) {
     // можно сразу объявить весь рутинг
     const pagesData = {
         loginRoot: {path: 'login', description: 'Вход в аккаунт', index: 0},
@@ -27,7 +27,7 @@ export default function AppPage({...props}) {
     }, []);
     
     return (
-        <div className={classes.AppPage} {...props}>
+        <div className={classes.BeforeLoginPage} {...props}>
             <TopBlock headerText={headerText} user={user}/>
             <NavList
                 handleNavigate={handleNavigate}
