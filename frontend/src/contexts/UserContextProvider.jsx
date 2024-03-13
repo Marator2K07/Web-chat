@@ -1,9 +1,10 @@
 import React from "react";
+import { useCreateUserContext } from "./UserContext";
 
 const Context = React.createContext(null);
 
 export const UserContextProvider = ({ children, ...props }) => {
-    const context = useCreateAppContext(props);
+    const context = useCreateUserContext(props);
     return <Context.Provider value={ context }>
         { children }
     </Context.Provider>;

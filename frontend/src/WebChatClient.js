@@ -1,9 +1,9 @@
 import axios from "axios";
-import { cookies } from "./CookieContext";
+import { cookies } from "./contexts/CookieContext";
 
 const WebChatClient = axios.create({
     baseURL: 'http://127.0.0.1:8000',
-    timeout: 5000,
+    timeout: 22222,
     headers: {
         "Content-Type": 'application/json'
     }

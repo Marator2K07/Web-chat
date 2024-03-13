@@ -3,7 +3,7 @@ import classes from './LoginMainBlock.module.css'
 import { formParamIsEmpty } from '../../../../utils';
 import { useNavigate } from 'react-router-dom';
 import WebChatClient from '../../../../WebChatClient';
-import { cookies } from '../../../../CookieContext';
+import { cookies } from '../../../../contexts/CookieContext';
 
 const loginUrl = '/login';
 const getTokensUrl = '/api/login_check';
@@ -63,22 +63,21 @@ export default function LoginMainBlock({user,
                 .then(function (tokens) {
                     const { token, refreshToken } = tokens.data;  
                     // сохраняем JWT токен используя куки                 
-                    cookies.set('username', credentials.username, { maxAge: 3600 });
+                    cookies.set('username', credentials.username, { maxAge: 2592000 });
                     cookies.set('token', token, { maxAge: 3600 });
                     cookies.set('refreshToken', refreshToken, { maxAge: 2592000 });
-                    console.log(cookies.get('username'));
                 })
                 .catch(function (error) {
                     setError(error);
                 })
             }   
             // если не было команды оставить сообщение, то оно
-            // автоматически исчезнет через 2.5 секунды                                    
+            // автоматически исчезнет через 2.5 секунды 
             if (!response.data.hasOwnProperty("holding")) {
                 setTimeout(() => {
                     setHolding(false);
                     // если вошли успешно в аккаунт 
-                    if (response.data.hasOwnProperty("link")) {                        
+                    if (response.data.hasOwnProperty("link")) {
                         navigate(response.data.link, { replace: true });
                     }
                 }, 2500);
