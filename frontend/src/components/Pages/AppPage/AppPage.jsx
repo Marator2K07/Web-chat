@@ -5,7 +5,7 @@ import DownBlock from '../../DownBlock/DownBlock'
 import MainBlock from '../../MainBlock/MainBlock';
 import NavList from '../../Navigation/NavList/NavList';
 
-export default function AppPage({user, ...props}) {
+export default function AppPage({...props}) {
     // можно сразу объявить весь рутинг
     const pagesData = {
         loginRoot: {path: 'login', description: 'Вход в аккаунт', index: 0},
@@ -13,7 +13,8 @@ export default function AppPage({user, ...props}) {
     } 
     const [headerText, setHeaderText] = useState("Вход в аккаунт");
     const [currentMainBlock, setCurrentMainBlock] = useState('login');
-    const [currentIndex, setCurrentIndex] = useState(null);  
+    const [currentIndex, setCurrentIndex] = useState(null); 
+    const user = null; // до авторизации юзер пустое место  
     
     const handleNavigate = (key) => {
         setCurrentMainBlock(pagesData[key].path);
