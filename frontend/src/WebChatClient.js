@@ -1,4 +1,5 @@
 import axios from "axios";
+import { cookies } from "./CookieContext";
 
 const WebChatClient = axios.create({
     baseURL: 'http://127.0.0.1:8000',
@@ -11,7 +12,7 @@ const WebChatClient = axios.create({
 // в каждый запрос мы с помощью перехватчика интегрируем ключ
 WebChatClient.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('token');
+        const token = cookies.get('token');
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
@@ -33,13 +34,12 @@ WebChatClient.interceptors.response.use(
         if (error.response.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;            
             try {
-                console.log('lol');
                 // пытаемся получить новый ключ
-                const refreshToken = localStorage.getItem('refreshToken');                
-                const token = await WebChatClient.post('/api/token/refresh', {refreshToken});
-                localStorage.setItem('token', token);
+                const refreshToken = cookies.get('refreshToken');                
+                const response = await WebChatClient.post('/api/token/refresh', {refreshToken});
+                cookies.set('token', response.token, { maxAge: 3600 });
                 // с новым ключом повторяем предыдущий запрос 
-                originalRequest.headers.Authorization = `Bearer ${token}`;
+                originalRequest.headers.Authorization = `Bearer ${response.token}`;
                 return WebChatClient(originalRequest);
             } catch (errorInner) {
                 console.log(errorInner);
