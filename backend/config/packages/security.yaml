@@ -17,22 +17,23 @@ security:
             stateless: true
             entry_point: jwt
             json_login:
-                check_path: /api/login # or, if you have defined a route for your login path, the route name you used
+                check_path: /api/login_check 
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
             jwt: ~
             refresh_jwt:
-                check_path: /api/token/refresh # or, you may use the `api_refresh_token` route name
+                check_path: /api/token/refresh
             logout:
-                path: api_token_invalidate
+                path: /api/token/invalidate
 
     access_control:
-        - { path: ^/api/login,           roles: PUBLIC_ACCESS }
-        - { path: ^/api/token/refresh,   roles: PUBLIC_ACCESS }
-        - { path: ^/api/logout,          roles: PUBLIC_ACCESS }
-        - { path: ^/api/register,        roles: PUBLIC_ACCESS }        
-        - { path: ^/api/user_activation, roles: PUBLIC_ACCESS }
-        - { path: ^/api,                 roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/(login_check|token/refresh), roles: PUBLIC_ACCESS }
+        - { path: ^/api/token/invalidate,            roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/logout,                          roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/login,                           roles: PUBLIC_ACCESS }
+        - { path: ^/register,                        roles: PUBLIC_ACCESS }        
+        - { path: ^/user_activation,                 roles: PUBLIC_ACCESS }
+        - { path: ^/,                                roles: IS_AUTHENTICATED_FULLY }
 
 #when@test:
 #    security:
