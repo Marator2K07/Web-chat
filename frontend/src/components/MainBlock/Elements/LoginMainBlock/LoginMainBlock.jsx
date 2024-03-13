@@ -33,6 +33,11 @@ export default function LoginMainBlock({user,
     async function handleSubmit(e) {
         e.preventDefault();
 
+        // на всякий случай чистим куки перед входом
+        cookies.remove('token');
+        cookies.remove('refreshToken');
+        cookies.remove('username');
+
         // предпроверка перед отправкой запроса
         let validated = true;
         let usernameOk = !formParamIsEmpty('loginForm', 'username');
