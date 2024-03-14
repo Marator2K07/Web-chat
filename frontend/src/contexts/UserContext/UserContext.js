@@ -14,6 +14,7 @@ export const useCreateUserContext = function(props) {
     }, []);
 
     return { user,
+             aboutUser,
              toggleUser,
              toggleAboutUser };
 }

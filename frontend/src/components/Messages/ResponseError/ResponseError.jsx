@@ -1,6 +1,6 @@
 import React from 'react'
 import classes from './ResponseError.module.css'
-import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingContextProvider'
+import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider'
 
 export default function ResponseError({message, ...props}) {
     const { toggleHolding } = useLoadingContext();

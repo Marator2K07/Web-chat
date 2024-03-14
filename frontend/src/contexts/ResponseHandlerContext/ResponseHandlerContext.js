@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
 
-export const createResponseHandlerContext = function() {
+export const useCreateResponseHandlerContext = function() {
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
 

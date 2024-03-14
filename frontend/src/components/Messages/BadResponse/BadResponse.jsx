@@ -1,6 +1,6 @@
 import React from 'react'
 import classes from './BadResponse.module.css'
-import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingContextProvider'
+import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider'
 
 export default function BadResponse({message, ...props}) {  
     const { toggleHolding } = useLoadingContext();

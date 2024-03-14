@@ -3,7 +3,7 @@ import { useCreateUserContext } from "./UserContext";
 
 const Context = React.createContext(null);
 
-export const UserContextProvider = ({ children, ...props }) => {
+export const UserProvider = ({ children, ...props }) => {
     const context = useCreateUserContext(props);
     return <Context.Provider value={ context }>
         { children }

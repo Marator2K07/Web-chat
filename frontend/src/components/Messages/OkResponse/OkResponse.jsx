@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import classes from './OkResponse.module.css'
-import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingContextProvider';
+import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 
 export default function OkResponse({message,
                                     handleNavigate,

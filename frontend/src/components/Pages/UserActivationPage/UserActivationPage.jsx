@@ -5,7 +5,7 @@ import LoadingBlock from '../../LoadingBlock/LoadingBlock'
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import WebChatClient from '../../../WebChatClient';
-import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingContextProvider';
+import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 
 const ApiUrl = '/user_activation';
 

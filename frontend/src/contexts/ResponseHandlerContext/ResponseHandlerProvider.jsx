@@ -1,10 +1,10 @@
 import React from "react";
-import { createResponseHandlerContext } from "./ResponseHandlerContext";
+import { useCreateResponseHandlerContext } from "./ResponseHandlerContext";
 
 const Context = React.createContext(null);
 
 export const ResponseHandlerProvider = ({ children, ...props }) => {
-    const context = createResponseHandlerContext(props);
+    const context = useCreateResponseHandlerContext(props);
     return <Context.Provider value={ context }>
         { children }
     </Context.Provider>;

@@ -5,7 +5,7 @@ import BadResponse from '../Messages/BadResponse/BadResponse'
 import OkResponse from '../Messages/OkResponse/OkResponse'
 import { Spin } from 'antd'
 import { SyncOutlined } from '@ant-design/icons'
-import { useLoadingContext } from '../../contexts/LoadingContext/LoadingContextProvider'
+import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider'
 
 export default function LoadingBlock({innerRef,
                                       handleNavigate,

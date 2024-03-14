@@ -3,7 +3,7 @@ import { useCreateLoadingContext } from "./LoadingContext";
 
 const Context = React.createContext(null);
 
-export const LoadingContextProvider = ({ children, ...props }) => {
+export const LoadingProvider = ({ children, ...props }) => {
     const context = useCreateLoadingContext(props);
     return <Context.Provider value={ context }>
         { children }
