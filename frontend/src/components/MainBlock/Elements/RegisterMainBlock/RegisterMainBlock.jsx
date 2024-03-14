@@ -8,21 +8,25 @@ import { formEmailIsCorrect,
          passwordIsRepeated } from '../../../../utils';
 import Clue from '../../../Tips/Clue/Clue';
 import WebChatClient from '../../../../WebChatClient';
+import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
+import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 
 const registerUrl = '/register';
 
-export default function RegisterMainBlock({user,
-                                           setLoading,
-                                           setResponse,
-                                           setError,
-                                           setHolding,
-                                           ...props}) {
-    // подсказки для пользователя
-    const [tips, setTips] = useState({});  
-    // состояние предпроверки
-    const [validated, setValidated] = useState(false);                                           
-    // идентификационные данные
-    const [credentials, setCredentials] = useState({
+export default function RegisterMainBlock({...props}) {
+    const { 
+        startLoading,
+        stopLoading, 
+        toggleHolding
+    } = useLoadingContext();
+    const { 
+        resetResult,
+        toggleResponse,
+        toggleError
+    } = useResponseHandlerContext();
+    const [tips, setTips] = useState({}); // подсказки для пользователя
+    const [validated, setValidated] = useState(false); // состояние предпроверки 
+    const [credentials, setCredentials] = useState({ // идентификационные данные
         username: '',
         email: '', 
         password: '',
@@ -90,10 +94,8 @@ export default function RegisterMainBlock({user,
         }
         
         // подготовка
-        setLoading(true);
-        setHolding(true);
-        setResponse(null);
-        setError(null);
+        startLoading();
+        resetResult();
 
         // хэшируем пароль перед отправкой
         var hashedPassword;
@@ -112,19 +114,15 @@ export default function RegisterMainBlock({user,
             password: hashedPassword
         })        
         .then(function (response) {
-            setResponse(response);  
-            // если не было команды оставить сообщение, то оно
-            // автоматически исчезнет через 2.5 секунды                                    
+            toggleResponse(response);  
             if (!response.data.hasOwnProperty("holding")) {
-                setTimeout(() => {
-                    setHolding(false);
-                }, 2500);
-            }          
+                toggleHolding(response.data.holding, 2500);
+            }        
         })
         .catch(function (error) {
-            setError(error);
+            toggleError(error);
         })
-        setLoading(false);        
+        stopLoading();        
     };
 
     return (  

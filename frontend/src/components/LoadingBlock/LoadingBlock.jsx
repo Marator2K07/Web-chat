@@ -6,17 +6,18 @@ import OkResponse from '../Messages/OkResponse/OkResponse'
 import { Spin } from 'antd'
 import { SyncOutlined } from '@ant-design/icons'
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider'
+import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext/ResponseHandlerProvider'
 
 export default function LoadingBlock({innerRef,
                                       handleNavigate,
-                                      error,
-                                      response,
                                       ...props}) {   
-    const { loading } = useLoadingContext();                                        
+    const { loading } = useLoadingContext(); 
+    const { response, error } = useResponseHandlerContext();                                      
 
     return (
         <div ref={innerRef} className={classes.LoadingBlock} {...props}>   
-            {loading && <Spin
+            {
+                loading && <Spin
                 size='large'
                 indicator={<SyncOutlined spin style={{ fontSize: 44, color: "rgb(255, 140, 100)" }}/>}/>
             } 

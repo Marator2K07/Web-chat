@@ -6,9 +6,7 @@ import UserCard from './UserCard/UserCard';
 const loginUrl = '/logout';
 const getTokensUrl = '/api/token/invalidate';
 
-export default function MiniMenu({innerRef,
-                                  aboutUser,
-                                  ...props}) { 
+export default function MiniMenu({innerRef, ...props}) { 
     const items = {
         infoItem: { 
             route: '/',
@@ -26,7 +24,7 @@ export default function MiniMenu({innerRef,
     
     return (
         <div ref={innerRef} className={classes.MiniMenu} {...props}>
-            <UserCard aboutUser={aboutUser}/>
+            <UserCard/>
             {Object.keys(items).map((key) => (
                 <div key={key}>
                     <MiniMenuItem

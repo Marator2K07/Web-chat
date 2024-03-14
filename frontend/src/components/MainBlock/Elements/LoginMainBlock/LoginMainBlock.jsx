@@ -4,18 +4,25 @@ import { formParamIsEmpty } from '../../../../utils';
 import { useNavigate } from 'react-router-dom';
 import WebChatClient from '../../../../WebChatClient';
 import { cookies } from '../../../../contexts/CookieContext';
+import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
+import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 
 const loginUrl = '/login';
 const getTokensUrl = '/api/login_check';
 
-export default function LoginMainBlock({user,
-                                        setLoading,
-                                        setResponse,
-                                        setError,
-                                        setHolding,
-                                        ...props}) {
-    // отдельно используем веб-хук для навигации
-    const navigate = useNavigate();
+export default function LoginMainBlock({...props}) {
+    const { 
+        startLoading,
+        stopLoading, 
+        toggleHolding
+    } = useLoadingContext();
+    const { 
+        resetResult,
+        toggleResponse,
+        toggleError
+    } = useResponseHandlerContext();    
+    const navigate = useNavigate(); // отдельно используем веб-хук для навигации
+    
     // идентификационные данные
     const [credentials, setCredentials] = useState({
         username: '',
@@ -48,15 +55,13 @@ export default function LoginMainBlock({user,
         }
         
         // подготовка
-        setLoading(true);
-        setHolding(true);
-        setResponse(null);
-        setError(null);
+        startLoading();
+        resetResult();
 
         // внешний запрос для проверки идентификационных данных
         await WebChatClient.post(loginUrl, credentials)
         .then(async function (response) {         
-            setResponse(response);
+            toggleResponse(response);
             // внутренний запрос для получения токенов авторизации 
             if (response.data.hasOwnProperty("next_stage")) {
                 await WebChatClient.post(getTokensUrl, { ...credentials })
@@ -68,25 +73,21 @@ export default function LoginMainBlock({user,
                     cookies.set('refreshToken', refreshToken, { maxAge: 2592000 });
                 })
                 .catch(function (error) {
-                    setError(error);
+                    toggleError(error);
                 })
-            }   
-            // если не было команды оставить сообщение, то оно
-            // автоматически исчезнет через 2.5 секунды 
+            }
             if (!response.data.hasOwnProperty("holding")) {
-                setTimeout(() => {
-                    setHolding(false);
-                    // если вошли успешно в аккаунт 
-                    if (response.data.hasOwnProperty("link")) {
-                        navigate(response.data.link, { replace: true });
-                    }
-                }, 2500);
-            }                           
+                toggleHolding(response.data.holding, 2500);
+            }             
+            // если вошли успешно в аккаунт 
+            if (response.data.hasOwnProperty("link")) {
+                navigate(response.data.link, { replace: true });
+            }                          
         })
         .catch(function (error) {
-            setError(error);
+            toggleError(error);
         })        
-        setLoading(false);        
+        stopLoading();        
     };
 
     return (

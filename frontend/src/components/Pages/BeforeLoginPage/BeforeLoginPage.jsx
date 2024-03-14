@@ -6,15 +6,14 @@ import MainBlock from '../../MainBlock/MainBlock';
 import NavList from '../../Navigation/NavList/NavList';
 
 export default function BeforeLoginPage({...props}) {
-    // можно сразу объявить весь рутинг
     const pagesData = {
         loginRoot: {path: 'login', description: 'Вход в аккаунт', index: 0},
         registerRoot: {path: 'register', description: 'Регистрация', index: 1}
     } 
+    
     const [headerText, setHeaderText] = useState("Вход в аккаунт");
     const [currentMainBlock, setCurrentMainBlock] = useState('login');
     const [currentIndex, setCurrentIndex] = useState(null); 
-    const user = null; // до авторизации юзер пустое место  
     
     const handleNavigate = (key) => {
         setCurrentMainBlock(pagesData[key].path);
@@ -28,13 +27,12 @@ export default function BeforeLoginPage({...props}) {
     
     return (
         <div className={classes.BeforeLoginPage} {...props}>
-            <TopBlock headerText={headerText} aboutUser={null}/>
+            <TopBlock headerText={headerText}/>
             <NavList
                 handleNavigate={handleNavigate}
                 pagesData={pagesData}
                 currentIndex={currentIndex}/>  
-            <MainBlock 
-                user={user}
+            <MainBlock
                 handleNavigate={handleNavigate}
                 currentMainBlock={currentMainBlock}/>
             <DownBlock/>

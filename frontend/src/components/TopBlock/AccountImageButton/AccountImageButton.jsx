@@ -4,6 +4,7 @@ import MiniMenu from '../MiniMenu/MiniMenu';
 import { CSSTransition } from 'react-transition-group';
 import './AccountImageButtonCSSTransition.css';
 import '../MiniMenu/MiniMenuCSSTransition.css';
+import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 
 function setMenuOffset(idBtn, idMenu) {
     const btnRect = document.getElementById(idBtn).getBoundingClientRect();
@@ -15,7 +16,8 @@ function setMenuOffset(idBtn, idMenu) {
                          btnRect.height - 2 + "px";                          
 }
 
-export default function AccountImageButton({aboutUser, ...props}) {
+export default function AccountImageButton({...props}) {
+    const { aboutUser } = useUserContext();
     const [hov, setHov] = useState(false);
     const nodeRef = useRef(null);
     const anotherRef = useRef(null);
@@ -50,7 +52,6 @@ export default function AccountImageButton({aboutUser, ...props}) {
                 classNames="MiniMenu">
                 <MiniMenu
                     innerRef={anotherRef}
-                    aboutUser={aboutUser}
                     id='miniMenu'/>  
             </CSSTransition>
         </div>

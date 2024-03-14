@@ -13,9 +13,13 @@ function App() {
 			<BrowserRouter>
 			<LoadingProvider>
 			<ResponseHandlerProvider>
-				<Routes>
-						<Route path='/' element={ <BeforeLoginPage/> }/> 
+				<Routes>						
 						<Route path='/user_activation' element={ <UserActivationPage/> }/>
+						<Route path='/' element={
+							<UserProvider>
+								<BeforeLoginPage/>
+							</UserProvider>
+						}/> 
 						<Route path='/authorized_user/:username' element={
 							<UserProvider>
 								<AfterLoginPage/>
