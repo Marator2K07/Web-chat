@@ -28,7 +28,7 @@ export default function BeforeLoginPage({...props}) {
     
     return (
         <div className={classes.BeforeLoginPage} {...props}>
-            <TopBlock headerText={headerText} user={user}/>
+            <TopBlock headerText={headerText} aboutUser={null}/>
             <NavList
                 handleNavigate={handleNavigate}
                 pagesData={pagesData}

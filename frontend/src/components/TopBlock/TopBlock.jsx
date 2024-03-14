@@ -2,7 +2,7 @@ import { React } from 'react'
 import classes from './TopBlock.module.css'
 import AccountImageButton from './AccountImageButton/AccountImageButton';
 
-const TopBlock = ({headerText, user, ...props}) => {
+const TopBlock = ({headerText, aboutUser, ...props}) => {
     return (
         <div className={classes.TopBlock} {...props}>
             <div className='left'>
@@ -12,9 +12,7 @@ const TopBlock = ({headerText, user, ...props}) => {
                 <p>{headerText}</p>
             </div>
             <div className='right'>            
-                <AccountImageButton userImg={
-                    !user || !user.image ? `${window.location.origin}/DefUserIcon.png` : user.image
-                }/>
+                <AccountImageButton aboutUser={aboutUser}/>
             </div>             
         </div>
     )

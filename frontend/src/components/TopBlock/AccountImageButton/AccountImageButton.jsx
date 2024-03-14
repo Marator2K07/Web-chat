@@ -15,14 +15,19 @@ function setMenuOffset(idBtn, idMenu) {
                          btnRect.height - 2 + "px";                          
 }
 
-export default function AccountImageButton({userImg, ...props}) {
+export default function AccountImageButton({aboutUser, ...props}) {
     const [hov, setHov] = useState(false);
     const nodeRef = useRef(null);
     const anotherRef = useRef(null);
+    // в случае если пользователь не установил картинку - ставим
+    // картинку по умолчанию из файлов проекта
+    const userImg = !aboutUser || !aboutUser.image ?
+                    `${window.location.origin}/DefUserIcon.png` :
+                    aboutUser.image
     
     return (
         <div className={classes.AccountImageButton} {...props}
-        onMouseLeave={() => setHov(false)}>
+            onMouseLeave={() => setHov(false)}>
             <CSSTransition 
                 in={hov}
                 nodeRef={nodeRef}
@@ -43,7 +48,10 @@ export default function AccountImageButton({userImg, ...props}) {
                 nodeRef={anotherRef}                               
                 timeout={600}
                 classNames="MiniMenu">
-                <MiniMenu innerRef={anotherRef} id='miniMenu'/>  
+                <MiniMenu
+                    innerRef={anotherRef}
+                    aboutUser={aboutUser}
+                    id='miniMenu'/>  
             </CSSTransition>
         </div>
     )

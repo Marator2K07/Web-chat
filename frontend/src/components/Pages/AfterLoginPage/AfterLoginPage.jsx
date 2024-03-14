@@ -22,7 +22,7 @@ export default function AfterLoginPage({user, ...props}) {
 
     return (
         <div className={classes.AfterLoginPage} {...props}>
-            <TopBlock headerText={headerText} user={user}/>
+            <TopBlock headerText={headerText} aboutUser={null}/>
             <NavList
                 handleNavigate={handleNavigate}
                 pagesData={pagesData}
