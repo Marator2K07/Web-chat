@@ -5,14 +5,17 @@ import LoadingBlock from '../../LoadingBlock/LoadingBlock'
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import WebChatClient from '../../../WebChatClient';
+import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingContextProvider';
 
 const ApiUrl = '/user_activation';
 
 export default function UserActivationPage({...props}) { 
+    const { holding,
+            startLoading,
+            stopLoading, 
+            toggleHolding } = useLoadingContext();
     const [response, setResponse] = useState(null);
-    const [error, setError] = useState(null);      
-    const [holding, setHolding] = useState(false);
-    const [loading, setLoading] = useState(false); 
+    const [error, setError] = useState(null);
     // анализ переданных параметров в url
     const [searchParams] = useSearchParams(); 
     const nodeRef = useRef(null); // для анимации загрузки
@@ -21,8 +24,7 @@ export default function UserActivationPage({...props}) {
         var confirmToken = searchParams.get('key');
 
         // подготовка
-        setLoading(true);
-        setHolding(true);
+        startLoading();
         setResponse(null);
         setError(null);
 
@@ -30,18 +32,12 @@ export default function UserActivationPage({...props}) {
         await WebChatClient.post(ApiUrl, { confirmToken: confirmToken })
         .then(function (response) {
             setResponse(response);
-            // если не было команды оставить сообщение, то оно
-            // автоматически исчезнет через 2.5 секунды                                    
-            if (!response.data.hasOwnProperty("holding")) {
-                setTimeout(() => {
-                    setHolding(false);
-                }, 2500);
-            } 
+            toggleHolding(response.data.holding, 2500); 
         })
         .catch(function (error) {
             setError(error);
         });
-        setLoading(false);
+        stopLoading();
     }
 
     // вызов активации при запуске страницы
@@ -59,10 +55,7 @@ export default function UserActivationPage({...props}) {
                 timeout={333}
                 classNames="LoadingBlock">
                 <LoadingBlock 
-                    innerRef={nodeRef}
-                    loading={loading}
-                    holding={holding}
-                    setHolding={setHolding}
+                    innerRef={nodeRef}                    
                     error={error}  
                     response={response}/>
             </CSSTransition>

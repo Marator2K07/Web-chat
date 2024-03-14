@@ -1,7 +1,10 @@
 import React from 'react'
 import classes from './BadResponse.module.css'
+import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingContextProvider'
 
-export default function BadResponse({message, setHolding, ...props}) {   
+export default function BadResponse({message, ...props}) {  
+    const { toggleHolding } = useLoadingContext();
+    
     return (
         <div className={classes.BadResponse} {...props}>
             <div className='main'>
@@ -12,7 +15,7 @@ export default function BadResponse({message, setHolding, ...props}) {
             </div>
 
             {message.hasOwnProperty("holding") &&
-            <button type="button" onClick={() => setHolding(false)}>
+            <button type="button" onClick={() => toggleHolding(false, 0)}>
                 Вернуться
             </button>}
         </div>        

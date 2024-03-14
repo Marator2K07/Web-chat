@@ -1,7 +1,10 @@
 import React from 'react'
 import classes from './ResponseError.module.css'
+import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingContextProvider'
 
-export default function ResponseError({message, setHolding, ...props}) {
+export default function ResponseError({message, ...props}) {
+    const { toggleHolding } = useLoadingContext();
+
     return (
         <div className={classes.ResponseError} {...props}>
             <div className='name'>
@@ -23,7 +26,7 @@ export default function ResponseError({message, setHolding, ...props}) {
                 }</span></p> 
             </div>}
              
-            <button type="button" onClick={() => setHolding(false)}>
+            <button type="button" onClick={() => toggleHolding(false, 0)}>
                 Вернуться
             </button>            
         </div>
