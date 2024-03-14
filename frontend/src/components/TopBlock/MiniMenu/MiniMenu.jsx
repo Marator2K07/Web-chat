@@ -1,30 +1,32 @@
 import React from 'react'
 import classes from './MiniMenu.module.css'
 import MiniMenuItem from './MiniMenuItem/MiniMenuItem';
+import UserCard from './UserCard/UserCard';
 
 const loginUrl = '/logout';
 const getTokensUrl = '/api/token/invalidate';
 
 export default function MiniMenu({innerRef,
-                                  user,
+                                  aboutUser,
                                   ...props}) { 
     const items = {
         infoItem: { 
-            url: '/',
-            info: 'О приложении',
             route: '/',
-            extraRoute: '/'
+            info: '//////////////',
+            url: '/',
+            extraUrl: '/'
         },
         logoutItem: { 
-            url: '/',
+            route: '/',
             info: 'Выйти из аккаунта',
-            route: loginUrl,
-            extraRoute: getTokensUrl
+            url: loginUrl,
+            extraUrl: getTokensUrl
         } 
     };
     
     return (
         <div ref={innerRef} className={classes.MiniMenu} {...props}>
+            <UserCard aboutUser={aboutUser}/>
             {Object.keys(items).map((key) => (
                 <div key={key}>
                     <MiniMenuItem
