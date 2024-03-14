@@ -5,21 +5,24 @@ import UserActivationPage from './components/Pages/UserActivationPage/UserActiva
 import AfterLoginPage from './components/Pages/AfterLoginPage/AfterLoginPage';
 import { UserProvider } from './contexts/UserContext/UserProvider';
 import { LoadingProvider } from './contexts/LoadingContext/LoadingProvider';
+import { ResponseHandlerProvider } from './contexts/ResponseHandlerContext/ResponseHandlerProvider';
 
 function App() {
 	return (    
 		<div className="App">
 			<BrowserRouter>
 			<LoadingProvider>
+			<ResponseHandlerProvider>
 				<Routes>
-					<Route path='/' element={ <BeforeLoginPage/> }/> 
-					<Route path='/user_activation' element={ <UserActivationPage/> }/>
-					<Route path='/authorized_user/:username' element={
-						<UserProvider>
-							<AfterLoginPage/>
-						</UserProvider>						
-					}/>
+						<Route path='/' element={ <BeforeLoginPage/> }/> 
+						<Route path='/user_activation' element={ <UserActivationPage/> }/>
+						<Route path='/authorized_user/:username' element={
+							<UserProvider>
+								<AfterLoginPage/>
+							</UserProvider>						
+						}/>
 				</Routes>
+			</ResponseHandlerProvider>				
 			</LoadingProvider>				
         	</BrowserRouter>
 		</div>
