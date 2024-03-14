@@ -2,7 +2,7 @@
     background-color:slategray; 
     position: absolute;    
     border-radius: 10px;
-    width: 444px;
-    height: 333px;
+    width: max-content;
+    height: max-content;
     opacity: 0;
 }
