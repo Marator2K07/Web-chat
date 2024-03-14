@@ -6,7 +6,7 @@ export const useCreateUserContext = function(props) {
 
     const toggleUser = useCallback((user) => {
         setUser(user);
-    });
+    }, []);
 
     return { user, toggleUser };
 }
