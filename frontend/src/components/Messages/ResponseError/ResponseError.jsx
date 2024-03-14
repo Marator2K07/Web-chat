@@ -16,8 +16,8 @@ export default function ResponseError({message, ...props}) {
             <div className='info'>
                 <p>Сообщение: <br/><span style={{color:'#704949'}}>{message.message}</span></p> 
             </div>
-
-            {message.hasOwnProperty("response") &&
+            
+            {/* {message.hasOwnProperty("response") &&
             <div className='addition'>
                 <p>Дополнительная информация: <br/><span style={{color:'#704949'}}>{
                     message.response.data.substring(
@@ -25,7 +25,7 @@ export default function ResponseError({message, ...props}) {
                     )
                 }</span></p> 
             </div>}
-             
+              */}
             <button type="button" onClick={() => toggleHolding(false, 0)}>
                 Вернуться
             </button>            
