@@ -4,7 +4,7 @@ export const useCreateResponseHandlerContext = function() {
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
 
-    const reset = useCallback(() => {
+    const resetResult = useCallback(() => {
         setResponse(null);
         setError(null);
     }, []);
@@ -19,7 +19,7 @@ export const useCreateResponseHandlerContext = function() {
 
     return { response,
              error,
-             reset,
+             resetResult,
              toggleResponse,
              toggleError };
 }
