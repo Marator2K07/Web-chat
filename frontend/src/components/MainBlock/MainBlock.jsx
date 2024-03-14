@@ -1,8 +1,13 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group';
 import classes from './MainBlock.module.css'
 import LoadingBlock from '../LoadingBlock/LoadingBlock';
 import DynamicComponent from './DynamicMainBlock';
+import { cookies } from '../../contexts/CookieContext';
+import { useNavigate } from 'react-router-dom';
+
+// в случае если пользователь уже зашел в аккаунт
+const jumpUrl = '/authorized_user';
 
 export default function MainBlock({user, 
                                    handleNavigate, 
@@ -12,7 +17,24 @@ export default function MainBlock({user,
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);  
     const [holding, setHolding] = useState(false);
-    const nodeRef = useRef(null); // для анимации загрузки
+    const nodeRef = useRef(null); // для анимации загрузки    
+    const navigate = useNavigate();
+
+    // автоматический плавный переход на страницу аккаунта
+    useEffect(() => {    
+        let username = cookies.get('username');
+        if (username && currentMainBlock === 'login') {
+            setHolding(true);
+            setLoading(true);
+            setTimeout(() => {                
+                navigate(`${jumpUrl}/${username}`, { replace: true });                
+            }, 1000);
+            setTimeout(() => {
+                setLoading(false);
+                setHolding(false);                
+            }, 1500);
+        }   
+    }, [navigate, currentMainBlock]);    
 
     return (
         <div className={classes.MainBlock} {...props}>
