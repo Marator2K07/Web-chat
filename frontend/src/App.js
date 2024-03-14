@@ -3,7 +3,7 @@ import './App.css';
 import BeforeLoginPage from './components/Pages/BeforeLoginPage/BeforeLoginPage';
 import UserActivationPage from './components/Pages/UserActivationPage/UserActivationPage';
 import AfterLoginPage from './components/Pages/AfterLoginPage/AfterLoginPage';
-import { UserContextProvider } from './contexts/UserContextProvider';
+import { UserContextProvider } from './contexts/UserContext/UserContextProvider';
 
 function App() {
 	return (    
