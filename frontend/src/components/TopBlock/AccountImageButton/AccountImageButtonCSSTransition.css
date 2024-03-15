@@ -2,7 +2,9 @@
 .AccountImageButton-init {  
     background-color:rgb(106, 111, 116); 
     display: inline-flex;
-    border: 2px solid transparent;
+    border: 2px solid transparent; 
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     padding: 5px;
 }
 .AccountImageButton-enter {
@@ -15,7 +17,9 @@
     transition: all 0.5s;
 }
 .AccountImageButton-enter-done {
-    border: 2px solid;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 2px solid rgb(255, 140, 100);
     background-color:slategray; 
 }
 .AccountImageButton-exit {

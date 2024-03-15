@@ -1,6 +1,8 @@
 .AccountImageButton {
     background-color:slategrey; 
     color:rgb(255, 140, 100);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     transition-property: background-color;
     transition-duration: 0.5s;
 }
