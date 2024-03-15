@@ -24,14 +24,12 @@ WebChatClient.interceptors.request.use(
 // если срок действия ключа истек, то пытаемся получить новый
 WebChatClient.interceptors.response.use(
     (response) => response,
-    async (error) => {
-        // если поймали "свою ошибку" то просто возращаем ее
-        if (error.name === 'AxiosError') {
-            throw error;
-        }
+    async (error) => {        
         const originalRequest = error.config;
         // условие ниже эквивалентно истечению срока ключа (токена)
-        if (error.response.status === 401 && !originalRequest._retry) {
+        if (error.response.status === 401 &&
+            !originalRequest._retry &&
+            cookies.get('refreshToken')) {
             originalRequest._retry = true;            
             try {
                 // пытаемся получить новый ключ
@@ -45,6 +43,10 @@ WebChatClient.interceptors.response.use(
                 console.log(errorInner);
             }            
         }       
+        // если поймали "свою ошибку" то просто возращаем ее
+        if (error.name === 'AxiosError') {
+            throw error;
+        }
         return Promise.reject(error);
     }
 )

@@ -23,9 +23,10 @@ export default function MainBlock({handleNavigate,
     const navigate = useNavigate();
 
     // автоматический плавный переход на страницу аккаунта
-    useEffect(() => {    
+    useEffect(() => {
         let username = cookies.get('username');
-        if (username && currentMainBlock === 'login') {
+        let token = cookies.get('token');
+        if (username && token && currentMainBlock === 'login') {
             startLoading();
             setTimeout(() => {   
                 stopLoading();             
