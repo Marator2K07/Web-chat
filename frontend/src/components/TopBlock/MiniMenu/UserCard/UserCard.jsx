@@ -11,7 +11,13 @@ export default function UserCard({...props}) {
                 <img src={`${window.location.origin}/DefUserIcon.png`} alt="" />
             </div>           
             <div className='info'>
-                <p>Test Testovianni</p>
+                <p>
+                    { aboutUser ? `${aboutUser.name}` : 'Не авторизовано'}                        
+                </p>
+                <p>
+                    { aboutUser ? `${aboutUser.secondname ? aboutUser.secondname : 'без фамилии'}` 
+                        : ''}                        
+                </p>
             </div>            
         </div>
     )
