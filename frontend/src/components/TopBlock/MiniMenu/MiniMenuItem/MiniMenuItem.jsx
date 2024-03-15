@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { cookies } from '../../../../contexts/CookieContext';
+import { useUserContext } from '../../../../contexts/UserContext/UserProvider';
 
 export default function MiniMenuItem({url,
                                       info,
                                       route,
-                                      cleanCookie,                                   
+                                      clean,                                   
                                       ...props}) {
     const { 
         startLoading,
@@ -21,6 +22,7 @@ export default function MiniMenuItem({url,
         toggleResponse,
         toggleError
     } = useResponseHandlerContext(); 
+    const { toggleUser, toggleAboutUser } = useUserContext();
     const navigate = useNavigate();
 
     const handleAction = async (e) => {
@@ -33,12 +35,14 @@ export default function MiniMenuItem({url,
         // внешний запрос и его обработка
         await WebChatClient.post(url, { refreshToken: cookies.get('refreshToken') })
         .then( async function (response) {            
-            toggleResponse(response);         
-            toggleHolding(false, 200);
-            if (cleanCookie) {
+            toggleResponse(response);                    
+            toggleHolding(false, 0); 
+            if (clean) {
                 cookies.remove('username');
                 cookies.remove('token');
                 cookies.remove('refreshToken');
+                toggleUser(null);
+                toggleAboutUser(null);
             }
             if (route) {
                 navigate(route, { replace: true });
