@@ -36,6 +36,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $confirmToken = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?AboutUser $about_user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -138,6 +142,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setConfirmToken(string $confirmToken): static
     {
         $this->confirmToken = $confirmToken;
+
+        return $this;
+    }
+
+    public function getAboutUser(): ?AboutUser
+    {
+        return $this->about_user;
+    }
+
+    public function setAboutUser(AboutUser $about_user): static
+    {
+        $this->about_user = $about_user;
 
         return $this;
     }
