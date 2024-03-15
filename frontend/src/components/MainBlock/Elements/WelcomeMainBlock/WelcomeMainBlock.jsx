@@ -1,17 +1,39 @@
 import React from 'react'
 import classes from './WelcomeMainBlock.module.css'
+import { useUserContext } from '../../../../contexts/UserContext/UserProvider';
 
-const ApiUrl = 'http://127.0.0.1:8000/authorized_user';
+export default function WelcomeMainBlock({...props}) {
+    const { aboutUser } = useUserContext();
 
-export default function WelcomeMainBlock({user,
-                                          setLoading,
-                                          setResponse,
-                                          setError,
-                                          setHolding,
-                                          ...props}) {
-  return (
-    <div className={classes.WelcomeMainBlock} {...props}>
-        <h3>Успешно зашли в аккаунт</h3>
-    </div>
-  )
+    return (
+        <div className={classes.WelcomeMainBlock} {...props}>
+            <h2>Приветствуем вас</h2>
+            <h2>в нашем веб-чате</h2>
+
+            {
+                (() => {
+                    if (aboutUser) {
+                        if (!aboutUser.secondname ||
+                            !aboutUser.image ||
+                            !aboutUser.age) {
+                            return <p>Похоже ваш аккаунт заполнен не полностью.
+                                        Это не обязательно, но советуем ввести оставшиеся данные.</p>
+                        } else {
+                            return <p>Ваш аккаунт заполнен полностью, так держать.</p>
+                        }
+                    } else {
+                        return <p>Информация о пользователе пока отсутствует</p>
+                    }
+                })()
+            }        
+            <div className="help2">
+                <p>В случае возникновения вопросов, можете перейти по вкладке "Помощь" выше.
+                    Надеемся, это решит ваши проблемы. 
+                </p>
+            </div>
+            <div className="info">
+                <p>Соблюдайте правила и приятного общения.</p>
+            </div>
+        </div>
+    )
 }
