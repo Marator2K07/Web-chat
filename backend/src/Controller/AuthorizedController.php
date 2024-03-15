@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,7 +23,8 @@ class AuthorizedController extends AbstractController
             ]);
         } else {            
             return new JsonResponse([
-                'status' => 'Ok',
+                'status' => 'Ok',                
+                'main' => 'Успешная синхронизация.',
                 'user' => [
                     'id' => $user->getId(),
                     'username' => $user->getUsername(),

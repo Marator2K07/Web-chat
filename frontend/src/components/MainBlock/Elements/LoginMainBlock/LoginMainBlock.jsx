@@ -20,8 +20,8 @@ export default function LoginMainBlock({...props}) {
         resetResult,
         toggleResponse,
         toggleError
-    } = useResponseHandlerContext();    
-    const navigate = useNavigate(); // отдельно используем веб-хук для навигации
+    } = useResponseHandlerContext();
+    const navigate = useNavigate();
     
     // идентификационные данные
     const [credentials, setCredentials] = useState({
@@ -66,7 +66,7 @@ export default function LoginMainBlock({...props}) {
             if (response.data.hasOwnProperty("next_stage")) {
                 await WebChatClient.post(getTokensUrl, { ...credentials })
                 .then(function (tokens) {
-                    const { token, refreshToken } = tokens.data;  
+                    const { token, refreshToken } = tokens.data;
                     // сохраняем JWT токен используя куки                 
                     cookies.set('username', credentials.username, { maxAge: 2592000 });
                     cookies.set('token', token, { maxAge: 3600 });
@@ -77,7 +77,7 @@ export default function LoginMainBlock({...props}) {
                 })
             }
             if (!response.data.hasOwnProperty("holding")) {
-                toggleHolding(response.data.holding, 2500);
+                toggleHolding(false, 2500);
             }             
             // если вошли успешно в аккаунт 
             if (response.data.hasOwnProperty("link")) {

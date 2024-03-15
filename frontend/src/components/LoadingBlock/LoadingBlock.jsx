@@ -19,7 +19,9 @@ export default function LoadingBlock({innerRef,
             {
                 loading && <Spin
                 size='large'
-                indicator={<SyncOutlined spin style={{ fontSize: 44, color: "rgb(255, 140, 100)" }}/>}/>
+                indicator={<SyncOutlined spin style={{ 
+                    fontSize: 44, color: "rgb(255, 140, 100)"
+                }}/>}/>
             } 
             {error && <ResponseError message={error}/>}    
             {
@@ -27,11 +29,13 @@ export default function LoadingBlock({innerRef,
                     if (response) {
                         switch (response.data.status) {
                             case 'Ok':
-                                return <OkResponse handleNavigate={handleNavigate} message={response.data}/>
+                                return <OkResponse
+                                    handleNavigate={handleNavigate}
+                                    message={response.data}/>
                             case 'Bad': 
                                 return <BadResponse message={response.data}/>    
                             default:
-                                return <p>Что-то пошло не так</p>                                  
+                                return <p>...</p>                                  
                         }
                     }
                 })()
