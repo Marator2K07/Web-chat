@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\AboutUser;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\EMailer;
@@ -50,6 +51,12 @@ class RegistrationController extends AbstractController
         $userActivationKey = md5(rand().time());
         $user->setConfirmToken($userActivationKey);
         
+        // задаем и инициализируем информацию о пользователе
+        $aboutUser = new AboutUser();
+        // по умолчанию имя пользователя = имя аккаунта
+        $aboutUser->setName($data['username']);
+        $user->setAboutUser($aboutUser);
+
         $entityManager->persist($user);
         $entityManager->flush();        
         $emailer->sendConfirmMessage($user, $userActivationKey);
