@@ -31,6 +31,16 @@
     font-size: 19px;
 }
 
+.MainBlock button {
+    margin: 3px;
+    padding: 3px;
+    width: max-content;
+    background-color: rgb(232,240,254);     
+    font-weight: 400;
+    font-family: emoji;
+    font-size: 19px;
+}
+
 .MainBlock form p {
     color: rgb(255, 140, 100);
     margin-top: 3px;
