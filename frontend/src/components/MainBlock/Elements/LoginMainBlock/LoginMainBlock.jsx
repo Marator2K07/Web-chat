@@ -2,25 +2,14 @@ import React, { useState } from 'react'
 import classes from './LoginMainBlock.module.css'
 import { formParamIsEmpty } from '../../../../utils';
 import { useNavigate } from 'react-router-dom';
-import WebChatClient from '../../../../WebChatClient';
 import { cookies } from '../../../../contexts/CookieContext';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-
-const loginUrl = '/login';
-const getTokensUrl = '/api/login_check';
+import { AFTER_LOGIN_ROUTE, FIVE_MIN_AGE, LOGIN_URL, ONE_MONTH_AGE } from '../../../../constants';
 
 export default function LoginMainBlock({...props}) {
-    const { 
-        startLoading,
-        stopLoading, 
-        toggleHolding
-    } = useLoadingContext();
-    const { 
-        resetResult,
-        toggleResponse,
-        toggleError
-    } = useResponseHandlerContext();
+    const { startLoading, stopLoading } = useLoadingContext();
+    const { resetResult, makePostRequest } = useResponseHandlerContext();
     const navigate = useNavigate();
     
     // идентификационные данные
@@ -37,14 +26,9 @@ export default function LoginMainBlock({...props}) {
         });
     }
 
+    // обработка формы
     async function handleSubmit(e) {
         e.preventDefault();
-
-        // на всякий случай чистим куки перед входом
-        cookies.remove('token');
-        cookies.remove('refreshToken');
-        cookies.remove('username');
-
         // предпроверка перед отправкой запроса
         let validated = true;
         let usernameOk = !formParamIsEmpty('loginForm', 'username');
@@ -54,40 +38,20 @@ export default function LoginMainBlock({...props}) {
             return;
         }
         
-        // подготовка
+        // основная часть
         startLoading();
         resetResult();
-
-        // внешний запрос для проверки идентификационных данных
-        await WebChatClient.post(loginUrl, credentials)
-        .then(async function (response) {         
-            toggleResponse(response);
-            // внутренний запрос для получения токенов авторизации 
-            if (response.data.hasOwnProperty("next_stage")) {
-                await WebChatClient.post(getTokensUrl, { ...credentials })
-                .then(function (tokens) {
-                    const { token, refreshToken } = tokens.data;
-                    // сохраняем JWT токен используя куки                 
-                    cookies.set('username', credentials.username, { maxAge: 2592000 });
-                    cookies.set('token', token, { maxAge: 3600 });
-                    cookies.set('refreshToken', refreshToken, { maxAge: 2592000 });
-                })
-                .catch(function (error) {
-                    toggleError(error);
-                })
-            }
-            if (!response.data.hasOwnProperty("holding")) {
-                toggleHolding(false, 2500);
-            }             
-            // если вошли успешно в аккаунт 
-            if (response.data.hasOwnProperty("link")) {
-                navigate(response.data.link, { replace: true });
-            }                          
-        })
-        .catch(function (error) {
-            toggleError(error);
-        })        
-        stopLoading();        
+        await makePostRequest(
+            LOGIN_URL,
+            credentials,
+            (response) => {
+                const { token, refreshToken } = response.data;                 
+                cookies.set('username', credentials.username, { maxAge: ONE_MONTH_AGE });
+                cookies.set('refreshToken', refreshToken, { maxAge: ONE_MONTH_AGE });
+                cookies.set('token', token, { maxAge: FIVE_MIN_AGE });
+                navigate(`${AFTER_LOGIN_ROUTE}/${credentials.username}`);
+            });
+        stopLoading();
     };
 
     return (
