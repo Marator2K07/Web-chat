@@ -20,11 +20,14 @@ class AboutUser
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $secondname = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $age = null;
-
     #[ORM\Column(type: Types::BLOB, nullable: true)]
     private $image = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_of_birth = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $last_activity_datetime = null;
 
     public function getId(): ?int
     {
@@ -54,19 +57,7 @@ class AboutUser
 
         return $this;
     }
-
-    public function getAge(): ?int
-    {
-        return $this->age;
-    }
-
-    public function setAge(?int $age): static
-    {
-        $this->age = $age;
-
-        return $this;
-    }
-
+    
     public function getImage()
     {
         return $this->image;
@@ -75,6 +66,30 @@ class AboutUser
     public function setImage($image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getDateOfBirth(): ?\DateTimeInterface
+    {
+        return $this->date_of_birth;
+    }
+
+    public function setDateOfBirth(?\DateTimeInterface $date_of_birth): static
+    {
+        $this->date_of_birth = $date_of_birth;
+
+        return $this;
+    }
+
+    public function getLastActivityDatetime(): ?\DateTimeInterface
+    {
+        return $this->last_activity_datetime;
+    }
+
+    public function setLastActivityDatetime(?\DateTimeInterface $last_activity_datetime): static
+    {
+        $this->last_activity_datetime = $last_activity_datetime;
 
         return $this;
     }
