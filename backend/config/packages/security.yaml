@@ -16,9 +16,8 @@ security:
             pattern: ^/api
             stateless: true
             entry_point: jwt
-            provider: app_user_provider  
-            json_login:
-                check_path: /api/login_check 
+            json_login: 
+                check_path: /api/login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
             jwt: ~
@@ -30,16 +29,13 @@ security:
         main:
             pattern: ^/
             jwt: ~
-            provider: app_user_provider  
 
     access_control:
-        - { path: ^/api/(login_check|token/refresh), roles: PUBLIC_ACCESS }
-        - { path: ^/api/token/invalidate,            roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/logout,                          roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/login,                           roles: PUBLIC_ACCESS }
-        - { path: ^/register,                        roles: PUBLIC_ACCESS }        
-        - { path: ^/user_activation,                 roles: PUBLIC_ACCESS }
-        - { path: ^/,                                roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/(login_check|token/refresh),   roles: PUBLIC_ACCESS }
+        - { path: ^/login,                             roles: PUBLIC_ACCESS }
+        - { path: ^/register,                          roles: PUBLIC_ACCESS }        
+        - { path: ^/user_activation,                   roles: PUBLIC_ACCESS }
+        - { path: ^/,                                  roles: IS_AUTHENTICATED_FULLY }
 
 #when@test:
 #    security:
