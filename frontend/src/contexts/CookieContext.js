@@ -1,3 +1,3 @@
 import Cookies from 'universal-cookie';
 
-export const cookies = new Cookies('cookies', { path: '/' });
+export const cookies = new Cookies(null, { path: '/' });
