@@ -4,11 +4,9 @@ import classes from './UserActivationPage.module.css'
 import LoadingBlock from '../../LoadingBlock/LoadingBlock'
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import WebChatClient from '../../../WebChatClient';
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-
-const ApiUrl = '/user_activation';
+import { LONG_DELAY, USER_ACTIVATION_URL } from '../../../constants';
 
 export default function UserActivationPage({...props}) { 
     const { 
@@ -17,30 +15,24 @@ export default function UserActivationPage({...props}) {
         stopLoading, 
         toggleHolding
     } = useLoadingContext();
-    const { 
-        resetResult,
-        toggleResponse,
-        toggleError
-    } = useResponseHandlerContext();
-    // анализ переданных параметров в url
-    const [searchParams] = useSearchParams(); 
+    const { resetResult, makePostRequest } = useResponseHandlerContext();    
+    const [searchParams] = useSearchParams(); // анализ переданных параметров в url
     const nodeRef = useRef(null);
 
+    // обработка активации
     const handleActivation = async () => {
         var confirmToken = searchParams.get('key');
-        // подготовка
+
+        // основная часть
         startLoading();
         resetResult();
-        // сам запрос и его обработка
-        await WebChatClient.post(ApiUrl, { confirmToken: confirmToken })
-        .then(function (response) {
-            toggleResponse(response);
-            toggleHolding(response.data.holding, 2500); 
-        })
-        .catch(function (error) {
-            toggleError(error);
-        });
-        stopLoading();
+        makePostRequest(
+            USER_ACTIVATION_URL,
+            { confirmToken: confirmToken },
+            toggleHolding(false, LONG_DELAY),
+            toggleHolding(false, LONG_DELAY)
+        );
+        stopLoading();        
     }
 
     // вызов активации при запуске страницы
