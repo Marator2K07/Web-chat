@@ -5,6 +5,7 @@ export const USER_ACTIVATION_URL = "/user_activation";
 
 export const AFTER_LOGIN_ROUTE = "/authorized_user"
 
+export const EXTRA_SHORT_DELAY = 250;
 export const SHORT_DELAY = 1500;
 export const MEDIUM_DELAY = 2500;
 export const LONG_DELAY = 3500;

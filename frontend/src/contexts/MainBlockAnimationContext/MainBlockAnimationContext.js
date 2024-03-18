@@ -1,27 +1,35 @@
 import { useCallback, useState } from "react"
+import { SHORT_DELAY } from "../../constants";
 
 export const useCreateMainBlockAnimationContext = function() {
-    const [y, setY] = useState(0);
+    const [x, setX] = useState(0);
     const [opacity, setOpacity] = useState(1);
+    const [duration, setDuration] = useState(SHORT_DELAY/3000);
 
     const initCondition = useCallback(() => {
-        setY(0);
-        setOpacity(1);
+            setX(0);
+            setOpacity(1);   
     }, []); 
 
-    const startCondition = useCallback(() => {
-        setY(-200);
-        setOpacity(0);
+    const leftCondition = useCallback(() => {
+            setX("-28vw");
+            setOpacity(0);
     }, []);
 
-    const endCondition = useCallback(() => {
-        setY(200);
-        setOpacity(0);
+    const rightCondition = useCallback(() => {
+            setX("28vw");
+            setOpacity(0);
     }, []);
 
-    return { y,
+    const changeDuration = useCallback((duration) => {
+        setDuration(duration);
+    }, []);
+
+    return { x,
              opacity,
+             duration,
              initCondition,
-             startCondition,
-             endCondition };
+             leftCondition,
+             rightCondition,
+             changeDuration };
 }
