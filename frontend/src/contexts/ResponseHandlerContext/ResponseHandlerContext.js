@@ -44,6 +44,6 @@ export const useCreateResponseHandlerContext = function() {
              error,
              resetResult,
              toggleResponse,
-             toggleError };
+             toggleError,
              makePostRequest };
 }

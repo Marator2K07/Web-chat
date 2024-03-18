@@ -1,4 +1,6 @@
-export const LOGIN_URL = "/api/login_check";
+export const LOGIN_CHECK_URL = "/api/login_check";
+export const LOGIN_URL = "/login";
+export const REGISTER_URL = "/register";
 
 export const AFTER_LOGIN_ROUTE = "/authorized_user"
 

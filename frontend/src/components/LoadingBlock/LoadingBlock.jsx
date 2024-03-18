@@ -25,8 +25,7 @@ export default function LoadingBlock({innerRef,
                     }}/>}
                 />
             } 
-            { error && <ResponseError message={error}/> }   
-                {console.log(response)} 
+            { error && <ResponseError message={error}/> }
             { 
                 response && 
                 response.data && 
