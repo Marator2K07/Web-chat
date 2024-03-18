@@ -2,31 +2,25 @@ import React, { useEffect, useState } from 'react'
 import bcrypt from 'bcryptjs-react';
 import classes from './RegisterMainBlock.module.css'
 import '../../../LoadingBlock/LoadingBlockCSSTransition.css';
-import { formEmailIsCorrect,
-         formParamIsEmpty,
-         formParamIsSmall,
-         passwordIsRepeated } from '../../../../utils';
+import {
+    formEmailIsCorrect,
+    formParamIsEmpty,
+    formParamIsSmall,
+    passwordIsRepeated
+} from '../../../../utils';
 import Clue from '../../../Tips/Clue/Clue';
-import WebChatClient from '../../../../WebChatClient';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-
-const registerUrl = '/register';
+import { REGISTER_URL } from '../../../../constants';
 
 export default function RegisterMainBlock({...props}) {
-    const { 
-        startLoading,
-        stopLoading, 
-        toggleHolding
-    } = useLoadingContext();
-    const { 
-        resetResult,
-        toggleResponse,
-        toggleError
-    } = useResponseHandlerContext();
+    const { startLoading, stopLoading } = useLoadingContext();
+    const { resetResult, makePostRequest } = useResponseHandlerContext();
     const [tips, setTips] = useState({}); // подсказки для пользователя
     const [validated, setValidated] = useState(false); // состояние предпроверки 
-    const [credentials, setCredentials] = useState({ // идентификационные данные
+
+    // идентификационные данные
+    const [credentials, setCredentials] = useState({ 
         username: '',
         email: '', 
         password: '',
@@ -64,10 +58,7 @@ export default function RegisterMainBlock({...props}) {
         } else {
             setValidated(true);
         }     
-    }, [
-        credentials.passwordAgain,
-        credentials.password
-    ]);
+    }, [credentials.passwordAgain, credentials.password]);
 
     // установка изменений в идентификационных данных
     const handleChange = (e) => {
@@ -77,9 +68,9 @@ export default function RegisterMainBlock({...props}) {
         }); 
     }
 
+    // обработка формы
     async function handleSubmit(e) { 
-        e.preventDefault();
-        
+        e.preventDefault();        
         // предпроверка перед отправкой запроса
         let validatedFinal = true;
         let usernameOk = !formParamIsEmpty('registerForm', 'username');
@@ -93,10 +84,6 @@ export default function RegisterMainBlock({...props}) {
             return;
         }
         
-        // подготовка
-        startLoading();
-        resetResult();
-
         // хэшируем пароль перед отправкой
         var hashedPassword;
         await bcrypt.hash(credentials.password, 10)
@@ -107,22 +94,17 @@ export default function RegisterMainBlock({...props}) {
             console.log(error);
         })
 
-        // отправка запроса и управление
-        await WebChatClient.post(registerUrl, {
-            username: credentials.username,
-            email: credentials.email,
-            password: hashedPassword
-        })        
-        .then(function (response) {
-            toggleResponse(response);  
-            if (!response.data.hasOwnProperty("holding")) {
-                toggleHolding(response.data.holding, 2500);
-            }        
-        })
-        .catch(function (error) {
-            toggleError(error);
-        })
-        stopLoading();        
+        // основная часть
+        startLoading();
+        resetResult();
+        await makePostRequest(
+            REGISTER_URL, {
+                username: credentials.username,
+                email: credentials.email,
+                password: hashedPassword
+            }
+        );
+        stopLoading();  
     };
 
     return (  
