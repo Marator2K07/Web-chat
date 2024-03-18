@@ -10,7 +10,6 @@ import { ResponseHandlerProvider } from './contexts/ResponseHandlerContext/Respo
 function App() {
 	return (    
 		<div className="App">
-			<BrowserRouter>
 			<LoadingProvider>
 			<ResponseHandlerProvider>
 				<Routes>						
@@ -28,7 +27,6 @@ function App() {
 				</Routes>
 			</ResponseHandlerProvider>				
 			</LoadingProvider>				
-        	</BrowserRouter>
 		</div>
 	);
 }
