@@ -29,6 +29,7 @@ export default function ResponseError({message, ...props}) {
                     </span>
                 </p> 
             </div>
+            {message.hasOwnProperty("response") &&
             <div className='info'>
                 <p>
                     Детали: <br/><span style={{color: PINK_EBONY_COLOR}}>
@@ -36,7 +37,7 @@ export default function ResponseError({message, ...props}) {
                         {message.response.data.message}
                     </span>
                 </p> 
-            </div>
+            </div>}            
             <button type="button" onClick={() => toggleHolding(false, 0)}>
                 Вернуться
             </button>            
