@@ -10,7 +10,7 @@ export const LoadingProvider = ({ children, ...props }) => {
     </Context.Provider>;
 };
 
-// определяем свой веб хук для доступа к контексту пользователя
+// определяем свой веб хук для доступа к контексту загрузки
 export function useLoadingContext() {
     const context = React.useContext(Context);
     if (!context) {

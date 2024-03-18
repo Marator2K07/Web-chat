@@ -10,11 +10,11 @@ export const ResponseHandlerProvider = ({ children, ...props }) => {
     </Context.Provider>;
 };
 
-// определяем свой веб хук для доступа к контексту пользователя
+// определяем свой веб хук для доступа к контексту управления ответом
 export function useResponseHandlerContext() {
     const context = React.useContext(Context);
     if (!context) {
-        throw new Error('Use response provider within provider');
+        throw new Error('Use response handler provider within provider');
     } 
     return context;
 }
