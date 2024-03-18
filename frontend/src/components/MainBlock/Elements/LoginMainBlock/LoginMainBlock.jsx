@@ -5,7 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import { cookies } from '../../../../contexts/CookieContext';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { AFTER_LOGIN_ROUTE, FIVE_MIN_AGE, LOGIN_URL, ONE_MONTH_AGE } from '../../../../constants';
+import {
+    AFTER_LOGIN_ROUTE,
+    FIVE_MIN_AGE,
+    LOGIN_CHECK_URL,
+    LOGIN_URL,
+    ONE_MONTH_AGE
+} from '../../../../constants';
 
 export default function LoginMainBlock({...props}) {
     const { startLoading, stopLoading } = useLoadingContext();
@@ -44,12 +50,19 @@ export default function LoginMainBlock({...props}) {
         await makePostRequest(
             LOGIN_URL,
             credentials,
-            (response) => {
-                const { token, refreshToken } = response.data;                 
-                cookies.set('username', credentials.username, { maxAge: ONE_MONTH_AGE });
-                cookies.set('refreshToken', refreshToken, { maxAge: ONE_MONTH_AGE });
-                cookies.set('token', token, { maxAge: FIVE_MIN_AGE });
-                navigate(`${AFTER_LOGIN_ROUTE}/${credentials.username}`);
+            async () => {
+                await makePostRequest(
+                    LOGIN_CHECK_URL,
+                    credentials,
+                    (response) => {
+                        const { token, refreshToken } = response.data;                 
+                        cookies.set('username', credentials.username, { maxAge: ONE_MONTH_AGE });
+                        cookies.set('refreshToken', refreshToken, { maxAge: ONE_MONTH_AGE });
+                        cookies.set('token', token, { maxAge: FIVE_MIN_AGE });
+                        navigate(`${AFTER_LOGIN_ROUTE}/${credentials.username}`);
+                        resetResult();
+                    }
+                )                
             });
         stopLoading();
     };
