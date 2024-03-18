@@ -27,7 +27,7 @@ WebChatClient.interceptors.response.use(
     async (error) => {        
         const originalRequest = error.config;
         // условие ниже эквивалентно истечению срока ключа (токена)
-        if (error.response.status === 401 &&
+        if (error.status === 401 &&
             !originalRequest._retry &&
             typeof cookies.get('refreshToken') !== "undefined") {
             originalRequest._retry = true;            
