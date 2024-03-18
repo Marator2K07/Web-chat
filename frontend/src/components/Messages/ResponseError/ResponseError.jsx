@@ -8,7 +8,7 @@ export default function ResponseError({message, ...props}) {
 
     return (
         <div className={classes.ResponseError} {...props}>
-            <div className='name'>
+            {/* <div className='name'>
                 <p>
                     Имя: <br/><span style={{color: PINK_EBONY_COLOR}}>
                             {message.name}
@@ -21,11 +21,19 @@ export default function ResponseError({message, ...props}) {
                         {message.code}
                     </span>
                 </p> 
-            </div>
+            </div> */}
             <div className='info'>
                 <p>
                     Сообщение: <br/><span style={{color: PINK_EBONY_COLOR}}>
                         {message.message}
+                    </span>
+                </p> 
+            </div>
+            <div className='info'>
+                <p>
+                    Детали: <br/><span style={{color: PINK_EBONY_COLOR}}>
+                        {message.response.data.detail}
+                        {message.response.data.message}
                     </span>
                 </p> 
             </div>

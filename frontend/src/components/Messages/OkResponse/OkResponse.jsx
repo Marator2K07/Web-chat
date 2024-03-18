@@ -17,27 +17,39 @@ export default function OkResponse({message,
             <div className='main'>
                 Сообщение:
                 <p>{message.main}</p>
-                {message.addition ? <div className='addition'>Дополнительная информация:</div> : ''} 
+                { 
+                    message.addition &&
+                    <div className='addition'>
+                        Дополнительная информация:
+                    </div>
+                } 
                 <p>{message.addition}</p>
             </div>  
 
-            {message.hasOwnProperty("holding") &&
-            <Buttons>
-                <div>
-                    <button type="button" onClick={() => toggleHolding(false, 0)}>
-                        Вернуться
-                    </button>
-                </div>
-                <div>
-                    {message.hasOwnProperty("button") &&
-                    <button type="button" onClick={() => {
-                                toggleHolding(false, 0);
-                                handleNavigate(message.button.key); 
-                            }
-                        }>{message.button.text}
-                    </button>}
-                </div>
-            </Buttons>}
+            {
+                message.holding &&
+                <Buttons>
+                    <div>
+                        <button 
+                            type="button"
+                            onClick={() => toggleHolding(false, 0)}>
+                            Вернуться
+                        </button>
+                    </div>
+                    <div>
+                        {message.hasOwnProperty("button") &&
+                        <button
+                            type="button"
+                            onClick={() => {
+                                    toggleHolding(false, 0);
+                                    handleNavigate(message.button.key); 
+                                }
+                            }>
+                            {message.button.text}
+                        </button>}
+                    </div>
+                </Buttons>
+            }
         </div>
     )
 }
