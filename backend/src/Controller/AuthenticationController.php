@@ -32,8 +32,8 @@ class AuthenticationController extends AbstractController
             throw new HttpException(409, 'Аккаунт не активирован');
         } else {
             return new JsonResponse([
-                'status' => 'Ok',
-                'main' => 'Успешный вход.'
+                'main' => 'Успешный вход.',
+                'holding' => true
             ]);  
         }         
     }

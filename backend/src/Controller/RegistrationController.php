@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RegistrationController extends AbstractController
@@ -25,20 +26,12 @@ class RegistrationController extends AbstractController
         // если имя не уникально 
         $user = $userRepository->findOneByUsernameField($data['username']);
         if ($user) {
-            return new JsonResponse(['status' => 'Bad',
-                'main' => 'Ошибка при регистрации.',
-                'addition' => 'Заданное имя аккаунта занято.',
-                'holding' => true
-            ]);
+            throw new HttpException(409, 'Заданное имя аккаунта занято');
         }
         // если почта не уникальна 
         $user = $userRepository->findOneByEmailField($data['email']);
         if ($user) {
-            return new JsonResponse(['status' => 'Bad',
-                'main' => 'Ошибка при регистрации.',
-                'addition' => 'Данная почта уже использовалась при регистрации.',
-                'holding' => true
-            ]);
+            throw new HttpException(409, 'Данная почта уже использовалась при регистрации.');
         }
 
         // задаем и инициализируем нового пользователя
