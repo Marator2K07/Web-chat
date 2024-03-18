@@ -33,7 +33,7 @@ class AuthenticationController extends AbstractController
         } else {
             return new JsonResponse([
                 'main' => 'Успешный вход.',
-                'holding' => true
+                'holding' => false
             ]);  
         }         
     }

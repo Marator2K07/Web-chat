@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserActivationController extends AbstractController
@@ -20,10 +21,7 @@ class UserActivationController extends AbstractController
         $user = $userRepository->findOneByConfirmTokenField($data['confirmToken']);
 
         if (!$user) {
-            return new JsonResponse(['status' => 'Bad',
-                'main' => 'Ошибка при активации.',
-                'addition' => 'Сбой проверки ключа активации.'
-            ]);
+            throw new HttpException(410, 'Аккаунта для активации уже не существует');
         }
 
         if (!$user->isConfirmed()) {
@@ -32,12 +30,14 @@ class UserActivationController extends AbstractController
             $entityManager->flush(); 
             return new JsonResponse(['status' => 'Ok',
                 'main' => 'Аккаунт успешно активирован.',
-                'addition' => 'Можете закрывать данную страницу.'
+                'addition' => 'Можете закрывать данную страницу.',
+                'holding' => false
             ]); 
         } else {
             return new JsonResponse(['status' => 'Ok',
                 'main' => 'Данный аккаунт уже активирован.',
-                'addition' => 'Можете закрывать данную страницу.'
+                'addition' => 'Можете закрывать данную страницу.',
+                'holding' => false
             ]); 
         }
     }
