@@ -10,6 +10,27 @@ export const useCreateResponseHandlerContext = function() {
         setError(null);
     }, []);
 
+    const makeGetRequest = useCallback(async (
+                                       url,
+                                       responseFunc = null,
+                                       errorFunc = null
+                                       ) => {
+        await WebChatClient.get(url)
+        .then(function (response) {
+            setResponse(response);
+            if (responseFunc) {
+                responseFunc(response);
+            }  
+        })
+        .catch(function (error) {
+            setError(error);
+            console.log(error);
+            if (errorFunc) {
+                errorFunc();
+            }
+        });
+    }, []);
+
     const makePostRequest = useCallback(async (
                                         url,
                                         data,
@@ -45,5 +66,6 @@ export const useCreateResponseHandlerContext = function() {
              resetResult,
              toggleResponse,
              toggleError,
+             makeGetRequest,
              makePostRequest };
 }
