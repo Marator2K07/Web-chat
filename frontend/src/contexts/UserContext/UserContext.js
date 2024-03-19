@@ -5,16 +5,16 @@ export const useCreateUserContext = function(props) {
     const [user, setUser] = useState(props.user || null);
     const [aboutUser, setAboutUser] = useState(null);
 
-    const toggleUser = useCallback((user) => {
+    const loadUser = useCallback((user) => {
         setUser(user);
     }, []);
 
-    const toggleAboutUser = useCallback((aboutUser) => {
+    const loadAboutUser = useCallback((aboutUser) => {
         setAboutUser(aboutUser);
     }, []);
 
     return { user,
              aboutUser,
-             toggleUser,
-             toggleAboutUser };
+             loadUser,
+             loadAboutUser };
 }
