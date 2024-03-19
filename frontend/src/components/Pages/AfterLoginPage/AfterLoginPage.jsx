@@ -4,7 +4,6 @@ import TopBlock from '../../TopBlock/TopBlock';
 import NavList from '../../Navigation/NavList/NavList';
 import MainBlock from '../../MainBlock/MainBlock';
 import DownBlock from '../../DownBlock/DownBlock';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
@@ -12,8 +11,11 @@ import { useMainBlockAnimationContext } from '../../../contexts/MainBlockAnimati
 import {
     BEFORE_LOGIN_ROUTE,
     EXTRA_SHORT_DELAY,
+    GET_ALL_USER_INFO_URL,
     SHORT_DELAY
 } from '../../../constants';
+import { cookies } from '../../../contexts/CookieContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function AfterLoginPage({...props}) {
     const pagesData = {
@@ -32,7 +34,6 @@ export default function AfterLoginPage({...props}) {
     const [headerText, setHeaderText] = useState('Добро пожаловать');
     const [currentMainBlock, setCurrentMainBlock] = useState('welcome');
     const [currentIndex, setCurrentIndex] = useState(null); 
-    const location = useLocation(); 
     const navigate = useNavigate();     
 
     // переход между вкладками с анимацией
@@ -56,7 +57,7 @@ export default function AfterLoginPage({...props}) {
         startLoading();
         resetResult();
         await makeGetRequest(
-            location.pathname,
+            `${GET_ALL_USER_INFO_URL}/${cookies.get('username')}`,
             (response) => {
                 loadUser(response.data.user);
                 loadAboutUser(response.data.aboutUser);
