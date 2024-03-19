@@ -2,14 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\AboutUser;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class AuthorizedController extends AbstractController
+class AuthorizedUserController extends AbstractController
 {
     #[Route('/authorized_user/{username}', name: 'app_authorized_user', methods: 'GET')]
     public function identity(string $username,
@@ -19,15 +19,12 @@ class AuthorizedController extends AbstractController
         $user = $userRepository->findOneByUsernameField($username);
 
         if (!$user) {
-            return new JsonResponse([
-                'status' => 'Bad',
-                'main' => 'Непредвиденная ошибка.',
-                'addition' => 'Ошибка загрузки данных.'
-            ]);
+            throw new HttpException(409, 'Не удалось получить данные');
         } else {            
             return new JsonResponse([
                 'status' => 'Ok',                
                 'main' => 'Успешная синхронизация.',
+                'holding' => false,
                 'user' => [
                     'id' => $user->getId(),
                     'username' => $user->getUsername(),
