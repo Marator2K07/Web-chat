@@ -13,7 +13,12 @@ import { AFTER_LOGIN_ROUTE, SHORT_DELAY, SHORT_TIMEOUT } from '../../constants';
 export default function MainBlock({handleNavigate, 
                                    currentMainBlock,
                                    ...props}) {
-    const { holding, startLoading, stopLoading } = useLoadingContext();
+    const {
+        holding,
+        toggleHolding,
+        startLoading,
+        stopLoading
+    } = useLoadingContext();
     const { x, opacity, duration } = useMainBlockAnimationContext();
     const nodeRef = useRef(null);  
     const navigate = useNavigate();
@@ -24,9 +29,10 @@ export default function MainBlock({handleNavigate,
         let username = cookies.get('username');
         let token = cookies.get('token');
         if (username && token && currentMainBlock === 'login') {
-            startLoading();
-            setTimeout(() => {   
-                stopLoading();             
+            startLoading();            
+            setTimeout(() => {
+                stopLoading();
+                toggleHolding(false, 0);
                 navigate(`${AFTER_LOGIN_ROUTE}/${username}`, { replace: true });                
             }, SHORT_DELAY);
         }   
@@ -34,7 +40,8 @@ export default function MainBlock({handleNavigate,
         navigate,
         currentMainBlock,
         startLoading,
-        stopLoading
+        stopLoading,
+        toggleHolding
     ]);    
 
     return (

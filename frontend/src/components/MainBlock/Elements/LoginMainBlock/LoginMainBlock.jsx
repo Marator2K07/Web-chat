@@ -14,7 +14,7 @@ import {
 } from '../../../../constants';
 
 export default function LoginMainBlock({...props}) {
-    const { startLoading, stopLoading } = useLoadingContext();
+    const { toggleHolding, startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
     const navigate = useNavigate();
     
@@ -58,9 +58,10 @@ export default function LoginMainBlock({...props}) {
                         const { token, refreshToken } = response.data;                 
                         cookies.set('username', credentials.username, { maxAge: ONE_MONTH_AGE });
                         cookies.set('refreshToken', refreshToken, { maxAge: ONE_MONTH_AGE });
-                        cookies.set('token', token, { maxAge: FIVE_MIN_AGE });
-                        navigate(`${AFTER_LOGIN_ROUTE}/${credentials.username}`);
+                        cookies.set('token', token, { maxAge: FIVE_MIN_AGE });                        
+                        toggleHolding(false, 0);
                         resetResult();
+                        navigate(`${AFTER_LOGIN_ROUTE}/${credentials.username}`);                        
                     }
                 )                
             });
