@@ -9,6 +9,8 @@ import WebChatClient from '../../../WebChatClient';
 import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
+import { useMainBlockAnimationContext } from '../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
+import { EXTRA_SHORT_DELAY } from '../../../constants';
 
 export default function AfterLoginPage({...props}) {
     const pagesData = {
@@ -26,16 +28,31 @@ export default function AfterLoginPage({...props}) {
         toggleError
     } = useResponseHandlerContext();
     const { toggleUser } = useUserContext();
+    const { 
+        initCondition,
+        leftCondition,
+        rightCondition
+    } = useMainBlockAnimationContext();    
     const [headerText, setHeaderText] = useState('Добро пожаловать');
     const [currentMainBlock, setCurrentMainBlock] = useState('welcome');
     const [currentIndex, setCurrentIndex] = useState(null); 
     const location = useLocation(); 
     const navigate = useNavigate();     
 
+    // переход между вкладками с анимацией
     const handleNavigate = (key) => {
-        setCurrentMainBlock(pagesData[key].path);
-        setHeaderText(pagesData[key].description);
-        setCurrentIndex(pagesData[key].index);
+        currentIndex < pagesData[key].index ? leftCondition()
+                                            : rightCondition();
+        setTimeout(() => {
+            setCurrentMainBlock(pagesData[key].path);
+            setHeaderText(pagesData[key].description);
+            setCurrentIndex(pagesData[key].index);
+            currentIndex < pagesData[key].index ? rightCondition() 
+                                                : leftCondition();
+            setTimeout(() => {
+                initCondition();
+            }, EXTRA_SHORT_DELAY);
+        }, EXTRA_SHORT_DELAY);        
     }
 
     // первым делом подгружаем все данные о пользователе
