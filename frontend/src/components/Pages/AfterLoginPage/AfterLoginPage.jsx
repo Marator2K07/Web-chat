@@ -5,34 +5,30 @@ import NavList from '../../Navigation/NavList/NavList';
 import MainBlock from '../../MainBlock/MainBlock';
 import DownBlock from '../../DownBlock/DownBlock';
 import { useLocation, useNavigate } from 'react-router-dom';
-import WebChatClient from '../../../WebChatClient';
 import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { useMainBlockAnimationContext } from '../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
-import { EXTRA_SHORT_DELAY } from '../../../constants';
+import {
+    BEFORE_LOGIN_ROUTE,
+    EXTRA_SHORT_DELAY,
+    SHORT_DELAY
+} from '../../../constants';
 
 export default function AfterLoginPage({...props}) {
     const pagesData = {
-        welcomeRoot: {path: 'welcome', description: 'Добро пожаловать', index: 0}
+        welcomeRoute: {path: 'welcome', description: 'Добро пожаловать', index: 0},
+        personalPageRoute: {path: 'personalPage', description: 'Личная страница', index: 1}
     } 
-
-    const { 
-        startLoading,
-        stopLoading, 
-        toggleHolding
-    } = useLoadingContext();
-    const { 
-        resetResult,
-        toggleResponse,
-        toggleError
-    } = useResponseHandlerContext();
-    const { toggleUser } = useUserContext();
+    const { startLoading, toggleHolding, stopLoading } = useLoadingContext();
+    const { resetResult, makeGetRequest } = useResponseHandlerContext();
     const { 
         initCondition,
         leftCondition,
         rightCondition
     } = useMainBlockAnimationContext();    
+    const { loadUser, loadAboutUser } = useUserContext();
+
     const [headerText, setHeaderText] = useState('Добро пожаловать');
     const [currentMainBlock, setCurrentMainBlock] = useState('welcome');
     const [currentIndex, setCurrentIndex] = useState(null); 
@@ -56,23 +52,23 @@ export default function AfterLoginPage({...props}) {
     }
 
     // первым делом подгружаем все данные о пользователе
-    const updateUser = async () => {
-        // подготовка
+    const updateUser = async () => {                
         startLoading();
         resetResult();
-        // сам запрос и его обработка
-        await WebChatClient.get(location.pathname)
-        .then(function (response) {      
-            toggleResponse(response);
-            toggleUser(response.data.user);
-            toggleHolding(false, 1000)
-        })
-        .catch(function (error) {
-            toggleError(error);
-            setTimeout(() => {
-                navigate('/');  
-            }, 1500);
-        });
+        await makeGetRequest(
+            location.pathname,
+            (response) => {
+                loadUser(response.data.user);
+                loadAboutUser(response.data.aboutUser);
+                toggleHolding(false, SHORT_DELAY);
+            },
+            () => {
+                setTimeout(() => {
+                    toggleHolding(false, SHORT_DELAY);
+                    navigate(BEFORE_LOGIN_ROUTE);  
+                }, SHORT_DELAY);
+            }
+        );
         stopLoading();
     }
 
