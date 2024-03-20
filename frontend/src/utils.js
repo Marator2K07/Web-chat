@@ -76,6 +76,16 @@ export const formEmailIsCorrect = (formName,
     return true;
 }
 
+export function setMenuOffset(idBtn, idMenu) {
+    const btnRect = document.getElementById(idBtn).getBoundingClientRect();
+    const menuElem = document.getElementById(idMenu);
+    menuElem.style.left = btnRect.left - 
+                          menuElem.getBoundingClientRect().width +
+                          btnRect.width + 10 + "px";   
+    menuElem.style.top = btnRect.top +                         
+                         btnRect.height - 2 + "px";                          
+}
+
 const reader = new FileReader();
 export const convertBlobToBase64 = (blob) =>
     new Promise((resolve, reject) => {
