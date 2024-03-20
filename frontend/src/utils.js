@@ -75,3 +75,19 @@ export const formEmailIsCorrect = (formName,
     });
     return true;
 }
+
+const reader = new FileReader();
+export const convertBlobToBase64 = (blob) =>
+    new Promise((resolve, reject) => {
+        reader.onerror = reject;
+        reader.onload = () => {
+            resolve(reader.result);
+            console.log(reader.result);
+        };
+        reader.readAsDataURL(blob);
+})
+
+export const convertBase64ToBlob = async (base64Data) => {
+    let base64 = await fetch(base64Data);
+    return await base64.blob();  
+}
