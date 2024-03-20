@@ -21,6 +21,9 @@ class Room
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'rooms')]
     private Collection $users;
 
+    #[ORM\Column]
+    private ?bool $dialog = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -66,6 +69,18 @@ class Room
         if ($this->users->removeElement($user)) {
             $user->removeRoom($this);
         }
+
+        return $this;
+    }
+
+    public function isDialog(): ?bool
+    {
+        return $this->dialog;
+    }
+
+    public function setDialog(bool $dialog): static
+    {
+        $this->dialog = $dialog;
 
         return $this;
     }
