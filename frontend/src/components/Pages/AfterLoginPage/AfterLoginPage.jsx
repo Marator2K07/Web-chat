@@ -10,12 +10,14 @@ import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerCont
 import { useMainBlockAnimationContext } from '../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 import {
     BEFORE_LOGIN_ROUTE,
+    DATE_FORMAT,
     EXTRA_SHORT_DELAY,
     GET_ALL_USER_INFO_URL,
     SHORT_DELAY
 } from '../../../constants';
 import { cookies } from '../../../contexts/CookieContext';
 import { useNavigate } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 export default function AfterLoginPage({...props}) {
     const pagesData = {
@@ -58,8 +60,10 @@ export default function AfterLoginPage({...props}) {
         resetResult();
         await makeGetRequest(
             `${GET_ALL_USER_INFO_URL}/${cookies.get('username')}`,
-            (response) => {
+            async (response) => {
                 loadUser(response.data.user);
+                response.data.aboutUser.dateOfBirth =
+                    dayjs(response.data.aboutUser.dateOfBirth).format(DATE_FORMAT);
                 loadAboutUser(response.data.aboutUser);
                 toggleHolding(false, SHORT_DELAY);
             },
