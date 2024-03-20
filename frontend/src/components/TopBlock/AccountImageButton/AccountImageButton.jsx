@@ -4,7 +4,7 @@ import MiniMenu from '../MiniMenu/MiniMenu';
 import { CSSTransition } from 'react-transition-group';
 import './AccountImageButtonCSSTransition.css';
 import '../MiniMenu/MiniMenuCSSTransition.css';
-import { useUserContext } from '../../../contexts/UserContext/UserProvider';
+import { MEDIUM_TIMEOUT } from '../../../constants';
 
 function setMenuOffset(idBtn, idMenu) {
     const btnRect = document.getElementById(idBtn).getBoundingClientRect();
@@ -17,15 +17,9 @@ function setMenuOffset(idBtn, idMenu) {
 }
 
 export default function AccountImageButton({...props}) {
-    const { aboutUser } = useUserContext();
     const [hov, setHov] = useState(false);
     const nodeRef = useRef(null);
-    const anotherRef = useRef(null);
-    // в случае если пользователь не установил картинку - ставим
-    // картинку по умолчанию из файлов проекта
-    const userImg = !aboutUser || !aboutUser.image ?
-                    `${window.location.origin}/DefUserIcon.png` :
-                    aboutUser.image
+    const anotherRef = useRef(null);    
     
     return (
         <div className={classes.AccountImageButton} {...props}
@@ -33,7 +27,7 @@ export default function AccountImageButton({...props}) {
             <CSSTransition 
                 in={hov}
                 nodeRef={nodeRef}
-                timeout={500}
+                timeout={MEDIUM_TIMEOUT}
                 className="AccountImageButton-init"
                 classNames="AccountImageButton">
                 <button ref={nodeRef} id='btn' 
@@ -41,14 +35,14 @@ export default function AccountImageButton({...props}) {
                         setHov(true);                    
                         setMenuOffset('btn', "miniMenu")               
                     }}>                
-                    <img src={userImg} alt="" />
+                    <img src={`${window.location.origin}/DefUserIcon.png`} alt=""/>
                     <p>&#10094; &#10094; &#10094;</p>
                 </button> 
             </CSSTransition>
             <CSSTransition
                 in={hov}
                 nodeRef={anotherRef}                               
-                timeout={600}
+                timeout={MEDIUM_TIMEOUT}
                 classNames="MiniMenu">
                 <MiniMenu
                     innerRef={anotherRef}

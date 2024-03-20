@@ -4,11 +4,16 @@ import { useUserContext } from '../../../../contexts/UserContext/UserProvider'
 
 export default function UserCard({...props}) {
     const { aboutUser } = useUserContext();
+    // в случае если пользователь не установил картинку - ставим
+    // картинку по умолчанию из файлов проекта
+    const userImg = !aboutUser || !aboutUser.image ?
+                    `${window.location.origin}/DefUserIcon.png` :
+                    aboutUser.image
 
     return (
         <div className={classes.UserCard} {...props}> 
             <div className='picture'>
-                <img src={`${window.location.origin}/DefUserIcon.png`} alt="" />
+                <img src={userImg} alt="" />
             </div>           
             <div className='info'>
                 <p>

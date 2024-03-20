@@ -7,7 +7,7 @@
     border: solid 2px rgb(180, 188, 196);
     border-radius: 10px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -22,5 +22,7 @@
 }
 
 .UserCard img {
-    margin: 7px;
+    margin-top: 6px;
+    max-width: 46px;
+    max-height: 46px;    
 }
