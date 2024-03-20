@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -39,6 +41,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?AboutUser $about_user = null;
+
+    #[ORM\ManyToMany(targetEntity: Room::class, inversedBy: 'users')]
+    private Collection $rooms;
+
+    public function __construct()
+    {
+        $this->rooms = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -154,6 +164,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAboutUser(AboutUser $about_user): static
     {
         $this->about_user = $about_user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Room>
+     */
+    public function getRooms(): Collection
+    {
+        return $this->rooms;
+    }
+
+    public function addRoom(Room $room): static
+    {
+        if (!$this->rooms->contains($room)) {
+            $this->rooms->add($room);
+        }
+
+        return $this;
+    }
+
+    public function removeRoom(Room $room): static
+    {
+        $this->rooms->removeElement($room);
 
         return $this;
     }
