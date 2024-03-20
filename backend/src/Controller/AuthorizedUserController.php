@@ -2,16 +2,21 @@
 
 namespace App\Controller;
 
+use App\Entity\AboutUser;
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\DateTimeType;
+use Doctrine\DBAL\Types\DateType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class AuthorizedUserController extends AbstractController
 {
-    #[Route('/authorized_user/{username}', name: 'app_authorized_user', methods: 'GET')]
+    #[Route('/authorized_user/get/{username}', name: 'app_authorized_get_user', methods: 'GET')]
     public function identity(string $username,
                              SerializerInterface $serializer,
                              UserRepository $userRepository): JsonResponse
@@ -19,7 +24,7 @@ class AuthorizedUserController extends AbstractController
         $user = $userRepository->findOneByUsernameField($username);
 
         if (!$user) {
-            throw new HttpException(409, 'Не удалось получить данные');
+            throw new HttpException(422, 'Не удалось обновить данные');
         } else {            
             return new JsonResponse([
                 'status' => 'Ok',                
@@ -36,5 +41,33 @@ class AuthorizedUserController extends AbstractController
                 ))
             ]);
         }
+    }
+
+    #[Route('/authorized_user/update/{username}', name: 'app_authorized_update_user', methods: 'POST')]
+    public function updateUser(string $username,
+                               Request $request,
+                               EntityManagerInterface $entityManager,
+                               UserRepository $userRepository): JsonResponse
+    {
+        $user = $userRepository->findOneByUsernameField($username);  
+        $data = json_decode($request->getContent(), true);        
+        if (!$user) {
+            throw new HttpException(422, 'Не удалось обновить данные');
+        }
+
+        $aboutUser = $user->getAboutUser(); 
+        $aboutUser->setName($data['name']); 
+        $aboutUser->setSecondname($data['secondname']); 
+        $aboutUser->setDateOfBirth(date_create($data['dateOfBirth'])); 
+        $aboutUser->setImage($data['image']); 
+        $aboutUser->setLastActivityDatetime($data['lastActivityDatetime']);
+
+        $entityManager->flush();
+                   
+        return new JsonResponse([
+            'status' => 'Ok',                
+            'main' => 'Данные успешно сохранены.',
+            'holding' => false
+        ]);        
     }
 }
