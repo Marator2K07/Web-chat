@@ -2,10 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\AboutUser;
 use App\Repository\UserRepository;
-use Doctrine\DBAL\Types\DateTimeType;
-use Doctrine\DBAL\Types\DateType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,7 +22,7 @@ class AuthorizedUserController extends AbstractController
 
         if (!$user) {
             throw new HttpException(422, 'Не удалось обновить данные');
-        } else {            
+        } else {
             return new JsonResponse([
                 'status' => 'Ok',                
                 'main' => 'Успешная синхронизация.',
@@ -38,6 +35,10 @@ class AuthorizedUserController extends AbstractController
                 'aboutUser' => json_decode(
                     $serializer->serialize(
                     $user->getAboutUser(), 'json'
+                )),
+                'room' => json_decode(
+                    $serializer->serialize(
+                        $user->getRooms(), 'json', ['groups' => ['room']]
                 ))
             ]);
         }
