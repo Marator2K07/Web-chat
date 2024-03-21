@@ -3,23 +3,24 @@ import classes from './NavList.module.css'
 import NavItem from '../NavItem/NavItem'
 import { CSSTransition } from 'react-transition-group';
 import './NavListCSSTransition.css';
+import { SHORT_TIMEOUT } from '../../../constants';
 
 export default function NavList({handleNavigate,
-                                 pagesData,
+                                 blocksData,
                                  currentIndex,
                                  ...props}) {
     return (
         <div className={classes.NavList} {...props}>
-            {Object.keys(pagesData).map((key, index) => (
+            {Object.keys(blocksData).map((key, index) => (
                 <CSSTransition 
                     key={index}
                     in={currentIndex !== index}
-                    timeout={333}
+                    timeout={SHORT_TIMEOUT}
                     classNames="NavList">
                     <div key={key}>
                         <NavItem 
                             root={key}
-                            description={pagesData[key].description}
+                            description={blocksData[key].description}
                             index={index}
                             handleNavigate={handleNavigate}/>
                     </div>

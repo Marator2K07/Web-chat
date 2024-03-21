@@ -20,9 +20,10 @@ import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 
 export default function AfterLoginPage({...props}) {
-    const pagesData = {
-        welcomeRoute: {path: 'welcome', description: 'Добро пожаловать', index: 0},
-        personalPageRoute: {path: 'personalPage', description: 'Личная страница', index: 1}
+    const blocksData = {
+        welcomeBlock: {path: 'welcome', description: 'Добро пожаловать', index: 0},
+        personalBlock: {path: 'personal', description: 'Личная страница', index: 1},
+        dialogBlock: {path: 'dialog', description: 'Диалоги', index: 2}
     } 
     const { startLoading, toggleHolding, stopLoading } = useLoadingContext();
     const { resetResult, makeGetRequest } = useResponseHandlerContext();
@@ -40,13 +41,13 @@ export default function AfterLoginPage({...props}) {
 
     // переход между вкладками с анимацией
     const handleNavigate = (key) => {
-        currentIndex < pagesData[key].index ? leftCondition()
+        currentIndex < blocksData[key].index ? leftCondition()
                                             : rightCondition();
         setTimeout(() => {
-            setCurrentMainBlock(pagesData[key].path);
-            setHeaderText(pagesData[key].description);
-            setCurrentIndex(pagesData[key].index);
-            currentIndex < pagesData[key].index ? rightCondition() 
+            setCurrentMainBlock(blocksData[key].path);
+            setHeaderText(blocksData[key].description);
+            setCurrentIndex(blocksData[key].index);
+            currentIndex < blocksData[key].index ? rightCondition() 
                                                 : leftCondition();
             setTimeout(() => {
                 initCondition();
@@ -88,7 +89,7 @@ export default function AfterLoginPage({...props}) {
             <TopBlock headerText={headerText}/>
             <NavList
                 handleNavigate={handleNavigate}
-                pagesData={pagesData}
+                blocksData={blocksData}
                 currentIndex={currentIndex}/>  
             <MainBlock
                 handleNavigate={handleNavigate}
