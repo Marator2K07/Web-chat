@@ -23,7 +23,7 @@ export default function AfterLoginPage({...props}) {
     const blocksData = {
         welcomeBlock: {path: 'welcome', description: 'Добро пожаловать', index: 0},
         personalBlock: {path: 'personal', description: 'Личная страница', index: 1},
-        dialogBlock: {path: 'dialog', description: 'Диалоги', index: 2}
+        communicationBlock: {path: 'communication', description: 'Общение', index: 2}
     } 
     const { startLoading, toggleHolding, stopLoading } = useLoadingContext();
     const { resetResult, makeGetRequest } = useResponseHandlerContext();

@@ -6,11 +6,12 @@ import MainBlock from '../../MainBlock/MainBlock';
 import NavList from '../../Navigation/NavList/NavList';
 import { useMainBlockAnimationContext } from '../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 import { EXTRA_SHORT_DELAY } from '../../../constants';
+import { cookies } from '../../../contexts/CookieContext';
 
 export default function BeforeLoginPage({...props}) {
-    const pagesData = {
-        loginRoot: {path: 'login', description: 'Вход в аккаунт', index: 0},
-        registerRoot: {path: 'register', description: 'Регистрация', index: 1}
+    const blocksData = {
+        loginBlock: {path: 'login', description: 'Вход в аккаунт', index: 0},
+        registerBlock: {path: 'register', description: 'Регистрация', index: 1}
     } 
     const { 
         initCondition,
@@ -24,13 +25,13 @@ export default function BeforeLoginPage({...props}) {
     
     // переход между вкладками с анимацией
     const handleNavigate = (key) => {
-        currentIndex < pagesData[key].index ? leftCondition()
+        currentIndex < blocksData[key].index ? leftCondition()
                                             : rightCondition();
         setTimeout(() => {
-            setCurrentMainBlock(pagesData[key].path);
-            setHeaderText(pagesData[key].description);
-            setCurrentIndex(pagesData[key].index);
-            currentIndex < pagesData[key].index ? rightCondition() 
+            setCurrentMainBlock(blocksData[key].path);
+            setHeaderText(blocksData[key].description);
+            setCurrentIndex(blocksData[key].index);
+            currentIndex < blocksData[key].index ? rightCondition() 
                                                 : leftCondition();
             setTimeout(() => {
                 initCondition();
@@ -47,7 +48,7 @@ export default function BeforeLoginPage({...props}) {
             <TopBlock headerText={headerText}/>
             <NavList
                 handleNavigate={handleNavigate}
-                pagesData={pagesData}
+                blocksData={blocksData}
                 currentIndex={currentIndex}/>  
             <MainBlock
                 handleNavigate={handleNavigate}
