@@ -8,7 +8,7 @@ import {
     formParamIsSmall,
     passwordIsRepeated
 } from '../../../../utils';
-import Clue from '../../../Tips/Clue/Clue';
+import Clue from '../../../Collection/Tips/Tips';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { REGISTER_URL } from '../../../../constants';

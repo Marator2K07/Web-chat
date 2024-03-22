@@ -1,9 +1,10 @@
 import React from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import classes from './Clue.module.css'
-import './ClueCSSTransition.css';
+import classes from './Tips.module.css'
+import './TipsCSSTransition.css';
+import { MEDIUM_DELAY, SHORT_TIMEOUT } from '../../../constants';
 
-export default function Clue({tips, ...props}) {
+export default function Tips({tips, ...props}) {
     // если подсказок нет, то и отображать ничего не нужно
     if (!tips) {        
         return;
@@ -15,8 +16,8 @@ export default function Clue({tips, ...props}) {
                 {Object.keys(tips).map((key, index) => (
                     <CSSTransition
                         key={index}
-                        timeout={444}
-                        classNames="Clue">
+                        timeout={SHORT_TIMEOUT}
+                        classNames="Tips">
                         <div key={key}>
                             <p>{tips[key]}</p>
                         </div>

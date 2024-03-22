@@ -1,0 +1,22 @@
+/* Start of CSSTransition for Tips className */
+.Tips-enter {
+    opacity: 0;
+}  
+.Tips-enter-active {
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+.Tips-enter-done {
+    opacity: 1;
+}
+.Tips-exit {
+    opacity: 1;
+}
+.Tips-exit-active {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+.Tips-exit-done {
+    opacity: 0;
+}
+/* End of CSSTransition for Tips className */
