@@ -1,7 +1,7 @@
 export const LOGIN_CHECK_URL = "/api/login_check";
 export const LOGIN_URL = "/login";
 export const REGISTER_URL = "/register";
-export const USER_ACTIVATION_URL = "/user_activation";
+export const USER_ACTIVATION_URL = "/account_activation";
 export const GET_ALL_USER_INFO_URL = "/authorized_user/get";
 export const UPDATE_ABOUT_USER_URL = "/authorized_user/update";
 

@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-class UserActivationController extends AbstractController
+class AccountActivationController extends AbstractController
 {
-    #[Route('/user_activation', name: 'app_user_activation')]
+    #[Route('/account_activation', name: 'app_account_activation')]
     public function activation(Request $request,
                                EntityManagerInterface $entityManager,
                                UserRepository $userRepository): JsonResponse
