@@ -36,7 +36,7 @@ class AuthorizedUserController extends AbstractController
                     $serializer->serialize(
                     $user->getAboutUser(), 'json'
                 )),
-                'room' => json_decode(
+                'rooms' => json_decode(
                     $serializer->serialize(
                         $user->getRooms(), 'json', ['groups' => ['room']]
                 ))

@@ -8,40 +8,50 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    #[Groups('user')]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups('user')]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $username = null;
 
+    #[Groups('user')]
     #[ORM\Column]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
+    #[Groups('user')]
     #[ORM\Column]
     private ?string $password = null;
 
+    #[Groups('user')]
     #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
+    #[Groups('user')]
     #[ORM\Column]
     private ?bool $confirmed = null;
 
+    #[Groups('user')]
     #[ORM\Column(length: 255)]
     private ?string $confirmToken = null;
 
+    #[Groups('user')]
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?AboutUser $about_user = null;
 
+    #[Groups('rooms')]
     #[ORM\ManyToMany(targetEntity: Room::class, inversedBy: 'users')]
     private Collection $rooms;
 
