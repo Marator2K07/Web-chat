@@ -1,0 +1,37 @@
+.RoomBlock {
+    padding: 7px;
+    min-width: 222px;
+    min-height: 38px;
+    border-right: 2px solid rgb(180, 188, 196); 
+    color: rgb(232,240,254);
+}
+
+.RoomBlock button{
+    margin-top: 22px;
+}
+
+.RoomBlock h3 {
+    color: rgb(255, 140, 100);
+    padding: 7px;
+    margin-top: 0px;
+    font-weight: 500;
+    font-family: emoji;
+    font-size: 22px;
+    border-bottom: 2px solid rgb(180, 188, 196);   
+}
+
+.RoomBlock h4 {
+    color: rgb(255, 140, 100);
+    margin: 0px 0px;
+    font-weight: 400;
+    font-family: emoji;
+    font-size: 20px;
+}
+
+.RoomBlock p {
+    margin-top: 3px;
+    font-weight: 400;
+    font-family: emoji;
+    font-size: 19px;
+    color: rgb(232,240,254);
+}
