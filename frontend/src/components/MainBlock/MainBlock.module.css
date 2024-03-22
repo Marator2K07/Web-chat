@@ -41,8 +41,17 @@
     font-size: 19px;
 }
 
-.MainBlock form p {
+.MainBlock form h4 {
     color: rgb(255, 140, 100);
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-weight: 400;
+    font-family: emoji;
+    font-size: 20px;
+}
+
+.MainBlock form p {
+    color: rgb(232,240,254);
     margin-top: 3px;
     margin-bottom: 3px;
     font-weight: 400;

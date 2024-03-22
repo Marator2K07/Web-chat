@@ -4,7 +4,7 @@ import RegisterMainBlock from "./Elements/RegisterMainBlock/RegisterMainBlock";
 import WelcomeMainBlock from "./Elements/WelcomeMainBlock/WelcomeMainBlock";
 import PersonalPageMainBlock from "./Elements/PersonalPageMainBlock/PersonalPageMainBlock";
 import { AppAnimatedLayout } from "../../AppAnimatedLayout";
-import СommunicationMainBlock from "./Elements/СommunicationMainBlock/СommunicationMainBlockMainBlock";
+import СommunicationMainBlock from "./Elements/СommunicationMainBlock/СommunicationMainBlock";
 
 // основные страницы/блоки приложения
 const components = {

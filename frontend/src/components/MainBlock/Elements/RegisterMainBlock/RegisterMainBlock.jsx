@@ -110,25 +110,25 @@ export default function RegisterMainBlock({...props}) {
     return (  
         <div className={classes.RegisterMainBlock} {...props}>
             <form name='registerForm'>
-                <p>Придумайте имя аккаунта:</p>
+                <h4>Придумайте имя аккаунта:</h4>
                 <input
                     type='username'
                     name='username'
                     value={credentials.username}
                     onChange={handleChange}/>
-                <p>Задайте почту для привязки:</p>
+                <h4>Задайте почту для привязки:</h4>
                 <input
                     type='email'
                     name='email'
                     value={credentials.email} 
                     onChange={handleChange}/>
-                <p>А теперь придумайте пароль:</p>
+                <h4>А теперь придумайте пароль:</h4>
                 <input
                     type='password'
                     name='password'
                     value={credentials.password} 
                     onChange={handleChange}/>
-                <p>И повторите его:</p>
+                <h4>И повторите его:</h4>
                 <input
                     type='password'
                     name='passwordAgain'

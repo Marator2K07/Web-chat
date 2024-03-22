@@ -71,13 +71,13 @@ export default function LoginMainBlock({...props}) {
     return (
         <div className={classes.LoginMainBlock} {...props}>
             <form name='loginForm'>
-                <p>Введите имя аккаунта:</p>
+                <h4>Введите имя аккаунта:</h4>
                 <input
                     type='username'
                     name='username'
                     value={credentials.username}
                     onChange={handleChange}/>
-                <p>А теперь пароль:</p>    
+                <h4>А теперь пароль:</h4>    
                 <input
                     type='password'
                     name='password'
