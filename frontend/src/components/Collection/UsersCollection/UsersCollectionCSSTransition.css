@@ -1,0 +1,22 @@
+/* Start of CSSTransition for UsersCollection className */
+.UsersCollection-enter {
+    opacity: 0;
+}  
+.UsersCollection-enter-active {
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+.UsersCollection-enter-done {
+    opacity: 1;
+}
+.UsersCollection-exit {
+    opacity: 1;
+}
+.UsersCollection-exit-active {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+.UsersCollection-exit-done {
+    opacity: 0;
+}
+/* End of CSSTransition for UsersCollection className */
