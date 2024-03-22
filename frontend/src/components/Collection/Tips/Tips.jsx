@@ -2,7 +2,7 @@ import React from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classes from './Tips.module.css'
 import './TipsCSSTransition.css';
-import { MEDIUM_DELAY, SHORT_TIMEOUT } from '../../../constants';
+import { SHORT_TIMEOUT } from '../../../constants';
 
 export default function Tips({tips, ...props}) {
     // если подсказок нет, то и отображать ничего не нужно

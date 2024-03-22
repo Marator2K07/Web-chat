@@ -1,0 +1,22 @@
+/* Start of CSSTransition for RoomsCollection className */
+.RoomsCollection-enter {
+    opacity: 0;
+}  
+.RoomsCollection-enter-active {
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+.RoomsCollection-enter-done {
+    opacity: 1;
+}
+.RoomsCollection-exit {
+    opacity: 1;
+}
+.RoomsCollection-exit-active {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+.RoomsCollection-exit-done {
+    opacity: 0;
+}
+/* End of CSSTransition for RoomsCollection className */

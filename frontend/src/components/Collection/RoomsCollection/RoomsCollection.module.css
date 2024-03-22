@@ -1,0 +1,28 @@
+.RoomsContainer {
+    padding: 7px;
+    min-width: 222px;
+    min-height: 38px;
+    border-right: 2px solid rgb(180, 188, 196); 
+    color: rgb(232,240,254);
+}
+
+.RoomsContainer h3 {
+    color: rgb(255, 140, 100);
+    margin-bottom: 3px;
+    margin: 10px 0px;
+    font-weight: 600;
+    font-family: emoji;
+    font-size: 22px;
+}
+
+.RoomsContainer h4 {
+    color: rgb(255, 140, 100);
+    margin: 0px 0px;
+    font-weight: 400;
+    font-family: emoji;
+    font-size: 20px;
+}
+
+.RoomsContainer form p {
+    color: rgb(232,240,254);
+}
