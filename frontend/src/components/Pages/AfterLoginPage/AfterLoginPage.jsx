@@ -32,7 +32,7 @@ export default function AfterLoginPage({...props}) {
         leftCondition,
         rightCondition
     } = useMainBlockAnimationContext();    
-    const { loadUser, loadAboutUser } = useUserContext();
+    const { loadUser, loadAboutUser, loadRooms } = useUserContext();
 
     const [headerText, setHeaderText] = useState('Добро пожаловать');
     const [currentMainBlock, setCurrentMainBlock] = useState('welcome');
@@ -66,6 +66,7 @@ export default function AfterLoginPage({...props}) {
                 response.data.aboutUser.dateOfBirth =
                     dayjs(response.data.aboutUser.dateOfBirth).format(DATE_FORMAT);
                 loadAboutUser(response.data.aboutUser);
+                loadRooms(response.data.rooms);
                 toggleHolding(false, SHORT_DELAY);
             },
             () => {
