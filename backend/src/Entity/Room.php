@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\RoomRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -29,9 +30,16 @@ class Room
     #[ORM\Column]
     private ?bool $dialog = null;
 
+    #[ORM\OneToMany(mappedBy: 'room', targetEntity: Message::class)]
+    private Collection $messages;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $last_message_date = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -86,6 +94,48 @@ class Room
     public function setDialog(bool $dialog): static
     {
         $this->dialog = $dialog;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): static
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages->add($message);
+            $message->setRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): static
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getRoom() === $this) {
+                $message->setRoom(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLastMessageDate(): ?\DateTimeInterface
+    {
+        return $this->last_message_date;
+    }
+
+    public function setLastMessageDate(?\DateTimeInterface $last_message_date): static
+    {
+        $this->last_message_date = $last_message_date;
 
         return $this;
     }
