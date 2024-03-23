@@ -14,7 +14,7 @@ export const UserProvider = ({ children, ...props }) => {
 export function useUserContext() {
     const context = React.useContext(Context);
     if (!context) {
-        throw new Error('Use user provider within provider');
+        throw new Error('Use user context within provider');
     } 
     return context;
 }

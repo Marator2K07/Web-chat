@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react"
 
 export const useCreateNavigationContext = function() {
-    const [headerText, setHeaderText] = useState("Вход в аккаунт");
-    const [mainBlock, setMainBlock] = useState('login');
-    const [index, setIndex] = useState(null);    
+    const [headerText, setHeaderText] = useState();
+    const [mainBlock, setMainBlock] = useState();
+    const [index, setIndex] = useState();    
 
     const goNavigation = useCallback((header, block, index) => {
         setHeaderText(header);

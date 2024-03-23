@@ -14,7 +14,7 @@ export const ResponseHandlerProvider = ({ children, ...props }) => {
 export function useResponseHandlerContext() {
     const context = React.useContext(Context);
     if (!context) {
-        throw new Error('Use response handler provider within provider');
+        throw new Error('Use response handler context within provider');
     } 
     return context;
 }

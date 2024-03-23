@@ -25,7 +25,6 @@ export default function OkResponse({message,
                 } 
                 <p>{message.addition}</p>
             </div>  
-
             {
                 message.holding &&
                 <Buttons>

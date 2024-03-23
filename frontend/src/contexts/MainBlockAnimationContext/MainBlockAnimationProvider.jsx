@@ -14,7 +14,7 @@ export const MainBlockAnimationProvider = ({ children, ...props }) => {
 export function useMainBlockAnimationContext() {
     const context = React.useContext(Context);
     if (!context) {
-        throw new Error('Use main block animation provider within provider');
+        throw new Error('Use main block animation context within provider');
     } 
     return context;
 }

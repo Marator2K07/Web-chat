@@ -14,7 +14,7 @@ export const LoadingProvider = ({ children, ...props }) => {
 export function useLoadingContext() {
     const context = React.useContext(Context);
     if (!context) {
-        throw new Error('Use loading provider within provider');
+        throw new Error('Use loading context within provider');
     } 
     return context;
 }
