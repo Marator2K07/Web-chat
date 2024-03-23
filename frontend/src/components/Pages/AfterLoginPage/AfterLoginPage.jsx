@@ -61,7 +61,7 @@ export default function AfterLoginPage({...props}) {
             <NavList
                 currentIndex={index}
                 minIndex={2}
-                maxIndex={5}/>  
+                maxIndex={6}/>  
             <MainBlock/>
             <DownBlock/>
         </div>

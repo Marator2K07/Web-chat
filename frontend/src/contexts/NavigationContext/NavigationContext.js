@@ -8,7 +8,8 @@ export const useCreateNavigationContext = function() {
         registerBlock: {path: 'register', description: 'Регистрация', index: 1},
         welcomeBlock: {path: 'welcome', description: 'Добро пожаловать', index: 2},
         personalBlock: {path: 'personal', description: 'Личная страница', index: 3},
-        communicationBlock: {path: 'communication', description: 'Общение', index: 4}
+        communicationBlock: {path: 'communication', description: 'Общение', index: 4},
+        newsBlock: {path: 'news', description: 'Новости', index: 5}
     }) 
     const {initCondition, leftCondition, rightCondition} = useMainBlockAnimationContext();
     const [headerText, setHeaderText] = useState('Вход в аккаунт');
