@@ -20,7 +20,7 @@ export default function UserItem({user,
             </div>
             {
                 buttonName &&
-                <button type="button" onClick={buttonHandler}>
+                <button type="button" onClick={() => buttonHandler(user)}>
                     {buttonName}
                 </button>
             }            
