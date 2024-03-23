@@ -30,11 +30,17 @@ class Room
     #[ORM\Column]
     private ?bool $dialog = null;
 
+    #[Groups('messages')]
     #[ORM\OneToMany(mappedBy: 'room', targetEntity: Message::class)]
     private Collection $messages;
 
+    #[Groups('room')]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $last_message_date = null;
+
+    #[Groups('room')]
+    #[ORM\Column]
+    private ?bool $for_news = null;
 
     public function __construct()
     {
@@ -136,6 +142,18 @@ class Room
     public function setLastMessageDate(?\DateTimeInterface $last_message_date): static
     {
         $this->last_message_date = $last_message_date;
+
+        return $this;
+    }
+
+    public function isForNews(): ?bool
+    {
+        return $this->for_news;
+    }
+
+    public function setForNews(bool $for_news): static
+    {
+        $this->for_news = $for_news;
 
         return $this;
     }
