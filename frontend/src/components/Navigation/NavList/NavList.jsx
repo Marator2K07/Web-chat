@@ -4,26 +4,27 @@ import NavItem from '../NavItem/NavItem'
 import { CSSTransition } from 'react-transition-group';
 import './NavListCSSTransition.css';
 import { SHORT_TIMEOUT } from '../../../constants';
+import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
 
-export default function NavList({handleNavigate,
-                                 blocksData,
-                                 currentIndex,
+export default function NavList({currentIndex,
+                                 minIndex,
+                                 maxIndex,
                                  ...props}) {
+    const { blocksData } = useNavigationContext();
+
     return (
         <div className={classes.NavList} {...props}>
-            {Object.keys(blocksData).map((key, index) => (
+            {Object.keys(blocksData)
+                .slice(minIndex, maxIndex)
+                .map((key, index) => (
                 <CSSTransition 
                     key={index}
-                    in={currentIndex !== index}
+                    in={currentIndex !== blocksData[key].index}
                     timeout={SHORT_TIMEOUT}
                     classNames="NavList">
-                    <div key={key}>
-                        <NavItem 
-                            root={key}
-                            description={blocksData[key].description}
-                            index={index}
-                            handleNavigate={handleNavigate}/>
-                    </div>
+                    <NavItem 
+                        root={key}
+                        description={blocksData[key].description}/>
                 </CSSTransition>
             ))}
         </div>
