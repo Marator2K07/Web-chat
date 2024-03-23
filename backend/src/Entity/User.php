@@ -55,9 +55,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Room::class, inversedBy: 'users')]
     private Collection $rooms;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?BlackList $blackList = null;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?SubscribersList $subscribersList = null;
+
     public function __construct()
     {
         $this->rooms = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -198,6 +206,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeRoom(Room $room): static
     {
         $this->rooms->removeElement($room);
+
+        return $this;
+    }
+    public function getBlackList(): ?BlackList
+    {
+        return $this->blackList;
+    }
+
+    public function setBlackList(?BlackList $blackList): static
+    {
+        $this->blackList = $blackList;
+
+        return $this;
+    }
+
+    public function getSubscribersList(): ?SubscribersList
+    {
+        return $this->subscribersList;
+    }
+
+    public function setSubscribersList(?SubscribersList $subscribersList): static
+    {
+        $this->subscribersList = $subscribersList;
 
         return $this;
     }
