@@ -1,0 +1,22 @@
+/* Start of CSSTransition for MessagesCollection className */
+.MessagesCollection-enter {
+    opacity: 0;
+}  
+.MessagesCollection-enter-active {
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+.MessagesCollection-enter-done {
+    opacity: 1;
+}
+.MessagesCollection-exit {
+    opacity: 1;
+}
+.MessagesCollection-exit-active {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+.MessagesCollection-exit-done {
+    opacity: 0;
+}
+/* End of CSSTransition for MessagesCollection className */
