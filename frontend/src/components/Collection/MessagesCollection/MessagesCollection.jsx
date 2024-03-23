@@ -3,6 +3,7 @@ import classes from './MessagesCollection.module.css'
 import './MessagesCollectionCSSTransition.css'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { MEDIUM_TIMEOUT } from '../../../constants'
+import MessageItem from './MessageItem/MessageItem';
 
 export default function MessagesCollection({messages,
                                             clue,
@@ -16,7 +17,7 @@ export default function MessagesCollection({messages,
                             key={index}
                             timeout={MEDIUM_TIMEOUT}
                             classNames="MessagesCollection">
-                                
+                                <MessageItem message={messages[key]}/>
                         </CSSTransition>
                     ))}
             </TransitionGroup>        
