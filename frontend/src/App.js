@@ -8,6 +8,7 @@ import { ResponseHandlerProvider } from './contexts/ResponseHandlerContext/Respo
 import { AnimatePresence } from 'framer-motion';
 import './App.css';
 import { MainBlockAnimationProvider } from './contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
+import { NavigationProvider } from './contexts/NavigationContext/NavigationProvider';
 
 function App() {
 	const location = useLocation();
@@ -17,6 +18,7 @@ function App() {
 			<LoadingProvider>
 			<ResponseHandlerProvider>
 			<MainBlockAnimationProvider>
+			<NavigationProvider>
 			<AnimatePresence mode='wait' initial={false}>				
 				<Routes location={location} key={location.pathname}>
 					<Route path="/" element={
@@ -32,6 +34,7 @@ function App() {
 					}/>					
 				</Routes>
 			</AnimatePresence>
+			</NavigationProvider>
 			</MainBlockAnimationProvider>	
 			</ResponseHandlerProvider>				
 			</LoadingProvider>
