@@ -60,7 +60,7 @@ class RegistrationController extends AbstractController
             'holding' => true,
             'button' => [
                 'text' => 'Перейти ко входу',
-                'key' => 'loginRoot'
+                'key' => 'loginBlock'
             ]
         ]);
     }
