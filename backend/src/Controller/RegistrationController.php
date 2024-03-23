@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\AboutUser;
+use App\Entity\BlackList;
+use App\Entity\Room;
+use App\Entity\SubscribersList;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\EMailer;
@@ -48,10 +51,33 @@ class RegistrationController extends AbstractController
         $aboutUser = new AboutUser();
         // по умолчанию имя пользователя = имя аккаунта
         $aboutUser->setName($data['username']);
-        $user->setAboutUser($aboutUser);
+        $user->setAboutUser($aboutUser);      
 
+        // инициализируем комнату для новостей
+        $room = new Room();
+        $room->setName('Новости пользователя'.$user->getUsername());
+        $room->setDialog(false);
+        $room->setForNews(true);        
+        $room->addUser($user);
+
+        $entityManager->persist($room);
         $entityManager->persist($user);
-        $entityManager->flush();        
+        $entityManager->flush();    
+        
+        // инициализируем список подписчиков
+        $subscribersList = new SubscribersList();
+        $subscribersList->setOwner($user);
+        $user->setSubscribersList($subscribersList);
+        $entityManager->persist($subscribersList);
+        $entityManager->flush();  
+        
+        // инициализируем черный список
+        $blackList = new BlackList();
+        $blackList->setOwner($user);        
+        $user->setBlackList($blackList);
+        $entityManager->persist($blackList);
+        $entityManager->flush(); 
+        
         $emailer->sendConfirmMessage($user, $userActivationKey);
 
         return new JsonResponse(['status' => 'Ok',
