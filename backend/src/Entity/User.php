@@ -63,7 +63,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?BlackList $blackList = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?SubscribersList $subscribersList = null;
 
     public function __construct()
