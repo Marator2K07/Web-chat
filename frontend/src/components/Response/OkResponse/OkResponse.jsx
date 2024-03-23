@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components';
 import classes from './OkResponse.module.css'
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
+import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
 
-export default function OkResponse({message,
-                                    handleNavigate,
-                                    ...props}) {
+export default function OkResponse({message, ...props}) {
+    const { goNavigation } = useNavigationContext();
     const { toggleHolding } = useLoadingContext();
     const Buttons = styled.div`
     display: flex;
@@ -41,7 +41,7 @@ export default function OkResponse({message,
                             type="button"
                             onClick={() => {
                                     toggleHolding(false, 0);
-                                    handleNavigate(message.button.key); 
+                                    goNavigation(message.button.key); 
                                 }
                             }>
                             {message.button.text}

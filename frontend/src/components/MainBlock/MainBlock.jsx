@@ -9,10 +9,10 @@ import { useNavigate } from 'react-router-dom';
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider';
 import { useMainBlockAnimationContext } from '../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 import { AFTER_LOGIN_ROUTE, SHORT_DELAY, SHORT_TIMEOUT } from '../../constants';
+import { useNavigationContext } from '../../contexts/NavigationContext/NavigationProvider';
 
-export default function MainBlock({handleNavigate, 
-                                   currentMainBlock,
-                                   ...props}) {
+export default function MainBlock({...props}) {
+    const { mainBlock } = useNavigationContext();
     const {
         holding,
         toggleHolding,
@@ -28,7 +28,7 @@ export default function MainBlock({handleNavigate,
     useEffect(() => {
         let username = cookies.get('username');
         let token = cookies.get('token');
-        if (username && token && currentMainBlock === 'login') {
+        if (username && token && mainBlock === 'login') {
             startLoading();            
             setTimeout(() => {
                 stopLoading();
@@ -38,7 +38,7 @@ export default function MainBlock({handleNavigate,
         }   
     }, [
         navigate,
-        currentMainBlock,
+        mainBlock,
         startLoading,
         stopLoading,
         toggleHolding
@@ -52,16 +52,14 @@ export default function MainBlock({handleNavigate,
               duration: duration,
               ease: [0.11, 0.9, 0.4, 1.11]
             }}>
-                <DynamicComponent component={currentMainBlock}/>
+                <DynamicComponent component={mainBlock}/>
             </motion.div>
             <CSSTransition
                 in={holding}
                 nodeRef={nodeRef}
                 timeout={SHORT_TIMEOUT}
                 classNames="LoadingBlock">
-                <LoadingBlock 
-                    innerRef={nodeRef}
-                    handleNavigate={handleNavigate}/>
+                <LoadingBlock innerRef={nodeRef}/>
             </CSSTransition>
         </div>
     )

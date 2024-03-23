@@ -8,9 +8,7 @@ import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider
 import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext/ResponseHandlerProvider'
 import { SALMON_COLOR } from '../../constants'
 
-export default function LoadingBlock({innerRef,
-                                      handleNavigate,
-                                      ...props}) {   
+export default function LoadingBlock({innerRef, ...props}) {   
     const { loading } = useLoadingContext(); 
     const { response, error } = useResponseHandlerContext();                                      
 
@@ -29,9 +27,7 @@ export default function LoadingBlock({innerRef,
             { 
                 response && 
                 response.data && 
-                <OkResponse
-                    handleNavigate={handleNavigate}
-                    message={response.data}/>
+                <OkResponse message={response.data}/>
             }
         </div>
     )

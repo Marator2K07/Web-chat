@@ -1,8 +1,11 @@
 import { React } from 'react'
 import classes from './TopBlock.module.css'
 import AccountImageButton from './AccountImageButton/AccountImageButton';
+import { useNavigationContext } from '../../contexts/NavigationContext/NavigationProvider';
 
-const TopBlock = ({headerText, ...props}) => {
+const TopBlock = ({...props}) => {
+    const { headerText } = useNavigationContext();
+
     return (
         <div className={classes.TopBlock} {...props}>
             <div className='left'>
