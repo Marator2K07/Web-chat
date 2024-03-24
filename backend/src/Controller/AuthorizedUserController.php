@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\RoomRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,6 +43,32 @@ class AuthorizedUserController extends AbstractController
                 ))
             ]);
         }
+    }
+    
+    #[Route('/authorized_user/news/messages/get/{username}',
+        name: 'app_authorized_user_get_news_messages', methods: 'GET')]
+    public function getNewsMessages(string $username,
+                                    SerializerInterface $serializer,
+                                    UserRepository $userRepository,
+                                    RoomRepository $roomRepository): JsonResponse 
+    {
+        $user = $userRepository->findOneByUsernameField($username);
+        if (!$user) {
+            throw new HttpException(422, 'Не удалось получить данные о пользователе');
+        } 
+        
+        $room = $roomRepository->findOneByNewsField();
+        if (!$room) {
+            throw new HttpException(422, 'Не удалось получить данные о комнате общения');
+        } 
+
+        return new JsonResponse([
+            'messages' => json_decode(
+                $serializer->serialize(
+                    $room->getMessages(),
+                    'json', ['depth' => 1]
+            ))
+        ]);
     }
 
     #[Route('/authorized_user/update/{username}', name: 'app_authorized_update_user', methods: 'POST')]
