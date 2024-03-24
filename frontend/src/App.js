@@ -9,37 +9,41 @@ import { AnimatePresence } from 'framer-motion';
 import './App.css';
 import { MainBlockAnimationProvider } from './contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 import { NavigationProvider } from './contexts/NavigationContext/NavigationProvider';
+import { ANOTHER_USER_ROUTE } from './constants';
+import OtherUserPage from './components/Pages/OtherUserPage/OtherUserPage';
 
 function App() {
-	const location = useLocation();
-
-	return (    
-		<div className="App">			
-			<LoadingProvider>
-			<ResponseHandlerProvider>
-			<MainBlockAnimationProvider>
-			<NavigationProvider>
-			<AnimatePresence mode='wait' initial={false}>				
-				<Routes location={location} key={location.pathname}>
-					<Route path="/" element={
-						<UserProvider>
-							<BeforeLoginPage/>
-						</UserProvider>						
-					}/> 
-					<Route path="user_activation" element={<UserActivationPage/>}/>
-					<Route path="authorized_user/:username" element={
-						<UserProvider>
-							<AfterLoginPage/>
-						</UserProvider>												
-					}/>					
-				</Routes>
-			</AnimatePresence>
-			</NavigationProvider>
-			</MainBlockAnimationProvider>	
-			</ResponseHandlerProvider>				
-			</LoadingProvider>
-		</div>
-	);
+    const location = useLocation();
+    return (    
+        <div className="App">			
+            <LoadingProvider>
+            <ResponseHandlerProvider>
+            <MainBlockAnimationProvider>
+            <NavigationProvider>
+            <UserProvider>
+            <AnimatePresence mode='wait' initial={false}>				
+                <Routes location={location} key={location.pathname}>
+                    <Route path="/" element={
+                        <BeforeLoginPage/>
+                    }/> 
+                    <Route path="user_activation" element={
+                        <UserActivationPage/>
+                    }/>
+                    <Route path="authorized_user/:username" element={
+                        <AfterLoginPage/>
+                    }/>
+                    <Route path={`${ANOTHER_USER_ROUTE}`} element={
+                        <OtherUserPage/>                        
+                    }/>
+                </Routes>
+            </AnimatePresence>
+            </UserProvider>
+            </NavigationProvider>
+            </MainBlockAnimationProvider>	
+            </ResponseHandlerProvider>				
+            </LoadingProvider>
+    	</div>
+    );
 }
 
 export default App;
