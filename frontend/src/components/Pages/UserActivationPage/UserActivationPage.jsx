@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { LONG_DELAY, USER_ACTIVATION_URL } from '../../../constants';
+import { LONG_DELAY, SHORT_TIMEOUT, USER_ACTIVATION_URL } from '../../../constants';
 
 export default function UserActivationPage({...props}) { 
     const { 
@@ -21,9 +21,7 @@ export default function UserActivationPage({...props}) {
 
     // обработка активации
     const handleActivation = async () => {
-        var confirmToken = searchParams.get('key');
-
-        // основная часть
+        let confirmToken = searchParams.get('key');
         startLoading();
         resetResult();
         makePostRequest(
@@ -47,7 +45,7 @@ export default function UserActivationPage({...props}) {
             <CSSTransition 
                 in={holding}
                 nodeRef={nodeRef}
-                timeout={333}
+                timeout={SHORT_TIMEOUT}
                 classNames="LoadingBlock">
                 <LoadingBlock innerRef={nodeRef}/>
             </CSSTransition>

@@ -4,8 +4,9 @@ import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvi
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { useSearchParams } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
-import { GET_ANOTHER_USER_URL, LONG_DELAY } from '../../../constants';
+import { GET_OTHER_USER_URL , SHORT_DELAY, SHORT_TIMEOUT } from '../../../constants';
 import LoadingBlock from '../../LoadingBlock/LoadingBlock';
+import DownBlock from '../../DownBlock/DownBlock';
 
 export default function OtherUserPage({...props}) {
     const { 
@@ -26,13 +27,13 @@ export default function OtherUserPage({...props}) {
         startLoading();
         resetResult();
         makeGetRequest(
-            `${GET_ANOTHER_USER_URL}/${username}`,
+            `${GET_OTHER_USER_URL }/${username}`,
             (response) => {
                 console.log(response.data);
                 setUser(response.data);
-                toggleHolding(false, LONG_DELAY);
+                toggleHolding(false, SHORT_DELAY);
             },
-            toggleHolding(false, LONG_DELAY)
+            toggleHolding(false, SHORT_DELAY)
         );
         stopLoading();
     }
@@ -49,10 +50,11 @@ export default function OtherUserPage({...props}) {
             <CSSTransition 
                 in={holding}
                 nodeRef={nodeRef}
-                timeout={333}
+                timeout={SHORT_TIMEOUT}
                 classNames="LoadingBlock">
                 <LoadingBlock innerRef={nodeRef}/>
             </CSSTransition>
+            <DownBlock/>
         </div>
     )
 }
