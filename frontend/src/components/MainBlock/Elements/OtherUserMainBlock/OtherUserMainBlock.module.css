@@ -1,4 +1,4 @@
-.PersonalMainBlock {
+.OtherUserMainBlock {
     padding: 12px 15px;
     height: max-content;
     max-width: 444px; 
@@ -6,14 +6,10 @@
     border: 2px solid rgb(255, 140, 100);    
     border-radius: 10px;
     font-weight: 400;
-    margin-bottom: 5px;
-    font-family: emoji;
-    font-size: 19px; 
-    text-align: center;  
-    color: rgb(232,240,254);  
+    margin-bottom: 5px;     
 }
 
-.PersonalMainBlock h4 {
+.OtherUserMainBlock h4 {
     color: rgb(255, 140, 100);
     margin-top: 3px;
     margin-bottom: 3px;
@@ -23,7 +19,7 @@
     text-align: center;
 }
 
-.PersonalMainBlock p {    
+.OtherUserMainBlock p {    
     margin-top: 3px;
     font-family: emoji;
     font-size: 19px; 
@@ -31,7 +27,7 @@
     color: rgb(232,240,254); 
 }
 
-.PersonalMainBlock img {
+.OtherUserMainBlock img {
     min-width: 222px;
     min-height: 222px;
     max-height: 333px;
