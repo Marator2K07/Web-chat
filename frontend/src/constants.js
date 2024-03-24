@@ -5,6 +5,7 @@ export const USER_ACTIVATION_URL = "/account_activation";
 export const GET_ALL_USER_INFO_URL = "/authorized_user/get";
 export const UPDATE_ABOUT_USER_URL = "/authorized_user/update";
 export const GET_USER_NEWS_MESSAGES_URL = "/authorized_user/news/messages/get";
+export const GET_MESSAGES_FOR_ROOM_URL = "/message/all/get"
 export const USERS_SEARCH_URL = "/user/all/search";
 
 export const AFTER_LOGIN_ROUTE = "/authorized_user"

@@ -3,8 +3,7 @@ import classes from './MessagesBlock.module.css'
 import { useUserContext } from '../../contexts/UserContext/UserProvider'
 import MessagesCollection from '../Collection/MessagesCollection/MessagesCollection';
 import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { GET_USER_NEWS_MESSAGES_URL } from '../../constants';
-import { cookies } from '../../contexts/CookieContext';
+import { GET_MESSAGES_FOR_ROOM_URL } from '../../constants';
 
 export default function MessagesBlock({...props}) {
     const { resetResult, makeGetRequest } = useResponseHandlerContext();
@@ -15,7 +14,7 @@ export default function MessagesBlock({...props}) {
     const updateMessages = async() => {
         resetResult();
         await makeGetRequest(
-            `${GET_USER_NEWS_MESSAGES_URL}/${cookies.get('username')}`,
+            `${GET_MESSAGES_FOR_ROOM_URL}/${roomForNews.id}`,
             (response) => {
                 setMessages(response.data.messages);
                 console.log(response.data.messages);
