@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -36,5 +37,32 @@ class UserWithAboutUserController extends AbstractController
                 $serializer->serialize($infos, 'json')
             )
         ]);
+    }
+
+    #[Route('/user/get/{username}', name: 'app_user_get', methods: 'GET')]
+    public function anotherUser(string $username, 
+                                SerializerInterface $serializer,
+                                UserRepository $userRepository): JsonResponse
+    {
+        $user = $userRepository->findOneByUsernameField($username);
+
+        if (!$user) {
+            throw new HttpException(422, 'Не удалось обновить данные');
+        } else {
+            return new JsonResponse([
+                'status' => 'Ok',                
+                'main' => 'Пользователь загружен.',
+                'holding' => false,
+                'user' => [
+                    'id' => $user->getId(),
+                    'username' => $user->getUsername(),
+                    'roles' => $user->getRoles()
+                ],
+                'aboutUser' => json_decode(
+                    $serializer->serialize(
+                    $user->getAboutUser(), 'json'
+                ))
+            ]);
+        }
     }
 }
