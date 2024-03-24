@@ -6,6 +6,7 @@ import PersonalMainBlock from "./Elements/PersonalMainBlock/PersonalMainBlock";
 import { AppAnimatedLayout } from "../../AppAnimatedLayout";
 import СommunicationMainBlock from "./Elements/СommunicationMainBlock/СommunicationMainBlock";
 import NewsMainBlock from "./Elements/NewsMainBlock/NewsMainBlock";
+import OtherUserMainBlock from "./Elements/OtherUserMainBlock/OtherUserMainBlock";
 
 // основные страницы/блоки приложения
 const components = {
@@ -14,7 +15,8 @@ const components = {
     welcome: WelcomeMainBlock,
     personal: PersonalMainBlock,
     communication: СommunicationMainBlock, 
-    news: NewsMainBlock
+    news: NewsMainBlock,
+    otherUser: OtherUserMainBlock
 }
 // посредник, через который мы сможем рендерить нужный компонент
 function DynamicComponent(props) {
