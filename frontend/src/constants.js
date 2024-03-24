@@ -8,6 +8,7 @@ export const GET_USER_NEWS_MESSAGES_URL = "/authorized_user/news/messages/get";
 export const GET_MESSAGES_FOR_ROOM_URL = "/message/all/get"
 export const USERS_SEARCH_URL = "/user/all/search";
 export const GET_OTHER_USER_URL  = "/user/get"
+export const NEW_MESSAGE_URL = "/message/new"
 
 export const OTHER_USER_ROUTE = "/other_user"
 export const AFTER_LOGIN_ROUTE = "/authorized_user"

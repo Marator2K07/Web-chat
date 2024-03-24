@@ -1,0 +1,25 @@
+.MessagesBlock {
+    min-width: 500px;
+    max-width: 500px;
+    min-height: min-content;
+    max-height: 550px;
+}
+
+.MessagesBlock h4 {
+    color: rgb(255, 140, 100);
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-family: emoji;
+    font-weight: 400;
+    font-size: 20px; 
+    text-align: center;
+}
+
+.MessagesBlock input {
+    width: 72%;
+    margin-right: 0px;
+}
+
+.MessagesBlock button {
+    margin-right: 10px;
+}
