@@ -18,8 +18,7 @@ class BlackList
     #[ORM\OneToMany(mappedBy: 'blackList', targetEntity: User::class)]
     private Collection $users;
 
-    #[ORM\OneToOne(inversedBy: 'blackList', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\OneToOne(inversedBy: 'blackList', cascade: ['persist'])]
     private ?User $owner = null;
 
     public function __construct()

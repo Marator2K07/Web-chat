@@ -19,7 +19,6 @@ class SubscribersList
     private Collection $users;
 
     #[ORM\OneToOne(inversedBy: 'subscribersList', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;
 
     public function __construct()
