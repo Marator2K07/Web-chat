@@ -9,11 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[Groups('user')]
+    #[Groups(['user', 'room'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -51,17 +52,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?AboutUser $about_user = null;
 
+    #[MaxDepth(1)]
     #[Groups('rooms')]
     #[ORM\ManyToMany(targetEntity: Room::class, inversedBy: 'users')]
     private Collection $rooms;
 
+    #[MaxDepth(1)]
     #[Groups('messages')]
     #[ORM\OneToMany(mappedBy: 'sender', targetEntity: Message::class)]
     private Collection $messages;
 
+    #[MaxDepth(1)]
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?BlackList $blackList = null;
 
+    #[MaxDepth(1)]
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?SubscribersList $subscribersList = null;
 

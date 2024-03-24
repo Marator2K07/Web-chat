@@ -6,6 +6,7 @@ use App\Repository\SubscribersListRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity(repositoryClass: SubscribersListRepository::class)]
 class SubscribersList
@@ -15,9 +16,11 @@ class SubscribersList
     #[ORM\Column]
     private ?int $id = null;
 
+    #[MaxDepth(1)]
     #[ORM\OneToMany(mappedBy: 'subscribersList', targetEntity: User::class)]
     private Collection $users;
 
+    #[MaxDepth(1)]
     #[ORM\OneToOne(inversedBy: 'subscribersList', cascade: ['persist', 'remove'])]
     private ?User $owner = null;
 

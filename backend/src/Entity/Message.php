@@ -5,25 +5,32 @@ namespace App\Entity;
 use App\Repository\MessageRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
 class Message
 {
+    #[Groups('room')]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups('room')]
     #[ORM\Column(length: 322)]
     private ?string $information = null;
 
+    #[Groups('room')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dispatch_time = null;
-
+    
+    #[Groups('room')]
     #[ORM\ManyToOne(inversedBy: 'messages')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $sender = null;
-
+    
+    #[MaxDepth(1)]
     #[ORM\ManyToOne(inversedBy: 'messages')]
     private ?Room $room = null;
 

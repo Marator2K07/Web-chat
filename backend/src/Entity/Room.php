@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
 class Room
@@ -22,6 +23,7 @@ class Room
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[MaxDepth(1)]
     #[Groups('users')]
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'rooms')]
     private Collection $users;
@@ -30,7 +32,7 @@ class Room
     #[ORM\Column]
     private ?bool $dialog = null;
 
-    #[Groups('messages')]
+    #[Groups('room')]
     #[ORM\OneToMany(mappedBy: 'room', targetEntity: Message::class)]
     private Collection $messages;
 
