@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { CSSTransition } from 'react-transition-group';
 import classes from './MainBlock.module.css'
 import LoadingBlock from '../LoadingBlock/LoadingBlock';
@@ -23,11 +23,10 @@ export default function MainBlock({...props}) {
     const nodeRef = useRef(null);  
     const navigate = useNavigate();
 
-    // автоматический переход на страницу аккаунта в случае 
-    // не выхода из аккаунта и закрытии браузера
-    useEffect(() => {
+    const smartNav = useCallback(() => {
         let username = cookies.get('username');
         let token = cookies.get('token');
+        console.log(mainBlock);
         if (username && token && mainBlock === 'login') {
             startLoading();            
             setTimeout(() => {
@@ -35,13 +34,19 @@ export default function MainBlock({...props}) {
                 toggleHolding(false, 0);
                 navigate(`${AFTER_LOGIN_ROUTE}/${username}`, { replace: true });                
             }, SHORT_DELAY);
-        }   
-    }, [
-        navigate,
+        } 
+    }, [navigate,
         mainBlock,
         startLoading,
         stopLoading,
-        toggleHolding
+        toggleHolding]); 
+
+    // автоматический переход на страницу аккаунта в случае 
+    // не выхода из аккаунта и закрытии браузера
+    useEffect(() => {
+        smartNav();
+    }, [
+        smartNav
     ]);    
 
     return (
