@@ -57,7 +57,7 @@ class AuthorizedUserController extends AbstractController
             throw new HttpException(422, 'Не удалось получить данные о пользователе');
         } 
         
-        $room = $roomRepository->findOneByNewsField();
+        $room = $roomRepository->findOneByNewsFieldForUser($user);
         if (!$room) {
             throw new HttpException(422, 'Не удалось получить данные о комнате общения');
         } 
