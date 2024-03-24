@@ -2,5 +2,15 @@
     background-color: rgb(232,240,254);
     border: 2px solid rgb(74, 77, 82);
     border-radius: 10px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     color: black;
+}
+
+.MessagesCollection TransitionGroup {
+    display: flex;
+    flex-direction: row;
 }
