@@ -1,4 +1,4 @@
-.PersonalPageMainBlock {
+.PersonalMainBlock {
     padding: 12px 15px;
     height: max-content;
     max-width: 444px; 
@@ -13,17 +13,17 @@
     color: rgb(232,240,254);  
 }
 
-.PersonalPageMainBlock h4 {
+.PersonalMainBlock h4 {
     color: rgb(255, 140, 100);
     margin-bottom: 3px;
     margin-top: 10px;
 }
 
-.PersonalPageMainBlock p {    
+.PersonalMainBlock p {    
     margin-top: 3px;
 }
 
-.PersonalPageMainBlock img {
+.PersonalMainBlock img {
     min-width: 222px;
     min-height: 222px;
     max-height: 333px;

@@ -2,7 +2,7 @@ import React from "react";
 import LoginMainBlock from "./Elements/LoginMainBlock/LoginMainBlock";
 import RegisterMainBlock from "./Elements/RegisterMainBlock/RegisterMainBlock";
 import WelcomeMainBlock from "./Elements/WelcomeMainBlock/WelcomeMainBlock";
-import PersonalPageMainBlock from "./Elements/PersonalPageMainBlock/PersonalPageMainBlock";
+import PersonalMainBlock from "./Elements/PersonalMainBlock/PersonalMainBlock";
 import { AppAnimatedLayout } from "../../AppAnimatedLayout";
 import СommunicationMainBlock from "./Elements/СommunicationMainBlock/СommunicationMainBlock";
 import NewsMainBlock from "./Elements/NewsMainBlock/NewsMainBlock";
@@ -12,7 +12,7 @@ const components = {
     register: RegisterMainBlock,
     login: LoginMainBlock,
     welcome: WelcomeMainBlock,
-    personal: PersonalPageMainBlock,
+    personal: PersonalMainBlock,
     communication: СommunicationMainBlock, 
     news: NewsMainBlock
 }

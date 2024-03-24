@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import classes from './PersonalPageMainBlock.module.css'
+import classes from './PersonalMainBlock.module.css'
 import { useUserContext } from '../../../../contexts/UserContext/UserProvider';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
@@ -7,7 +7,7 @@ import { SHORT_DELAY, UPDATE_ABOUT_USER_URL } from '../../../../constants';
 import { cookies } from '../../../../contexts/CookieContext';
 import { convertBlobToBase64, formParamIsEmpty } from '../../../../utils';
 
-export default function PersonalPageMainBlock({...props}) {
+export default function PersonalMainBlock({...props}) {
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();	
     const { resetResult, makePostRequest } = useResponseHandlerContext();
     const { aboutUser, loadAboutUser } = useUserContext();
@@ -63,7 +63,7 @@ export default function PersonalPageMainBlock({...props}) {
     } 
 
     return (	
-        <div className={classes.PersonalPageMainBlock} {...props}>
+        <div className={classes.PersonalMainBlock} {...props}>
             {
                 canBeChanged ? 
                 <form name='updateAboutUserForm'>
