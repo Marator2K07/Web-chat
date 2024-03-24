@@ -33,3 +33,14 @@
     max-height: 333px;
     max-width: 333px;
 }
+
+.OtherUserMainBlock label {
+    font-family: emoji;
+    font-size: 19px; 
+    text-align: center;  
+    color: rgb(232,240,254); 
+}
+
+.OtherUserMainBlock input[type=checkbox]:hover {
+    box-shadow:0px 0px 20px rgb(255, 140, 100);
+}

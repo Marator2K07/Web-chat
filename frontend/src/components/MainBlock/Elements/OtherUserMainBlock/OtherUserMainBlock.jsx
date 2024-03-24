@@ -27,6 +27,21 @@ export default function OtherUserMainBlock({...props}) {
                     <p>{bufferUser.aboutUser.secondname}</p>
                     <h4>День рождения:</h4>
                     <p>{bufferUser.aboutUser.dateOfBirth}</p>
+                    <div>
+                        <input
+                            type="checkbox"
+                            id="subscribe"
+                            name="subscribe"
+                            onChange={onSubscribeChange}/>
+                        <label for="subscribe">Подписаться на данного пользователя</label>
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            id="bad_user"
+                            name="bad_user"/>
+                        <label for="bad_user">Содержится в черном списке</label>
+                    </div>
                 </div>
                 :
                 <p>...</p>
