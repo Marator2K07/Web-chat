@@ -9,7 +9,7 @@ import { AnimatePresence } from 'framer-motion';
 import './App.css';
 import { MainBlockAnimationProvider } from './contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 import { NavigationProvider } from './contexts/NavigationContext/NavigationProvider';
-import { ANOTHER_USER_ROUTE } from './constants';
+import { OTHER_USER_ROUTE } from './constants';
 import OtherUserPage from './components/Pages/OtherUserPage/OtherUserPage';
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
                     <Route path="authorized_user/:username" element={
                         <AfterLoginPage/>
                     }/>
-                    <Route path={`${ANOTHER_USER_ROUTE}`} element={
+                    <Route path={`${OTHER_USER_ROUTE}`} element={
                         <OtherUserPage/>                        
                     }/>
                 </Routes>
