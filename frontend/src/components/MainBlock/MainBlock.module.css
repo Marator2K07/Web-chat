@@ -1,71 +1,69 @@
 .MainBlock {
-    background-color:slategrey;
+    background-color:var(--background_main_color);
     height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.MainBlock form input, .MainBlock input {
+    margin: var(--input_margin);
+    padding: var(--input_padding);
+    background-color: var(--background_third_color); 
+    width: 90%;
+
+    font-weight: var(--input_font_weight);
+    font-family: var(--input_font_family);
+    font-size: var(--input_font_size);
+
+    box-shadow: 0px 0px var(--border_width) var(--border_width) var(--main_color);
+    border-top-right-radius: var(--border_radius);
+    border-bottom-right-radius: var(--border_radius);
+}
+
 .MainBlock form input {
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 5px;
-    padding: 3px;
-    background-color: rgb(232,240,254);     
-    font-weight: 400;
-    font-family: emoji;
-    font-size: 19px;
+    color: var(--input_text_color);    
 }
 
-.MainBlock input {
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 5px;
-    padding: 3px;
-    background-color: rgb(232,240,254);     
-    font-weight: 400;
-    font-family: emoji;
-    font-size: 19px;
-}
-
-.MainBlock form input, select {
-    color: rgb(0, 0, 0);    
-}
-
-.MainBlock form button {
-    margin: 10px;
-    padding: 3px;
+.MainBlock form button, .MainBlock button {
+    margin: var(--button_margin);
+    padding: var(--button_padding);
     width: max-content;
-    background-color: rgb(232,240,254);     
-    font-weight: 400;
-    font-family: emoji;
-    font-size: 19px;
+    background-color: var(--background_second_color); 
+
+    color: var(--second_color);
+    font-weight: var(--button_font_family);
+    font-family: var(--button_font_weight);
+    font-size: var(--button_font_size);
+
+    box-shadow: 0px 0px var(--border_width) var(--border_width) var(--main_color);
+    border-top-left-radius: var(--border_radius);
+    border-bottom-left-radius: var(--border_radius);
 }
 
-.MainBlock button {
-    margin: 3px;
-    padding: 3px;
-    width: max-content;
-    background-color: rgb(232,240,254);     
-    font-weight: 400;
-    font-family: emoji;
-    font-size: 19px;
+.MainBlock form h3, .MainBlock h3 {
+    margin: var(--h3_margin);
+    padding: var(--h3_padding);
+    color: var(--second_color);
+    font-family: var(--h3_font_family);
+    font-weight: var(--h3_font_weight);
+    font-size: var(--h3_font_size);    
 }
 
-.MainBlock form h4 {
-    color: rgb(255, 140, 100);
-    margin-top: 3px;
-    margin-bottom: 3px;
-    font-weight: 400;
-    font-family: emoji;
-    font-size: 20px;
+.MainBlock form h4, .MainBlock h4 {
+    margin: var(--h4_margin);
+    padding: var(--h4_padding);
+    color: var(--second_color);
+    font-family: var(--h4_font_family);
+    font-weight: var(--h4_font_weight);
+    font-size: var(--h4_font_size);    
 }
 
-.MainBlock form p {
-    color: rgb(232,240,254);
-    margin-top: 3px;
-    margin-bottom: 3px;
-    font-weight: 400;
-    font-family: emoji;
-    font-size: 19px;
+.MainBlock form p, .MainBlock p {
+    margin: var(--p_margin);
+    padding: var(--p_padding);
+    color: var(--second_color);
+    font-family: var(--p_font_family);
+    font-weight: var(--p_font_weight);
+    font-size: var(--p_font_size);    
 }
