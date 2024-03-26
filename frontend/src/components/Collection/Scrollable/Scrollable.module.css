@@ -1,4 +1,14 @@
 .Scrollable {
-    max-height: 450px;
+    max-height: var(--max_height);
     overflow: auto;
+}
+
+.Scrollable::-webkit-scrollbar {
+    width: 10px;
+    background-color: var(--background_second_color);    
+}
+
+.Scrollable::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    border: 2px solid var(--main_color);
 }
