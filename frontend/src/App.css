@@ -1,36 +1,47 @@
-/*
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+:root {
+  --background_main_color: rgb(64, 66, 68);
+  --background_second_color: rgb(52, 54, 58);
+  --background_third_color: rgb(223, 223, 223);
+ 
+  --main_color: rgb(214, 124, 255);
+  --second_color: rgb(233, 185, 255);  
+  --third_color: rgb(253, 247, 255);
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+  --block_padding: 15px;
+  --block_margin: 10px;
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+  --border_width: 2px;
+  --border_radius: 18px;
+  
+  --h3_font_family: DejaVu Sans Mono, monospace;
+  --h3_font_weight: 500;
+  --h3_font_size: 22px; 
+  --h3_margin: 10px;
+  --h3_padding: 5px; 
 
-.App-link {
-  color: #61dafb;
-}
+  --h4_font_family: DejaVu Sans Mono, monospace;
+  --h4_font_weight: 400;
+  --h4_font_size: 20px;
+  --h4_margin: 15px 5px 0px 0px;
+  --h4_padding: 5px;  
+  
+  --p_font_family: DejaVu Sans Mono, monospace;
+  --p_font_weight: 400;
+  --p_font_size: 19px; 
+  --p_margin: 5px;
+  --p_padding: 3px; 
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  --input_font_family: DejaVu Sans Mono, monospace;
+  --input_font_weight: 400;
+  --input_font_size: 19px; 
+  --input_margin: 5px;
+  --input_padding: 3px;
+  --input_text_color: black;
+
+  --button_font_family: DejaVu Sans Mono, monospace;
+  --button_font_weight: 400;
+  --button_font_size: 19px; 
+  --button_margin: 15px 5px;
+  --button_padding: 5px;
+  --button_text_color: black;
 }
-*/
