@@ -12,6 +12,7 @@ import {
     LOGIN_URL,
     ONE_MONTH_AGE
 } from '../../../../constants';
+import Scrollable from '../../../Collection/Scrollable/Scrollable';
 
 export default function LoginMainBlock({...props}) {
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();
@@ -70,6 +71,7 @@ export default function LoginMainBlock({...props}) {
 
     return (
         <div className={classes.LoginMainBlock} {...props}>
+            <Scrollable>
             <form name='loginForm'>
                 <h4>Введите имя аккаунта:</h4>
                 <input
@@ -84,7 +86,8 @@ export default function LoginMainBlock({...props}) {
                     value={credentials.password}                     
                     onChange={handleChange}/>
                 <button type='button' onClick={handleSubmit}>Войти</button>
-            </form>     
+            </form> 
+            </Scrollable>                
         </div>
     )
 }

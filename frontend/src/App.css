@@ -10,6 +10,11 @@
   --block_padding: 15px;
   --block_margin: 10px;
 
+  --min_width: 35vh;
+  --min_height: 25vh;
+  --max_width: 45vh;
+  --max_height: 50vh;
+
   --border_width: 2px;
   --border_radius: 18px;
   

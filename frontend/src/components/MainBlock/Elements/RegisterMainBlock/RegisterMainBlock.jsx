@@ -12,6 +12,7 @@ import Clue from '../../../Collection/Tips/Tips';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { REGISTER_URL } from '../../../../constants';
+import Scrollable from '../../../Collection/Scrollable/Scrollable';
 
 export default function RegisterMainBlock({...props}) {
     const { startLoading, stopLoading } = useLoadingContext();
@@ -109,34 +110,36 @@ export default function RegisterMainBlock({...props}) {
 
     return (  
         <div className={classes.RegisterMainBlock} {...props}>
-            <form name='registerForm'>
-                <h4>Придумайте имя аккаунта:</h4>
-                <input
-                    type='username'
-                    name='username'
-                    value={credentials.username}
-                    onChange={handleChange}/>
-                <h4>Задайте почту для привязки:</h4>
-                <input
-                    type='email'
-                    name='email'
-                    value={credentials.email} 
-                    onChange={handleChange}/>
-                <h4>А теперь придумайте пароль:</h4>
-                <input
-                    type='password'
-                    name='password'
-                    value={credentials.password} 
-                    onChange={handleChange}/>
-                <h4>И повторите его:</h4>
-                <input
-                    type='password'
-                    name='passwordAgain'
-                    value={credentials.passwordAgain} 
-                    onChange={handleChange}/>
-                <button type='button' onClick={handleSubmit}>Зарегистрироваться</button>
-            </form>  
-            <Clue tips={tips}/>                     
+            <Scrollable>
+                <form name='registerForm'>
+                    <h4>Придумайте имя аккаунта:</h4>
+                    <input
+                        type='username'
+                        name='username'
+                        value={credentials.username}
+                        onChange={handleChange}/>
+                    <h4>Задайте почту для привязки:</h4>
+                    <input
+                        type='email'
+                        name='email'
+                        value={credentials.email} 
+                        onChange={handleChange}/>
+                    <h4>А теперь придумайте пароль:</h4>
+                    <input
+                        type='password'
+                        name='password'
+                        value={credentials.password} 
+                        onChange={handleChange}/>
+                    <h4>И повторите его:</h4>
+                    <input
+                        type='password'
+                        name='passwordAgain'
+                        value={credentials.passwordAgain} 
+                        onChange={handleChange}/>
+                    <button type='button' onClick={handleSubmit}>Зарегистрироваться</button>
+                </form>  
+                <Clue tips={tips}/>  
+            </Scrollable>                               
         </div>
     )
 }
