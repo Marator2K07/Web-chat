@@ -1,13 +1,13 @@
 .DownBlock {
-    background-color:rgb(106, 111, 116); 
-    color:rgb(255, 140, 100);
-    font-weight: 400;
-    font-size: 19px;
-    font-family: emoji;
+    background-color:var(--background_second_color); 
+    color: var(--second_color);
+    font-weight: var(--h3_font_weight);
+    font-size: var(--h3_font_size);
+    font-family: var(--h3_font_family);
     height: 9.55vh;
     text-align: center;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    border-top: 2px solid rgb(255, 140, 100);
+    border-top: 2px solid var(--main_color);
 }
