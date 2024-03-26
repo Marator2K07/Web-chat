@@ -7,14 +7,14 @@ import { GET_MESSAGES_FOR_ROOM_URL, MEDIUM_DELAY, NEW_MESSAGE_URL } from '../../
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider';
 import Scrollable from '../Collection/Scrollable/Scrollable';
 
-export default function MessagesBlock({...props}) {
+export default function MessagesBlock({room, ...props}) { 
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();
     const {
         resetResult,
         makeGetRequest,
         makePostRequest
     } = useResponseHandlerContext();
-    const { user, roomForNews } = useUserContext();
+    const { user } = useUserContext();
     const [messages, setMessages] = useState({});
     const [count, setCount] = useState();
 
@@ -28,13 +28,14 @@ export default function MessagesBlock({...props}) {
 
     // обработка отправки сообщения
     const handleSend = async() => {
+        console.log('SENDINNNNNNG');
         startLoading();
         resetResult();
         await makePostRequest(
-            `${NEW_MESSAGE_URL}`,
+            NEW_MESSAGE_URL,
             { 
                 username: user.username,
-                roomId: roomForNews.id,
+                roomId: room.id,
                 information: newMessage
             },
             (response) => {
@@ -43,6 +44,7 @@ export default function MessagesBlock({...props}) {
                     [count]: response.data.message
                 });
                 toggleHolding(false, MEDIUM_DELAY);
+                setNewMessage(''); // при успешной отправке обнуляем сообщение
                 setCount(count+1);
             },
             toggleHolding(false, MEDIUM_DELAY)
@@ -54,21 +56,31 @@ export default function MessagesBlock({...props}) {
     const updateMessages = async() => {
         resetResult();
         await makeGetRequest(
-            `${GET_MESSAGES_FOR_ROOM_URL}/${roomForNews.id}`,            
+            `${GET_MESSAGES_FOR_ROOM_URL}/${room.id}`,            
             (response) => {
                 setMessages(response.data.messages);
+                console.log(response.data.messages);
                 setCount(response.data.messages.lenght)
             }
         )
     }
 
     useEffect(() => {
-        updateMessages();
-    }, []);
+        if (room) {
+            console.log(room);
+            updateMessages();
+        }        
+    }, [room]);
+
+    if (!room) {
+        return;
+    }
 
     return (
         <div className={classes.MessagesBlock} {...props}>            
-            <h4>{roomForNews.name}</h4>
+            <h4>{room 
+                ? room.name 
+                : 'Не выбрано ни одной комнаты'}</h4>
             <Scrollable>
                 <MessagesCollection
                     messages={messages}

@@ -17,6 +17,17 @@
     font-size: 19px;
 }
 
+.MainBlock input {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    padding: 3px;
+    background-color: rgb(232,240,254);     
+    font-weight: 400;
+    font-family: emoji;
+    font-size: 19px;
+}
+
 .MainBlock form input, select {
     color: rgb(0, 0, 0);    
 }

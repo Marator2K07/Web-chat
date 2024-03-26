@@ -5,8 +5,15 @@ export const useCreateUserContext = function(props) {
     const [user, setUser] = useState(props.user || null);    
     const [aboutUser, setAboutUser] = useState(null);
     const [rooms, setRooms] = useState(null);   
-    const [roomForNews, setRoomForNews] = useState(null);
+    const [roomForNews, setRoomForNews] = useState(null);    
     const [bufferUser, setBufferUser] = useState(null); 
+
+
+    const [currentRoom, setCurrentRoom] = useState(null); 
+    
+    const loadCurrentRoom = useCallback((room) => {
+        setCurrentRoom(room)
+    }, []);
 
     const loadUser = useCallback((user) => {
         setUser(user);
@@ -21,17 +28,19 @@ export const useCreateUserContext = function(props) {
     }, []);
 
     const loadRooms = useCallback((rooms) => {
-        setRooms(rooms);
-        setRoomForNews(rooms.filter(room => room['for_news'] === true)[0]);
+        setRooms(rooms.filter(room => room['for_news'] !== true));
+        setRoomForNews(rooms.filter(room => room['for_news'] === true)[0]);        
     }, []);
 
     return { user,
              aboutUser,
              bufferUser,
              rooms,
+             currentRoom,
              roomForNews,
              loadUser,
              loadAboutUser,
              loadBufferUser,
+             loadCurrentRoom,
              loadRooms };
 }

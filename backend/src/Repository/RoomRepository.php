@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Room;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -45,13 +46,24 @@ class RoomRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    // public function findOneByNewsFieldForUser($user): ?Room
+    // {
+    //     return $this->createQueryBuilder('r')
+    //         ->innerJoin('r.users', 'u', 'WITH', 'u.id = :user_id')
+    //         ->setParameter('user_id', $user)
+    //         ->where('r.for_news = true')                    
+    //         ->getQuery()
+    //         ->getOneOrNullResult();
+    // }   
+
     public function findOneByNewsFieldForUser($user): ?Room
     {
         return $this->createQueryBuilder('r')
-            ->join('u.r', 'r')
-            ->andWhere('u.id = :val')
-            ->andWhere('r.for_news = true')
-            ->setParameter('val', $user)
+            ->innerJoin('r.users', 'u', 'WITH', 'u.id = :user_id')
+            ->leftJoin('user', 'u', 'WITH', 'u.subscribers_list_id = :list_id')
+            ->setParameter('user_id', $user)
+            ->setParameter('list_id', $user)
+            ->where('r.for_news = true')                    
             ->getQuery()
             ->getOneOrNullResult();
     }   

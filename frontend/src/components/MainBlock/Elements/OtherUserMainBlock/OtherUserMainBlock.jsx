@@ -2,13 +2,46 @@ import React from 'react'
 import classes from './OtherUserMainBlock.module.css'
 import { useNavigationContext } from '../../../../contexts/NavigationContext/NavigationProvider';
 import { useUserContext } from '../../../../contexts/UserContext/UserProvider';
+import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
+import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
+import { MEDIUM_DELAY, SUBSCRIBE_URL, UNSUBSCRIBE_URL } from '../../../../constants';
 
-export default function OtherUserMainBlock({...props}) {    
+export default function OtherUserMainBlock({...props}) {   
+    const { toggleHolding, startLoading, stopLoading } = useLoadingContext();
+    const { user, bufferUser } = useUserContext();
+    const { resetResult, makePostRequest } = useResponseHandlerContext(); 
     const { goNavigation } = useNavigationContext(); 
-    const { bufferUser } = useUserContext();
     
+    const onSubscribeChange = async (e) => {
+        console.log(e.target.checked);
+        startLoading();
+        resetResult();
+        if (e.target.checked) {
+            await makePostRequest(
+                `${SUBSCRIBE_URL}`,
+                {
+                    owner: user.username,
+                    subscriber: bufferUser.user.username
+                },
+                toggleHolding(false, MEDIUM_DELAY),
+                toggleHolding(false, MEDIUM_DELAY)
+            );
+        } else {
+            await makePostRequest(
+                `${UNSUBSCRIBE_URL}`,
+                {
+                    owner: user.username,
+                    subscriber: bufferUser.user.username
+                },
+                toggleHolding(false, MEDIUM_DELAY),
+                toggleHolding(false, MEDIUM_DELAY)
+            );
+        }
+        stopLoading();
+    };
+
     return (
-        <div className={classes.OtherUserMainBlock} {...props}>
+        <div className={classes.OtherUserMainBlock} {...props}>            
             {
                 bufferUser ? 
                 <div>
@@ -22,7 +55,7 @@ export default function OtherUserMainBlock({...props}) {
                             alt="Not found"/>						
                     }				
                     <h4>Имя:</h4>
-                    <p>{bufferUser.aboutUser.name}</p>
+                    <p>{bufferUser.aboutUser.name}</p>                    
                     <h4>Фамилия:</h4>
                     <p>{bufferUser.aboutUser.secondname}</p>
                     <h4>День рождения:</h4>

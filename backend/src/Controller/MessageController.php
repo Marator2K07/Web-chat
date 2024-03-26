@@ -35,7 +35,7 @@ class MessageController extends AbstractController
         ]);
     }
 
-    #[Route('/message/new', name: 'app_message_new_for_room', methods: 'POST')]
+    #[Route('/message/new', name: 'fewe_Fewef_fewef', methods: 'POST')]
     public function addNewsMessage(Request $request,
                                    EntityManagerInterface $entityManager,
                                    SerializerInterface $serializer,

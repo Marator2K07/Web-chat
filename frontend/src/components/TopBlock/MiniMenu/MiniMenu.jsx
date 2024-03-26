@@ -2,36 +2,38 @@ import React from 'react'
 import classes from './MiniMenu.module.css'
 import MiniMenuItem from './MiniMenuItem/MiniMenuItem';
 import UserCard from './UserCard/UserCard';
+import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 
-const loginUrl = '/logout';
 const getTokensUrl = '/api/token/invalidate';
 
 export default function MiniMenu({innerRef, ...props}) { 
     const items = {
-        infoItem: { 
-            route: '/',
-            info: '//////////////',
+        infoItem: {            
             url: '/',
-            extraUrl: '/'
+            route: '/',
+            info: '//////////////'
         },
-        logoutItem: { 
+        logoutItem: {            
+            url: getTokensUrl,
             route: '/',
             info: 'Выйти из аккаунта',
-            url: loginUrl,
-            extraUrl: getTokensUrl
+            clean: true
         } 
     };
+    const { user } = useUserContext();
     
     return (
         <div ref={innerRef} className={classes.MiniMenu} {...props}>
             <UserCard/>
             {Object.keys(items).map((key) => (
                 <div key={key}>
-                    <MiniMenuItem
-                        url={items[key].url}
-                        info={items[key].info}
-                        route={items[key].route}
-                        extraRoute={items[key].extraRoute}/>
+                    { user && 
+                        <MiniMenuItem
+                            url={items[key].url}
+                            info={items[key].info}
+                            route={items[key].route}
+                            clean={items[key].clean}/>
+                    }
                 </div>
             ))}
         </div>

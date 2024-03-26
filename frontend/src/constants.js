@@ -9,6 +9,9 @@ export const GET_MESSAGES_FOR_ROOM_URL = "/message/all/get"
 export const USERS_SEARCH_URL = "/user/all/search";
 export const GET_OTHER_USER_URL  = "/user/get"
 export const NEW_MESSAGE_URL = "/message/new"
+export const SUBSCRIBE_URL = "/subscribers_list/add"
+export const UNSUBSCRIBE_URL = "/subscribers_list/remove"
+export const NEW_ROOM_URL = "/room/new"
 
 export const OTHER_USER_ROUTE = "/other_user"
 export const AFTER_LOGIN_ROUTE = "/authorized_user"

@@ -1,23 +1,39 @@
 import React from 'react'
 import classes from './MessageItem.module.css'
 import { useUserContext } from '../../../../contexts/UserContext/UserProvider'
+import { OTHER_USER_ROUTE } from '../../../../constants';
+import { useNavigationContext } from '../../../../contexts/NavigationContext/NavigationProvider';
+import { useNavigate } from 'react-router-dom';
 
 export default function MessageItem({message, ...props}) {
+    const { goNavigationWithAnimation } = useNavigationContext();
     const { user } = useUserContext();
+    const navigate = useNavigate();
+
+    // при выборе пользователя можно перейти на его страницу
+    const goToUserPage = async (username) => {
+        if (message.sender.username === username) {
+            goNavigationWithAnimation('personalBlock');
+        } else {
+            navigate(`${OTHER_USER_ROUTE}?username=${message.sender.username}`);
+        }        
+    }    
     
     return (
-        <div className={classes.MessageItem} {...props}>
+        <div
+            className={classes.MessageItem}
+            onClick={() => goToUserPage(user.username)} {...props}>
             <div>
                 <p>{message.information}</p>
             </div>
             <div>                
                 <h6>
                     {user.id !== message.sender.id 
-                        ? " Это новость другого пользователя"
+                        ? `${message.sender.username} `
                         : ''} 
                     {message.dispatch_time}
                     {user.id === message.sender.id 
-                        ? " Это ваша новость"
+                        ? " Это ваше сообщение"
                         : ''}
                 </h6> 
             </div>   
