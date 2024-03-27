@@ -1,19 +1,19 @@
 import React from 'react'
-import classes from './NavList.module.css'
-import NavItem from '../NavItem/NavItem'
+import classes from './NavigationCollection.module.css'
 import { CSSTransition } from 'react-transition-group';
-import './NavListCSSTransition.css';
+import './NavigationCollectionCSSTransition.css';
 import { SHORT_TIMEOUT } from '../../../constants';
 import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
+import NavigationItem from './NavigationItem/NavigationItem';
 
-export default function NavList({currentIndex,
-                                 minIndex,
-                                 maxIndex,
-                                 ...props}) {
+export default function NavigationCollection({currentIndex,
+                                              minIndex,
+                                              maxIndex,
+                                              ...props}) {
     const { blocksData } = useNavigationContext();
 
     return (
-        <div className={classes.NavList} {...props}>
+        <div className={classes.NavigationCollection} {...props}>
             {Object.keys(blocksData)
                 .slice(minIndex, maxIndex)
                 .map((key, index) => (
@@ -21,10 +21,11 @@ export default function NavList({currentIndex,
                     key={index}
                     in={currentIndex !== blocksData[key].index}
                     timeout={SHORT_TIMEOUT}
-                    classNames="NavList">
-                    <NavItem 
+                    classNames="NavigationCollection">
+                    <NavigationItem 
                         root={key}
-                        description={blocksData[key].description}/>
+                        description={blocksData[key].description} 
+                    />
                 </CSSTransition>
             ))}
         </div>
