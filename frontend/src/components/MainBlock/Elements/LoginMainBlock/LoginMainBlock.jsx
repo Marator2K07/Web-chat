@@ -6,7 +6,7 @@ import { cookies } from '../../../../contexts/CookieContext';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import {
-    AFTER_LOGIN_ROUTE,
+    AFTER_LOGIN_PATH,
     FIVE_MIN_AGE,
     LOGIN_CHECK_URL,
     LOGIN_URL,
@@ -62,7 +62,7 @@ export default function LoginMainBlock({...props}) {
                         cookies.set('token', token, { maxAge: FIVE_MIN_AGE });                        
                         toggleHolding(false, 0);
                         resetResult();
-                        navigate(`${AFTER_LOGIN_ROUTE}/${credentials.username}`);                        
+                        navigate(`${AFTER_LOGIN_PATH}/${credentials.username}`);                        
                     }
                 )                
             });

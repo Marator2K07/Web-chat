@@ -1,7 +1,7 @@
 import React from 'react'
 import classes from './MessageItem.module.css'
 import { useUserContext } from '../../../../contexts/UserContext/UserProvider'
-import { OTHER_USER_ROUTE } from '../../../../constants';
+import { OTHER_USER_PATH } from '../../../../constants';
 import { useNavigationContext } from '../../../../contexts/NavigationContext/NavigationProvider';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ export default function MessageItem({message, ...props}) {
         if (message.sender.username === username) {
             goNavigationWithAnimation('personalBlock');
         } else {
-            navigate(`${OTHER_USER_ROUTE}?username=${message.sender.username}`);
+            navigate(`${OTHER_USER_PATH}?username=${message.sender.username}`);
         }        
     }    
     

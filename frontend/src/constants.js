@@ -13,9 +13,10 @@ export const SUBSCRIBE_URL = "/subscribers_list/add"
 export const UNSUBSCRIBE_URL = "/subscribers_list/remove"
 export const NEW_ROOM_URL = "/room/new"
 
-export const OTHER_USER_ROUTE = "/other_user"
-export const AFTER_LOGIN_ROUTE = "/authorized_user"
-export const BEFORE_LOGIN_ROUTE = "/"
+export const BEFORE_LOGIN_PATH = "/";
+export const USER_ACTIVATION_PATH = "/user_activation"
+export const AFTER_LOGIN_PATH = "/authorized_user";
+export const OTHER_USER_PATH = "/other_user";
 
 export const EXTRA_SHORT_DELAY = 250;
 export const SHORT_DELAY = 1250;

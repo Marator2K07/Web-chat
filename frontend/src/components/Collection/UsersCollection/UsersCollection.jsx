@@ -3,7 +3,7 @@ import classes from './UsersCollection.module.css'
 import './UsersCollectionCSSTransition.css'
 import UserItem from './UserItem/UserItem';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { OTHER_USER_ROUTE, MEDIUM_TIMEOUT } from '../../../constants';
+import { OTHER_USER_PATH, MEDIUM_TIMEOUT } from '../../../constants';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
@@ -23,7 +23,7 @@ export default function UsersCollection({users,
         if (user.username === username) {
             goNavigationWithAnimation('personalBlock');
         } else {
-            navigate(`${OTHER_USER_ROUTE}?username=${username}`);
+            navigate(`${OTHER_USER_PATH}?username=${username}`);
         }        
     }
 
