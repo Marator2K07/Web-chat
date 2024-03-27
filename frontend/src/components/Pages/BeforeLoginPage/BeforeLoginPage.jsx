@@ -3,8 +3,8 @@ import classes from './BeforeLoginPage.module.css'
 import TopBlock from '../../TopBlock/TopBlock'
 import DownBlock from '../../DownBlock/DownBlock'
 import MainBlock from '../../MainBlock/MainBlock';
-import NavList from '../../Navigation/NavList/NavList';
 import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
+import NavigationCollection from '../../Collection/NavigationCollection/NavigationCollection';
 // import { cookies } from '../../../contexts/CookieContext';
 
 export default function BeforeLoginPage({...props}) {
@@ -19,10 +19,10 @@ export default function BeforeLoginPage({...props}) {
     return (
         <div className={classes.BeforeLoginPage} {...props}>
             <TopBlock/>
-            <NavList
+            <NavigationCollection
                 currentIndex={index}
-                minIndex={0}
-                maxIndex={2}/>  
+                startIndex={0}
+                endIndex={2}/>  
             <MainBlock/>
             <DownBlock/>
         </div>

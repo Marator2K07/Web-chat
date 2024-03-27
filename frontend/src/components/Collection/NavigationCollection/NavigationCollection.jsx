@@ -7,24 +7,24 @@ import { useNavigationContext } from '../../../contexts/NavigationContext/Naviga
 import NavigationItem from './NavigationItem/NavigationItem';
 
 export default function NavigationCollection({currentIndex,
-                                              minIndex,
-                                              maxIndex,
+                                              startIndex,
+                                              endIndex,
                                               ...props}) {
-    const { blocksData } = useNavigationContext();
+    const { navigationBlocks } = useNavigationContext();
 
     return (
         <div className={classes.NavigationCollection} {...props}>
-            {Object.keys(blocksData)
-                .slice(minIndex, maxIndex)
+            {Object.keys(navigationBlocks)
+                .slice(startIndex, endIndex)
                 .map((key, index) => (
                 <CSSTransition 
                     key={index}
-                    in={currentIndex !== blocksData[key].index}
+                    in={currentIndex !== navigationBlocks[key].index}
                     timeout={SHORT_TIMEOUT}
                     classNames="NavigationCollection">
                     <NavigationItem 
-                        root={key}
-                        description={blocksData[key].description} 
+                        route={key}
+                        description={navigationBlocks[key].description} 
                     />
                 </CSSTransition>
             ))}

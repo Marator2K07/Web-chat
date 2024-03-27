@@ -1,14 +1,13 @@
 import React, { useLayoutEffect } from 'react'
 import classes from './AfterLoginPage.module.css'
 import TopBlock from '../../TopBlock/TopBlock';
-import NavList from '../../Navigation/NavList/NavList';
 import MainBlock from '../../MainBlock/MainBlock';
 import DownBlock from '../../DownBlock/DownBlock';
 import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import {
-    BEFORE_LOGIN_ROUTE,
+    BEFORE_LOGIN_PATH,
     DATE_FORMAT,
     GET_ALL_USER_INFO_URL,
     SHORT_DELAY
@@ -17,6 +16,7 @@ import { cookies } from '../../../contexts/CookieContext';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
+import NavigationCollection from '../../Collection/NavigationCollection/NavigationCollection';
 
 export default function AfterLoginPage({...props}) {
     const { startLoading, toggleHolding, stopLoading } = useLoadingContext();
@@ -42,7 +42,7 @@ export default function AfterLoginPage({...props}) {
             () => {
                 setTimeout(() => {
                     toggleHolding(false, SHORT_DELAY);
-                    navigate(BEFORE_LOGIN_ROUTE);
+                    navigate(BEFORE_LOGIN_PATH);
                 }, SHORT_DELAY);
             }
         );
@@ -58,10 +58,10 @@ export default function AfterLoginPage({...props}) {
     return (
         <div className={classes.AfterLoginPage} {...props}>
             <TopBlock/>
-            <NavList
+            <NavigationCollection
                 currentIndex={index}
-                minIndex={2}
-                maxIndex={6}/>  
+                startIndex={2}
+                endIndex={6}/>  
             <MainBlock/>
             <DownBlock/>
         </div>

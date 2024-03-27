@@ -3,7 +3,7 @@ import { useMainBlockAnimationContext } from "../MainBlockAnimationContext/MainB
 import { EXTRA_SHORT_DELAY } from "../../constants";
 
 export const useCreateNavigationContext = function() {   
-    const [blocksData] = useState({
+    const [navigationBlocks] = useState({
         loginBlock: {path: 'login', description: 'Вход в аккаунт', index: 0},
         registerBlock: {path: 'register', description: 'Регистрация', index: 1},
         welcomeBlock: {path: 'welcome', description: 'Добро пожаловать', index: 2},
@@ -18,27 +18,26 @@ export const useCreateNavigationContext = function() {
     const [index, setIndex] = useState('0');   
 
     const goNavigation = useCallback((key) => {
-        setHeaderText(blocksData[key].description);
-        setMainBlock(blocksData[key].path);
-        setIndex(blocksData[key].index);
-    }, [blocksData]);
+        setHeaderText(navigationBlocks[key].description);
+        setMainBlock(navigationBlocks[key].path);
+        setIndex(navigationBlocks[key].index);
+    }, [navigationBlocks]);
 
     const goNavigationWithAnimation = useCallback((key) => {
-        console.log(key);
-        index < blocksData[key].index ? leftCondition()
-                                      : rightCondition();
+        index < navigationBlocks[key].index ? leftCondition()
+                                            : rightCondition();
         setTimeout(() => {
-            setHeaderText(blocksData[key].description);
-            setMainBlock(blocksData[key].path);
-            setIndex(blocksData[key].index);
-            index < blocksData[key].index ? rightCondition() 
-                                          : leftCondition();
+            setHeaderText(navigationBlocks[key].description);
+            setMainBlock(navigationBlocks[key].path);
+            setIndex(navigationBlocks[key].index);
+            index < navigationBlocks[key].index ? rightCondition() 
+                                                : leftCondition();
             setTimeout(() => {
                 initCondition();
             }, EXTRA_SHORT_DELAY);
         }, EXTRA_SHORT_DELAY);  
     }, [
-        blocksData,
+        navigationBlocks,
         index,
         initCondition,
         leftCondition,
@@ -48,7 +47,7 @@ export const useCreateNavigationContext = function() {
     return { headerText,
              mainBlock,
              index,
-             blocksData,
+             navigationBlocks,
              goNavigation,
              goNavigationWithAnimation };
 }
