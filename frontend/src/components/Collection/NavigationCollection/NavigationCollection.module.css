@@ -3,5 +3,5 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-bottom: -36px;    
+    margin-bottom: var(--top_block_offset);    
 }
