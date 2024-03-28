@@ -13,40 +13,31 @@ export const useCreateNavigationContext = function() {
         otherUserBlock: {path: 'otherUser', description: 'Другой пользователь', index: 11}
     }) 
     const {initCondition, leftCondition, rightCondition} = useMainBlockAnimationContext();
-    const [headerText, setHeaderText] = useState('Вход в аккаунт');
-    const [mainBlock, setMainBlock] = useState('login');
-    const [index, setIndex] = useState('0');   
+    const [currentBlock, setCurrentBlock] = useState(navigationBlocks['loginBlock']);
 
-    const goNavigation = useCallback((key) => {
-        setHeaderText(navigationBlocks[key].description);
-        setMainBlock(navigationBlocks[key].path);
-        setIndex(navigationBlocks[key].index);
-    }, [navigationBlocks]);
+    const goNavigation = useCallback((block) => {
+        setCurrentBlock(block);
+    }, []);
 
-    const goNavigationWithAnimation = useCallback((key) => {
-        index < navigationBlocks[key].index ? leftCondition()
-                                            : rightCondition();
+    const goNavigationWithAnimation = useCallback((block) => {
+        currentBlock.index < block.index ? leftCondition()
+                                         : rightCondition();
         setTimeout(() => {
-            setHeaderText(navigationBlocks[key].description);
-            setMainBlock(navigationBlocks[key].path);
-            setIndex(navigationBlocks[key].index);
-            index < navigationBlocks[key].index ? rightCondition() 
-                                                : leftCondition();
+            setCurrentBlock(block);
+            currentBlock.index < block.index ? rightCondition() 
+                                             : leftCondition();
             setTimeout(() => {
                 initCondition();
             }, EXTRA_SHORT_DELAY);
         }, EXTRA_SHORT_DELAY);  
     }, [
-        navigationBlocks,
-        index,
+        currentBlock.index,
         initCondition,
         leftCondition,
         rightCondition
     ]);
 
-    return { headerText,
-             mainBlock,
-             index,
+    return { currentBlock,
              navigationBlocks,
              goNavigation,
              goNavigationWithAnimation };
