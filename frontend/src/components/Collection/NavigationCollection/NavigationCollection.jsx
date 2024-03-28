@@ -22,10 +22,7 @@ export default function NavigationCollection({currentIndex,
                     in={currentIndex !== navigationBlocks[key].index}
                     timeout={SHORT_TIMEOUT}
                     classNames="NavigationCollection">
-                    <NavigationItem 
-                        route={key}
-                        description={navigationBlocks[key].description} 
-                    />
+                    <NavigationItem block={navigationBlocks[key]} />
                 </CSSTransition>
             ))}
         </div>
