@@ -12,22 +12,21 @@ import { AFTER_LOGIN_PATH, SHORT_DELAY, SHORT_TIMEOUT } from '../../constants';
 import { useNavigationContext } from '../../contexts/NavigationContext/NavigationProvider';
 
 export default function MainBlock({...props}) {
-    const { mainBlock } = useNavigationContext();
+    const {currentBlock} = useNavigationContext();
     const {
         holding,
         toggleHolding,
         startLoading,
         stopLoading
     } = useLoadingContext();
-    const { x, opacity, duration } = useMainBlockAnimationContext();
+    const {x, opacity, duration} = useMainBlockAnimationContext();
     const nodeRef = useRef(null);  
     const navigate = useNavigate();
 
     const smartNav = useCallback(() => {
         let username = cookies.get('username');
         let token = cookies.get('token');
-        console.log(mainBlock);
-        if (username && token && mainBlock === 'login') {
+        if (username && token && currentBlock.path === 'login') {
             startLoading();            
             setTimeout(() => {
                 stopLoading();
@@ -35,36 +34,36 @@ export default function MainBlock({...props}) {
                 navigate(`${AFTER_LOGIN_PATH}/${username}`, { replace: true });                
             }, SHORT_DELAY);
         } 
-    }, [navigate,
-        mainBlock,
+    }, [
+        navigate,
+        currentBlock,
         startLoading,
         stopLoading,
-        toggleHolding]); 
+        toggleHolding
+    ]); 
 
     // автоматический переход на страницу аккаунта в случае 
     // не выхода из аккаунта и закрытии браузера
     useEffect(() => {
         smartNav();
-    }, [
-        smartNav
-    ]);    
+    }, [smartNav]);    
 
     return (
         <div className={classes.MainBlock} {...props}>
             <motion.div
-            animate={{ x: x, opacity: opacity }}
-            transition={{
-              duration: duration,
-              ease: [0.11, 0.9, 0.4, 1.11]
-            }}>
-                <DynamicComponent component={mainBlock}/>
+                animate={{ x: x, opacity: opacity }}
+                transition={{
+                  duration: duration,
+                  ease: [0.11, 0.9, 0.4, 1.11]
+                }}>
+                <DynamicComponent component={currentBlock.path} />
             </motion.div>
             <CSSTransition
                 in={holding}
                 nodeRef={nodeRef}
                 timeout={SHORT_TIMEOUT}
                 classNames="LoadingBlock">
-                <LoadingBlock innerRef={nodeRef}/>
+                <LoadingBlock innerRef={nodeRef} />
             </CSSTransition>
         </div>
     )

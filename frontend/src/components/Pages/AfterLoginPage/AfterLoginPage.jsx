@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react'
+import React, { useEffect } from 'react'
 import classes from './AfterLoginPage.module.css'
 import TopBlock from '../../TopBlock/TopBlock';
 import MainBlock from '../../MainBlock/MainBlock';
@@ -19,10 +19,10 @@ import { useNavigationContext } from '../../../contexts/NavigationContext/Naviga
 import NavigationCollection from '../../Collection/NavigationCollection/NavigationCollection';
 
 export default function AfterLoginPage({...props}) {
-    const { startLoading, toggleHolding, stopLoading } = useLoadingContext();
-    const { resetResult, makeGetRequest } = useResponseHandlerContext();  
-    const { loadUser, loadAboutUser, loadRooms } = useUserContext();
-    const { index, goNavigation } = useNavigationContext();   
+    const {startLoading, toggleHolding, stopLoading} = useLoadingContext();
+    const {resetResult, makeGetRequest} = useResponseHandlerContext();  
+    const {loadUser, loadAboutUser, loadRooms} = useUserContext();
+    const {index, goNavigation} = useNavigationContext();   
     const navigate = useNavigate();     
 
     // первым делом подгружаем все данные о пользователе
@@ -49,7 +49,7 @@ export default function AfterLoginPage({...props}) {
         stopLoading();
     }
 
-    useLayoutEffect(() => {        
+    useEffect(() => {        
         updateUser();
         goNavigation('welcomeBlock');
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,13 +57,14 @@ export default function AfterLoginPage({...props}) {
 
     return (
         <div className={classes.AfterLoginPage} {...props}>
-            <TopBlock/>
+            <TopBlock />
             <NavigationCollection
                 currentIndex={index}
                 startIndex={2}
-                endIndex={6}/>  
-            <MainBlock/>
-            <DownBlock/>
+                endIndex={6}
+            />  
+            <MainBlock />
+            <DownBlock />
         </div>
     )
 }

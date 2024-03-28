@@ -4,7 +4,7 @@ import AccountImageButton from './AccountImageButton/AccountImageButton';
 import { useNavigationContext } from '../../contexts/NavigationContext/NavigationProvider';
 
 const TopBlock = ({...props}) => {
-    const { headerText } = useNavigationContext();
+    const {currentBlock} = useNavigationContext();
 
     return (
         <div className={classes.TopBlock} {...props}>
@@ -12,10 +12,10 @@ const TopBlock = ({...props}) => {
                 <p>AwesomeChat</p>
             </div>
             <div className='mid'>
-                <p>{headerText}</p>
+                <p>{currentBlock.description}</p>
             </div>
             <div className='right'>            
-                <AccountImageButton/>
+                <AccountImageButton />
             </div>             
         </div>
     )
