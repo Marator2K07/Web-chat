@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react"
 import { useMainBlockAnimationContext } from "../MainBlockAnimationContext/MainBlockAnimationProvider";
 import { EXTRA_SHORT_DELAY } from "../../constants";
+import { cookies } from "../CookieContext";
 
 export const useCreateNavigationContext = function() {   
     const [navigationBlocks] = useState({
@@ -13,7 +14,8 @@ export const useCreateNavigationContext = function() {
         otherUserBlock: {path: 'otherUser', description: 'Другой пользователь', index: 11}
     }) 
     const {initCondition, leftCondition, rightCondition} = useMainBlockAnimationContext();
-    const [currentBlock, setCurrentBlock] = useState(navigationBlocks['loginBlock']);
+    const [currentBlock, setCurrentBlock] = useState(cookies.get('lastMainBlock') ? cookies.get('lastMainBlock')
+                                                                                  : navigationBlocks.loginBlock);
 
     const goNavigation = useCallback((block) => {
         setCurrentBlock(block);
