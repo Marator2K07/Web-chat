@@ -1,8 +1,7 @@
 import React from 'react'
 import classes from './NavigationCollection.module.css'
-import { CSSTransition } from 'react-transition-group';
-import './NavigationCollectionCSSTransition.css';
-import { SHORT_TIMEOUT } from '../../../constants';
+import { motion } from "framer-motion";
+import { SHORT_DELAY  } from '../../../constants';
 import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
 import NavigationItem from './NavigationItem/NavigationItem';
 
@@ -11,19 +10,28 @@ export default function NavigationCollection({currentIndex,
                                               endIndex,
                                               ...props}) {
     const { navigationBlocks } = useNavigationContext();
+    const animationStates = {
+        visible: index => ({
+            opacity: 1,
+            transition: {
+                delay: index * SHORT_DELAY/100,
+            },
+        }),
+        hidden: {opacity: 0}
+    }
 
     return (
         <div className={classes.NavigationCollection} {...props}>
             {Object.keys(navigationBlocks)
                 .slice(startIndex, endIndex)
                 .map((key, index) => (
-                <CSSTransition 
-                    key={index}
-                    in={currentIndex !== navigationBlocks[key].index}
-                    timeout={SHORT_TIMEOUT}
-                    classNames="NavigationCollection">
+                <motion.div
+                    custom={{currentIndex, index}}
+                    variants={animationStates}
+                    animate={currentIndex === index ? "hidden"
+                                                    : "visible"}>
                     <NavigationItem block={navigationBlocks[key]} />
-                </CSSTransition>
+                </motion.div>
             ))}
         </div>
     )
