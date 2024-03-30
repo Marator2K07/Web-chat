@@ -8,11 +8,11 @@ import {
     formParamIsSmall,
     passwordIsRepeated
 } from '../../../../utils';
-import Clue from '../../../Collection/Tips/Tips';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { REGISTER_URL } from '../../../../constants';
 import Scrollable from '../../../Collection/Scrollable/Scrollable';
+import TipsCollection from '../../../Collection/TipsCollection/TipsCollection';
 
 export default function RegisterMainBlock({...props}) {
     const { startLoading, stopLoading } = useLoadingContext();
@@ -138,7 +138,7 @@ export default function RegisterMainBlock({...props}) {
                         onChange={handleChange}/>
                     <button type='button' onClick={handleSubmit}>Зарегистрироваться</button>
                 </form>  
-                <Clue tips={tips}/>  
+                <TipsCollection tips={tips}/>  
             </Scrollable>                               
         </div>
     )

@@ -1,0 +1,22 @@
+/* Start of CSSTransition for TipsCollection className */
+.TipsCollection-enter {
+    opacity: 0;
+}  
+.TipsCollection-enter-active {
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+.TipsCollection-enter-done {
+    opacity: 1;
+}
+.TipsCollection-exit {
+    opacity: 1;
+}
+.TipsCollection-exit-active {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+.TipsCollection-exit-done {
+    opacity: 0;
+}
+/* End of CSSTransition for TipsCollection className */

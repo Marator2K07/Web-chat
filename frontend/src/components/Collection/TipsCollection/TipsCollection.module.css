@@ -1,10 +1,10 @@
-.Clue {    
+.TipsCollection {    
     font-weight: 400;
     font-family: emoji;
     font-size: 19px;
 }
 
-.Clue p {    
+.TipsCollection p {    
     color: slategray;      
     background-color: rgb(231, 189, 198);
     border: 2px solid rgb(39, 43, 48);
