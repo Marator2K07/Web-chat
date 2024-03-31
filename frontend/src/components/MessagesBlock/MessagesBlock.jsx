@@ -5,7 +5,7 @@ import MessagesCollection from '../Collection/MessagesCollection/MessagesCollect
 import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { GET_MESSAGES_FOR_ROOM_URL, MEDIUM_DELAY, NEW_MESSAGE_URL } from '../../constants';
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider';
-import Scrollable from '../Collection/Scrollable/Scrollable';
+import Scrollable from '../Scrollable/Scrollable';
 
 export default function MessagesBlock({room, ...props}) { 
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();

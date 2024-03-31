@@ -12,7 +12,7 @@ import {
     LOGIN_URL,
     ONE_MONTH_AGE
 } from '../../../../constants';
-import Scrollable from '../../../Collection/Scrollable/Scrollable';
+import Scrollable from '../../../Scrollable/Scrollable';
 
 export default function LoginMainBlock({...props}) {
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();

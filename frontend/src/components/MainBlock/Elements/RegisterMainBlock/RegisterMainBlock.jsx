@@ -11,7 +11,7 @@ import {
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { REGISTER_URL } from '../../../../constants';
-import Scrollable from '../../../Collection/Scrollable/Scrollable';
+import Scrollable from '../../../Scrollable/Scrollable';
 import TipsCollection from '../../../Collection/TipsCollection/TipsCollection';
 
 export default function RegisterMainBlock({...props}) {
