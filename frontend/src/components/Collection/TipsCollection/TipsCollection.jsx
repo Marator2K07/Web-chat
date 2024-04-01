@@ -5,11 +5,6 @@ import './TipsCollectionCSSTransition.css';
 import { SHORT_TIMEOUT } from '../../../constants';
 
 export default function TipsCollection({tips, ...props}) {
-    // если подсказок нет, то и отображать ничего не нужно
-    if (!tips) {        
-        return;
-    } 
-
     return (
         <div className={classes.TipsCollection} {...props}>
             <TransitionGroup>
