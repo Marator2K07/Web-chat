@@ -1,13 +1,12 @@
-.TipsCollection {    
-    font-weight: 400;
-    font-family: emoji;
-    font-size: 19px;
-}
-
 .TipsCollection p {    
-    color: slategray;      
-    background-color: rgb(231, 189, 198);
-    border: 2px solid rgb(39, 43, 48);
-    margin: 4px 0px;
-    padding: 3px;
+    color: var(--tip_color);      
+    background-color: var(--background_tip_color);
+    border: var(--border_width) solid var(--second_color);
+    font-family: var(--p_font_family);
+    font-weight: var(--p_font_weight);
+    font-size: var(--p_font_size);
+    margin: var(--p_margin);
+    padding: var(--p_padding);
+    border-top-right-radius: var(--border_radius);
+    border-bottom-right-radius: var(--border_radius);
 }
