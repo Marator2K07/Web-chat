@@ -1,7 +1,6 @@
 import React from 'react'
 import classes from './ResponseError.module.css'
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider'
-import { PINK_EBONY_COLOR } from '../../../constants';
 
 export default function ResponseError({message, ...props}) {
     const { toggleHolding } = useLoadingContext();
@@ -23,19 +22,15 @@ export default function ResponseError({message, ...props}) {
                 </p> 
             </div> */}
             <div className='info'>
-                <p>
-                    Сообщение: <br/><span style={{color: PINK_EBONY_COLOR}}>
-                        {message.message}
-                    </span>
-                </p> 
+                <h4>Сообщение:</h4>
+                <p>{message.message}</p> 
             </div>
             {message.hasOwnProperty("response") &&
             <div className='info'>
+                <h4>Детали:</h4>
                 <p>
-                    Детали: <br/><span style={{color: PINK_EBONY_COLOR}}>
-                        {message.response.data.detail}
-                        {message.response.data.message}
-                    </span>
+                    {message.response.data.detail}<br/>
+                    {message.response.data.message}
                 </p> 
             </div>}            
             <button type="button" onClick={() => toggleHolding(false, 0)}>
