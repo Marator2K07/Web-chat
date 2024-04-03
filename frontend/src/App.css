@@ -3,11 +3,13 @@
   --background_second_color: rgb(52, 54, 58);
   --background_third_color: rgb(223, 223, 223);
   --background_tip_color: rgb(231, 189, 198);
+  --background_error_color: rgb(117, 97, 101);
  
   --main_color: rgb(214, 124, 255);
   --second_color: rgb(233, 185, 255);  
   --third_color: rgb(253, 247, 255);
   --tip_color: rgb(65, 79, 94);
+  --error_color: rgb(223, 104, 129);
 
   --top_block_offset: -36px;
 
