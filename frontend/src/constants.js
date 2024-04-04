@@ -35,4 +35,4 @@ export const DATE_FORMAT = "YYYY-MM-DD"
 export const PINK_EBONY_COLOR = "#704949";
 
 export const LOADING_INDICATOR_SIZE = 44;
-export const LOADING_INDICATOR_COLOR = "rgb(255, 140, 100)"
+export const LOADING_INDICATOR_COLOR = "rgb(233, 185, 255)"

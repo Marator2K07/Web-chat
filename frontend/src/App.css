@@ -58,8 +58,8 @@
   --button_text_color: black;
 
   --loading_block_left: 0;
-  --loading_block_top: 0;
+  --loading_block_top: 10.3vh;
   --loading_block_width: 100vw;
-  --loading_block_height: 100vh;
+  --loading_block_height: 79.7vh;
   --loading_block_z_index: 100;
 }
