@@ -13,7 +13,10 @@ import { useNavigationContext } from '../../contexts/NavigationContext/Navigatio
 export default function MainBlock({...props}) {
     const { currentBlock } = useNavigationContext();    
     const { x, opacity, duration } = useMainBlockAnimationContext();
-    const animationStates = { visible: {opacity: 1}, hidden: {opacity: 0} }
+    const animationStates = {
+        visible: {opacity: 1},
+        hidden: {opacity: 0}
+    }
     const {
         loading,
         holding,
@@ -46,15 +49,15 @@ export default function MainBlock({...props}) {
     // не выхода из аккаунта и закрытии браузера
     useEffect(() => {
         smartNav();
-    }, [smartNav]);    
+    }, [smartNav]); 
 
     return (
         <div className={classes.MainBlock} {...props}>
             <motion.div
                 animate={{ x: x, opacity: opacity }}
                 transition={{
-                  duration: duration,
-                  ease: [0.11, 0.9, 0.4, 1.11]
+                    duration: duration,
+                    ease: [0.11, 0.9, 0.4, 1.11]
                 }}>
                 <DynamicComponent component={currentBlock.path} />
             </motion.div>
