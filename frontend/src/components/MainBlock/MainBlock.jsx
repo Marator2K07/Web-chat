@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
-import { CSSTransition } from 'react-transition-group';
+import React, { useCallback, useEffect } from 'react'
 import classes from './MainBlock.module.css'
 import LoadingBlock from '../LoadingBlock/LoadingBlock';
 import DynamicComponent from './DynamicMainBlock';
@@ -8,19 +7,20 @@ import { cookies } from '../../contexts/CookieContext';
 import { useNavigate } from 'react-router-dom';
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider';
 import { useMainBlockAnimationContext } from '../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
-import { AFTER_LOGIN_PATH, SHORT_DELAY, SHORT_TIMEOUT } from '../../constants';
+import { AFTER_LOGIN_PATH, SHORT_DELAY } from '../../constants';
 import { useNavigationContext } from '../../contexts/NavigationContext/NavigationProvider';
 
 export default function MainBlock({...props}) {
-    const {currentBlock} = useNavigationContext();
+    const { currentBlock } = useNavigationContext();    
+    const { x, opacity, duration } = useMainBlockAnimationContext();
+    const animationStates = { visible: {opacity: 1}, hidden: {opacity: 0} }
     const {
+        loading,
         holding,
         toggleHolding,
         startLoading,
         stopLoading
     } = useLoadingContext();
-    const {x, opacity, duration} = useMainBlockAnimationContext();
-    const nodeRef = useRef(null);  
     const navigate = useNavigate();
 
     const smartNav = useCallback(() => {
@@ -58,13 +58,12 @@ export default function MainBlock({...props}) {
                 }}>
                 <DynamicComponent component={currentBlock.path} />
             </motion.div>
-            <CSSTransition
-                in={holding}
-                nodeRef={nodeRef}
-                timeout={SHORT_TIMEOUT}
-                classNames="LoadingBlock">
-                <LoadingBlock innerRef={nodeRef} />
-            </CSSTransition>
+            <motion.div
+                variants={animationStates}
+                animate={loading && holding ? "visible"
+                                            : "hidden"}>
+                <LoadingBlock />
+            </motion.div>
         </div>
     )
 }
