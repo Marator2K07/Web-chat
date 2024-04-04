@@ -6,28 +6,32 @@ import { Spin } from 'antd'
 import { SyncOutlined } from '@ant-design/icons'
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider'
 import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext/ResponseHandlerProvider'
-import { SALMON_COLOR } from '../../constants'
+import { LOADING_INDICATOR_COLOR, LOADING_INDICATOR_SIZE } from '../../constants'
 
-export default function LoadingBlock({innerRef, ...props}) {   
+export default function LoadingBlock({...props}) {   
     const { loading } = useLoadingContext(); 
     const { response, error } = useResponseHandlerContext();                                      
 
     return (
-        <div ref={innerRef} className={classes.LoadingBlock} {...props}>   
+        <div className={classes.LoadingBlock} {...props}>   
             {
                 loading && 
                 <Spin
                     size='large'
-                    indicator={<SyncOutlined spin style={{ 
-                        fontSize: 44, color: SALMON_COLOR
-                    }}/>}
-                />
+                    indicator={
+                        <SyncOutlined spin style={{ 
+                            fontSize: LOADING_INDICATOR_SIZE,
+                            color: LOADING_INDICATOR_COLOR
+                        }} />
+                    } />
             } 
-            { error && <ResponseError message={error}/> }
+            { 
+                error && <ResponseError message={error} />
+            }
             { 
                 response && 
                 response.data && 
-                <OkResponse message={response.data}/>
+                <OkResponse message={response.data} />
             }
         </div>
     )
