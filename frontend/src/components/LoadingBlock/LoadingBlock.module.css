@@ -1,11 +1,11 @@
 .LoadingBlock {
     position: absolute;
-    top: 0;
-    background-color: slategrey;
-    width: 100vw;
-    height: 100vh;
-    z-index: 100;
-    opacity: 0;
+    top: var(--loading_block_top);
+    left: var(--loading_block_left);    
+    width: var(--loading_block_width);
+    height: var(--loading_block_height);
+    z-index: var(--loading_block_z_index);
+    background-color: var(--background_load_color);
     pointer-events: none;
     display: flex;
     flex-direction: column;
