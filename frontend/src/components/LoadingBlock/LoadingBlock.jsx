@@ -9,11 +9,20 @@ import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext
 import { LOADING_INDICATOR_COLOR, LOADING_INDICATOR_SIZE } from '../../constants'
 
 export default function LoadingBlock({...props}) {   
-    const { loading } = useLoadingContext(); 
+    const { loading, holding } = useLoadingContext(); 
     const { response, error } = useResponseHandlerContext();                                      
 
+    const disablePointerEvents = {
+        pointerEvents: "none"
+    };    
+    const enablePointerEvents = {
+        pointerEvents: "initial"
+    };
+
     return (
-        <div className={classes.LoadingBlock} {...props}>   
+        <div style={loading && holding ? enablePointerEvents
+                                       : disablePointerEvents}
+            className={classes.LoadingBlock} {...props}>   
             {
                 loading && 
                 <Spin

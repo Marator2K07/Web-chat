@@ -5,8 +5,7 @@
     width: var(--loading_block_width);
     height: var(--loading_block_height);
     z-index: var(--loading_block_z_index);
-    background-color: var(--background_load_color);
-    pointer-events: none;
+    background-color: var(--background_load_color);       
     display: flex;
     flex-direction: column;
     align-items: center;
