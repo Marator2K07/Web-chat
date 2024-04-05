@@ -13,9 +13,9 @@ export const useCreateLoadingContext = function() {
         setLoading(false);
     }, []); 
 
-    const toggleHolding = useCallback((holding, timeOffset) => {        
+    const toggleHolding = useCallback((value, timeOffset = 0) => {        
         setTimeout(() => {
-            setHolding(holding);
+            setHolding(value);
         }, timeOffset);
     }, []);
 
