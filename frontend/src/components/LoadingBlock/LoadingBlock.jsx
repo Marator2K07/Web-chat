@@ -20,8 +20,8 @@ export default function LoadingBlock({...props}) {
     };
 
     return (
-        <div style={loading && holding ? enablePointerEvents
-                                       : disablePointerEvents}
+        <div style={holding ? enablePointerEvents
+                            : disablePointerEvents}
             className={classes.LoadingBlock} {...props}>   
             {
                 loading && 

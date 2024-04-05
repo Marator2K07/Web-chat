@@ -18,7 +18,6 @@ export default function MainBlock({...props}) {
         hidden: {opacity: 0}
     }
     const {
-        loading,
         holding,
         toggleHolding,
         startLoading,
@@ -63,8 +62,8 @@ export default function MainBlock({...props}) {
             </motion.div>
             <motion.div
                 variants={animationStates}
-                animate={loading && holding ? "visible"
-                                            : "hidden"}>
+                animate={holding ? "visible"
+                                 : "hidden"}>
                 <LoadingBlock />
             </motion.div>
         </div>
