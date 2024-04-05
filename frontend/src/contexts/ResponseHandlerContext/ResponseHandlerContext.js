@@ -26,7 +26,7 @@ export const useCreateResponseHandlerContext = function() {
             setError(error);
             console.log(error);
             if (errorFunc) {
-                errorFunc();
+                errorFunc(error);
             }
         });
     }, []);
@@ -48,24 +48,14 @@ export const useCreateResponseHandlerContext = function() {
             setError(error);
             console.log(error);
             if (errorFunc) {
-                errorFunc();
+                errorFunc(error);
             }
         });
     }, []);
 
-    const toggleResponse = useCallback((response) => {
-        setResponse(response);
-    }, []); 
-
-    const toggleError = useCallback((error) => {
-        setError(error);
-    }, []); 
-
     return { response,
              error,
              resetResult,
-             toggleResponse,
-             toggleError,
              makeGetRequest,
              makePostRequest };
 }
