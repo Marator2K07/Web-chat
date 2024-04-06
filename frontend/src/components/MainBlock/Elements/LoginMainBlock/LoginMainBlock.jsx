@@ -1,31 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './LoginMainBlock.module.css'
-import { formParamIsEmpty } from '../../../../utils';
 import { useNavigate } from 'react-router-dom';
 import { cookies } from '../../../../contexts/CookieContext';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import {
     AFTER_LOGIN_PATH,
+    EXTRA_SHORT_DELAY,
     FIVE_MIN_AGE,
     LOGIN_CHECK_URL,
     LOGIN_URL,
     ONE_MONTH_AGE
 } from '../../../../constants';
 import Scrollable from '../../../Scrollable/Scrollable';
+import { checkLoginForm } from './LoginFormState';
 
 export default function LoginMainBlock({...props}) {
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
-    const navigate = useNavigate();
-    
+    const [validated, setValidated] = useState(false)
+    const navigate = useNavigate(); 
+
     // идентификационные данные
     const [credentials, setCredentials] = useState({
         username: '',
         password: ''
-    }); 
-
-    // установка изменений в идентификационных данных
+    });     
+    // и их обработка
     const handleChange = (e) => {
         setCredentials({
             ...credentials,
@@ -33,14 +34,16 @@ export default function LoginMainBlock({...props}) {
         });
     }
 
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setValidated(checkLoginForm());       
+        }, EXTRA_SHORT_DELAY);
+        return () => clearTimeout(timeout)
+    }, [credentials])
+
     // обработка формы
     async function handleSubmit(e) {
-        e.preventDefault();
-        // предпроверка перед отправкой запроса
-        let validated = true;
-        let usernameOk = !formParamIsEmpty('loginForm', 'username');
-        let passwordOk = !formParamIsEmpty('loginForm', 'password');     
-        validated = (usernameOk && passwordOk && validated); 
+        e.preventDefault();        
         if (!validated) {
             return;
         }
