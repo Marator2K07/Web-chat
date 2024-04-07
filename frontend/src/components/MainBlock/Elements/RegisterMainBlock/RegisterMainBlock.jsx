@@ -4,7 +4,6 @@ import classes from './RegisterMainBlock.module.css'
 import '../../../LoadingBlock/LoadingBlockCSSTransition.css';
 import {
     formEmailIsCorrect,
-    formParamIsEmpty,
     formParamIsSmall,
     passwordIsRepeated
 } from '../../../../utils';
@@ -13,6 +12,7 @@ import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerC
 import { REGISTER_URL } from '../../../../constants';
 import Scrollable from '../../../Scrollable/Scrollable';
 import TipsCollection from '../../../Collection/TipsCollection/TipsCollection';
+import { checkRegisterForm } from './RegisterFormState';
 
 export default function RegisterMainBlock({...props}) {
     const { startLoading, stopLoading } = useLoadingContext();
@@ -73,14 +73,7 @@ export default function RegisterMainBlock({...props}) {
     async function handleSubmit(e) { 
         e.preventDefault();        
         // предпроверка перед отправкой запроса
-        let validatedFinal = true;
-        let usernameOk = !formParamIsEmpty('registerForm', 'username');
-        let emailOk = !formParamIsEmpty('registerForm', 'email');
-        let passwordOk = !formParamIsEmpty('registerForm', 'password');
-        let passwordAgainOk = !formParamIsEmpty('registerForm', 'passwordAgain');
-        validatedFinal = (usernameOk && emailOk &&
-                          passwordOk && passwordAgainOk && 
-                          validated && validatedFinal);
+        let validatedFinal = checkRegisterForm() && validated;
         if (!validatedFinal) {
             return;
         }
