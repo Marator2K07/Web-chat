@@ -1,12 +1,19 @@
+import {
+    FORM_INPUT_MIN_TEXT_LENGTH,
+    FORM_INPUT_NORMAL_COLOR,
+    FORM_INPUT_WARNING_COLOR,
+    FORM_INPUT_WARNING_MESSAGE
+} from "./constants";
+
 export const formParamIsEmpty = (formName, paramName) => {
     var formInput = document.forms[formName][paramName];
     if (formInput.value === '') {
-        formInput.style.backgroundColor = 'rgb(231, 189, 198)'; 
-        formInput.setAttribute('placeholder', 'Заполните данное поле');
+        formInput.style.backgroundColor = FORM_INPUT_WARNING_COLOR; 
+        formInput.setAttribute('placeholder', FORM_INPUT_WARNING_MESSAGE);
         return true;
     } else {
         formInput.setAttribute('placeholder', '');
-        formInput.style.backgroundColor = 'rgb(232, 240, 254)';             
+        formInput.style.backgroundColor = FORM_INPUT_NORMAL_COLOR;             
         return false;
     }
 }
@@ -16,7 +23,7 @@ export const formParamIsSmall = (formName,
                                  userInfo,
                                  setTips) => {
     let formInput = document.forms[formName][paramName];
-    if (formInput.value.length <= 5) {
+    if (formInput.value.length <= FORM_INPUT_MIN_TEXT_LENGTH) {
         // пишем подсказку
         setTips(prevState => ({
             ...prevState,

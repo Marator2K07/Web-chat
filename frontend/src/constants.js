@@ -35,4 +35,9 @@ export const DATE_FORMAT = "YYYY-MM-DD"
 export const PINK_EBONY_COLOR = "#704949";
 
 export const LOADING_INDICATOR_SIZE = 44;
-export const LOADING_INDICATOR_COLOR = "rgb(233, 185, 255)"
+export const LOADING_INDICATOR_COLOR = "rgb(233, 185, 255)";
+
+export const FORM_INPUT_WARNING_COLOR = "rgb(231, 189, 198)";
+export const FORM_INPUT_NORMAL_COLOR = "rgb(232, 240, 254)";
+export const FORM_INPUT_WARNING_MESSAGE = "Обязательное поле";
+export const FORM_INPUT_MIN_TEXT_LENGTH = 5;
