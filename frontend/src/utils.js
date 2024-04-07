@@ -18,10 +18,10 @@ export const formParamIsEmpty = (formName, paramName) => {
     }
 }
 
-export const formParamIsSmall = (formName,
-                                 paramName,
-                                 userInfo,
-                                 setTips) => {
+export const formParamNotSmall = (formName,
+                                  paramName,
+                                  userInfo,
+                                  setTips) => {
     let formInput = document.forms[formName][paramName];
     if (formInput.value.length <= FORM_INPUT_MIN_TEXT_LENGTH) {
         // пишем подсказку

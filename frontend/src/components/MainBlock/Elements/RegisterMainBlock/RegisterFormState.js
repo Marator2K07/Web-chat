@@ -1,7 +1,7 @@
 import {
     formEmailIsCorrect,
     formParamIsEmpty,
-    formParamIsSmall,
+    formParamNotSmall,
     passwordIsRepeated
 } from "../../../../utils"
 
@@ -14,13 +14,13 @@ export function validRegisterForm(setTips) {
     let passwordIsOk = !formParamIsEmpty(formName, 'password') &&
                         validPassword(setTips);        
     let passwordAgainIsOk = !formParamIsEmpty(formName, 'passwordAgain') &&
-                             validPasswordAgain(setTips);        
+                             validPasswordAgain(setTips);
     return usernameIsOk && emailIsOk && passwordIsOk && passwordAgainIsOk;     
 }
 
 export function validEmail(setTips) {
-    return !formEmailIsCorrect(
-        'registerForm',
+    return formEmailIsCorrect(
+        formName,
         'email',
         "Неверный формат почты",
         setTips
@@ -28,7 +28,7 @@ export function validEmail(setTips) {
 }
 
 export function validPassword(setTips) {
-    return !formParamIsSmall(
+    return formParamNotSmall(
         formName,
         'password',
         "Пароль слишком короткий",
