@@ -2,23 +2,22 @@ import React, { useEffect, useState } from 'react'
 import bcrypt from 'bcryptjs-react';
 import classes from './RegisterMainBlock.module.css'
 import '../../../LoadingBlock/LoadingBlockCSSTransition.css';
-import {
-    formEmailIsCorrect,
-    formParamIsSmall,
-    passwordIsRepeated
-} from '../../../../utils';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { REGISTER_URL } from '../../../../constants';
+import { EXTRA_SHORT_DELAY, REGISTER_URL } from '../../../../constants';
 import Scrollable from '../../../Scrollable/Scrollable';
 import TipsCollection from '../../../Collection/TipsCollection/TipsCollection';
-import { checkRegisterForm } from './RegisterFormState';
+import {
+    validEmail,
+    validPassword,
+    validPasswordAgain,
+    validRegisterForm
+} from './RegisterFormState';
 
 export default function RegisterMainBlock({...props}) {
     const { startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
     const [tips, setTips] = useState({}); // подсказки для пользователя
-    const [validated, setValidated] = useState(false); // состояние предпроверки 
 
     // идентификационные данные
     const [credentials, setCredentials] = useState({ 
@@ -28,39 +27,6 @@ export default function RegisterMainBlock({...props}) {
         passwordAgain: ''           
     });
 
-    // анализ ввода строки почты пользователя
-    useEffect(() => {        
-        if (credentials.email !== '' &&
-            !formEmailIsCorrect('registerForm', 'email',
-                                'Неверный формат почты', setTips)) {
-            setValidated(false);
-        } else {
-            setValidated(true);
-        }
-    }, [credentials.email]);
-
-    // анализ ввода строки пароля пользователя
-    useEffect(() => {        
-        if (credentials.password !== '' &&
-            !formParamIsSmall('registerForm', 'password',
-                              'Пароль слишком короткий', setTips)) {
-            setValidated(false);
-        } else {
-            setValidated(true);
-        }
-    }, [credentials.password]);
-
-    // анализ ввода строки подтверждения пароля пользователя
-    useEffect(() => {        
-        if (credentials.passwordAgain !== '' &&
-            !passwordIsRepeated('registerForm', 'password', 'passwordAgain', 
-                                'Пароли не совпадают', setTips)) {
-            setValidated(false);
-        } else {
-            setValidated(true);
-        }     
-    }, [credentials.passwordAgain, credentials.password]);
-
     // установка изменений в идентификационных данных
     const handleChange = (e) => {
         setCredentials({
@@ -69,12 +35,36 @@ export default function RegisterMainBlock({...props}) {
         }); 
     }
 
+    // проверка спустя паузу корректности ввода емайла
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            credentials.email !== "" && validEmail(setTips);       
+        }, EXTRA_SHORT_DELAY);
+        return () => clearTimeout(timeout)
+    }, [credentials.email])
+
+    // проверка спустя паузу корректности ввода пароля
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            credentials.password !== "" && validPassword(setTips);     
+        }, EXTRA_SHORT_DELAY);
+        return () => clearTimeout(timeout)
+    }, [credentials.password])
+
+    // проверка спустя паузу корректности ввода повтора пароля
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            credentials.passwordAgain !== "" &&
+                validPasswordAgain(setTips) &&
+                validPassword(setTips);                   
+        }, EXTRA_SHORT_DELAY);
+        return () => clearTimeout(timeout)
+    }, [credentials.passwordAgain])
+
     // обработка формы
     async function handleSubmit(e) { 
         e.preventDefault();        
-        // предпроверка перед отправкой запроса
-        let validatedFinal = checkRegisterForm() && validated;
-        if (!validatedFinal) {
+        if (!validRegisterForm(setTips)) {
             return;
         }
         
@@ -129,7 +119,9 @@ export default function RegisterMainBlock({...props}) {
                         name='passwordAgain'
                         value={credentials.passwordAgain} 
                         onChange={handleChange}/>
-                    <button type='button' onClick={handleSubmit}>Зарегистрироваться</button>
+                    <button type='button' onClick={handleSubmit}>
+                        Зарегистрироваться
+                    </button>
                 </form>  
                 <TipsCollection tips={tips}/>  
             </Scrollable>                               
