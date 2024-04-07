@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import classes from './LoginMainBlock.module.css'
 import { useNavigate } from 'react-router-dom';
 import { cookies } from '../../../../contexts/CookieContext';
@@ -6,19 +6,17 @@ import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingPr
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import {
     AFTER_LOGIN_PATH,
-    EXTRA_SHORT_DELAY,
     FIVE_MIN_AGE,
     LOGIN_CHECK_URL,
     LOGIN_URL,
     ONE_MONTH_AGE
 } from '../../../../constants';
 import Scrollable from '../../../Scrollable/Scrollable';
-import { checkLoginForm } from './LoginFormState';
+import { validLoginForm } from './LoginFormState';
 
 export default function LoginMainBlock({...props}) {
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
-    const [validated, setValidated] = useState(false)
     const navigate = useNavigate(); 
 
     // идентификационные данные
@@ -32,19 +30,12 @@ export default function LoginMainBlock({...props}) {
             ...credentials,
             [e.target.name]: e.target.value
         });
-    }
-
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setValidated(checkLoginForm());       
-        }, EXTRA_SHORT_DELAY);
-        return () => clearTimeout(timeout)
-    }, [credentials])
+    }    
 
     // обработка формы
     async function handleSubmit(e) {
         e.preventDefault();        
-        if (!validated) {
+        if (!validLoginForm()) {
             return;
         }
         
