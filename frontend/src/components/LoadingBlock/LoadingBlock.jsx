@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import classes from './LoadingBlock.module.css'
 import ResponseError from '../Response/ResponseError/ResponseError'
 import OkResponse from '../Response/OkResponse/OkResponse'
@@ -9,7 +9,7 @@ import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext
 import { LOADING_INDICATOR_COLOR, LOADING_INDICATOR_SIZE } from '../../constants'
 
 export default function LoadingBlock({...props}) {   
-    const { loading, holding } = useLoadingContext(); 
+    const { loading, holding, toggleHolding } = useLoadingContext(); 
     const { response, error } = useResponseHandlerContext();                                      
 
     const disablePointerEvents = {
@@ -18,6 +18,13 @@ export default function LoadingBlock({...props}) {
     const enablePointerEvents = {
         pointerEvents: "initial"
     };
+
+    // управление задержкой (holding) экрана загрузки
+    useEffect(() => {
+        if(!loading && response && response.data) {
+            toggleHolding(response.data.holding);
+        }
+    }, [loading, response, toggleHolding])
 
     return (
         <div style={holding ? enablePointerEvents
