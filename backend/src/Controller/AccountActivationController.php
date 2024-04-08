@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccountActivationController extends AbstractController
 {
-    #[Route('/account_activation', name: 'app_account_activation')]
+    #[Route('/user_activate', name: 'app_user_activate')]
     public function activation(Request $request,
                                EntityManagerInterface $entityManager,
                                UserRepository $userRepository): JsonResponse
