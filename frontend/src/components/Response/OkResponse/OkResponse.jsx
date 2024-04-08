@@ -31,7 +31,7 @@ export default function OkResponse({message, ...props}) {
                     <div>
                         <button 
                             type="button"
-                            onClick={() => toggleHolding(false, 0)}>
+                            onClick={() => toggleHolding(false)}>
                             Вернуться
                         </button>
                     </div>
@@ -40,10 +40,9 @@ export default function OkResponse({message, ...props}) {
                         <button
                             type="button"
                             onClick={() => {
-                                    toggleHolding(false, 0);
-                                    goNavigation(message.button.key); 
-                                }
-                            }>
+                                toggleHolding(false);
+                                goNavigation(message.button.key); 
+                            }}>
                             {message.button.text}
                         </button>}
                     </div>
