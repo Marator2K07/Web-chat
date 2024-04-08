@@ -5,7 +5,7 @@ import { useNavigationContext } from '../../../contexts/NavigationContext/Naviga
 import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout';
 
 export default function OkResponse({message, ...props}) {
-    const { goNavigation } = useNavigationContext();
+    const { navigationBlocks, goNavigation } = useNavigationContext();
     const { toggleHolding } = useLoadingContext();    
 
     return (
@@ -37,7 +37,9 @@ export default function OkResponse({message, ...props}) {
                             type="button"
                             onClick={() => {
                                 toggleHolding(false);
-                                goNavigation(message.button.key); 
+                                goNavigation(
+                                    navigationBlocks[message.button.key]
+                                ); 
                             }}>
                             {message.button.text}
                         </button>}
