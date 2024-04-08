@@ -11,7 +11,7 @@ import {
     LOGIN_ROUTE,
     ONE_MONTH_AGE
 } from '../../../../constants';
-import Scrollable from '../../../Scrollable/Scrollable';
+import Scrollable from '../../../Helper/Scrollable/Scrollable';
 import { validLoginForm } from './LoginFormState';
 
 export default function LoginMainBlock({...props}) {

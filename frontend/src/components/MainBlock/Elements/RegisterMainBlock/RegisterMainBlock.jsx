@@ -5,7 +5,7 @@ import '../../../LoadingBlock/LoadingBlockCSSTransition.css';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { EXTRA_SHORT_DELAY, REGISTER_ROUTE } from '../../../../constants';
-import Scrollable from '../../../Scrollable/Scrollable';
+import Scrollable from '../../../Helper/Scrollable/Scrollable';
 import TipsCollection from '../../../Collection/TipsCollection/TipsCollection';
 import {
     validEmail,
