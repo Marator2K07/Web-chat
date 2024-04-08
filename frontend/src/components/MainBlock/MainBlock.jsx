@@ -12,11 +12,7 @@ import { useNavigationContext } from '../../contexts/NavigationContext/Navigatio
 
 export default function MainBlock({...props}) {
     const { currentBlock } = useNavigationContext();    
-    const { x, opacity, duration } = useMainBlockAnimationContext();
-    const animationStates = {
-        visible: {opacity: 1},
-        hidden: {opacity: 0}
-    }
+    const { x, opacity, duration } = useMainBlockAnimationContext();    
     const {
         holding,
         toggleHolding,
@@ -24,6 +20,11 @@ export default function MainBlock({...props}) {
         stopLoading
     } = useLoadingContext();
     const navigate = useNavigate();
+
+    const animationStates = {
+        visible: {opacity: 1},
+        hidden: {opacity: 0}
+    }
 
     const smartNav = useCallback(() => {
         let username = cookies.get('username');

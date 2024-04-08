@@ -1,23 +1,27 @@
-import React, { useRef } from 'react'
-import { CSSTransition } from 'react-transition-group';
+import React from 'react'
 import classes from './UserActivationPage.module.css'
 import LoadingBlock from '../../LoadingBlock/LoadingBlock'
+import { motion } from "framer-motion";
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { LONG_DELAY, SHORT_TIMEOUT, USER_ACTIVATION_ROUTE } from '../../../constants';
+import { LONG_DELAY, USER_ACTIVATION_ROUTE } from '../../../constants';
 
-export default function UserActivationPage({...props}) { 
+export default function UserActivationPage({...props}) {     
+    const { resetResult, makePostRequest } = useResponseHandlerContext();    
+    const [searchParams] = useSearchParams(); // анализ переданных параметров в url
     const { 
         holding,
         startLoading,
         stopLoading, 
         toggleHolding
     } = useLoadingContext();
-    const { resetResult, makePostRequest } = useResponseHandlerContext();    
-    const [searchParams] = useSearchParams(); // анализ переданных параметров в url
-    const nodeRef = useRef(null);
+
+    const animationStates = {
+        visible: {opacity: 1},
+        hidden: {opacity: 0}
+    }
 
     // обработка активации
     const handleActivation = async () => {
@@ -42,13 +46,12 @@ export default function UserActivationPage({...props}) {
     return (
         <div className={classes.UserActivationPage} {...props}>
             <h3>Активация аккаунта</h3>    
-            <CSSTransition 
-                in={holding}
-                nodeRef={nodeRef}
-                timeout={SHORT_TIMEOUT}
-                classNames="LoadingBlock">
-                <LoadingBlock innerRef={nodeRef}/>
-            </CSSTransition>
+            <motion.div 
+                variants={animationStates}
+                animate={holding ? "visible"
+                                 : "hidden"}>
+                <LoadingBlock />
+            </motion.div>
         </div>
     )
 }
