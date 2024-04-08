@@ -11,15 +11,15 @@ export default function OkResponse({message, ...props}) {
     return (
         <div className={classes.OkResponse} {...props}>
             <div className='main'>
-                Сообщение:
+                <h4>Сообщение:</h4>
                 <p>{message.main}</p>
                 { 
                     message.addition &&
                     <div className='addition'>
-                        Дополнительная информация:
+                        <h4>Дополнительная информация:</h4>
+                        <p>{message.addition}</p>
                     </div>
-                } 
-                <p>{message.addition}</p>
+                }                 
             </div>  
             {
                 message.holding &&
