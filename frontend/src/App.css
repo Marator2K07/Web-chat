@@ -62,4 +62,7 @@
   --loading_block_width: 100vw;
   --loading_block_height: 79.7vh;
   --loading_block_z_index: 100;
+
+  --user_activation_page_width: 100vw;
+  --user_activation_page_height: 100vh;
 }

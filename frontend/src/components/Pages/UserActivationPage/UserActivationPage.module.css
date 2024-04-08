@@ -1,15 +1,16 @@
 .UserActivationPage {
-    background-color: slategray;
-    width: 100vw;
-    height: 100vh;
+    background-color: var(--background_main_color);
+    width: var(--user_activation_page_width);
+    height: var(--user_activation_page_height);
 }
 
 .UserActivationPage h3 {
-    color: rgb(255, 140, 100);
-    margin: 0;
+    color: var(--second_color);
+    margin: 0px;
+    padding: var(--h3_padding);    
+    font-weight: var(--h3_font_weight);
+    font-family: var(--h3_font_family);
+    font-size: var(--h3_font_size);
     text-align: center;
-    font-weight: 500;
-    font-family: emoji;
-    font-size: 19px;
 }
 
