@@ -7,9 +7,9 @@ import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import {
-    BEFORE_LOGIN_PATH,
+    BEFORE_LOGIN_PAGE_URL,
     DATE_FORMAT,
-    GET_ALL_USER_INFO_URL,
+    GET_ALL_USER_INFO_ROUTE,
     SHORT_DELAY
 } from '../../../constants';
 import { cookies } from '../../../contexts/CookieContext';
@@ -30,7 +30,7 @@ export default function AfterLoginPage({...props}) {
         startLoading();
         resetResult();
         await makeGetRequest(
-            `${GET_ALL_USER_INFO_URL}/${cookies.get('username')}`,
+            `${GET_ALL_USER_INFO_ROUTE}/${cookies.get('username')}`,
             async (response) => {
                 loadUser(response.data.user);
                 response.data.aboutUser.dateOfBirth =
@@ -42,7 +42,7 @@ export default function AfterLoginPage({...props}) {
             () => {
                 setTimeout(() => {
                     toggleHolding(false, SHORT_DELAY);
-                    navigate(BEFORE_LOGIN_PATH);
+                    navigate(BEFORE_LOGIN_PAGE_URL);
                 }, SHORT_DELAY);
             }
         );

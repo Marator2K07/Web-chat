@@ -11,10 +11,10 @@ import { MainBlockAnimationProvider } from './contexts/MainBlockAnimationContext
 import { NavigationProvider } from './contexts/NavigationContext/NavigationProvider';
 import OtherUserPage from './components/Pages/OtherUserPage/OtherUserPage';
 import { 
-    AFTER_LOGIN_PATH,
-    BEFORE_LOGIN_PATH,
-    OTHER_USER_PATH,
-    USER_ACTIVATION_PATH
+    AFTER_LOGIN_PAGE_URL,
+    BEFORE_LOGIN_PAGE_URL,
+    OTHER_USER_PAGE_URL,
+    USER_ACTIVATION_PAGE_URL
 } from './constants';
 
 function App() {
@@ -28,16 +28,16 @@ function App() {
             <UserProvider>
             <AnimatePresence mode='wait' initial={false}>		
                 <Routes location={location} key={location.pathname}>                    
-                    <Route path={`${BEFORE_LOGIN_PATH}`} element={
+                    <Route path={`${BEFORE_LOGIN_PAGE_URL}`} element={
                         <BeforeLoginPage />
                     }/> 
-                    <Route path={`${USER_ACTIVATION_PATH}`} element={
+                    <Route path={`${USER_ACTIVATION_PAGE_URL}`} element={
                         <UserActivationPage />
                     }/>
-                    <Route path={`${AFTER_LOGIN_PATH}/:username`} element={
+                    <Route path={`${AFTER_LOGIN_PAGE_URL}/:username`} element={
                         <AfterLoginPage />
                     }/>
-                    <Route path={`${OTHER_USER_PATH}/:username`} element={
+                    <Route path={`${OTHER_USER_PAGE_URL}/:username`} element={
                         <OtherUserPage />                        
                     }/>
                 </Routes>

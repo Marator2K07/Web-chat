@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { LONG_DELAY, SHORT_TIMEOUT, USER_ACTIVATION_URL } from '../../../constants';
+import { LONG_DELAY, SHORT_TIMEOUT, USER_ACTIVATION_ROUTE } from '../../../constants';
 
 export default function UserActivationPage({...props}) { 
     const { 
@@ -25,7 +25,7 @@ export default function UserActivationPage({...props}) {
         startLoading();
         resetResult();
         makePostRequest(
-            USER_ACTIVATION_URL,
+            USER_ACTIVATION_ROUTE,
             { confirmToken: confirmToken },
             toggleHolding(false, LONG_DELAY),
             toggleHolding(false, LONG_DELAY)

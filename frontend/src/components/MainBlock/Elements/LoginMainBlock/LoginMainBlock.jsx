@@ -5,10 +5,10 @@ import { cookies } from '../../../../contexts/CookieContext';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import {
-    AFTER_LOGIN_PATH,
+    AFTER_LOGIN_PAGE_URL,
     FIVE_MIN_AGE,
-    LOGIN_CHECK_URL,
-    LOGIN_URL,
+    LOGIN_CHECK_ROUTE,
+    LOGIN_ROUTE,
     ONE_MONTH_AGE
 } from '../../../../constants';
 import Scrollable from '../../../Scrollable/Scrollable';
@@ -43,11 +43,11 @@ export default function LoginMainBlock({...props}) {
         startLoading();
         resetResult();
         await makePostRequest(
-            LOGIN_URL,
+            LOGIN_ROUTE,
             credentials,
             async () => {
                 await makePostRequest(
-                    LOGIN_CHECK_URL,
+                    LOGIN_CHECK_ROUTE,
                     credentials,
                     (response) => {
                         const { token, refreshToken } = response.data;                 
@@ -56,7 +56,7 @@ export default function LoginMainBlock({...props}) {
                         cookies.set('token', token, { maxAge: FIVE_MIN_AGE });                        
                         toggleHolding(false);
                         resetResult();
-                        navigate(`${AFTER_LOGIN_PATH}/${credentials.username}`);                        
+                        navigate(`${AFTER_LOGIN_PAGE_URL}/${credentials.username}`);                        
                     }
                 )                
             }

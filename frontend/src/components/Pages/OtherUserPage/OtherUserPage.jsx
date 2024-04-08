@@ -7,7 +7,7 @@ import MainBlock from '../../MainBlock/MainBlock';
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { useSearchParams } from 'react-router-dom';
-import { GET_OTHER_USER_URL, SHORT_DELAY } from '../../../constants';
+import { GET_OTHER_USER_ROUTE, SHORT_DELAY } from '../../../constants';
 import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 
 export default function OtherUserPage({...props}) {
@@ -23,7 +23,7 @@ export default function OtherUserPage({...props}) {
         startLoading();
         resetResult();
         makeGetRequest(
-            `${GET_OTHER_USER_URL }/${username}`,
+            `${GET_OTHER_USER_ROUTE }/${username}`,
             (response) => {
                 loadBufferUser(response.data);
                 toggleHolding(false, SHORT_DELAY);

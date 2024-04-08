@@ -4,7 +4,7 @@ import { useNavigationContext } from '../../../../contexts/NavigationContext/Nav
 import { useUserContext } from '../../../../contexts/UserContext/UserProvider';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { MEDIUM_DELAY, SUBSCRIBE_URL, UNSUBSCRIBE_URL } from '../../../../constants';
+import { MEDIUM_DELAY, SUBSCRIBE_ROUTE, UNSUBSCRIBE_ROUTE } from '../../../../constants';
 
 export default function OtherUserMainBlock({...props}) {   
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();
@@ -18,7 +18,7 @@ export default function OtherUserMainBlock({...props}) {
         resetResult();
         if (e.target.checked) {
             await makePostRequest(
-                `${SUBSCRIBE_URL}`,
+                `${SUBSCRIBE_ROUTE}`,
                 {
                     owner: user.username,
                     subscriber: bufferUser.user.username
@@ -28,7 +28,7 @@ export default function OtherUserMainBlock({...props}) {
             );
         } else {
             await makePostRequest(
-                `${UNSUBSCRIBE_URL}`,
+                `${UNSUBSCRIBE_ROUTE}`,
                 {
                     owner: user.username,
                     subscriber: bufferUser.user.username

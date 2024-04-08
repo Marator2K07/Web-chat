@@ -4,7 +4,7 @@ import classes from './RegisterMainBlock.module.css'
 import '../../../LoadingBlock/LoadingBlockCSSTransition.css';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { EXTRA_SHORT_DELAY, REGISTER_URL } from '../../../../constants';
+import { EXTRA_SHORT_DELAY, REGISTER_ROUTE } from '../../../../constants';
 import Scrollable from '../../../Scrollable/Scrollable';
 import TipsCollection from '../../../Collection/TipsCollection/TipsCollection';
 import {
@@ -82,7 +82,7 @@ export default function RegisterMainBlock({...props}) {
         startLoading();
         resetResult();
         await makePostRequest(
-            REGISTER_URL, {
+            REGISTER_ROUTE, {
                 username: credentials.username,
                 email: credentials.email,
                 password: hashedPassword

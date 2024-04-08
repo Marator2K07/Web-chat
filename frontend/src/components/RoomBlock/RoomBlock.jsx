@@ -4,7 +4,7 @@ import { useUserContext } from '../../contexts/UserContext/UserProvider'
 import RoomsCollection from '../Collection/RoomsCollection/RoomsCollection';
 import UsersCollection from '../Collection/UsersCollection/UsersCollection';
 import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { MEDIUM_DELAY, NEW_ROOM_URL, USERS_SEARCH_URL } from '../../constants';
+import { MEDIUM_DELAY, NEW_ROOM_ROUTE, USERS_SEARCH_ROUTE } from '../../constants';
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider';
 
 export default function RoomBlock({...props}) {
@@ -45,7 +45,7 @@ export default function RoomBlock({...props}) {
     const updateUsers = async() => {    
         resetResult();
         await makePostRequest(
-            USERS_SEARCH_URL,
+            USERS_SEARCH_ROUTE,
             { searchStr: searchStr },
             (response) => {
                 setFoundedUsers(response.data.users);
@@ -66,7 +66,7 @@ export default function RoomBlock({...props}) {
             startLoading();
             resetResult();
             await makePostRequest(
-                NEW_ROOM_URL,
+                NEW_ROOM_ROUTE,
                 {
                     roomName: newRoomName,
                     author: user,

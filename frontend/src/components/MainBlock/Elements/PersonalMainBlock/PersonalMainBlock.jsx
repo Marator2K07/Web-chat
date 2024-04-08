@@ -3,7 +3,7 @@ import classes from './PersonalMainBlock.module.css'
 import { useUserContext } from '../../../../contexts/UserContext/UserProvider';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { SHORT_DELAY, UPDATE_ABOUT_USER_URL } from '../../../../constants';
+import { SHORT_DELAY, UPDATE_ABOUT_USER_ROUTE } from '../../../../constants';
 import { cookies } from '../../../../contexts/CookieContext';
 import { convertBlobToBase64, formParamIsEmpty } from '../../../../utils';
 
@@ -50,7 +50,7 @@ export default function PersonalMainBlock({...props}) {
         startLoading();
         resetResult();
         await makePostRequest(
-            `${UPDATE_ABOUT_USER_URL}/${cookies.get('username')}`,
+            `${UPDATE_ABOUT_USER_ROUTE}/${cookies.get('username')}`,
             aboutUserFromForm,
             () => {
                 // если все прошло хорошо, то обновляем и текущие данные

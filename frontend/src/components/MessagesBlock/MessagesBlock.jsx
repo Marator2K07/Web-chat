@@ -3,7 +3,7 @@ import classes from './MessagesBlock.module.css'
 import { useUserContext } from '../../contexts/UserContext/UserProvider'
 import MessagesCollection from '../Collection/MessagesCollection/MessagesCollection';
 import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { GET_MESSAGES_FOR_ROOM_URL, MEDIUM_DELAY, NEW_MESSAGE_URL } from '../../constants';
+import { GET_MESSAGES_FOR_ROOM_ROUTE, MEDIUM_DELAY, NEW_MESSAGE_ROUTE } from '../../constants';
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider';
 import Scrollable from '../Scrollable/Scrollable';
 
@@ -32,7 +32,7 @@ export default function MessagesBlock({room, ...props}) {
         startLoading();
         resetResult();
         await makePostRequest(
-            NEW_MESSAGE_URL,
+            NEW_MESSAGE_ROUTE,
             { 
                 username: user.username,
                 roomId: room.id,
@@ -56,7 +56,7 @@ export default function MessagesBlock({room, ...props}) {
     const updateMessages = async() => {
         resetResult();
         await makeGetRequest(
-            `${GET_MESSAGES_FOR_ROOM_URL}/${room.id}`,            
+            `${GET_MESSAGES_FOR_ROOM_ROUTE}/${room.id}`,            
             (response) => {
                 setMessages(response.data.messages);
                 console.log(response.data.messages);
