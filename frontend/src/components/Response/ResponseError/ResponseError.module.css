@@ -32,6 +32,11 @@
 
 .ResponseError h4 {
     color: var(--error_color);
+    font-family: var(--h4_font_family);
+    font-weight: var(--h4_font_weight);
+    font-size: var(--h4_font_size);
+    margin: var(--h4_margin);    
+    padding: var(--h4_padding);
 }
 
 .ResponseError p {

@@ -30,6 +30,15 @@
     border-bottom-left-radius: var(--border_radius);   
 }
 
+.OkResponse h4 {
+    color: var(--second_color);
+    font-family: var(--h4_font_family);
+    font-weight: var(--h4_font_weight);
+    font-size: var(--h4_font_size);
+    margin: var(--h4_margin);    
+    padding: var(--h4_padding);
+}
+
 .OkResponse p {
     font-family: var(--p_font_family);
     font-weight: var(--p_font_weight);
