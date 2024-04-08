@@ -1,16 +1,12 @@
 import React from 'react'
-import styled from 'styled-components';
 import classes from './OkResponse.module.css'
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
+import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout';
 
 export default function OkResponse({message, ...props}) {
     const { goNavigation } = useNavigationContext();
-    const { toggleHolding } = useLoadingContext();
-    const Buttons = styled.div`
-    display: flex;
-    align-self: center;
-    `;   
+    const { toggleHolding } = useLoadingContext();    
 
     return (
         <div className={classes.OkResponse} {...props}>
@@ -27,7 +23,7 @@ export default function OkResponse({message, ...props}) {
             </div>  
             {
                 message.holding &&
-                <Buttons>
+                <HorizontalLayout>
                     <div>
                         <button 
                             type="button"
@@ -46,7 +42,7 @@ export default function OkResponse({message, ...props}) {
                             {message.button.text}
                         </button>}
                     </div>
-                </Buttons>
+                </HorizontalLayout>
             }
         </div>
     )
