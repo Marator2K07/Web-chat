@@ -22,7 +22,10 @@ export default function LoadingBlock({...props}) {
     // управление задержкой (holding) экрана загрузки
     useEffect(() => {
         if(!loading && response && response.data) {
-            toggleHolding(response.data.holding);
+            toggleHolding(
+                response.data.holding,
+                response.data.delay
+            );
         }
     }, [loading, response, toggleHolding])
 
