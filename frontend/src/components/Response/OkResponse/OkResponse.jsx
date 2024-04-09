@@ -24,26 +24,22 @@ export default function OkResponse({message, ...props}) {
             {
                 message.holding &&
                 <HorizontalLayout>
-                    <div>
-                        <button 
-                            type="button"
-                            onClick={() => toggleHolding(false)}>
-                            Вернуться
-                        </button>
-                    </div>
-                    <div>
-                        {message.hasOwnProperty("button") &&
-                        <button
-                            type="button"
-                            onClick={() => {
-                                toggleHolding(false);
-                                goNavigation(
-                                    navigationBlocks[message.button.key]
-                                ); 
-                            }}>
-                            {message.button.text}
-                        </button>}
-                    </div>
+                    <button 
+                        type="button"
+                        onClick={() => toggleHolding(false)}>
+                        Вернуться
+                    </button>
+                    {message.hasOwnProperty("button") &&
+                    <button
+                        type="button"
+                        onClick={() => {
+                            toggleHolding(false);
+                            goNavigation(
+                                navigationBlocks[message.button.key]
+                            ); 
+                        }}>
+                        {message.button.text}
+                    </button>}
                 </HorizontalLayout>
             }
         </div>

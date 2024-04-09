@@ -25,15 +25,17 @@ export default function ResponseError({message, ...props}) {
                 <h4>Сообщение:</h4>
                 <p>{message.message}</p> 
             </div>
-            {message.hasOwnProperty("response") &&
-            <div className='info'>
-                <h4>Детали:</h4>
-                <p>
-                    {message.response.data.detail}<br/>
-                    {message.response.data.message}
-                </p> 
-            </div>}            
-            <button type="button" onClick={() => toggleHolding(false, 0)}>
+            {
+                message.hasOwnProperty("response") &&
+                <div className='info'>
+                    <h4>Детали:</h4>
+                    <p>
+                        {message.response.data.detail}<br/>
+                        {message.response.data.message}
+                    </p> 
+                </div>
+            }            
+            <button type="button" onClick={() => toggleHolding(false)}>
                 Вернуться
             </button>            
         </div>
