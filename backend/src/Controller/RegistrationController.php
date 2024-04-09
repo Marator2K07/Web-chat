@@ -16,6 +16,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
+// НАпоминание: если holding = false,
+// то указывается еще одно свойство delay
+
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register', methods: "POST")]

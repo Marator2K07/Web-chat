@@ -10,6 +10,9 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+// НАпоминание: если holding = false,
+// то указывается еще одно свойство delay
+
 class AuthenticationController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login', methods: "POST")]
@@ -30,12 +33,13 @@ class AuthenticationController extends AbstractController
 
         if (!$user->isConfirmed()) {
             throw new HttpException(409, 'Аккаунт не активирован');
-        } else {
-            return new JsonResponse([
-                'main' => 'Успешный вход.',
-                'holding' => false
-            ]);  
-        }         
+        }
+
+        return new JsonResponse([
+            'main' => 'Успешный вход.',
+            'holding' => false,
+            'delay' => SHORT_DELAY 
+        ]); 
     }
 
     #[Route(path: '/logout', name: 'app_logout')]

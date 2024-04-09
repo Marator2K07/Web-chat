@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
+// НАпоминание: если holding = false,
+// то указывается еще одно свойство delay
+
 class AccountActivationController extends AbstractController
 {
     #[Route('/user_activate', name: 'app_user_activate')]
@@ -31,13 +34,13 @@ class AccountActivationController extends AbstractController
             return new JsonResponse(['status' => 'Ok',
                 'main' => 'Аккаунт успешно активирован.',
                 'addition' => 'Можете закрывать данную страницу.',
-                'holding' => false
+                'holding' => true
             ]); 
         } else {
             return new JsonResponse(['status' => 'Ok',
                 'main' => 'Данный аккаунт уже активирован.',
                 'addition' => 'Можете закрывать данную страницу.',
-                'holding' => false
+                'holding' => true
             ]); 
         }
     }
