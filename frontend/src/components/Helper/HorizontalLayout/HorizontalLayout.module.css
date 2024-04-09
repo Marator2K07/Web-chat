@@ -1,4 +1,4 @@
 .HorizontalLayout {
     display: flex;
-    align-self: center;
+    align-self: flex-end;
 }
