@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Constants\Constants;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,7 +39,7 @@ class AuthenticationController extends AbstractController
         return new JsonResponse([
             'main' => 'Успешный вход.',
             'holding' => false,
-            'delay' => SHORT_DELAY 
+            'delay' => Constants::SHORT_DELAY
         ]); 
     }
 
