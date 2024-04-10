@@ -15,7 +15,7 @@ import Scrollable from '../../../Helper/Scrollable/Scrollable';
 import { validLoginForm } from './LoginFormState';
 
 export default function LoginMainBlock({...props}) {
-    const { toggleHolding, startLoading, stopLoading } = useLoadingContext();
+    const { startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
     const navigate = useNavigate(); 
 
@@ -54,7 +54,6 @@ export default function LoginMainBlock({...props}) {
                         cookies.set('username', credentials.username, { maxAge: ONE_MONTH_AGE });
                         cookies.set('refreshToken', refreshToken, { maxAge: ONE_MONTH_AGE });
                         cookies.set('token', token, { maxAge: FIVE_MIN_AGE });                        
-                        toggleHolding(false);
                         resetResult();
                         navigate(`${AFTER_LOGIN_PAGE_URL}/${credentials.username}`);                        
                     }

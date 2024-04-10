@@ -6,17 +6,12 @@ import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { LONG_DELAY, USER_ACTIVATION_ROUTE } from '../../../constants';
+import { USER_ACTIVATION_ROUTE } from '../../../constants';
 
 export default function UserActivationPage({...props}) {     
     const { resetResult, makePostRequest } = useResponseHandlerContext();    
     const [searchParams] = useSearchParams(); // анализ переданных параметров в url
-    const { 
-        holding,
-        startLoading,
-        stopLoading, 
-        toggleHolding
-    } = useLoadingContext();
+    const { holding, startLoading, stopLoading } = useLoadingContext();
 
     const animationStates = {
         visible: {opacity: 1},
@@ -30,9 +25,7 @@ export default function UserActivationPage({...props}) {
         resetResult();
         makePostRequest(
             USER_ACTIVATION_ROUTE,
-            { confirmToken: confirmToken },
-            toggleHolding(false, LONG_DELAY),
-            toggleHolding(false, LONG_DELAY)
+            { confirmToken: confirmToken }
         );
         stopLoading();        
     }
