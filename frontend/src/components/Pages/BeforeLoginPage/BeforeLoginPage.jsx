@@ -8,12 +8,12 @@ import NavigationCollection from '../../Collection/NavigationCollection/Navigati
 import { cookies } from '../../../contexts/CookieContext';
 
 export default function BeforeLoginPage({...props}) {
-    const {currentBlock, goNavigationWithAnimation} = useNavigationContext();
+    const { currentBlock, goNavigationWithAnimation } = useNavigationContext();
 
     useEffect(() => {
         // cookies.remove('username');
         // cookies.remove('token');
-        let lastMainBlock = cookies.get('lastMainBlock');
+        let lastMainBlock = cookies.get('lastBeforeLoginBlock');
         if (lastMainBlock) {
             goNavigationWithAnimation(lastMainBlock);
         }
