@@ -14,11 +14,16 @@ export const useCreateNavigationContext = function() {
         otherUserBlock: {path: 'otherUser', description: 'Другой пользователь', index: 11}
     }) 
     const {initCondition, leftCondition, rightCondition} = useMainBlockAnimationContext();
-    const [currentBlock, setCurrentBlock] = useState(cookies.get('lastMainBlock') ? cookies.get('lastMainBlock')
-                                                                                  : navigationBlocks.loginBlock);
+    const [currentBlock, setCurrentBlock] = useState(navigationBlocks.loginBlock);
 
     const goNavigation = useCallback((block) => {
-        setCurrentBlock(block);
+        setCurrentBlock(block);   
+        // запоминаем последний блок в навигации
+        if (block.index <= 1) {
+            cookies.set('lastBeforeLoginBlock', block);
+        } else {
+            cookies.set('lastAfterLoginBlock', block);
+        }      
     }, []);
 
     const goNavigationWithAnimation = useCallback((block) => {
@@ -32,6 +37,12 @@ export const useCreateNavigationContext = function() {
                 initCondition();
             }, EXTRA_SHORT_DELAY);
         }, EXTRA_SHORT_DELAY);  
+        // запоминаем последний блок в навигации
+        if (block.index <= 1) {
+            cookies.set('lastBeforeLoginBlock', block);
+        } else {
+            cookies.set('lastAfterLoginBlock', block);
+        }   
     }, [
         currentBlock.index,
         initCondition,
