@@ -60,6 +60,7 @@ export default function LoginMainBlock({...props}) {
                                 `${AFTER_LOGIN_PAGE_URL}/${credentials.username}`,
                                 { replace: true }
                             ); 
+                            resetResult();
                         }, SHORT_DELAY);                                               
                     }
                 )                
