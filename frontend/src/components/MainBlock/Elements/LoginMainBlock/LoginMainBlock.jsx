@@ -9,7 +9,8 @@ import {
     FIVE_MIN_AGE,
     LOGIN_CHECK_ROUTE,
     LOGIN_ROUTE,
-    ONE_MONTH_AGE
+    ONE_MONTH_AGE,
+    SHORT_DELAY
 } from '../../../../constants';
 import Scrollable from '../../../Helper/Scrollable/Scrollable';
 import { validLoginForm } from './LoginFormState';
@@ -53,9 +54,13 @@ export default function LoginMainBlock({...props}) {
                         const { token, refreshToken } = response.data;                 
                         cookies.set('username', credentials.username, { maxAge: ONE_MONTH_AGE });
                         cookies.set('refreshToken', refreshToken, { maxAge: ONE_MONTH_AGE });
-                        cookies.set('token', token, { maxAge: FIVE_MIN_AGE });                        
-                        resetResult();
-                        navigate(`${AFTER_LOGIN_PAGE_URL}/${credentials.username}`);                        
+                        cookies.set('token', token, { maxAge: FIVE_MIN_AGE });
+                        setTimeout(() => {                            
+                            navigate(
+                                `${AFTER_LOGIN_PAGE_URL}/${credentials.username}`,
+                                { replace: true }
+                            ); 
+                        }, SHORT_DELAY);                                               
                     }
                 )                
             }
