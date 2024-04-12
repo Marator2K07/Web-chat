@@ -5,7 +5,7 @@ import DownBlock from '../../DownBlock/DownBlock'
 import MainBlock from '../../MainBlock/MainBlock';
 import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
 import NavigationCollection from '../../Collection/NavigationCollection/NavigationCollection';
-import { cookies } from '../../../contexts/CookieContext';
+import { cookies, loadLastMainBlock } from '../../../contexts/CookieContext';
 
 export default function BeforeLoginPage({...props}) {
     const { currentBlock, goNavigationWithAnimation } = useNavigationContext();
@@ -13,7 +13,7 @@ export default function BeforeLoginPage({...props}) {
     useEffect(() => {
         // cookies.remove('username');
         // cookies.remove('token');
-        let lastMainBlock = cookies.get('lastBeforeLoginBlock');
+        let lastMainBlock = loadLastMainBlock('lastBeforeLoginBlock');
         if (lastMainBlock) {
             goNavigationWithAnimation(lastMainBlock);
         }

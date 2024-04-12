@@ -12,17 +12,17 @@ import {
     GET_ALL_USER_INFO_ROUTE,
     SHORT_DELAY
 } from '../../../constants';
-import { cookies } from '../../../contexts/CookieContext';
+import { cookies, loadLastMainBlock } from '../../../contexts/CookieContext';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
 import NavigationCollection from '../../Collection/NavigationCollection/NavigationCollection';
 
 export default function AfterLoginPage({...props}) {
-    const {startLoading, toggleHolding, stopLoading} = useLoadingContext();
-    const {resetResult, makeGetRequest} = useResponseHandlerContext();  
-    const {loadUser, loadAboutUser, loadRooms} = useUserContext();
-    const {index, goNavigation} = useNavigationContext();   
+    const { startLoading, toggleHolding, stopLoading } = useLoadingContext();
+    const { resetResult, makeGetRequest } = useResponseHandlerContext();  
+    const { loadUser, loadAboutUser, loadRooms } = useUserContext();
+    const { index, goNavigationWithAnimation } = useNavigationContext();   
     const navigate = useNavigate();     
 
     // первым делом подгружаем все данные о пользователе
@@ -37,7 +37,6 @@ export default function AfterLoginPage({...props}) {
                     dayjs(response.data.aboutUser.dateOfBirth).format(DATE_FORMAT);
                 loadAboutUser(response.data.aboutUser);
                 loadRooms(response.data.rooms);
-                toggleHolding(false, SHORT_DELAY);
             },
             () => {
                 setTimeout(() => {
@@ -49,9 +48,14 @@ export default function AfterLoginPage({...props}) {
         stopLoading();
     }
 
-    useEffect(() => {        
+    useEffect(() => {  
+        // cookies.remove('username');
+        // cookies.remove('token');
         updateUser();
-        goNavigation('welcomeBlock');
+        let lastMainBlock = loadLastMainBlock('lastAfterLoginBlock');
+        if (lastMainBlock) {
+            goNavigationWithAnimation(lastMainBlock);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
