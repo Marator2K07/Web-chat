@@ -7,6 +7,9 @@ import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import {
+    AFTER_LOGIN_PAGE_BLOCKS_COUNT,
+    AFTER_LOGIN_PAGE_START_INDEX,
+    BEFORE_LOGIN_PAGE_BLOCKS_COUNT,
     BEFORE_LOGIN_PAGE_URL,
     DATE_FORMAT,
     GET_ALL_USER_INFO_ROUTE,
@@ -63,9 +66,11 @@ export default function AfterLoginPage({...props}) {
         <div className={classes.AfterLoginPage} {...props}>
             <TopBlock />
             <NavigationCollection
-                currentIndex={index}
-                startIndex={3}
-                endIndex={7}
+                currentIndex={currentBlock.index-
+                    BEFORE_LOGIN_PAGE_BLOCKS_COUNT}
+                startIndex={AFTER_LOGIN_PAGE_START_INDEX}
+                endIndex={AFTER_LOGIN_PAGE_START_INDEX+
+                    AFTER_LOGIN_PAGE_BLOCKS_COUNT}
             />  
             <MainBlock />
             <DownBlock />

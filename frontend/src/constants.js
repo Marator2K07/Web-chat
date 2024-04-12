@@ -30,6 +30,11 @@ export const LONG_TIMEOUT = 850;
 export const FIVE_MIN_AGE = 3600;
 export const ONE_MONTH_AGE = 2592000;
 
+export const BEFORE_LOGIN_PAGE_START_INDEX = 1;
+export const BEFORE_LOGIN_PAGE_BLOCKS_COUNT = 2;
+export const AFTER_LOGIN_PAGE_START_INDEX = 3;
+export const AFTER_LOGIN_PAGE_BLOCKS_COUNT = 4;
+
 export const DATE_FORMAT = "YYYY-MM-DD"
 
 export const PINK_EBONY_COLOR = "#704949";
