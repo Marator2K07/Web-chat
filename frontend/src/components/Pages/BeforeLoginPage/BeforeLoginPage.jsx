@@ -25,8 +25,8 @@ export default function BeforeLoginPage({...props}) {
             <TopBlock />
             <NavigationCollection
                 currentIndex={currentBlock.index}
-                startIndex={0}
-                endIndex={2}
+                startIndex={1}
+                endIndex={3}
             />  
             <MainBlock />
             <DownBlock />

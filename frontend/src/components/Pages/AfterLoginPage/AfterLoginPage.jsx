@@ -64,8 +64,8 @@ export default function AfterLoginPage({...props}) {
             <TopBlock />
             <NavigationCollection
                 currentIndex={index}
-                startIndex={2}
-                endIndex={6}
+                startIndex={3}
+                endIndex={7}
             />  
             <MainBlock />
             <DownBlock />
