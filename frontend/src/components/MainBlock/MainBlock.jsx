@@ -63,8 +63,8 @@ export default function MainBlock({...props}) {
             </motion.div>
             <motion.div
                 variants={animationStates}
-                animate={holding ? "visible"
-                                 : "hidden"}>
+                transition={{ ease: "linear", duration: 0.4 }}
+                animate={holding ? "visible" : "hidden"}>
                 <LoadingBlock />
             </motion.div>
         </div>
