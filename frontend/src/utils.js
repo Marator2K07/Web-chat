@@ -93,6 +93,11 @@ export function setMenuOffset(idBtn, idMenu) {
                          btnRect.height - 2 + "px";                          
 }
 
+export function getElementWidthById(elemId) {
+    let elem = document.getElementById(elemId);
+    return window.getComputedStyle(elem).width;
+}
+
 const reader = new FileReader();
 export const convertBlobToBase64 = (blob) =>
     new Promise((resolve, reject) => {
