@@ -7,11 +7,13 @@ import { AppAnimatedLayout } from "../../AppAnimatedLayout";
 import СommunicationMainBlock from "./Elements/СommunicationMainBlock/СommunicationMainBlock";
 import NewsMainBlock from "./Elements/NewsMainBlock/NewsMainBlock";
 import OtherUserMainBlock from "./Elements/OtherUserMainBlock/OtherUserMainBlock";
+import InitMainBlock from "./Elements/InitMainBlock/InitMainBlock";
 
 // основные страницы/блоки приложения
 const components = {
-    register: RegisterMainBlock,
+    init: InitMainBlock,
     login: LoginMainBlock,
+    register: RegisterMainBlock,    
     welcome: WelcomeMainBlock,
     personal: PersonalMainBlock,
     communication: СommunicationMainBlock, 
