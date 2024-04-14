@@ -15,12 +15,7 @@ export const useCreateNavigationContext = function() {
         otherUserBlock: { path: 'otherUser', description: 'Другой пользователь', index: 11 }
     }) 
     const { initCondition, leftCondition, rightCondition } = useMainBlockAnimationContext();
-    const [currentBlock, setCurrentBlock] = useState(
-        cookies.get('lastBeforeLoginBlock') || cookies.get('lastAfterLoginBlock')
-            ? navigationBlocks.initBlock
-            : navigationBlocks.loginBlock 
-    );
-
+    const [currentBlock, setCurrentBlock] = useState(navigationBlocks.initBlock);
     const goNavigation = useCallback((block) => {
         setCurrentBlock(block);   
         // запоминаем последний блок в навигации
