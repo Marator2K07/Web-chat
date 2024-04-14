@@ -25,8 +25,12 @@ export default function AfterLoginPage({...props}) {
     const { startLoading, toggleHolding, stopLoading } = useLoadingContext();
     const { resetResult, makeGetRequest } = useResponseHandlerContext();  
     const { loadUser, loadAboutUser, loadRooms } = useUserContext();
-    const { index, goNavigationWithAnimation } = useNavigationContext();   
-    const navigate = useNavigate();     
+    const {
+        currentBlock,
+        navigationBlocks,
+        goNavigationWithAnimation
+    } = useNavigationContext();   
+    const navigate = useNavigate();
 
     // первым делом подгружаем все данные о пользователе
     const updateUser = async () => {                
@@ -58,6 +62,8 @@ export default function AfterLoginPage({...props}) {
         let lastMainBlock = loadLastMainBlock('lastAfterLoginBlock');
         if (lastMainBlock) {
             goNavigationWithAnimation(lastMainBlock);
+        } else {
+            goNavigationWithAnimation(navigationBlocks.welcomeBlock)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

@@ -9,7 +9,11 @@ import { cookies, loadLastMainBlock } from '../../../contexts/CookieContext';
 import { BEFORE_LOGIN_PAGE_BLOCKS_COUNT, BEFORE_LOGIN_PAGE_START_INDEX } from '../../../constants';
 
 export default function BeforeLoginPage({...props}) {
-    const { currentBlock, goNavigationWithAnimation } = useNavigationContext();
+    const { 
+        currentBlock,
+        navigationBlocks,
+        goNavigationWithAnimation
+    } = useNavigationContext();
 
     useEffect(() => {
          cookies.remove('username');
@@ -17,7 +21,9 @@ export default function BeforeLoginPage({...props}) {
         let lastMainBlock = loadLastMainBlock('lastBeforeLoginBlock');
         if (lastMainBlock) {
             goNavigationWithAnimation(lastMainBlock);
-        }
+        } else {
+            goNavigationWithAnimation(navigationBlocks.loginBlock);
+        }       
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
