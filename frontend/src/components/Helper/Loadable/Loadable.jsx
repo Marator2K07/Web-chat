@@ -2,10 +2,17 @@ import React, { useEffect, useState } from 'react'
 import classes from './Loadable.module.css'
 import { Spin } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
-import { EXTRA_SHORT_DELAY, LOADING_INDICATOR_COLOR, LOADING_INDICATOR_SIZE } from '../../../constants';
+import {
+    EXTRA_SHORT_DELAY,
+    LOADING_INDICATOR_COLOR,
+    LOADING_INDICATOR_SIZE
+} from '../../../constants';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 
-export default function Loadable({getDataUrl, setDataFunc, ...props}) {
+export default function Loadable({propertyName,
+                                  getDataUrl,
+                                  setDataFunc,
+                                  ...props}) {
     const { makeGetRequest } = useResponseHandlerContext();  
     const [isReady, setReady] = useState(false);
     const [error, setError] = useState(null);
@@ -15,7 +22,7 @@ export default function Loadable({getDataUrl, setDataFunc, ...props}) {
         await makeGetRequest(
             getDataUrl,
             (response) => {
-                setDataFunc(response);
+                setDataFunc(response.data[propertyName]);
             },
             (error) => {
                 setError(error);
@@ -27,7 +34,8 @@ export default function Loadable({getDataUrl, setDataFunc, ...props}) {
     useEffect(() => {        
         setTimeout(() => {            
             loadData();            
-        }, EXTRA_SHORT_DELAY);        
+        }, EXTRA_SHORT_DELAY);    
+        // eslint-disable-next-line react-hooks/exhaustive-deps    
     }, []);
 
     return (
