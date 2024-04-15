@@ -20,6 +20,13 @@ export default function NavigationCollection({currentIndex,
         hidden: {opacity: 0}
     }
 
+    const disablePointerEvents = {
+        pointerEvents: "none"
+    };    
+    const enablePointerEvents = {
+        pointerEvents: "initial"
+    };
+
     return (
         <div className={classes.NavigationCollection} {...props}>
             {Object.keys(navigationBlocks)
@@ -28,6 +35,8 @@ export default function NavigationCollection({currentIndex,
                 <motion.div
                     custom={{currentIndex, index}}
                     variants={animationStates}
+                    style={currentIndex !== index ? enablePointerEvents
+                                                  : disablePointerEvents}
                     animate={currentIndex === index ? "hidden"
                                                     : "visible"}>
                     <NavigationItem block={navigationBlocks[key]} />
