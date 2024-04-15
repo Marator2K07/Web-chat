@@ -1,13 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './Loadable.module.css'
 import { Spin } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
-import { LOADING_INDICATOR_COLOR, LOADING_INDICATOR_SIZE } from '../../../constants';
+import { EXTRA_SHORT_DELAY, LOADING_INDICATOR_COLOR, LOADING_INDICATOR_SIZE } from '../../../constants';
+import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 
-export default function Loadable({...props}) {
+export default function Loadable({getDataUrl, setDataFunc, ...props}) {
+    const { makeGetRequest } = useResponseHandlerContext();  
     const [isReady, setReady] = useState(false);
     const [error, setError] = useState(null);
     
+    const loadData = async () => {
+        setReady(false);
+        await makeGetRequest(
+            getDataUrl,
+            (response) => {
+                setDataFunc(response);
+            },
+            (error) => {
+                setError(error);
+            }
+        )
+        setReady(true);
+    }
+
+    useEffect(() => {        
+        setTimeout(() => {            
+            loadData();            
+        }, EXTRA_SHORT_DELAY);        
+    }, []);
+
     return (
         <div className={classes.Loadable} {...props}>
             {
@@ -23,7 +45,7 @@ export default function Loadable({...props}) {
             } 
             {
                 error &&
-                <h4>error.response.data.detail</h4>
+                <h4>{error.response.data.detail}</h4>
             }
         </div>
     )        
