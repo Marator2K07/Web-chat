@@ -3,9 +3,10 @@ import classes from './PersonalMainBlock.module.css'
 import { useUserContext } from '../../../../contexts/UserContext/UserProvider';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { SHORT_DELAY, UPDATE_ABOUT_USER_ROUTE } from '../../../../constants';
+import { DATE_FORMAT, SHORT_DELAY, UPDATE_ABOUT_USER_ROUTE } from '../../../../constants';
 import { cookies } from '../../../../contexts/CookieContext';
 import { convertBlobToBase64, formParamIsEmpty } from '../../../../utils';
+import dayjs from 'dayjs';
 
 export default function PersonalMainBlock({...props}) {
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();	
@@ -14,12 +15,12 @@ export default function PersonalMainBlock({...props}) {
     const [canBeChanged, setCanBeChanged] = useState(false);
     // данные для обновления, внесенные на форме 
     const [aboutUserFromForm, setAboutUserFromForm] = useState({
-        id: aboutUser.id,
-        name: aboutUser.name,
-        secondname: aboutUser.secondname,
-        image: aboutUser.image,
-        dateOfBirth: aboutUser.dateOfBirth,
-        lastActivityDatetime: aboutUser.lastActivityDatetime
+        id: aboutUser ? aboutUser.id : null,
+        name: aboutUser ? aboutUser.name : null,
+        secondname: aboutUser ? aboutUser.secondname : null,
+        image: aboutUser ? aboutUser.image : null,
+        dateOfBirth: aboutUser ? dayjs(aboutUser.dateOfBirth).format(DATE_FORMAT)
+                               : null
 	});
 	
 	// установка изменений с учетом картинки
