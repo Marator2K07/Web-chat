@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useLocation } from 'react-router-dom';
 import classes from './AfterLoginPage.module.css'
 import TopBlock from '../../TopBlock/TopBlock';
 import MainBlock from '../../MainBlock/MainBlock';
@@ -11,43 +12,36 @@ import {
     AFTER_LOGIN_PAGE_START_INDEX,
     BEFORE_LOGIN_PAGE_BLOCKS_COUNT,
     BEFORE_LOGIN_PAGE_URL,
-    DATE_FORMAT,
-    GET_ALL_USER_INFO_ROUTE,
     SHORT_DELAY
 } from '../../../constants';
-import { cookies, loadLastMainBlock } from '../../../contexts/CookieContext';
+import { loadLastMainBlock } from '../../../contexts/CookieContext';
 import { useNavigate } from 'react-router-dom';
-import dayjs from 'dayjs';
 import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
 import NavigationCollection from '../../Collection/NavigationCollection/NavigationCollection';
 
 export default function AfterLoginPage({...props}) {
-    const { startLoading, toggleHolding, stopLoading } = useLoadingContext();
+    const { startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makeGetRequest } = useResponseHandlerContext();  
-    const { loadUser, loadAboutUser, loadRooms } = useUserContext();
+    const { loadUser } = useUserContext();
     const {
         currentBlock,
         navigationBlocks,
         goNavigationWithAnimation
     } = useNavigationContext();   
     const navigate = useNavigate();
+    const location = useLocation();     
 
     // первым делом подгружаем все данные о пользователе
     const updateUser = async () => {                
         startLoading();
         resetResult();
         await makeGetRequest(
-            `${GET_ALL_USER_INFO_ROUTE}/${cookies.get('username')}`,
+            location.pathname,
             async (response) => {
                 loadUser(response.data.user);
-                response.data.aboutUser.dateOfBirth =
-                    dayjs(response.data.aboutUser.dateOfBirth).format(DATE_FORMAT);
-                loadAboutUser(response.data.aboutUser);
-                loadRooms(response.data.rooms);
             },
             () => {
                 setTimeout(() => {
-                    toggleHolding(false, SHORT_DELAY);
                     navigate(BEFORE_LOGIN_PAGE_URL);
                 }, SHORT_DELAY);
             }
