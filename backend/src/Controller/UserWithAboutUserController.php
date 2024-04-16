@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Constants\Constants;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -39,29 +40,48 @@ class UserWithAboutUserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/get/{username}', name: 'app_user_get', methods: 'GET')]
-    public function anotherUser(string $username, 
-                                SerializerInterface $serializer,
-                                UserRepository $userRepository): JsonResponse
+    #[Route('/authorized_user/{username}', name: 'app_get_authorized_user', methods: 'GET')]
+    public function user(string $username, 
+                         SerializerInterface $serializer,
+                         UserRepository $userRepository): JsonResponse
     {
         $user = $userRepository->findOneByUsernameField($username);
 
         if (!$user) {
-            throw new HttpException(422, 'Не удалось обновить данные');
+            throw new HttpException(422, 'Не удалось синхронизироваться');
         } else {
             return new JsonResponse([
-                'status' => 'Ok',                
-                'main' => 'Пользователь загружен.',
+                'status' => 'Ok',
+                'main' => 'Успешная синхронизация.',
                 'holding' => false,
-                'user' => [
-                    'id' => $user->getId(),
-                    'username' => $user->getUsername(),
-                    'roles' => $user->getRoles()
-                ],
+                'delay' => Constants::SHORT_DELAY,
+                'user' => json_decode(
+                    $serializer->serialize(
+                        $user,
+                        'json',
+                        ['groups' => ['user']]
+                    ) 
+                )
+            ]);
+        }
+    }
+
+
+    #[Route('/authorized_user/{username}/about', name: 'app_get_about_authorized_user', methods: 'GET')]
+    public function aboutUser(string $username, 
+                              SerializerInterface $serializer,
+                              UserRepository $userRepository): JsonResponse
+    {
+        $user = $userRepository->findOneByUsernameField($username);
+        if (!$user) {
+            throw new HttpException(422, 'Не удалось получить данные');
+        } else {
+            return new JsonResponse([
                 'aboutUser' => json_decode(
                     $serializer->serialize(
-                    $user->getAboutUser(), 'json'
-                ))
+                        $user->getAboutUser(), 'json'
+                    ) 
+                )
             ]);
         }
     }
