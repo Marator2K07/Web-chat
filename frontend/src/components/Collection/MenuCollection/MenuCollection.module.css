@@ -1,0 +1,7 @@
+.MenuCollection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--top_block_offset);    
+}
