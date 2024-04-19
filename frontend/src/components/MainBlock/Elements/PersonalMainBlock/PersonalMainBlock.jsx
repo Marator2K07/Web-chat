@@ -6,6 +6,7 @@ import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerC
 import { DATE_FORMAT, SHORT_DELAY, UPDATE_ABOUT_USER_ROUTE } from '../../../../constants';
 import { cookies } from '../../../../contexts/CookieContext';
 import { convertBlobToBase64, formParamIsEmpty } from '../../../../utils';
+import AboutUserView from '../../../View/AboutUserView';
 import dayjs from 'dayjs';
 
 export default function PersonalMainBlock({...props}) {
@@ -68,52 +69,37 @@ export default function PersonalMainBlock({...props}) {
             {
                 canBeChanged ? 
                 <form name='updateAboutUserForm'>
-                <p>Имя:</p>
-                <input
-                    type='name'
-                    name='name'
-                    value={aboutUserFromForm.name}
-                    onChange={handleChange}/>
-                <p>Фамилия:</p>
-                <input
-                    type='text'
-                    name='secondname'
-                    value={aboutUserFromForm.secondname}
-                    onChange={handleChange}/>
-                <p>Дата рождения:</p>
-                <input
-                    type='date'
-                    name='dateOfBirth'
-                    value={aboutUserFromForm.dateOfBirth}
-                    onChange={handleChange}/>
-                <p>Аватарка:</p>
-                <input
-                    type='file'
-                    name='image'
-                    onInput={handleChange}/>
+                    <p>Имя:</p>
+                    <input
+                        type='name'
+                        name='name'
+                        value={aboutUserFromForm.name}
+                        onChange={handleChange}/>
+                    <p>Фамилия:</p>
+                    <input
+                        type='text'
+                        name='secondname'
+                        value={aboutUserFromForm.secondname}
+                        onChange={handleChange}/>
+                    <p>Дата рождения:</p>
+                    <input
+                        type='date'
+                        name='dateOfBirth'
+                        value={aboutUserFromForm.dateOfBirth}
+                        onChange={handleChange}/>
+                    <p>Аватарка:</p>
+                    <input
+                        type='file'
+                        name='image'
+                        onInput={handleChange}/>
                 </form>				
                 : 				
-                <div>
-                    <h4>Фото аккаунта:</h4>
-                    { !aboutUser.image ? <img
-                                         src={`${window.location.origin}/DefUserIcon.png`}
-                                         alt="Not found"/>
-                                       : <img 
-                                         src={aboutUser.image}
-                                         alt="Not found"/>						
-                    }				
-                    <h4>Имя:</h4>
-                    <p>{aboutUser.name}</p>
-                    <h4>Фамилия:</h4>
-                    <p>{aboutUser.secondname ? aboutUser.secondname : 'Не задано'}</p>
-                    <h4>День рождения:</h4>
-                    <p>{aboutUser.dateOfBirth ? aboutUser.dateOfBirth : 'Не задано'}</p>
-                </div>
+                <AboutUserView />
             }
             <button type="button" onClick={handleSubmit}>
-                { !canBeChanged ? 'Сохранить изменения'
-                                : 'Изменить данные'}
-            </button>		
+                {!canBeChanged ? 'Сохранить изменения'
+                               : 'Изменить данные'}
+            </button>            
         </div>
 	)              
 }
