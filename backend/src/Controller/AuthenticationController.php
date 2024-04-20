@@ -43,16 +43,6 @@ class AuthenticationController extends AbstractController
         ]); 
     }
 
-    #[Route(path: '/logout', name: 'app_logout')]
-    public function appSignOut(Request $request): JsonResponse
-    {
-        $session = $request->getSession();
-        $session->invalidate();
-        return new JsonResponse([
-            'status' => 'Ok', 
-            'main' => 'Успешный выход из аккаунта',
-            'next_stage' => true, // даем согласие на оставшуюся часть запроса
-            'link' => '/'
-        ]);
-    }
+    // для выхода из аккаунта уже есть метод 
+    // с рутом: /api/token/invalidate
 }
