@@ -8,3 +8,9 @@ export const loadLastMainBlock = function(currentPage) {
         return result;
     } else return null;
 }
+
+export const removeUserCookies = function() {    
+    cookies.remove('username');
+    cookies.remove('token');
+    cookies.remove('refreshToken');
+}
