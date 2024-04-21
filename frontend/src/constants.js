@@ -1,5 +1,6 @@
 export const LOGIN_CHECK_ROUTE = "/api/login_check";
 export const LOGIN_ROUTE = "/login";
+export const LOGOUT_ROUTE = "/api/token/invalidate";
 export const REGISTER_ROUTE = "/register";
 export const USER_ACTIVATION_ROUTE = "/user_activate";
 export const GET_ALL_USER_INFO_ROUTE = "/authorized_user/get";

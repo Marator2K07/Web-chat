@@ -37,7 +37,7 @@ export default function AfterLoginPage({...props}) {
         resetResult();
         await makeGetRequest(
             location.pathname,
-            async (response) => {
+            (response) => {
                 loadUser(response.data.user);
             },
             () => {
