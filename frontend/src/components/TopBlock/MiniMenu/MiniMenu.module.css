@@ -2,8 +2,8 @@
     background-color: var(--background_menu_color);
     border-radius: var(--border_radius);
     position: absolute;
-    width: max-content;
-    height: max-content;
+    min-width: max-content;
+    min-height: max-content;
     pointer-events: none;
     opacity: 0;
 }

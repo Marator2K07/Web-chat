@@ -3,8 +3,8 @@
     min-width: var(--user_card_min_width);
     max-width: var(--user_card_max_width);
     min-height: var(--user_card_min_height);
-    background-color: var(--background_main_color); 
-    box-shadow: 0px 0px var(--border_width) var(--border_width) var(--second_color);
+    background-color: var(--background_second_color); 
+    box-shadow: 0px 0px var(--border_width) var(--border_width) var(--main_color);
     border-radius: var(--border_radius);
     display: flex;
     justify-content: space-around;
