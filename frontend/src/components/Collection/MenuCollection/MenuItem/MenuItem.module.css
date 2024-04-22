@@ -1,0 +1,15 @@
+.MenuItem button {
+    margin: var(--menu_item_margin);
+    padding: var(--menu_item_padding);
+    min-width: var(--user_card_min_width);
+    max-width: var(--user_card_max_width);
+    min-height: var(--user_card_min_height);
+    background-color: var(--background_second_color);  
+    box-shadow: 0px 0px var(--border_width) var(--border_width) var(--main_color);
+    color: var(--third_color);
+    border-radius: var(--border_radius); 
+    font-family: var(--p_font_family); 
+    font-weight: var(--p_font_weight);
+    font-size: var(--p_font_size);
+    cursor: pointer;
+}
