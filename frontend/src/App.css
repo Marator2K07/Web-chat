@@ -71,4 +71,13 @@
 
   --user_activation_page_width: 100vw;
   --user_activation_page_height: 100vh;
+
+  --user_card_margin: 10px;
+  --user_card_min_width: 222px;
+  --user_card_max_width: 222px;
+  --user_card_min_height: 40px;  
+
+  --user_card_img_margin: 6px;
+  --user_card_img_max_width: 44px;
+  --user_card_img_max_height: 44px;
 }
