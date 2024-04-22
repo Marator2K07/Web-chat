@@ -5,4 +5,5 @@
     width: max-content;
     height: max-content;
     pointer-events: none;
+    opacity: 0;
 }

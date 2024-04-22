@@ -23,6 +23,7 @@
 
 .UserCard img {
     margin-top: var(--user_card_img_margin);
+    margin-left: var(--user_card_img_margin);
     max-width: var(--user_card_img_max_width);
     max-height: var(--user_card_img_max_heigth);   
 }
