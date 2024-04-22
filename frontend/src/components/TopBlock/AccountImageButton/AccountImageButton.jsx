@@ -30,7 +30,7 @@ export default function AccountImageButton({...props}) {
                         setHov(true);                    
                         setMenuOffset('btn', "miniMenu")               
                     }}>                
-                    <img src={`${window.location.origin}/DefUserIcon.png`} alt=""/>
+                    <img src={`${window.location.origin}/DefUserIcon.png`} alt="" />
                     <p>&#10094; &#10094; &#10094;</p>
                 </button> 
             </CSSTransition>
@@ -41,7 +41,7 @@ export default function AccountImageButton({...props}) {
                 classNames="MiniMenu">
                 <MiniMenu
                     innerRef={anotherRef}
-                    id='miniMenu'/>  
+                    id='miniMenu' />  
             </CSSTransition>
         </div>
     )
