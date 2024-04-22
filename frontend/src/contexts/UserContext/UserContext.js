@@ -2,15 +2,22 @@ import { useCallback, useState } from "react"
 
 export const useCreateUserContext = function(props) {
     // если не передадим в провайдере значение, то умолчанию null 
-    const [user, setUser] = useState(props.user || null);    
+    const [user, setUser] = useState(props.user || null); 
+    const [bufferUser, setBufferUser] = useState(null);    
     const [aboutUser, setAboutUser] = useState(null);
-    const [rooms, setRooms] = useState(null);   
-    const [roomForNews, setRoomForNews] = useState(null);    
-    const [bufferUser, setBufferUser] = useState(null); 
-
-
     const [currentRoom, setCurrentRoom] = useState(null); 
+    const [rooms, setRooms] = useState(null);   
+    const [roomForNews, setRoomForNews] = useState(null);
     
+    const clearUserContext = useCallback(() => {
+        setUser(null);
+        setBufferUser(null);
+        setAboutUser(null);
+        setCurrentRoom(null);
+        setRooms(null);
+        setRoomForNews(null);
+    }, []);
+
     const loadCurrentRoom = useCallback((room) => {
         setCurrentRoom(room)
     }, []);
@@ -38,6 +45,7 @@ export const useCreateUserContext = function(props) {
              rooms,
              currentRoom,
              roomForNews,
+             clearUserContext,
              loadUser,
              loadAboutUser,
              loadBufferUser,
