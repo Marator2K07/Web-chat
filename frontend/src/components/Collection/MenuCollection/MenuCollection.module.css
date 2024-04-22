@@ -1,7 +1,8 @@
 .MenuCollection {
-    display: flex;
-    flex-direction: row;
+    display: flex;    
+    width: max-content;
+    height: max-content;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin-bottom: var(--top_block_offset);    
+    justify-content: center;    
 }
