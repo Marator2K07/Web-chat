@@ -5,6 +5,7 @@
   --background_tip_color: rgb(231, 189, 198);
   --background_error_color: rgb(117, 97, 101);
   --background_load_color: rgb(64, 66, 68);
+  --background_menu_color: rgb(94, 96, 99);
  
   --main_color: rgb(214, 124, 255);
   --second_color: rgb(233, 185, 255);  
@@ -80,4 +81,6 @@
   --user_card_img_margin: 6px;
   --user_card_img_max_width: 44px;
   --user_card_img_max_height: 44px;
+
+  --CSSTransition_mini_menu_duration: 0.5s;
 }
