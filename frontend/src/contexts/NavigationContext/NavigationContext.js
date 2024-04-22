@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
 import { useMainBlockAnimationContext } from "../MainBlockAnimationContext/MainBlockAnimationProvider";
-import { EXTRA_SHORT_DELAY } from "../../constants";
+import { BEFORE_LOGIN_PAGE_START_INDEX, EXTRA_SHORT_DELAY } from "../../constants";
 import { cookies } from "../CookieContext";
 
 export const useCreateNavigationContext = function() {   
@@ -16,10 +16,11 @@ export const useCreateNavigationContext = function() {
     }) 
     const { initCondition, leftCondition, rightCondition } = useMainBlockAnimationContext();
     const [currentBlock, setCurrentBlock] = useState(navigationBlocks.initBlock);
+
     const goNavigation = useCallback((block) => {
         setCurrentBlock(block);   
         // запоминаем последний блок в навигации
-        if (block.index <= 1) {
+        if (block.index <= BEFORE_LOGIN_PAGE_START_INDEX) {
             cookies.set('lastBeforeLoginBlock', block);
         } else {
             cookies.set('lastAfterLoginBlock', block);
@@ -38,7 +39,7 @@ export const useCreateNavigationContext = function() {
             }, EXTRA_SHORT_DELAY);
         }, EXTRA_SHORT_DELAY);  
         // запоминаем последний блок в навигации
-        if (block.index <= 1) {
+        if (block.index <= BEFORE_LOGIN_PAGE_START_INDEX) {
             cookies.set('lastBeforeLoginBlock', block);
         } else {
             cookies.set('lastAfterLoginBlock', block);
