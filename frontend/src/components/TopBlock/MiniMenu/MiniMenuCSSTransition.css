@@ -1,30 +1,30 @@
 /* Start of CSSTransition for MiniMenu className */
 .MiniMenu-enter {
     opacity: 0;
-    border: 2px solid rgb(59, 61, 63) transparent;
+    border: var(--border_width) solid transparent;
 }
 .MiniMenu-enter-active {
     opacity: 1;
-    border: 2px solid rgb(59, 61, 63);
-    transition: opacity 500ms;
+    border: var(--border_width) solid transparent;
+    transition: opacity var(--CSSTransition_mini_menu_duration);
 }
 .MiniMenu-enter-done {
     opacity: 1;
-    border: 2px solid rgb(180, 188, 196);
+    border: var(--border_width) solid var(--fourth_color);
     pointer-events: all;
 }
 .MiniMenu-exit {
-    border: 2px solid rgb(59, 61, 63);
+    border: var(--border_width) solid transparent;
     opacity: 1;
 }
 .MiniMenu-exit-active {
     opacity: 0;
-    border: 2px solid rgb(59, 61, 63) transparent;
-    transition: opacity 500ms;
+    border: var(--border_width) solid transparent;
+    transition: opacity var(--CSSTransition_mini_menu_duration);
 }
 .MiniMenu-exit-done {
     opacity: 0;
-    border: 2px solid rgb(59, 61, 63) transparent;
+    border: var(--border_width) solid transparent;
     pointer-events: none;
 }
 /* End of CSSTransition for MiniMenu className */

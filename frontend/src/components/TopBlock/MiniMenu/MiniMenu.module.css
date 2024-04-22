@@ -1,9 +1,8 @@
 .MiniMenu {
-    background-color:slategray; 
-    position: absolute;    
-    border-radius: 10px;
+    background-color: var(--background_menu_color);
+    border-radius: var(--border_radius);
+    position: absolute;
     width: max-content;
     height: max-content;
     pointer-events: none;
-    opacity: 0;
 }
