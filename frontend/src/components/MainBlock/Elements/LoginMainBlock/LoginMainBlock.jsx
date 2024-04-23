@@ -12,18 +12,20 @@ import {
 } from '../../../../constants';
 import Scrollable from '../../../Helper/Scrollable/Scrollable';
 import { validLoginForm } from './LoginFormState';
+import LoginForm from '../../../Form/LoginForm/LoginForm';
 
 export default function LoginMainBlock({...props}) {
     const { startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
     const navigate = useNavigate(); 
 
-    // идентификационные данные
+    // идентификационные данные формы
     const [credentials, setCredentials] = useState({
         username: '',
         password: ''
-    });     
-    // и их обработка
+    });    
+
+    // обработка идентификационных данных формы
     const handleChange = (e) => {
         setCredentials({
             ...credentials,
@@ -69,23 +71,10 @@ export default function LoginMainBlock({...props}) {
     return (
         <div className={classes.LoginMainBlock} {...props}>
             <Scrollable>
-                <form name='loginForm'>
-                    <h4>Введите имя аккаунта:</h4>
-                    <input
-                        type='username'
-                        name='username'
-                        value={credentials.username}
-                        onChange={handleChange}/>
-                    <h4>А теперь пароль:</h4>    
-                    <input
-                        type='password'
-                        name='password'
-                        value={credentials.password}                     
-                        onChange={handleChange}/>
-                    <button type='button' onClick={handleSubmit}>
-                        Войти
-                    </button>
-                </form> 
+                <LoginForm 
+                    credentials={credentials}
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit} />
             </Scrollable>                
         </div>
     )
