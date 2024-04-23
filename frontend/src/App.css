@@ -15,6 +15,7 @@
   --error_color: rgb(223, 104, 129);
 
   --top_block_offset: -36px;
+  --mini_menu_z_index: 1000;
 
   --block_padding: 15px;
   --block_margin: 10px;
