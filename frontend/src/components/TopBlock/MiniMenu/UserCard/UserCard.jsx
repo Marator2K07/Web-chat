@@ -1,33 +1,40 @@
 import React from 'react'
 import classes from './UserCard.module.css'
 import { useUserContext } from '../../../../contexts/UserContext/UserProvider'
+import { useNavigationContext } from '../../../../contexts/NavigationContext/NavigationProvider';
+import { cookies } from '../../../../contexts/CookieContext';
 
 export default function UserCard({...props}) {
-    const { aboutUser } = useUserContext();
+    const { user, aboutUser } = useUserContext();
+    const { navigationBlocks, goNavigationWithAnimation } = useNavigationContext();
 
     // в случае если пользователь не установил картинку - ставим
     // картинку по умолчанию из файлов проекта
     const userImg = !aboutUser || !aboutUser.image
         ? `${window.location.origin}/DefUserIcon.png`
-        : aboutUser.image
+        : aboutUser.image;
+
+    function handleNavigation() {
+        if (cookies.get('username')) {
+            goNavigationWithAnimation(navigationBlocks['personalBlock']);
+        } else {
+            goNavigationWithAnimation(navigationBlocks['loginBlock']);
+        }
+    }
 
     return (
-        <div className={classes.UserCard} {...props}> 
+        <div
+            className={classes.UserCard}
+            onClick={handleNavigation}
+            {...props}> 
             <div>
                 <img src={userImg} alt="" />
             </div>           
             <div>
                 <p>
-                    {aboutUser
-                        ? `${aboutUser.name}`
+                    {user
+                        ? `${user.username}`
                         : 'Не авторизовано'}                        
-                </p>
-                <p>
-                    {aboutUser
-                        ? `${aboutUser.secondname
-                            ? aboutUser.secondname
-                            : 'без фамилии'}` 
-                        : ''}                        
                 </p>
             </div>            
         </div>
