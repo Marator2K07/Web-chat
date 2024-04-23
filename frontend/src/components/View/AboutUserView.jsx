@@ -3,6 +3,7 @@ import classes from './AboutUserView.module.css'
 import Loadable from '../Helper/Loadable/Loadable'
 import { useUserContext } from '../../contexts/UserContext/UserProvider';
 import { useLocation } from 'react-router-dom';
+import { cookies } from '../../contexts/CookieContext';
 
 export default function AboutUserView({...props}) {
     const { aboutUser, loadAboutUser } = useUserContext();
@@ -35,6 +36,7 @@ export default function AboutUserView({...props}) {
     } else {
         return (
             <Loadable
+                isWorking={cookies.get('username')}
                 propertyName={'aboutUser'}
                 getDataUrl={`${location.pathname}/about`}
                 setDataFunc={loadAboutUser} />

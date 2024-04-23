@@ -9,7 +9,8 @@ import {
 } from '../../../constants';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 
-export default function Loadable({propertyName,
+export default function Loadable({isWorking,
+                                  propertyName,
                                   getDataUrl,
                                   setDataFunc,
                                   ...props}) {
@@ -18,6 +19,9 @@ export default function Loadable({propertyName,
     const [error, setError] = useState(null);
     
     const loadData = async () => {
+        if (!isWorking) {
+            return;
+        }
         setReady(false);
         await makeGetRequest(
             getDataUrl,
