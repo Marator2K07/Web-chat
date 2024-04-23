@@ -13,6 +13,7 @@ import {
     validPasswordAgain,
     validRegisterForm
 } from './RegisterFormState';
+import RegistrationForm from '../../../Form/RegistrationForm/RegistrationForm';
 
 export default function RegisterMainBlock({...props}) {
     const { startLoading, stopLoading } = useLoadingContext();
@@ -94,35 +95,10 @@ export default function RegisterMainBlock({...props}) {
     return (  
         <div className={classes.RegisterMainBlock} {...props}>
             <Scrollable>
-                <form name='registerForm'>
-                    <h4>Придумайте имя аккаунта:</h4>
-                    <input
-                        type='username'
-                        name='username'
-                        value={credentials.username}
-                        onChange={handleChange}/>
-                    <h4>Задайте почту для привязки:</h4>
-                    <input
-                        type='email'
-                        name='email'
-                        value={credentials.email} 
-                        onChange={handleChange}/>
-                    <h4>А теперь придумайте пароль:</h4>
-                    <input
-                        type='password'
-                        name='password'
-                        value={credentials.password} 
-                        onChange={handleChange}/>
-                    <h4>И повторите его:</h4>
-                    <input
-                        type='password'
-                        name='passwordAgain'
-                        value={credentials.passwordAgain} 
-                        onChange={handleChange}/>
-                    <button type='button' onClick={handleSubmit}>
-                        Зарегистрироваться
-                    </button>
-                </form>  
+                <RegistrationForm
+                    credentials={credentials}
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit} />
                 <TipsCollection tips={tips}/>  
             </Scrollable>                               
         </div>
