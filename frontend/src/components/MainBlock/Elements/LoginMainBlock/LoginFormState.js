@@ -1,9 +1,8 @@
+import { LOGIN_FORM_NAME } from "../../../../constants";
 import { formParamIsEmpty } from "../../../../utils"
 
-const formName = 'loginForm' 
-
 export function validLoginForm() {
-    let usernameIsOk = !formParamIsEmpty(formName, 'username');
-    let passwordIsOk = !formParamIsEmpty(formName, 'password');
+    let usernameIsOk = !formParamIsEmpty(LOGIN_FORM_NAME, 'username');
+    let passwordIsOk = !formParamIsEmpty(LOGIN_FORM_NAME, 'password');
     return usernameIsOk && passwordIsOk; 
 }

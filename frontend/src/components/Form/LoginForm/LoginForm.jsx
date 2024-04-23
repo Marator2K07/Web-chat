@@ -1,5 +1,6 @@
 import React from 'react'
 import classes from './LoginForm.module.css'
+import { LOGIN_FORM_NAME } from '../../../constants'
 
 export default function LoginForm({credentials,
                                    handleChange, 
@@ -7,7 +8,7 @@ export default function LoginForm({credentials,
                                    ...props}) {
     return (
         <div className={classes.LoginForm} {...props}>
-            <form name='loginForm'>
+            <form name={LOGIN_FORM_NAME}>
                 <h4>Введите имя аккаунта:</h4>
                 <input
                     type='username'

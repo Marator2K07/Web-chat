@@ -38,6 +38,7 @@ export const AFTER_LOGIN_PAGE_BLOCKS_COUNT = 4;
 
 export const DATE_FORMAT = "YYYY-MM-DD"
 
+export const LOGIN_FORM_NAME = "loginForm"; 
 export const REGISTRATION_FORM_NAME = "registrationForm";
 
 export const PINK_EBONY_COLOR = "#704949";
