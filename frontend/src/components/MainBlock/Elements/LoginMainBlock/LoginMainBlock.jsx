@@ -1,16 +1,14 @@
 import React, { useState } from 'react'
 import classes from './LoginMainBlock.module.css'
 import { useNavigate } from 'react-router-dom';
-import { cookies } from '../../../../contexts/CookieContext';
+import { setUserCookies } from '../../../../contexts/CookieContext';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import {
     AFTER_LOGIN_PAGE_URL,
-    FIVE_MIN_AGE,
+    EXTRA_SHORT_DELAY,
     LOGIN_CHECK_ROUTE,
-    LOGIN_ROUTE,
-    ONE_MONTH_AGE,
-    SHORT_DELAY
+    LOGIN_ROUTE
 } from '../../../../constants';
 import Scrollable from '../../../Helper/Scrollable/Scrollable';
 import { validLoginForm } from './LoginFormState';
@@ -47,22 +45,21 @@ export default function LoginMainBlock({...props}) {
             LOGIN_ROUTE,
             credentials,
             async () => {
+                stopLoading(); 
                 await makePostRequest(
                     LOGIN_CHECK_ROUTE,
                     credentials,
                     (response) => {
                         const { token, refreshToken } = response.data;                 
-                        cookies.set('username', credentials.username, { maxAge: ONE_MONTH_AGE });
-                        cookies.set('refreshToken', refreshToken, { maxAge: ONE_MONTH_AGE });
-                        cookies.set('token', token, { maxAge: FIVE_MIN_AGE });
-                        setTimeout(() => {                            
+                        setUserCookies(credentials.username, token, refreshToken); 
+                        setTimeout(() => {
                             navigate(
                                 `${AFTER_LOGIN_PAGE_URL}/${credentials.username}`,
                                 { replace: true }
-                            ); 
-                            resetResult();
-                        }, SHORT_DELAY);                                               
-                    }
+                            );   
+                            resetResult();    
+                        }, EXTRA_SHORT_DELAY);                                                                                         
+                    }                    
                 )                
             }
         );
