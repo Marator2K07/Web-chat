@@ -8,14 +8,23 @@ export default function OkResponse({message, ...props}) {
     const { navigationBlocks, goNavigation } = useNavigationContext();
     const { toggleHolding } = useLoadingContext();    
 
+    if (!message.main) {
+        return;
+    }
+
     return (
         <div className={classes.OkResponse} {...props}>
-            <div className='main'>
-                <h4>Сообщение:</h4>
-                <p>{message.main}</p>
+            <div>
+                {
+                    message.main && 
+                    <div>
+                        <h4>Сообщение:</h4>
+                        <p>{message.main}</p>
+                    </div>
+                }
                 { 
                     message.addition &&
-                    <div className='addition'>
+                    <div>
                         <h4>Дополнительная информация:</h4>
                         <p>{message.addition}</p>
                     </div>
@@ -29,17 +38,19 @@ export default function OkResponse({message, ...props}) {
                         onClick={() => toggleHolding(false)}>
                         Вернуться
                     </button>
-                    {message.hasOwnProperty("button") &&
-                    <button
-                        type="button"
-                        onClick={() => {
-                            toggleHolding(false);
-                            goNavigation(
-                                navigationBlocks[message.button.key]
-                            ); 
-                        }}>
-                        {message.button.text}
-                    </button>}
+                    {
+                        message.button &&
+                        <button
+                            type="button"
+                            onClick={() => {
+                                toggleHolding(false);
+                                goNavigation(
+                                    navigationBlocks[message.button.key]
+                                ); 
+                            }}>
+                            {message.button.text}
+                        </button>
+                    }
                 </HorizontalLayout>
             }
         </div>
