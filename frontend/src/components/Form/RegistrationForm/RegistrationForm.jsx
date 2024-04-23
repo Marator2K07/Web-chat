@@ -1,5 +1,6 @@
 import React from 'react'
 import classes from './RegistrationForm.module.css'
+import { REGISTRATION_FORM_NAME } from '../../../constants'
 
 export default function RegistrationForm({credentials,
                                           handleChange,
@@ -7,7 +8,7 @@ export default function RegistrationForm({credentials,
                                           ...props}) {
     return (
         <div className={classes.RegistrationForm} {...props}>
-            <form name='registerForm'>
+            <form name={REGISTRATION_FORM_NAME}>
                 <h4>Придумайте имя аккаунта:</h4>
                 <input
                     type='username'

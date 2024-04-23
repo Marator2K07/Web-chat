@@ -1,3 +1,4 @@
+import { REGISTRATION_FORM_NAME } from "../../../../constants";
 import {
     formEmailIsCorrect,
     formParamIsEmpty,
@@ -5,22 +6,20 @@ import {
     passwordIsRepeated
 } from "../../../../utils"
 
-const formName = 'registerForm'
-
 export function validRegisterForm(setTips) {
-    let usernameIsOk = !formParamIsEmpty(formName, 'username');
-    let emailIsOk = !formParamIsEmpty(formName, 'email') &&
+    let usernameIsOk = !formParamIsEmpty(REGISTRATION_FORM_NAME, 'username');
+    let emailIsOk = !formParamIsEmpty(REGISTRATION_FORM_NAME, 'email') &&
                      validEmail(setTips);
-    let passwordIsOk = !formParamIsEmpty(formName, 'password') &&
+    let passwordIsOk = !formParamIsEmpty(REGISTRATION_FORM_NAME, 'password') &&
                         validPassword(setTips);        
-    let passwordAgainIsOk = !formParamIsEmpty(formName, 'passwordAgain') &&
+    let passwordAgainIsOk = !formParamIsEmpty(REGISTRATION_FORM_NAME, 'passwordAgain') &&
                              validPasswordAgain(setTips);
     return usernameIsOk && emailIsOk && passwordIsOk && passwordAgainIsOk;     
 }
 
 export function validEmail(setTips) {
     return formEmailIsCorrect(
-        formName,
+        REGISTRATION_FORM_NAME,
         'email',
         "Неверный формат почты",
         setTips
@@ -29,7 +28,7 @@ export function validEmail(setTips) {
 
 export function validPassword(setTips) {
     return formParamNotSmall(
-        formName,
+        REGISTRATION_FORM_NAME,
         'password',
         "Пароль слишком короткий",
         setTips
@@ -38,7 +37,7 @@ export function validPassword(setTips) {
 
 export function validPasswordAgain(setTips) {
     return passwordIsRepeated(
-        formName,
+        REGISTRATION_FORM_NAME,
         'password',
         'passwordAgain',
         "Пароли не совпадают",
