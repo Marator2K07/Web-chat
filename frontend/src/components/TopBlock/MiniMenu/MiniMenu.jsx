@@ -1,41 +1,44 @@
 import React from 'react'
 import classes from './MiniMenu.module.css'
-import MiniMenuItem from './MiniMenuItem/MiniMenuItem';
 import UserCard from './UserCard/UserCard';
+import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
+import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
+import { useNavigate } from 'react-router-dom';
+import { BEFORE_LOGIN_PAGE_URL, LOGOUT_ROUTE } from '../../../constants';
+import { cookies, removeUserCookies } from '../../../contexts/CookieContext';
+import MenuCollection from '../../Collection/MenuCollection/MenuCollection';
 import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 
-const getTokensUrl = '/api/token/invalidate';
+export default function MiniMenu({innerRef, ...props}) {     
+    const { startLoading, stopLoading } = useLoadingContext();
+    const { resetResult, makePostRequest } = useResponseHandlerContext();
+    const { user, clearUserContext } = useUserContext();
+    const navigate = useNavigate();
 
-export default function MiniMenu({innerRef, ...props}) { 
     const items = {
-        infoItem: {            
-            url: '/',
-            route: '/',
-            info: '//////////////'
-        },
-        logoutItem: {            
-            url: getTokensUrl,
-            route: '/',
-            info: 'Выйти из аккаунта',
-            clean: true
-        } 
-    };
-    const { user } = useUserContext();
+        logout: {
+            info: "Выйти из аккаунта",
+            action: async() => {
+                startLoading();
+                resetResult();
+                await makePostRequest(
+                    LOGOUT_ROUTE,
+                    { refreshToken: cookies.get('refreshToken') },
+                    () => {
+                        clearUserContext();
+                        removeUserCookies();                        
+                        navigate(BEFORE_LOGIN_PAGE_URL, { replace: true });
+                    }
+                );
+                stopLoading();
+            }
+        }
+    }
     
     return (
         <div ref={innerRef} className={classes.MiniMenu} {...props}>
-            <UserCard/>
-            {Object.keys(items).map((key) => (
-                <div key={key}>
-                    { user && 
-                        <MiniMenuItem
-                            url={items[key].url}
-                            info={items[key].info}
-                            route={items[key].route}
-                            clean={items[key].clean}/>
-                    }
-                </div>
-            ))}
+            <UserCard />
+            {user && <MenuCollection items={items} />}
         </div>
     )
 }
