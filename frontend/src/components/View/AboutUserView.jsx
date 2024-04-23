@@ -14,7 +14,7 @@ export default function AboutUserView({...props}) {
             <div className={classes.AboutUserView} {...props}>
                 <h4>Фото аккаунта:</h4>
                 {!aboutUser.image ? <img
-                                      src={`${window.location.origin}/DefUserIcon.png`}
+                                      src={`${window.location.origin}/DefUserIcon256.png`}
                                       alt="Not found" />
                                   : <img 
                                       src={aboutUser.image}
