@@ -4,33 +4,47 @@ import Loadable from '../Helper/Loadable/Loadable'
 import { useUserContext } from '../../contexts/UserContext/UserProvider';
 import { useLocation } from 'react-router-dom';
 import { cookies } from '../../contexts/CookieContext';
+import HorizontalLayout from '../Helper/HorizontalLayout/HorizontalLayout';
 
-export default function AboutUserView({...props}) {
+export default function AboutUserView({handleAction, ...props}) {
     const { aboutUser, loadAboutUser } = useUserContext();
     const location = useLocation();
 
     if (aboutUser) {
         return (
             <div className={classes.AboutUserView} {...props}>
-                <h4>Фото аккаунта:</h4>
-                {!aboutUser.image ? <img
-                                      src={`${window.location.origin}/DefUserIcon256.png`}
-                                      alt="Not found" />
-                                  : <img 
-                                      src={aboutUser.image}
-                                      alt="Not found" />}
-                <h4>Имя:</h4>
-                <p>{aboutUser.name}</p>
-                <h4>Фамилия:</h4>
-                <p>
-                    {aboutUser.secondname ? aboutUser.secondname
-                                          : 'Не задано'}
-                </p>
-                <h4>День рождения:</h4>
-                <p>
-                    {aboutUser.dateOfBirth ? aboutUser.dateOfBirth
-                                           : 'Не задано'}
-                </p>
+                {
+                    !aboutUser.image
+                        ? <img
+                            src={`${window.location.origin}/DefUserIcon256.png`}
+                            alt="Not found" />
+                        : <img 
+                            src={aboutUser.image}
+                            alt="Not found" />
+                }
+                <HorizontalLayout>
+                    <div>                        
+                        <h4>Имя:</h4>
+                        <p>{aboutUser.name}</p>
+                    </div>
+                    <div>
+                        <h4>Фамилия:</h4>
+                        <p>{
+                            aboutUser.secondname ? aboutUser.secondname
+                                                 : 'Не задано'
+                        }</p>
+                    </div>                    
+                </HorizontalLayout>
+                <div>
+                    <h4>День рождения:</h4>
+                    <p>{
+                        aboutUser.dateOfBirth ? aboutUser.dateOfBirth
+                                              : 'Не задано'
+                    }</p>  
+                </div>                               
+                <button type="button" onClick={handleAction}>
+                    Изменить данные
+                </button>  
             </div>
         )
     } else {
