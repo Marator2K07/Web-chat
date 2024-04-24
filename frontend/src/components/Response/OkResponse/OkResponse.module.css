@@ -13,6 +13,10 @@
     align-items: flex-start;  
 }
 
+.OkResponse .HorizontalLayout {
+    align-self: flex-end;
+}
+
 .OkResponse button {
     margin: var(--button_margin);
     padding: var(--button_padding);
