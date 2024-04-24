@@ -14,6 +14,7 @@ export default function PersonalMainBlock({...props}) {
     const { resetResult, makePostRequest } = useResponseHandlerContext();
     const { aboutUser, loadAboutUser } = useUserContext();
     const [canBeChanged, setCanBeChanged] = useState(false);
+
     // данные для обновления, внесенные на форме 
     const [aboutUserFromForm, setAboutUserFromForm] = useState({
         id: aboutUser ? aboutUser.id : null,
@@ -64,6 +65,11 @@ export default function PersonalMainBlock({...props}) {
         stopLoading();
     } 
 
+    // обработка перехода к форме изменения данных
+    function handleAction() {
+        setCanBeChanged(!canBeChanged);
+    }
+
     return (	
         <div className={classes.PersonalMainBlock} {...props}>
             {
@@ -94,12 +100,8 @@ export default function PersonalMainBlock({...props}) {
                         onInput={handleChange}/>
                 </form>				
                 : 				
-                <AboutUserView />
-            }
-            <button type="button" onClick={handleSubmit}>
-                {!canBeChanged ? 'Сохранить изменения'
-                               : 'Изменить данные'}
-            </button>            
+                <AboutUserView handleAction={handleAction} />
+            }          
         </div>
 	)              
 }
