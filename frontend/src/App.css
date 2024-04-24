@@ -84,6 +84,9 @@
   --user_card_img_max_width: 44px;
   --user_card_img_max_height: 44px;
 
+  --personal_page_img_max_height: 222px;
+  --personal_page_img_max_width: 222px;
+
   --menu_item_padding: 7px;
   --menu_item_margin: 0px 10px 10px 10px; 
 
