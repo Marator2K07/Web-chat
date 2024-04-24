@@ -20,8 +20,8 @@
   --block_padding: 15px;
   --block_margin: 10px;
 
-  --min_width: 35vh;
-  --min_height: 25vh;
+  --min_width: 30vh;
+  --min_height: 15vh;
   --max_width: 45vh;
   --max_height: 50vh;
 
@@ -84,8 +84,8 @@
   --user_card_img_max_width: 44px;
   --user_card_img_max_height: 44px;
 
-  --personal_page_img_max_height: 222px;
-  --personal_page_img_max_width: 222px;
+  --personal_page_img_max_height: 256px;
+  --personal_page_img_max_width: 256px;
 
   --menu_item_padding: 7px;
   --menu_item_margin: 0px 10px 10px 10px; 
