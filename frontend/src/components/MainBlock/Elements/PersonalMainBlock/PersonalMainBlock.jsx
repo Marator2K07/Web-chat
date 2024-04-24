@@ -8,6 +8,7 @@ import { cookies } from '../../../../contexts/CookieContext';
 import { convertBlobToBase64, formParamIsEmpty } from '../../../../utils';
 import AboutUserView from '../../../View/AboutUserView';
 import dayjs from 'dayjs';
+import UpdateAboutUserForm from '../../../Form/UpdateAboutUserForm/UpdateAboutUserForm';
 
 export default function PersonalMainBlock({...props}) {
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();	
@@ -74,31 +75,11 @@ export default function PersonalMainBlock({...props}) {
         <div className={classes.PersonalMainBlock} {...props}>
             {
                 canBeChanged ? 
-                <form name='updateAboutUserForm'>
-                    <p>Имя:</p>
-                    <input
-                        type='name'
-                        name='name'
-                        value={aboutUserFromForm.name}
-                        onChange={handleChange}/>
-                    <p>Фамилия:</p>
-                    <input
-                        type='text'
-                        name='secondname'
-                        value={aboutUserFromForm.secondname}
-                        onChange={handleChange}/>
-                    <p>Дата рождения:</p>
-                    <input
-                        type='date'
-                        name='dateOfBirth'
-                        value={aboutUserFromForm.dateOfBirth}
-                        onChange={handleChange}/>
-                    <p>Аватарка:</p>
-                    <input
-                        type='file'
-                        name='image'
-                        onInput={handleChange}/>
-                </form>				
+                <UpdateAboutUserForm
+                    credentials={aboutUserFromForm}
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                    handleCancel={handleAction} />				
                 : 				
                 <AboutUserView handleAction={handleAction} />
             }          
