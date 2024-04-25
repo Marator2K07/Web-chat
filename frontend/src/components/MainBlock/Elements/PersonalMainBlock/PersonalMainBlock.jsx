@@ -9,6 +9,7 @@ import { convertBlobToBase64, formParamIsEmpty } from '../../../../utils';
 import AboutUserView from '../../../View/AboutUserView';
 import dayjs from 'dayjs';
 import UpdateAboutUserForm from '../../../Form/UpdateAboutUserForm/UpdateAboutUserForm';
+import Scrollable from '../../../Helper/Scrollable/Scrollable';
 
 export default function PersonalMainBlock({...props}) {
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();	
@@ -73,16 +74,18 @@ export default function PersonalMainBlock({...props}) {
 
     return (	
         <div className={classes.PersonalMainBlock} {...props}>
-            {
-                canBeChanged ? 
-                <UpdateAboutUserForm
-                    credentials={aboutUserFromForm}
-                    handleChange={handleChange}
-                    handleSubmit={handleSubmit}
-                    handleCancel={handleAction} />				
-                : 				
-                <AboutUserView handleAction={handleAction} />
-            }          
+            <Scrollable>
+                {                
+                    canBeChanged ? 
+                    <UpdateAboutUserForm
+                        credentials={aboutUserFromForm}
+                        handleChange={handleChange}
+                        handleSubmit={handleSubmit}
+                        handleCancel={handleAction} />				
+                    : 				
+                    <AboutUserView handleAction={handleAction} />
+                }    
+            </Scrollable>                  
         </div>
 	)              
 }
