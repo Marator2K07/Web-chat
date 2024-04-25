@@ -3,8 +3,11 @@ export const LOGIN_ROUTE = "/login";
 export const LOGOUT_ROUTE = "/api/token/invalidate";
 export const REGISTER_ROUTE = "/register";
 export const USER_ACTIVATION_ROUTE = "/user_activate";
-export const GET_ALL_USER_INFO_ROUTE = "/authorized_user/get";
-export const UPDATE_ABOUT_USER_ROUTE = "/authorized_user/update";
+
+// далее используются конструкции для определения конца
+// пути, где основная часть задается с помощью веб-хука useLocation  
+export const UPDATE_ABOUT_USER_ROUTE_END = "/about/update";
+
 export const GET_USER_NEWS_MESSAGES_ROUTE = "/authorized_user/news/messages/get";
 export const GET_MESSAGES_FOR_ROOM_ROUTE = "/message/all/get"
 export const USERS_SEARCH_ROUTE = "/user/all/search";
