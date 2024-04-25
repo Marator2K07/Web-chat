@@ -3,19 +3,20 @@ import classes from './PersonalMainBlock.module.css'
 import { useUserContext } from '../../../../contexts/UserContext/UserProvider';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { DATE_FORMAT, SHORT_DELAY, UPDATE_ABOUT_USER_ROUTE } from '../../../../constants';
-import { cookies } from '../../../../contexts/CookieContext';
+import { DATE_FORMAT, UPDATE_ABOUT_USER_ROUTE_END } from '../../../../constants';
 import { convertBlobToBase64, formParamIsEmpty } from '../../../../utils';
 import AboutUserView from '../../../View/AboutUserView';
 import dayjs from 'dayjs';
 import UpdateAboutUserForm from '../../../Form/UpdateAboutUserForm/UpdateAboutUserForm';
 import Scrollable from '../../../Helper/Scrollable/Scrollable';
+import { useLocation } from 'react-router-dom';
 
 export default function PersonalMainBlock({...props}) {
-    const { toggleHolding, startLoading, stopLoading } = useLoadingContext();	
+    const { startLoading, stopLoading } = useLoadingContext();	
     const { resetResult, makePostRequest } = useResponseHandlerContext();
-    const { aboutUser, loadAboutUser } = useUserContext();
+    const { aboutUser, loadAboutUser } = useUserContext();    
     const [canBeChanged, setCanBeChanged] = useState(false);
+    const location = useLocation();
 
     // данные для обновления, внесенные на форме 
     const [aboutUserFromForm, setAboutUserFromForm] = useState({
@@ -55,19 +56,16 @@ export default function PersonalMainBlock({...props}) {
         startLoading();
         resetResult();
         await makePostRequest(
-            `${UPDATE_ABOUT_USER_ROUTE}/${cookies.get('username')}`,
+            location.pathname + UPDATE_ABOUT_USER_ROUTE_END,
             aboutUserFromForm,
             () => {
-                // если все прошло хорошо, то обновляем и текущие данные
                 loadAboutUser(aboutUserFromForm);
-                toggleHolding(false, SHORT_DELAY);
-                setCanBeChanged(!canBeChanged);
             }
         );
         stopLoading();
     } 
 
-    // обработка перехода к форме изменения данных
+    // обработка состояния с выводом нужного компонента 
     function handleAction() {
         setCanBeChanged(!canBeChanged);
     }
