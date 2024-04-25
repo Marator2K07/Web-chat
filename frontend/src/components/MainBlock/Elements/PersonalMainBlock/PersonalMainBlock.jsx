@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './PersonalMainBlock.module.css'
 import { useUserContext } from '../../../../contexts/UserContext/UserProvider';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
@@ -19,15 +19,20 @@ export default function PersonalMainBlock({...props}) {
     const location = useLocation();
 
     // данные для обновления, внесенные на форме 
-    const [aboutUserFromForm, setAboutUserFromForm] = useState({
-        id: aboutUser ? aboutUser.id : null,
-        name: aboutUser ? aboutUser.name : null,
-        secondname: aboutUser ? aboutUser.secondname : null,
-        image: aboutUser ? aboutUser.image : null,
-        dateOfBirth: aboutUser ? dayjs(aboutUser.dateOfBirth).format(DATE_FORMAT)
-                               : null
-	});
-	
+    const [aboutUserFromForm, setAboutUserFromForm] = useState();	
+
+    // автообновление данных при изменении информации о пользователе
+    useEffect(() => {
+        setAboutUserFromForm({
+            id: aboutUser ? aboutUser.id : "",
+            name: aboutUser ? aboutUser.name : "",
+            secondname: aboutUser ? aboutUser.secondname : "",
+            image: aboutUser ? aboutUser.image : null,
+            dateOfBirth: aboutUser ? dayjs(aboutUser.dateOfBirth).format(DATE_FORMAT)
+                                   : "" 
+        })
+    }, [aboutUser]);
+
 	// установка изменений с учетом картинки
     const handleChange = async (e) => {		
         var targetValue = e.target.name === "image"
