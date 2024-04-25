@@ -12,6 +12,7 @@ import {
     AFTER_LOGIN_PAGE_START_INDEX,
     BEFORE_LOGIN_PAGE_BLOCKS_COUNT,
     BEFORE_LOGIN_PAGE_URL,
+    GET_ABOUT_USER_ROUTE_END,
     SHORT_DELAY
 } from '../../../constants';
 import { loadLastMainBlock } from '../../../contexts/CookieContext';
@@ -22,7 +23,7 @@ import NavigationCollection from '../../Collection/NavigationCollection/Navigati
 export default function AfterLoginPage({...props}) {
     const { startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makeGetRequest } = useResponseHandlerContext();  
-    const { loadUser } = useUserContext();
+    const { aboutUser, loadUser, loadAboutUser } = useUserContext();
     const {
         currentBlock,
         navigationBlocks,
@@ -37,8 +38,16 @@ export default function AfterLoginPage({...props}) {
         resetResult();
         await makeGetRequest(
             location.pathname,
-            (response) => {
+            async (response) => {
                 loadUser(response.data.user);
+                if (!aboutUser) {
+                    await makeGetRequest(
+                        location.pathname + GET_ABOUT_USER_ROUTE_END,
+                        (response) => {
+                            loadAboutUser(response.data.aboutUser)
+                        }
+                    );
+                }                
             },
             () => {
                 setTimeout(() => {

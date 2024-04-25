@@ -7,6 +7,7 @@ export const USER_ACTIVATION_ROUTE = "/user_activate";
 // далее используются конструкции для определения конца
 // пути, где основная часть задается с помощью веб-хука useLocation  
 export const UPDATE_ABOUT_USER_ROUTE_END = "/about/update";
+export const GET_ABOUT_USER_ROUTE_END = "/about";
 
 export const GET_USER_NEWS_MESSAGES_ROUTE = "/authorized_user/news/messages/get";
 export const GET_MESSAGES_FOR_ROOM_ROUTE = "/message/all/get"
