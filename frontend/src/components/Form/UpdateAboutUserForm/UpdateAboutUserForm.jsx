@@ -1,6 +1,7 @@
 import React from 'react'
 import classes from './UpdateAboutUserForm.module.css'
 import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout'
+import { UPDATE_ABOUT_USER_FORM_NAME } from '../../../constants'
 
 export default function UpdateAboutUserForm({credentials,
                                              handleChange,
@@ -9,7 +10,7 @@ export default function UpdateAboutUserForm({credentials,
                                              ...props}) {
     return (
         <div className={classes.UpdateAboutUserForm} {...props}>
-            <form name='updateAboutUserForm'>
+            <form name={UPDATE_ABOUT_USER_FORM_NAME}>
                 <p>Имя:</p>
                 <input
                     type='name'

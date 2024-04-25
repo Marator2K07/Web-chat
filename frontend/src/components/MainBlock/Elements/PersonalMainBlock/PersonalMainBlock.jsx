@@ -4,12 +4,13 @@ import { useUserContext } from '../../../../contexts/UserContext/UserProvider';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { DATE_FORMAT, UPDATE_ABOUT_USER_ROUTE_END } from '../../../../constants';
-import { convertBlobToBase64, formParamIsEmpty } from '../../../../utils';
+import { convertBlobToBase64 } from '../../../../utils';
 import AboutUserView from '../../../View/AboutUserView';
 import dayjs from 'dayjs';
 import UpdateAboutUserForm from '../../../Form/UpdateAboutUserForm/UpdateAboutUserForm';
 import Scrollable from '../../../Helper/Scrollable/Scrollable';
 import { useLocation } from 'react-router-dom';
+import { validUpdateAboutUserForm } from './PersonalFormState';
 
 export default function PersonalMainBlock({...props}) {
     const { startLoading, stopLoading } = useLoadingContext();	
@@ -48,15 +49,10 @@ export default function PersonalMainBlock({...props}) {
     async function handleSubmit(e) {
         e.preventDefault();
         // предпроверка перед отправкой запроса
-        if (!canBeChanged) {
-            setCanBeChanged(!canBeChanged);
+        if (!validUpdateAboutUserForm()) {
             return;
-        } else {
-            let nameOk = !formParamIsEmpty('updateAboutUserForm', 'name');
-            if (!nameOk) {				
-                return;
-            }
         }
+
         // основная часть
         startLoading();
         resetResult();
