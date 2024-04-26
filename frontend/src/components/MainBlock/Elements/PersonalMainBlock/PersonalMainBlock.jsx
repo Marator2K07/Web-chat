@@ -5,7 +5,7 @@ import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingPr
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { DATE_FORMAT, UPDATE_ABOUT_USER_ROUTE_END } from '../../../../constants';
 import { convertBlobToBase64 } from '../../../../utils';
-import AboutUserView from '../../../View/AboutUserView';
+import AboutUserView from '../../../View/AboutUserView/AboutUserView';
 import dayjs from 'dayjs';
 import UpdateAboutUserForm from '../../../Form/UpdateAboutUserForm/UpdateAboutUserForm';
 import Scrollable from '../../../Helper/Scrollable/Scrollable';

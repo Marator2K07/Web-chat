@@ -1,12 +1,12 @@
 import React from 'react'
 import classes from './AboutUserView.module.css'
-import Loadable from '../Helper/Loadable/Loadable'
-import { useUserContext } from '../../contexts/UserContext/UserProvider';
+import Loadable from '../../Helper/Loadable/Loadable'
+import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 import { useLocation } from 'react-router-dom';
-import { cookies } from '../../contexts/CookieContext';
-import HorizontalLayout from '../Helper/HorizontalLayout/HorizontalLayout';
+import { cookies } from '../../../contexts/CookieContext';
+import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout';
 import dayjs from 'dayjs';
-import { DATE_FORMAT } from '../../constants';
+import { DATE_FORMAT } from '../../../constants';
 
 export default function AboutUserView({handleAction, ...props}) {
     const { aboutUser, loadAboutUser } = useUserContext();
