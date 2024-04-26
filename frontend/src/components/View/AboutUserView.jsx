@@ -5,6 +5,8 @@ import { useUserContext } from '../../contexts/UserContext/UserProvider';
 import { useLocation } from 'react-router-dom';
 import { cookies } from '../../contexts/CookieContext';
 import HorizontalLayout from '../Helper/HorizontalLayout/HorizontalLayout';
+import dayjs from 'dayjs';
+import { DATE_FORMAT } from '../../constants';
 
 export default function AboutUserView({handleAction, ...props}) {
     const { aboutUser, loadAboutUser } = useUserContext();
@@ -38,7 +40,8 @@ export default function AboutUserView({handleAction, ...props}) {
                 <div>
                     <h4>День рождения:</h4>
                     <p>{
-                        aboutUser.dateOfBirth ? aboutUser.dateOfBirth
+                        aboutUser.dateOfBirth ? dayjs(aboutUser.dateOfBirth)
+                                                    .format(DATE_FORMAT)
                                               : 'Не задано'
                     }</p>  
                 </div>                               

@@ -61,6 +61,7 @@ export default function PersonalMainBlock({...props}) {
             aboutUserFromForm,
             () => {
                 loadAboutUser(aboutUserFromForm);
+                setCanBeChanged(!canBeChanged);
             }
         );
         stopLoading();

@@ -15,7 +15,7 @@ export default function WelcomeMainBlock({...props}) {
                         if (aboutUser) {
                             if (!aboutUser.secondname ||
                                 !aboutUser.image ||
-                                !aboutUser.age) {
+                                !aboutUser.dateOfBirth) {
                                 return <p>
                                     Похоже ваш аккаунт заполнен не полностью.
                                     Это не обязательно, но советуем ввести оставшиеся данные.

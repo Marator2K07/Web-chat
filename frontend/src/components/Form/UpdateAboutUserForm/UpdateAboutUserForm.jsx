@@ -39,7 +39,7 @@ export default function UpdateAboutUserForm({credentials,
                         Применить изменения
                     </button>
                     <button type='button' onClick={handleCancel}>
-                        Отмена
+                        Назад
                     </button>
                 </HorizontalLayout>                
             </form>	
