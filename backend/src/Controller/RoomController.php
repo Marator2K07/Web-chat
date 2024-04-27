@@ -10,9 +10,31 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class RoomController extends AbstractController
 {
+    #[Route('/authorized_user/{username}/rooms', name: 'app_get_user_rooms', methods: 'GET')]
+    public function rooms(string $username,
+                          SerializerInterface $serializer,
+                          UserRepository $userRepository): JsonResponse 
+    {
+        $user = $userRepository->findOneByUsernameField($username);
+        if (!$user) {
+            throw new HttpException(422, 'Не удалось получить данные');
+        } else {
+            return new JsonResponse([
+                'rooms' => json_decode(
+                    $serializer->serialize(
+                        $user->getRooms(),
+                        'json',
+                        ['groups' => ['room']]
+                    )
+                )
+            ]);
+        }        
+    }
+
     #[Route('/room/new', name: 'app_message_new_for_room', methods: 'POST')]
     public function addNewsMessage(Request $request,
                                    EntityManagerInterface $entityManager,
