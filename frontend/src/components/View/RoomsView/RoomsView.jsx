@@ -6,7 +6,7 @@ import RoomsCollection from '../../Collection/RoomsCollection/RoomsCollection';
 import Loadable from '../../Helper/Loadable/Loadable';
 import { cookies } from '../../../contexts/CookieContext';
 
-export default function RoomsView({...props}) {
+export default function RoomsView({handleAction, ...props}) {
     const { rooms, loadRooms } = useUserContext();
     const location = useLocation();
 
@@ -14,6 +14,9 @@ export default function RoomsView({...props}) {
         return (
             <div className={classes.RoomsView} {...props}>
                 <RoomsCollection items={rooms} />
+                <button type="button" onClick={handleAction}>
+                    Создать новый
+                </button>
             </div>
         )
     } else {
