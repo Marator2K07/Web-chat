@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
 import classes from './RoomBlock.module.css'
 import { useUserContext } from '../../contexts/UserContext/UserProvider'
-import RoomsCollection from '../Collection/RoomsCollection/RoomsCollection';
 import UsersCollection from '../Collection/UsersCollection/UsersCollection';
 import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { MEDIUM_DELAY, NEW_ROOM_ROUTE, USERS_SEARCH_ROUTE } from '../../constants';
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider';
+import RoomsView from '../View/RoomsView/RoomsView';
 
 export default function RoomBlock({...props}) {
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
-    const { user, rooms } = useUserContext();
+    const { user } = useUserContext();
     const [showRoomForm, setShowRoomForm] = useState(false);
     const [foundedUsers, setFoundedUsers] = useState({});
     const [selectedUsers, setSelectedUsers] = useState({});
     const [searchStr, setSearchStr] = useState('');
+
     // данные для создания новой комнаты чата, внесенные на форме
     const [newRoomName, setNewRoomName] = useState('');
 
@@ -41,6 +42,7 @@ export default function RoomBlock({...props}) {
         setSearchStr(e.target.value);
         updateUsers();
     }    
+
     // подгрузка пользователей при поиске
     const updateUsers = async() => {    
         resetResult();
@@ -81,6 +83,11 @@ export default function RoomBlock({...props}) {
         setShowRoomForm(!showRoomForm);       
     }
 
+    // обработка состояния с выводом нужного компонента 
+    function handleAction() {
+        setShowRoomForm(!showRoomForm);
+    }
+
     return (
         <div className={classes.RoomBlock} {...props}>
             <h3> { !showRoomForm ? 'Текущие чаты'
@@ -88,7 +95,7 @@ export default function RoomBlock({...props}) {
             </h3>
             {
                 !showRoomForm ?
-                <RoomsCollection rooms={rooms}/>
+                <RoomsView handleAction={handleAction} />
                 :
                 <form name='roomForm'>
                     <h4>Название комнаты для общения:</h4>
@@ -115,11 +122,7 @@ export default function RoomBlock({...props}) {
                         buttonName={'+++'}
                         buttonHandler={getSelectedUser}/>
                 </form>
-            }
-            <button type="button" onClick={handleSubmit}>
-                { !showRoomForm ? 'Создать новый'
-                                : 'Принять'}
-            </button>
+            }            
         </div>
     )
 }
