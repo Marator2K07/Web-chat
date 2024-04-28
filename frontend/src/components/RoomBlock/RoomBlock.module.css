@@ -1,37 +1,10 @@
 .RoomBlock {
-    padding: 7px;
-    min-width: 222px;
-    min-height: 38px;
-    border-right: 2px solid rgb(180, 188, 196); 
-    color: rgb(232,240,254);
-}
-
-.RoomBlock button{
-    margin-top: 14px;
+    min-width: var(--min_width);
+    min-height: var(--min_height);
+    border-right: var(--border_width) solid var(--main_color); 
+    background-color: var(--background_main_color);
 }
 
 .RoomBlock h3 {
-    color: rgb(255, 140, 100);
-    padding: 7px;
-    margin-top: 0px;
-    font-weight: 500;
-    font-family: emoji;
-    font-size: 22px;
-    border-bottom: 2px solid rgb(180, 188, 196);   
-}
-
-.RoomBlock form h4 {
-    color: rgb(255, 140, 100);
-    margin: 0px 0px;
-    font-weight: 400;
-    font-family: emoji;
-    font-size: 20px;
-}
-
-.RoomBlock form p {
-    margin-top: 3px;
-    font-weight: 400;
-    font-family: emoji;
-    font-size: 19px;
-    color: rgb(232,240,254);
+    border-bottom: var(--border_width) solid var(--main_color);   
 }
