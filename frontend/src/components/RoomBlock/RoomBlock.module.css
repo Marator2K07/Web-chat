@@ -2,7 +2,7 @@
     min-width: var(--min_width);
     min-height: var(--min_height);
     border-right: var(--border_width) solid var(--main_color); 
-    background-color: var(--background_main_color);
+    background-color: var(--background_second_color);
 }
 
 .RoomBlock h3 {

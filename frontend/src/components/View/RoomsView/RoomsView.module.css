@@ -4,3 +4,12 @@
     align-items: center;
     justify-content: center;
 }
+
+.RoomsView p {    
+    margin: var(--p_margin);
+    padding: var(--p_padding);
+    color: var(--third_color);
+    font-family: var(--p_font_family);
+    font-weight: var(--p_font_weight);
+    font-size: var(--p_font_size);   
+}
