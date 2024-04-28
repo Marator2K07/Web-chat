@@ -2,7 +2,7 @@ import React from 'react'
 import classes from './RegistrationForm.module.css'
 import { REGISTRATION_FORM_NAME } from '../../../constants'
 
-export default function RegistrationForm({credentials,
+export default function RegistrationForm({formData,
                                           handleChange,
                                           handleSubmit,
                                           ...props}) {
@@ -13,25 +13,25 @@ export default function RegistrationForm({credentials,
                 <input
                     type='username'
                     name='username'
-                    value={credentials.username}
+                    value={formData.username}
                     onChange={handleChange}/>
                 <h4>Задайте почту для привязки:</h4>
                 <input
                     type='email'
                     name='email'
-                    value={credentials.email} 
+                    value={formData.email} 
                     onChange={handleChange}/>
                 <h4>А теперь придумайте пароль:</h4>
                 <input
                     type='password'
                     name='password'
-                    value={credentials.password} 
+                    value={formData.password} 
                     onChange={handleChange}/>
                 <h4>И повторите его:</h4>
                 <input
                     type='password'
                     name='passwordAgain'
-                    value={credentials.passwordAgain} 
+                    value={formData.passwordAgain} 
                     onChange={handleChange}/>
                 <button type='button' onClick={handleSubmit}>
                     Зарегистрироваться

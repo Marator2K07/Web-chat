@@ -2,7 +2,7 @@ import React from 'react'
 import classes from './LoginForm.module.css'
 import { LOGIN_FORM_NAME } from '../../../constants'
 
-export default function LoginForm({credentials,
+export default function LoginForm({formData,
                                    handleChange, 
                                    handleSubmit,
                                    ...props}) {
@@ -13,13 +13,13 @@ export default function LoginForm({credentials,
                 <input
                     type='username'
                     name='username'
-                    value={credentials.username}
+                    value={formData.username}
                     onChange={handleChange}/>
                 <h4>А теперь пароль:</h4>    
                 <input
                     type='password'
                     name='password'
-                    value={credentials.password}                     
+                    value={formData.password}                     
                     onChange={handleChange}/>
                 <button type='button' onClick={handleSubmit}>
                     Войти

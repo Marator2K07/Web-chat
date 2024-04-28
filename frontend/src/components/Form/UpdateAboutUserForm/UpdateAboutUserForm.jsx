@@ -3,7 +3,7 @@ import classes from './UpdateAboutUserForm.module.css'
 import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout'
 import { UPDATE_ABOUT_USER_FORM_NAME } from '../../../constants'
 
-export default function UpdateAboutUserForm({credentials,
+export default function UpdateAboutUserForm({formData,
                                              handleChange,
                                              handleSubmit,
                                              handleCancel,
@@ -15,19 +15,19 @@ export default function UpdateAboutUserForm({credentials,
                 <input
                     type='name'
                     name='name'
-                    value={credentials.name}
+                    value={formData.name}
                     onChange={handleChange}/>
                 <p>Фамилия:</p>
                 <input
                     type='text'
                     name='secondname'
-                    value={credentials.secondname}
+                    value={formData.secondname}
                     onChange={handleChange}/>
                 <p>Дата рождения:</p>
                 <input
                     type='date'
                     name='dateOfBirth'
-                    value={credentials.dateOfBirth}
+                    value={formData.dateOfBirth}
                     onChange={handleChange}/>
                 <p>Аватарка:</p>
                 <input

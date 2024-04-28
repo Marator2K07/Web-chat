@@ -78,7 +78,7 @@ export default function PersonalMainBlock({...props}) {
                 {                
                     canBeChanged ? 
                     <UpdateAboutUserForm
-                        credentials={aboutUserFromForm}
+                        formData={aboutUserFromForm}
                         handleChange={handleChange}
                         handleSubmit={handleSubmit}
                         handleCancel={handleAction} />				

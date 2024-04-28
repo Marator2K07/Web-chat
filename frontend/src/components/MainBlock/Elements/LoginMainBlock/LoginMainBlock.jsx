@@ -72,7 +72,7 @@ export default function LoginMainBlock({...props}) {
         <div className={classes.LoginMainBlock} {...props}>
             <Scrollable>
                 <LoginForm 
-                    credentials={credentials}
+                    formData={credentials}
                     handleChange={handleChange}
                     handleSubmit={handleSubmit} />
             </Scrollable>                

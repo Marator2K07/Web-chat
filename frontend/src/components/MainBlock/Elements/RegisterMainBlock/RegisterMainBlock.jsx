@@ -96,7 +96,7 @@ export default function RegisterMainBlock({...props}) {
         <div className={classes.RegisterMainBlock} {...props}>
             <Scrollable>
                 <RegistrationForm
-                    credentials={credentials}
+                    formData={credentials}
                     handleChange={handleChange}
                     handleSubmit={handleSubmit} />
                 <TipsCollection tips={tips}/>  
