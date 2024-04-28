@@ -8,16 +8,22 @@ import RoomItem from './RoomItem/RoomItem';
 export default function RoomsCollection({items, ...props}) {
     return (
         <div className={classes.RoomsCollection} {...props}>
-            <TransitionGroup>
-                {Object.keys(items).map((key, index) => (
-                    <CSSTransition
-                        key={index}
-                        timeout={SHORT_TIMEOUT}
-                        classNames="RoomsCollection">
-                            <RoomItem item={items[key]}/>
-                    </CSSTransition>
-                ))}
-            </TransitionGroup>
+            {
+                Object.keys(items).length !== 0
+                ?
+                <TransitionGroup>
+                    {Object.keys(items).map((key, index) => (
+                        <CSSTransition
+                            key={index}
+                            timeout={SHORT_TIMEOUT}
+                            classNames="RoomsCollection">
+                                <RoomItem item={items[key]}/>
+                        </CSSTransition>
+                    ))}
+                </TransitionGroup>
+                :
+                <p>Отсутствуют</p>
+            }            
         </div>
     )
 }
