@@ -5,16 +5,16 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { SHORT_TIMEOUT } from '../../../constants';
 import RoomItem from './RoomItem/RoomItem';
 
-export default function RoomsCollection({rooms, ...props}) {
+export default function RoomsCollection({items, ...props}) {
     return (
         <div className={classes.RoomsCollection} {...props}>
             <TransitionGroup>
-                {Object.keys(rooms).map((key, index) => (
+                {Object.keys(items).map((key, index) => (
                     <CSSTransition
                         key={index}
                         timeout={SHORT_TIMEOUT}
                         classNames="RoomsCollection">
-                            <RoomItem room={rooms[key]}/>
+                            <RoomItem item={items[key]}/>
                     </CSSTransition>
                 ))}
             </TransitionGroup>

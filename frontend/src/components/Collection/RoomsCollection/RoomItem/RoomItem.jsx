@@ -1,16 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import classes from './RoomItem.module.css'
 import { useUserContext } from '../../../../contexts/UserContext/UserProvider';
 
-export default function RoomItem({room,
-                                  ...props}) {
+export default function RoomItem({item, ...props}) {
     const { loadCurrentRoom } = useUserContext();    
 
     return (
         <div
             className={classes.RoomItem}
-            onClick={() => {loadCurrentRoom(room)}} {...props}>
-            <p>{room.name}</p>
+            onClick={() => {loadCurrentRoom(item)}} {...props}>
+            <p>{item.name}</p>
         </div>
     )
 }
