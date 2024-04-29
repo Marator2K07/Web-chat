@@ -21,21 +21,17 @@ class UserController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $users = $userRepository
-            ->findByNameOrSecondnameField($data['searchStr']);
+            ->findByNameOrSecondnameField($data['searchLine']);
             
-        $infos = [];
+        $foundedUsers = [];
         foreach ($users as &$user) {
-            $item = [
-                'id' => $user->getId(),
-                'username' => $user->getUsername(),
-                'aboutUser' => $user->getAboutUser()
-            ];
-            $infos[] = $item;
+            $userItem = $user;
+            $foundedUsers[] = $userItem;
         }
 
         return new JsonResponse([
             'users' => json_decode(
-                $serializer->serialize($infos, 'json')
+                $serializer->serialize($foundedUsers, 'json')
             )
         ]);
     } 
