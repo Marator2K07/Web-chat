@@ -9,8 +9,8 @@ export default function СommunicationMainBlock({...props}) {
 
     return (
         <div className={classes.СommunicationMainBlock} {...props}>
-            <RoomBlock/>
-            <MessagesBlock room={currentRoom}/>
+            <RoomBlock />
+            <MessagesBlock room={currentRoom} />
         </div>
     )
 }
