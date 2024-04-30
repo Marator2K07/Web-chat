@@ -31,7 +31,11 @@ class UserController extends AbstractController
 
         return new JsonResponse([
             'users' => json_decode(
-                $serializer->serialize($foundedUsers, 'json')
+                $serializer->serialize(
+                    $foundedUsers,
+                    'json',
+                    ['groups' => ['user']]
+                )
             )
         ]);
     } 
