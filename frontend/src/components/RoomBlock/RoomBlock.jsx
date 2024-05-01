@@ -24,24 +24,31 @@ export default function RoomBlock({...props}) {
         setNewRoomName(e.target.value); 
     }
 
-    const getSelectedUser = (user) => {        
+    // обработка изменений в поле поиска
+    const handleSearch = async (e) => {
+        setSearchStr(e.target.value);
+        updateUsers();
+    } 
+
+    // добавление найденного пользователя в список чата комнаты
+    const addSelectedUser = (user) => {        
         setSelectedUsers({
             [user.username]: user,
             ...selectedUsers            
         })
     }
 
+    // удаление уже добавленного пользователя из списка будущего чата
     const removeSelectedUser = (user) => {
         let newSelected = { ...selectedUsers }
         delete newSelected[user.username];
         setSelectedUsers(newSelected);
-    } 
-
-    // обработка изменений в поле поиска
-    const handleSearch = async (e) => {
-        setSearchStr(e.target.value);
-        updateUsers();
-    }    
+    }   
+    
+    // обработка состояния с выводом нужного компонента 
+    function handleAction() {
+        setShowRoomForm(!showRoomForm);
+    }
 
     // подгрузка пользователей при поиске
     const updateUsers = async() => {    
@@ -55,6 +62,15 @@ export default function RoomBlock({...props}) {
             }
         )
     }
+
+    const [addUserButton] = useState({
+        name: "Добавить",
+        action: addSelectedUser
+    });
+    const [removeUserButton] = useState({
+        name: "Отмена",
+        action: removeSelectedUser
+    });
     
     // обработка формы...
     async function handleSubmit(e) {
@@ -81,12 +97,7 @@ export default function RoomBlock({...props}) {
         }        
 
         setShowRoomForm(!showRoomForm);       
-    }
-
-    // обработка состояния с выводом нужного компонента 
-    function handleAction() {
-        setShowRoomForm(!showRoomForm);
-    }
+    }    
 
     return (
         <div className={classes.RoomBlock} {...props}>
