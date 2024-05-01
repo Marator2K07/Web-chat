@@ -21,7 +21,7 @@ export const NEW_ROOM_ROUTE = "/room/new"
 export const BEFORE_LOGIN_PAGE_URL = "/";
 export const USER_ACTIVATION_PAGE_URL = "/user_activation"
 export const AFTER_LOGIN_PAGE_URL = "/authorized_user";
-export const OTHER_USER_PAGE_URL = "/other_user";
+export const ANOTHER_USER_PAGE_URL = "/another_user";
 
 export const EXTRA_SHORT_DELAY = 250;
 export const SHORT_DELAY = 1250;

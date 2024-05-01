@@ -12,8 +12,8 @@ import { NavigationProvider } from './contexts/NavigationContext/NavigationProvi
 import OtherUserPage from './components/Pages/OtherUserPage/OtherUserPage';
 import { 
     AFTER_LOGIN_PAGE_URL,
+    ANOTHER_USER_PAGE_URL,
     BEFORE_LOGIN_PAGE_URL,
-    OTHER_USER_PAGE_URL,
     USER_ACTIVATION_PAGE_URL
 } from './constants';
 
@@ -37,7 +37,7 @@ function App() {
                     <Route path={`${AFTER_LOGIN_PAGE_URL}/:username`} element={
                         <AfterLoginPage />
                     }/>
-                    <Route path={`${OTHER_USER_PAGE_URL}/:username`} element={
+                    <Route path={`${ANOTHER_USER_PAGE_URL}/:username`} element={
                         <OtherUserPage />                        
                     }/>
                 </Routes>
