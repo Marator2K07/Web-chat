@@ -21,10 +21,7 @@ export default function UserItemView({user, button, ...props}) {
             <Loadable 
                 isWorking={cookies.get('username')}
                 propertyName={'aboutUser'}
-                getDataUrl={`${ANOTHER_USER_PAGE_URL}
-                            /${user.username}
-                            /${GET_ABOUT_USER_ROUTE_END}`
-                        }
+                getDataUrl={`${ANOTHER_USER_PAGE_URL}/${user.username}${GET_ABOUT_USER_ROUTE_END}`}
                 setDataFunc={loadAboutUser} />
         )
     }
