@@ -17,10 +17,29 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class AboutUserController extends AbstractController
 {
+    #[Route('/another_user/{username}/about', name: 'app_get_about_another_user', methods: 'GET')]
+    public function aboutAnotherUser(string $username, 
+                                     SerializerInterface $serializer,
+                                     UserRepository $userRepository): JsonResponse
+    {
+        $user = $userRepository->findOneByUsernameField($username);
+        if (!$user) {
+            return new JsonResponse(null);
+        } else {
+            return new JsonResponse([
+                'aboutUser' => json_decode(
+                    $serializer->serialize(
+                        $user->getAboutUser(), 'json'
+                    ) 
+                )
+            ]);
+        }
+    }
+
     #[Route('/authorized_user/{username}/about', name: 'app_get_about_authorized_user', methods: 'GET')]
-    public function aboutUser(string $username, 
-                              SerializerInterface $serializer,
-                              UserRepository $userRepository): JsonResponse
+    public function aboutCurrentUser(string $username, 
+                                     SerializerInterface $serializer,
+                                     UserRepository $userRepository): JsonResponse
     {
         $user = $userRepository->findOneByUsernameField($username);
         if (!$user) {
@@ -37,10 +56,10 @@ class AboutUserController extends AbstractController
     }   
 
     #[Route('/authorized_user/{username}/about/update', name: 'app_authorized_update_user', methods: 'POST')]
-    public function updateUser(string $username,
-                               Request $request,
-                               EntityManagerInterface $entityManager,
-                               UserRepository $userRepository): JsonResponse
+    public function updateCurrentUser(string $username,
+                                      Request $request,
+                                      EntityManagerInterface $entityManager,
+                                      UserRepository $userRepository): JsonResponse
     {
         $user = $userRepository->findOneByUsernameField($username);  
         $data = json_decode($request->getContent(), true);        
