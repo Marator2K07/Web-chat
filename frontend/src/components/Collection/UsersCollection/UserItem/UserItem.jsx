@@ -1,7 +1,8 @@
 import React from 'react'
 import classes from './UserItem.module.css'
 
-export default function UserItem({aboutUser,
+export default function UserItem({user,
+                                  aboutUser,
                                   button,
                                   ...props}) {
     // в случае если пользователь не установил картинку - ставим
@@ -21,7 +22,7 @@ export default function UserItem({aboutUser,
                 button &&
                 <button type="button" onClick={(e) =>{
                     e.stopPropagation(); // событие нажатия дальше не пойдет
-                    button.action(user);
+                    button.action(user, aboutUser);
                 }}>
                     {button.name}
                 </button>

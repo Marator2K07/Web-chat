@@ -12,6 +12,7 @@ export default function UserItemView({user, button, ...props}) {
         return (
             <div className={classes.AboutUserView} {...props}>
                 <UserItem 
+                    user={user}
                     aboutUser={aboutUser} 
                     button={button} />
             </div>
