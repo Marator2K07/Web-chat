@@ -1,17 +1,16 @@
 import React from 'react'
 import classes from './UsersCollection.module.css'
 import './UsersCollectionCSSTransition.css'
-import UserItem from './UserItem/UserItem';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { MEDIUM_TIMEOUT, ANOTHER_USER_PAGE_URL } from '../../../constants';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
+import UserItemView from '../../View/UserItemView/UserItemView';
 
 export default function UsersCollection({users,
                                          clue,
-                                         buttonName,
-                                         buttonHandler,
+                                         button,
                                          ...props}) {
     const { goNavigationWithAnimation } = useNavigationContext();
     const { user } = useUserContext();
@@ -28,26 +27,23 @@ export default function UsersCollection({users,
     }
 
     return (
-        <div className={classes.UsersCollection} {...props}> 
-            {console.log(Object.keys(users))} 
+        <div className={classes.UsersCollection} {...props}>
             <TransitionGroup>
                     {Object.keys(users).map((key, index) => (
                         <CSSTransition
                             key={index}
                             timeout={MEDIUM_TIMEOUT}
                             classNames="UsersCollection">
-                                <UserItem
+                                <UserItemView 
                                     user={users[key]}
-                                    buttonName={buttonName}
-                                    buttonHandler={buttonHandler}
-                                    navigateHandler={navigateHandler}/>
+                                    button={button} />
                         </CSSTransition>
                     ))}
             </TransitionGroup>        
             {
                 Object.keys(users).length > 0
-                ? ''
-                :<p>{clue}</p>
+                    ? ''
+                    : <p>{clue}</p>
             } 
         </div>
     )
