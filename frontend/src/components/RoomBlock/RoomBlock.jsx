@@ -6,6 +6,7 @@ import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext
 import { MEDIUM_DELAY, NEW_ROOM_ROUTE, USERS_SEARCH_ROUTE } from '../../constants';
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider';
 import RoomsView from '../View/RoomsView/RoomsView';
+import HorizontalLayout from '../Helper/HorizontalLayout/HorizontalLayout';
 
 export default function RoomBlock({...props}) {
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();
@@ -113,25 +114,32 @@ export default function RoomBlock({...props}) {
                     <input
                         type='text'
                         value={newRoomName.name}
-                        onChange={handleChange}/>
+                        onChange={handleChange} />
                     <h4>Участники:</h4>
                     <UsersCollection
                         users={selectedUsers}
                         clue={'...Нет никого кроме вас...'}
-                        buttonName={'---'}
-                        buttonHandler={removeSelectedUser}/>
+                        button={removeUserButton} />
 
                     <h4>Поиск по имени и фамилии:</h4>
                     <input
                         type='text'
                         value={searchStr}
-                        onChange={handleSearch}/>
+                        onChange={handleSearch} />
                     <h4>Результаты поиска:</h4>
                     <UsersCollection
                         users={foundedUsers}                        
                         clue={'...Никого нет...'}
-                        buttonName={'+++'}
-                        buttonHandler={getSelectedUser}/>
+                        button={addUserButton} />
+
+                    <HorizontalLayout>
+                        <button type='button' onClick={handleSubmit}>
+                            Применить изменения
+                        </button>
+                        <button type='button' onClick={handleAction}>
+                            Назад
+                        </button>
+                    </HorizontalLayout>
                 </form>
             }            
         </div>
