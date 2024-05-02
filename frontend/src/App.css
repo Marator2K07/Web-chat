@@ -90,5 +90,10 @@
   --menu_item_padding: 7px;
   --menu_item_margin: 0px 10px 10px 10px; 
 
+  --user_item_margin: 10px 5px;
+  --user_item_image_max_height: 36px;
+  --user_item_image_max_width: 36px;
+  --user_item_image_padding: 2px;
+
   --CSSTransition_mini_menu_duration: 0.5s;
 }
