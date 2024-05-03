@@ -16,7 +16,7 @@ export default function RoomBlock({...props}) {
     const [showRoomForm, setShowRoomForm] = useState(false);
     const [foundedUsers, setFoundedUsers] = useState({});
     const [selectedUsers, setSelectedUsers] = useState({});
-    const [searchStr, setSearchStr] = useState('');
+    const [searchLine, setSearchLine] = useState('');
 
     // данные для создания новой комнаты чата, внесенные на форме
     const [newRoomName, setNewRoomName] = useState('');
@@ -28,7 +28,7 @@ export default function RoomBlock({...props}) {
 
     // обработка изменений в поле поиска
     const handleSearch = async (e) => {
-        setSearchStr(e.target.value);
+        setSearchLine(e.target.value);
         updateUsers();
     } 
 
@@ -57,7 +57,7 @@ export default function RoomBlock({...props}) {
         resetResult();
         await makePostRequest(
             USERS_SEARCH_ROUTE,
-            { searchStr: searchStr },
+            { searchLine: searchLine },
             (response) => {
                 setFoundedUsers(response.data.users);
                 console.log(response.data.users);
@@ -66,11 +66,11 @@ export default function RoomBlock({...props}) {
     }
 
     const [addUserButton] = useState({
-        name: "Добавить",
+        name: "+",
         action: addSelectedUser
     });
     const [removeUserButton] = useState({
-        name: "Отмена",
+        name: "-",
         action: removeSelectedUser
     });
     
@@ -122,18 +122,18 @@ export default function RoomBlock({...props}) {
                             users={selectedUsers}
                             clue={'...Нет никого кроме вас...'}
                             button={removeUserButton} />
-    
+
                         <h4>Поиск по имени и фамилии:</h4>
                         <input
                             type='text'
-                            value={searchStr}
+                            value={searchLine}
                             onChange={handleSearch} />
                         <h4>Результаты поиска:</h4>
                         <UsersCollection
                             users={foundedUsers}                        
                             clue={'...Никого нет...'}
                             button={addUserButton} />
-    
+
                         <HorizontalLayout>
                             <button type='button' onClick={handleSubmit}>
                                 Применить изменения
