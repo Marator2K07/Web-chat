@@ -1,37 +1,71 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classes from './NewRoomForm.module.css'
+import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout'
+import { USERS_SEARCH_ROUTE } from '../../../constants';
+import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 
 export default function NewRoomForm({formData,
+                                     otherData,
                                      handleChange,
                                      handleSubmit,
                                      handleCancel,
                                      ...props}) {
+    const { resetResult, makePostRequest } = useResponseHandlerContext();
+    const [foundedUsers, setFoundedUsers] = useState({});
+    const [searchLine, setSearchLine] = useState('');
+
+    // обработка изменений в поле поиска
+    const handleSearch = async (e) => {
+        setSearchLine(e.target.value);
+        updateUsers();
+    } 
+    // подгрузка пользователей при поиске    
+    const updateUsers = async() => {    
+        resetResult();
+        await makePostRequest(
+            USERS_SEARCH_ROUTE,
+            { searchLine: searchLine },
+            (response) => {
+                setFoundedUsers(response.data.users);
+            }
+        )
+    }
+
     return (
         <div className={classes.NewRoomForm} {...props}>
-            <form name='roomForm'>
+            <form name='newRoomForm'>                
+                {/*участок формы создания чата*/} 
                 <h4>Название комнаты для общения:</h4>
                 <input
                     type='text'
-                    value={formData.name}
+                    value={formData.newRoomName}
                     onChange={handleChange} />
                 <h4>Участники:</h4>
                 <UsersCollection
-                    users={selectedUsers}
+                    users={formData.selectedUsers}
                     clue={'...Нет никого кроме вас...'}
-                    buttonName={'---'}
-                    buttonHandler={removeSelectedUser} />
+                    button={otherData.removeUserButton} />
 
+                {/*встроенный участок поиска и добавления пользователей*/} 
                 <h4>Поиск по имени и фамилии:</h4>
                 <input
                     type='text'
-                    value={searchStr}
+                    value={searchLine}
                     onChange={handleSearch} />
                 <h4>Результаты поиска:</h4>
                 <UsersCollection
                     users={foundedUsers}                        
                     clue={'...Никого нет...'}
-                    buttonName={'+++'}
-                    buttonHandler={getSelectedUser} />
+                    button={otherData.addUserButton} />
+
+                <HorizontalLayout>
+                    <button type='button' onClick={handleSubmit}>
+                        Применить изменения
+                    </button>
+                    <button type='button' onClick={handleCancel}>
+                        Назад
+                    </button>
+                </HorizontalLayout>
             </form>
         </div>
     )
