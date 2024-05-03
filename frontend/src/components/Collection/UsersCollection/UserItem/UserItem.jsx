@@ -20,7 +20,9 @@ export default function UserItem({user,
             </div>
             {
                 button &&
-                <MiniButton button={button} />                
+                <MiniButton
+                    button={button}
+                    data={user} />                
             }            
         </div>
     )
