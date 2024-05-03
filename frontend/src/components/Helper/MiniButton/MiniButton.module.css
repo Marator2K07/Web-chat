@@ -1,0 +1,7 @@
+.MiniButton {
+    max-width: var(--mini_button_max_height);
+    min-height: var(--mini_button_max_width);  
+    background-color: var(--background_second_color);  
+    border-radius: var(--mini_button_border_radius);
+    box-shadow: 0px 0px var(--border_width) var(--border_width) var(--third_color);
+}
