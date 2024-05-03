@@ -1,5 +1,6 @@
 import React from 'react'
 import classes from './UserItem.module.css'
+import MiniButton from '../../../Helper/MiniButton/MiniButton';
 
 export default function UserItem({user,
                                   aboutUser,
@@ -15,17 +16,11 @@ export default function UserItem({user,
         <div className={classes.UserItem} {...props}>
             <img src={userImg} alt="Not found" />
             <div>
-                <p>{aboutUser.name}</p>
-                <p>{aboutUser.secondname}</p>
+                <p>{aboutUser.name} {aboutUser.secondname}</p>
             </div>
             {
                 button &&
-                <button type="button" onClick={(e) =>{
-                    e.stopPropagation(); // событие нажатия дальше не пойдет
-                    button.action(user, aboutUser);
-                }}>
-                    {button.name}
-                </button>
+                <MiniButton button={button} />                
             }            
         </div>
     )

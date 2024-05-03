@@ -10,8 +10,9 @@
     box-shadow: 0px 0px var(--border_width) var(--border_width) var(--main_color);
 }
 
-.UserItem img{
+.UserItem img {
     max-height: var(--user_item_image_max_height);
     max-width: var(--user_item_image_max_width);
     padding: var(--user_item_image_padding);
+    box-shadow: 0px 0px var(--border_width) var(--border_width) var(--third_color);
 }
