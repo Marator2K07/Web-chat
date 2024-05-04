@@ -45,6 +45,7 @@ export const DATE_FORMAT = "YYYY-MM-DD"
 export const LOGIN_FORM_NAME = "loginForm"; 
 export const REGISTRATION_FORM_NAME = "registrationForm";
 export const UPDATE_ABOUT_USER_FORM_NAME = "updateAboutUserForm";
+export const NEW_ROOM_FORM_NAME = "newRoomForm";
 
 export const PINK_EBONY_COLOR = "#704949";
 

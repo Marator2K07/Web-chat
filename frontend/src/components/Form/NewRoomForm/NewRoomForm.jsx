@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import classes from './NewRoomForm.module.css'
 import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout'
-import { USERS_SEARCH_ROUTE } from '../../../constants';
+import { NEW_ROOM_FORM_NAME, USERS_SEARCH_ROUTE } from '../../../constants';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 
 export default function NewRoomForm({formData,
@@ -33,7 +33,7 @@ export default function NewRoomForm({formData,
 
     return (
         <div className={classes.NewRoomForm} {...props}>
-            <form name='newRoomForm'>                
+            <form name={NEW_ROOM_FORM_NAME}>                
                 {/*участок формы создания чата*/} 
                 <h4>Название комнаты для общения:</h4>
                 <input
