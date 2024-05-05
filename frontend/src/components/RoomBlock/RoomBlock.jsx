@@ -8,6 +8,7 @@ import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider
 import RoomsView from '../View/RoomsView/RoomsView';
 import HorizontalLayout from '../Helper/HorizontalLayout/HorizontalLayout';
 import Scrollable from '../Helper/Scrollable/Scrollable';
+import NewRoomForm from '../Form/NewRoomForm/NewRoomForm';
 
 export default function RoomBlock({...props}) {
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();
@@ -15,15 +16,19 @@ export default function RoomBlock({...props}) {
     const { user } = useUserContext();
     const [showRoomForm, setShowRoomForm] = useState(false);
     const [foundedUsers, setFoundedUsers] = useState({});
-    const [selectedUsers, setSelectedUsers] = useState({});
-    const [searchLine, setSearchLine] = useState('');
 
-    // данные для создания новой комнаты чата, внесенные на форме
-    const [newRoomName, setNewRoomName] = useState('');
+    // данные, связанные с формой создания новой комнаты-чата
+    const [selectedUsers, setSelectedUsers] = useState({});
+    const [roomName, setRoomName] = useState('');
+    const [newRoomForm] = useState({
+        selectedUsers: selectedUsers,
+        roomName: roomName
+    });
+
 
     // установка изменений для формы
     const handleChange = async (e) => {	
-        setNewRoomName(e.target.value); 
+        setRoomName(e.target.value); 
     }
 
     // обработка изменений в поле поиска
@@ -79,7 +84,7 @@ export default function RoomBlock({...props}) {
         e.preventDefault();
         
         if (showRoomForm) {
-            console.log(newRoomName);
+            console.log(roomName);
             console.log(user);
             console.log(selectedUsers);
 
@@ -88,7 +93,7 @@ export default function RoomBlock({...props}) {
             await makePostRequest(
                 NEW_ROOM_ROUTE,
                 {
-                    roomName: newRoomName,
+                    roomName: roomName,
                     author: user,
                     users: selectedUsers 
                 },
@@ -111,38 +116,8 @@ export default function RoomBlock({...props}) {
                     !showRoomForm ?
                     <RoomsView handleAction={handleAction} />
                     :
-                    <form name='roomForm'>
-                        <h4>Название комнаты для общения:</h4>
-                        <input
-                            type='text'
-                            value={newRoomName}
-                            onChange={handleChange} />
-                        <h4>Участники:</h4>
-                        <UsersCollection
-                            users={selectedUsers}
-                            clue={'...Нет никого кроме вас...'}
-                            button={removeUserButton} />
-
-                        <h4>Поиск по имени и фамилии:</h4>
-                        <input
-                            type='text'
-                            value={searchLine}
-                            onChange={handleSearch} />
-                        <h4>Результаты поиска:</h4>
-                        <UsersCollection
-                            users={foundedUsers}                        
-                            clue={'...Никого нет...'}
-                            button={addUserButton} />
-
-                        <HorizontalLayout>
-                            <button type='button' onClick={handleSubmit}>
-                                Применить изменения
-                            </button>
-                            <button type='button' onClick={handleAction}>
-                                Назад
-                            </button>
-                        </HorizontalLayout>
-                    </form>
+                    <NewRoomForm
+                        formData={newRoomForm} />
                 }
             </Scrollable>            
         </div>
