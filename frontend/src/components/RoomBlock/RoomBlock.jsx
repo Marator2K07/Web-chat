@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import classes from './RoomBlock.module.css'
 import { useUserContext } from '../../contexts/UserContext/UserProvider'
 import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { MEDIUM_DELAY, NEW_ROOM_ROUTE, USERS_SEARCH_ROUTE } from '../../constants';
+import { MEDIUM_DELAY, NEW_ROOM_ROUTE } from '../../constants';
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider';
 import RoomsView from '../View/RoomsView/RoomsView';
 import Scrollable from '../Helper/Scrollable/Scrollable';
@@ -13,7 +13,6 @@ export default function RoomBlock({...props}) {
     const { resetResult, makePostRequest } = useResponseHandlerContext();
     const { user } = useUserContext();
     const [showRoomForm, setShowRoomForm] = useState(false);
-    const [foundedUsers, setFoundedUsers] = useState({});
 
     // данные, связанные с формой создания новой комнаты-чата
     const [selectedUsers, setSelectedUsers] = useState({});
@@ -22,6 +21,20 @@ export default function RoomBlock({...props}) {
         selectedUsers: selectedUsers,
         roomName: roomName
     });
+
+    // добавление найденного пользователя в список чата комнаты
+    const addSelectedUser = (user) => {        
+        setSelectedUsers({
+            [user.username]: user,
+            ...selectedUsers            
+        })
+    }
+    // удаление уже добавленного пользователя из списка будущего чата
+    const removeSelectedUser = (user) => {
+        let newSelected = { ...selectedUsers }
+        delete newSelected[user.username];
+        setSelectedUsers(newSelected);
+    } 
 
     // дополнительные данные, для управления списком выбранных юзеров
     const [addUserButton] = useState({
@@ -35,50 +48,16 @@ export default function RoomBlock({...props}) {
     const [userHandlerButtons] = useState({
         addUserButton: addUserButton,
         removeUserButton: removeUserButton
-    });    
-
-    // добавление найденного пользователя в список чата комнаты
-    const addSelectedUser = (user) => {        
-        setSelectedUsers({
-            [user.username]: user,
-            ...selectedUsers            
-        })
-    }
-
-    // удаление уже добавленного пользователя из списка будущего чата
-    const removeSelectedUser = (user) => {
-        let newSelected = { ...selectedUsers }
-        delete newSelected[user.username];
-        setSelectedUsers(newSelected);
-    }  
+    });         
 
     // установка изменений в имени комнаты для формы
     const handleChange = async (e) => {	
         setRoomName(e.target.value); 
-    }
-
-    // обработка изменений в поле поиска
-    const handleSearch = async (e) => {
-        setSearchLine(e.target.value);
-        updateUsers();
-    }     
+    } 
     
     // обработка состояния с выводом нужного компонента 
     function handleAction() {
         setShowRoomForm(!showRoomForm);
-    }
-
-    // подгрузка пользователей при поиске
-    const updateUsers = async() => {    
-        resetResult();
-        await makePostRequest(
-            USERS_SEARCH_ROUTE,
-            { searchLine: searchLine },
-            (response) => {
-                setFoundedUsers(response.data.users);
-                console.log(response.data.users);
-            }
-        )
     }
     
     // обработка формы...
