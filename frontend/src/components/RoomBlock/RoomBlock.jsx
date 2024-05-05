@@ -25,6 +25,34 @@ export default function RoomBlock({...props}) {
         roomName: roomName
     });
 
+    // дополнительные данные, для управления списком выбранных юзеров
+    const [addUserButton] = useState({
+        name: "+",
+        action: addSelectedUser
+    });
+    const [removeUserButton] = useState({
+        name: "-",
+        action: removeSelectedUser
+    });
+    const [userHandlerButtons] = useState({
+        addUserButton: addUserButton,
+        removeUserButton: removeUserButton
+    });    
+
+    // добавление найденного пользователя в список чата комнаты
+    const addSelectedUser = (user) => {        
+        setSelectedUsers({
+            [user.username]: user,
+            ...selectedUsers            
+        })
+    }
+    
+    // удаление уже добавленного пользователя из списка будущего чата
+    const removeSelectedUser = (user) => {
+        let newSelected = { ...selectedUsers }
+        delete newSelected[user.username];
+        setSelectedUsers(newSelected);
+    }  
 
     // установка изменений для формы
     const handleChange = async (e) => {	
@@ -35,22 +63,7 @@ export default function RoomBlock({...props}) {
     const handleSearch = async (e) => {
         setSearchLine(e.target.value);
         updateUsers();
-    } 
-
-    // добавление найденного пользователя в список чата комнаты
-    const addSelectedUser = (user) => {        
-        setSelectedUsers({
-            [user.username]: user,
-            ...selectedUsers            
-        })
-    }
-
-    // удаление уже добавленного пользователя из списка будущего чата
-    const removeSelectedUser = (user) => {
-        let newSelected = { ...selectedUsers }
-        delete newSelected[user.username];
-        setSelectedUsers(newSelected);
-    }   
+    }     
     
     // обработка состояния с выводом нужного компонента 
     function handleAction() {
@@ -69,15 +82,6 @@ export default function RoomBlock({...props}) {
             }
         )
     }
-
-    const [addUserButton] = useState({
-        name: "+",
-        action: addSelectedUser
-    });
-    const [removeUserButton] = useState({
-        name: "-",
-        action: removeSelectedUser
-    });
     
     // обработка формы...
     async function handleSubmit(e) {
@@ -117,7 +121,8 @@ export default function RoomBlock({...props}) {
                     <RoomsView handleAction={handleAction} />
                     :
                     <NewRoomForm
-                        formData={newRoomForm} />
+                        formData={newRoomForm}
+                        otherData={userHandlerButtons} />
                 }
             </Scrollable>            
         </div>
