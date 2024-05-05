@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import classes from './RoomBlock.module.css'
 import { useUserContext } from '../../contexts/UserContext/UserProvider'
-import UsersCollection from '../Collection/UsersCollection/UsersCollection';
 import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { MEDIUM_DELAY, NEW_ROOM_ROUTE, USERS_SEARCH_ROUTE } from '../../constants';
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider';
 import RoomsView from '../View/RoomsView/RoomsView';
-import HorizontalLayout from '../Helper/HorizontalLayout/HorizontalLayout';
 import Scrollable from '../Helper/Scrollable/Scrollable';
 import NewRoomForm from '../Form/NewRoomForm/NewRoomForm';
 
@@ -46,7 +44,7 @@ export default function RoomBlock({...props}) {
             ...selectedUsers            
         })
     }
-    
+
     // удаление уже добавленного пользователя из списка будущего чата
     const removeSelectedUser = (user) => {
         let newSelected = { ...selectedUsers }
@@ -54,7 +52,7 @@ export default function RoomBlock({...props}) {
         setSelectedUsers(newSelected);
     }  
 
-    // установка изменений для формы
+    // установка изменений в имени комнаты для формы
     const handleChange = async (e) => {	
         setRoomName(e.target.value); 
     }
@@ -122,7 +120,10 @@ export default function RoomBlock({...props}) {
                     :
                     <NewRoomForm
                         formData={newRoomForm}
-                        otherData={userHandlerButtons} />
+                        otherData={userHandlerButtons}
+                        handleChange={handleChange}
+                        handleSubmit={handleSubmit}
+                        handleCancel={handleAction} />
                 }
             </Scrollable>            
         </div>
