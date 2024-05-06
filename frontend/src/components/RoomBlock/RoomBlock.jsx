@@ -15,11 +15,9 @@ export default function RoomBlock({...props}) {
     const [showRoomForm, setShowRoomForm] = useState(false);
 
     // данные, связанные с формой создания новой комнаты-чата
-    const [selectedUsers, setSelectedUsers] = useState({});
-    const [roomName, setRoomName] = useState('');
     const [newRoomForm, setNewRoomForm] = useState({
-        selectedUsers: selectedUsers,
-        roomName: roomName
+        selectedUsers: {},
+        roomName: ''
     });
 
     // добавление найденного пользователя в список чата комнаты
