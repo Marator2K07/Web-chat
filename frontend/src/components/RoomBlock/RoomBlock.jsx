@@ -17,17 +17,19 @@ export default function RoomBlock({...props}) {
     // данные, связанные с формой создания новой комнаты-чата
     const [selectedUsers, setSelectedUsers] = useState({});
     const [roomName, setRoomName] = useState('');
-    const [newRoomForm] = useState({
+    const [newRoomForm, setNewRoomForm] = useState({
         selectedUsers: selectedUsers,
         roomName: roomName
     });
 
     // добавление найденного пользователя в список чата комнаты
-    const addSelectedUser = (user) => {        
-        setSelectedUsers({
-            [user.username]: user,
-            ...selectedUsers            
-        })
+    const addSelectedUser = (user) => {
+        setNewRoomForm({
+            selectedUsers: {
+                [user.username]: user,
+                ...selectedUsers            
+            }
+        })        
     }
     // удаление уже добавленного пользователя из списка будущего чата
     const removeSelectedUser = (user) => {
