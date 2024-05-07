@@ -22,18 +22,24 @@ export default function RoomBlock({...props}) {
 
     // добавление найденного пользователя в список чата комнаты
     const addSelectedUser = (user) => {
+        const prevUsers = newRoomForm.selectedUsers;
         setNewRoomForm({
             selectedUsers: {
                 [user.username]: user,
-                ...selectedUsers            
-            }
+                ...prevUsers            
+            },
+            roomName: newRoomForm.roomName
         })        
     }
     // удаление уже добавленного пользователя из списка будущего чата
     const removeSelectedUser = (user) => {
-        let newSelected = { ...selectedUsers }
+        const prevUsers = newRoomForm.selectedUsers;
+        let newSelected = { ...prevUsers }
         delete newSelected[user.username];
-        setSelectedUsers(newSelected);
+        setNewRoomForm({
+            selectedUsers: newSelected,
+            roomName: newRoomForm.roomName
+        });
     } 
 
     // дополнительные данные, для управления списком выбранных юзеров
@@ -52,7 +58,10 @@ export default function RoomBlock({...props}) {
 
     // установка изменений в имени комнаты для формы
     const handleChange = async (e) => {	
-        setRoomName(e.target.value); 
+        setNewRoomForm({
+            selectedUsers: newRoomForm.selectedUsers,
+            roomName: e.target.value
+        });
     } 
     
     // обработка состояния с выводом нужного компонента 
@@ -65,18 +74,18 @@ export default function RoomBlock({...props}) {
         e.preventDefault();
         
         if (showRoomForm) {
-            console.log(roomName);
+            console.log(newRoomForm.roomName);            
+            console.log(newRoomForm.selectedUsers);
             console.log(user);
-            console.log(selectedUsers);
 
             startLoading();
             resetResult();
             await makePostRequest(
                 NEW_ROOM_ROUTE,
                 {
-                    roomName: roomName,
-                    author: user,
-                    users: selectedUsers 
+                    roomName: newRoomForm.roomName,
+                    users: newRoomForm.selectedUsers,
+                    author: user
                 },
                 toggleHolding(false, MEDIUM_DELAY),
                 toggleHolding(false, MEDIUM_DELAY)
