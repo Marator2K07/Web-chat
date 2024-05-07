@@ -3,6 +3,7 @@ import classes from './NewRoomForm.module.css'
 import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout'
 import { NEW_ROOM_FORM_NAME, USERS_SEARCH_ROUTE } from '../../../constants';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
+import UsersCollection from '../../Collection/UsersCollection/UsersCollection';
 
 export default function NewRoomForm({formData,
                                      otherData,
