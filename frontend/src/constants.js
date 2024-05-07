@@ -8,6 +8,7 @@ export const USER_ACTIVATION_ROUTE = "/user_activate";
 // пути, где основная часть задается с помощью веб-хука useLocation  
 export const UPDATE_ABOUT_USER_ROUTE_END = "/about/update";
 export const GET_ABOUT_USER_ROUTE_END = "/about";
+export const NEW_ROOM_ROUTE_END = "/room/new"
 
 export const GET_USER_NEWS_MESSAGES_ROUTE = "/authorized_user/news/messages/get";
 export const GET_MESSAGES_FOR_ROOM_ROUTE = "/message/all/get"
@@ -16,7 +17,6 @@ export const GET_OTHER_USER_ROUTE  = "/user/get"
 export const NEW_MESSAGE_ROUTE = "/message/new"
 export const SUBSCRIBE_ROUTE = "/subscribers_list/add"
 export const UNSUBSCRIBE_ROUTE = "/subscribers_list/remove"
-export const NEW_ROOM_ROUTE = "/room/new"
 
 export const BEFORE_LOGIN_PAGE_URL = "/";
 export const USER_ACTIVATION_PAGE_URL = "/user_activation"

@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import classes from './RoomBlock.module.css'
-import { useUserContext } from '../../contexts/UserContext/UserProvider'
 import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { MEDIUM_DELAY, NEW_ROOM_ROUTE } from '../../constants';
+import { NEW_ROOM_ROUTE_END } from '../../constants';
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider';
 import RoomsView from '../View/RoomsView/RoomsView';
 import Scrollable from '../Helper/Scrollable/Scrollable';
 import NewRoomForm from '../Form/NewRoomForm/NewRoomForm';
+import { useLocation } from 'react-router-dom';
 
 export default function RoomBlock({...props}) {
-    const { toggleHolding, startLoading, stopLoading } = useLoadingContext();
+    const { startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
-    const { user } = useUserContext();
     const [showRoomForm, setShowRoomForm] = useState(false);
+    const location = useLocation();
 
     // данные, связанные с формой создания новой комнаты-чата
     const [newRoomForm, setNewRoomForm] = useState({
@@ -74,25 +74,17 @@ export default function RoomBlock({...props}) {
         e.preventDefault();
         
         if (showRoomForm) {
-            console.log(newRoomForm.roomName);            
-            console.log(newRoomForm.selectedUsers);
-            console.log(user);
-
             startLoading();
             resetResult();
             await makePostRequest(
-                NEW_ROOM_ROUTE,
+                location.pathname + NEW_ROOM_ROUTE_END,
                 {
                     roomName: newRoomForm.roomName,
-                    users: newRoomForm.selectedUsers,
-                    author: user
-                },
-                toggleHolding(false, MEDIUM_DELAY),
-                toggleHolding(false, MEDIUM_DELAY)
+                    users: newRoomForm.selectedUsers
+                }
             )
             stopLoading();
-        }        
-
+        }
         setShowRoomForm(!showRoomForm);       
     }    
 
