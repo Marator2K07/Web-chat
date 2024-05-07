@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classes from './RoomsView.module.css'
 import { useUserContext } from '../../../contexts/UserContext/UserProvider'
 import { useLocation } from 'react-router-dom';
@@ -15,7 +15,7 @@ export default function RoomsView({handleAction, ...props}) {
     const { rooms, loadRooms } = useUserContext();
     const location = useLocation();
 
-    // запрос на удаление выбранной комнаты
+    // запрос на удаление выбранной комнаты и связанная кнопка
     const removeSelectedRoom = async (selectedRoom) => {
         startLoading();
         resetResult();
@@ -32,11 +32,15 @@ export default function RoomsView({handleAction, ...props}) {
         )
         stopLoading();
     }
+    const [removeRoomButton] = useState({
+        name: "Удалить",
+        action: removeSelectedRoom
+    });
 
     if (rooms) {
         return (
             <div className={classes.RoomsView} {...props}>
-                <RoomsCollection items={rooms} />
+                <RoomsCollection items={rooms} button={removeRoomButton} />
                 <button type="button" onClick={handleAction}>
                     Создать новый
                 </button>
