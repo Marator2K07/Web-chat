@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Constants\Constants;
 use App\Entity\Room;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -70,9 +71,11 @@ class RoomController extends AbstractController
         $entityManager->persist($room);
         $entityManager->flush();
 
-        return new JsonResponse(['status' => 'Ok',
+        return new JsonResponse([
+            'status' => 'Ok',
             'main' => 'Комната успешно создана.',            
-            'holding' => false
+            'holding' => false,
+            'delay' => Constants::SHORT_DELAY
         ]);
     }
 }
