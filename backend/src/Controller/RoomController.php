@@ -12,6 +12,9 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
+// НАпоминание: если holding = false,
+// то указывается еще одно свойство delay
+
 class RoomController extends AbstractController
 {
     #[Route('/authorized_user/{username}/rooms', name: 'app_get_user_rooms', methods: 'GET')]
@@ -35,20 +38,20 @@ class RoomController extends AbstractController
         }        
     }
 
-    #[Route('/room/new', name: 'app_message_new_for_room', methods: 'POST')]
-    public function addNewsMessage(Request $request,
-                                   EntityManagerInterface $entityManager,
-                                   UserRepository $userRepository): JsonResponse 
+    #[Route('/authorized_user/{username}/room/new', name: 'app_message_new_for_room', methods: 'POST')]
+    public function createNewRoom(string $username,
+                                  Request $request,
+                                  EntityManagerInterface $entityManager,
+                                  UserRepository $userRepository): JsonResponse 
     {         
         // roomName: newRoomName,
-        // author: user,
-        // users: selectedUsers 
+        // users: selectedUsers
 
         $data = json_decode($request->getContent(), true);
         $roomName = $data['roomName'];
-        $initiator = $userRepository->findOneByUsernameField($data['author']['username']);
+        $mainUser = $userRepository->findOneByUsernameField($username);
         $otherUsers = $data['users'];
-        if (!$initiator || !$roomName) {
+        if (!$mainUser || !$roomName) {
             throw new HttpException(422, 'Не удалось осуществить операцию');            
         } 
 
@@ -56,7 +59,9 @@ class RoomController extends AbstractController
         $room->setName($roomName);
         $room->setDialog(false); // пока так
         $room->setForNews(false); 
-        $room->addUser($initiator);
+
+        // добавляем пользователей в комнату
+        $room->addUser($mainUser);
         foreach ($otherUsers as $key => $value) {
             $user = $userRepository->findOneByUsernameField($value['username']);
             $room->addUser($user);
