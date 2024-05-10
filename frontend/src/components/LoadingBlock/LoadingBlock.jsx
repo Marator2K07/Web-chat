@@ -7,10 +7,13 @@ import { SyncOutlined } from '@ant-design/icons'
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider'
 import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext/ResponseHandlerProvider'
 import { LOADING_INDICATOR_COLOR, LOADING_INDICATOR_SIZE } from '../../constants'
+import { useActionControlContext } from '../../contexts/ActionControlContext/ActionControlProvider'
+import AcceptActionForm from '../Form/AcceptActionForm/AcceptActionForm'
 
-export default function LoadingBlock({...props}) {   
-    const { loading, holding, toggleHolding } = useLoadingContext(); 
-    const { response, error } = useResponseHandlerContext();                                      
+export default function LoadingBlock({...props}) {       
+    const { loading, holding, toggleHolding } = useLoadingContext();     
+    const { response, error } = useResponseHandlerContext(); 
+    const { action, acceptActionForm } = useActionControlContext();                                     
 
     const disablePointerEvents = {
         pointerEvents: "none"
@@ -44,6 +47,10 @@ export default function LoadingBlock({...props}) {
                         }} />
                     } />
             } 
+            {
+                acceptActionForm && 
+                <AcceptActionForm handleSubmit={action} />
+            }
             { 
                 error && <ResponseError message={error} />
             }
