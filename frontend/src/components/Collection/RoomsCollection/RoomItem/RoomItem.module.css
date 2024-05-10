@@ -6,6 +6,6 @@
     border-radius: var(--border_radius);  
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     box-shadow: 0px 0px var(--border_width) var(--border_width) var(--main_color);
 }
