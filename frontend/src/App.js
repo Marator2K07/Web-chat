@@ -8,6 +8,7 @@ import { UserProvider } from './contexts/UserContext/UserProvider';
 import { LoadingProvider } from './contexts/LoadingContext/LoadingProvider';
 import { ResponseHandlerProvider } from './contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { MainBlockAnimationProvider } from './contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
+import { ActionControlProvider } from './contexts/ActionControlContext/ActionControlProvider';
 import { NavigationProvider } from './contexts/NavigationContext/NavigationProvider';
 import OtherUserPage from './components/Pages/OtherUserPage/OtherUserPage';
 import { 
@@ -35,7 +36,9 @@ function App() {
                         <UserActivationPage />
                     }/>
                     <Route path={`${AFTER_LOGIN_PAGE_URL}/:username`} element={
-                        <AfterLoginPage />
+                        <ActionControlProvider>
+                            <AfterLoginPage />
+                        </ActionControlProvider>                        
                     }/>
                     <Route path={`${ANOTHER_USER_PAGE_URL}/:username`} element={
                         <OtherUserPage />                        
