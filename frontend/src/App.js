@@ -26,6 +26,7 @@ function App() {
             <ResponseHandlerProvider>
             <MainBlockAnimationProvider>
             <NavigationProvider>
+            <ActionControlProvider>
             <UserProvider>
             <AnimatePresence mode='wait' initial={false}>		
                 <Routes location={location} key={location.pathname}>                    
@@ -36,9 +37,7 @@ function App() {
                         <UserActivationPage />
                     }/>
                     <Route path={`${AFTER_LOGIN_PAGE_URL}/:username`} element={
-                        <ActionControlProvider>
-                            <AfterLoginPage />
-                        </ActionControlProvider>                        
+                        <AfterLoginPage />                                               
                     }/>
                     <Route path={`${ANOTHER_USER_PAGE_URL}/:username`} element={
                         <OtherUserPage />                        
@@ -46,6 +45,7 @@ function App() {
                 </Routes>
             </AnimatePresence>
             </UserProvider>
+            </ActionControlProvider> 
             </NavigationProvider>
             </MainBlockAnimationProvider>	
             </ResponseHandlerProvider>				
