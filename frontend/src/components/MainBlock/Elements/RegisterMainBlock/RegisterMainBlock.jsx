@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import bcrypt from 'bcryptjs-react';
 import classes from './RegisterMainBlock.module.css'
-import '../../../LoadingBlock/LoadingBlockCSSTransition.css';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { EXTRA_SHORT_DELAY, REGISTER_ROUTE } from '../../../../constants';
