@@ -1,6 +1,7 @@
 .MainBlock {
     background-color:var(--background_main_color);
-    height: 80vh;
+    height: var(--main_block_height);
+    width: var(--main_block_width);
     display: flex;
     align-items: center;
     justify-content: center;

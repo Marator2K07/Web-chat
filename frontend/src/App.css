@@ -14,7 +14,16 @@
   --tip_color: rgb(65, 79, 94);
   --error_color: rgb(223, 104, 129);
 
-  --top_block_offset: -36px;
+  --top_block_height: 9vh;
+  --top_block_width: 100vw;
+  --top_block_offset: -36.5px;
+
+  --main_block_height: 80.95vh;
+  --main_block_width: 100vw;
+
+  --down_block_height: 9.4vh;
+  --down_block_width: 100vw;
+
   --mini_menu_z_index: 1000;
 
   --block_padding: 15px;

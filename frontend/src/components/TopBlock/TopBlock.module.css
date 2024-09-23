@@ -4,7 +4,8 @@
     font-weight: var(--h3_font_weight);
     font-size: var(--h3_font_size);
     font-family: var(--h3_font_family);
-    height: 10vh;
+    height: var(--top_block_height);
+    width: var(--top_block_width);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
