@@ -29,10 +29,20 @@
   --block_padding: 15px;
   --block_margin: 10px;
 
-  --min_width: 30vh;
-  --min_height: 15vh;
-  --max_width: 45vh;
+  --min_width: 35vw;
+  --min_height: 25vh;
+  --max_width: 45vw;
   --max_height: 50vh;
+
+  --login_block_min_width: 20vw;
+  --login_block_min_height: 25vh;
+  --login_block_max_width: 30vw;
+  --login_block_max_height: 35vh;
+
+  --register_block_min_width: 25vw;
+  --register_block_min_height: 35vh;
+  --register_block_max_width: 35vw;
+  --register_block_max_height: 50vh;
 
   --border_width: 2px;
   --border_radius: 18px;
