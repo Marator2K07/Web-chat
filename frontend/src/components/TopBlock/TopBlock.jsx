@@ -1,6 +1,7 @@
 import { React, useEffect, useRef, useState } from 'react'
 import { motion } from "framer-motion";
 import classes from './TopBlock.module.css'
+import { setMenuOffset } from '../../utils';
 import AccountImageButton from './AccountImageButton/AccountImageButton';
 import { useNavigationContext } from '../../contexts/NavigationContext/NavigationProvider';
 
@@ -23,7 +24,8 @@ const TopBlock = ({...props}) => {
             <div className='left'>
                 <p>AwesomeChat</p>
             </div>     
-            <motion.div animate={{ width: descHeaderWidth }} />
+            <motion.div animate={{ width: descHeaderWidth }}
+                onAnimationComplete={() => setMenuOffset('btn', "miniMenu")} />
             <div ref={descHeaderRef}>
                 <p>{currentBlock.description}</p> 
             </div>             
