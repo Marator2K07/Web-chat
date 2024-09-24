@@ -88,7 +88,7 @@ export function setMenuOffset(idBtn, idMenu) {
     const menuElem = document.getElementById(idMenu);
     menuElem.style.left = btnRect.left - 
                           menuElem.getBoundingClientRect().width +
-                          btnRect.width + 10 + "px";   
+                          btnRect.width + "px";   
     menuElem.style.top = btnRect.top +                         
                          btnRect.height - 2 + "px";                          
 }

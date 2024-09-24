@@ -1,6 +1,8 @@
 .MiniMenu {
     background-color: var(--background_menu_color);
-    border-radius: var(--border_radius);
+    border-top-left-radius: var(--border_radius);
+    border-bottom-left-radius: var(--border_radius);
+    border-bottom-right-radius: var(--border_radius);
     position: absolute;
     min-width: max-content;
     min-height: max-content;
