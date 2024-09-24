@@ -1,4 +1,4 @@
-import { React, useEffect, useRef, useState } from 'react'
+import { React, useRef, useState } from 'react'
 import classes from './AccountImageButton.module.css'
 import MiniMenu from '../MiniMenu/MiniMenu';
 import { CSSTransition } from 'react-transition-group';
@@ -11,11 +11,7 @@ export default function AccountImageButton({...props}) {
     const [hov, setHov] = useState(false);
     const nodeRef = useRef(null);
     const anotherRef = useRef(null);
-    
-    useEffect(() => {
-        setMenuOffset('btn', "miniMenu")
-    }, []);
-    
+   
     return (
         <div className={classes.AccountImageButton} {...props}
             onMouseLeave={() => setHov(false)}>
@@ -28,8 +24,8 @@ export default function AccountImageButton({...props}) {
                 <button ref={nodeRef} id='btn' 
                     onMouseEnter={() => {
                         setHov(true);                    
-                        setMenuOffset('btn', "miniMenu")               
-                    }}>                
+                        setMenuOffset('btn', "miniMenu")
+                    }}> 
                     <img src={`${window.location.origin}/DefUserIcon.png`} alt="" />
                     <p>&#10094; &#10094; &#10094;</p>
                 </button> 
