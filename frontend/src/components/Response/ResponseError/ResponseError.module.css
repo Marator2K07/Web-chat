@@ -4,8 +4,10 @@
     background-color: var(--background_second_color); 
     box-shadow: 0px 0px var(--border_width) var(--border_width) var(--error_color);
     border-radius: var(--border_radius);
-    max-width: var(--max_width);
-    min-width: var(--min_width);
+    min-width: var(--responce_block_min_width);
+    min-height: var(--responce_block_min_height);
+    max-width: var(--responce_block_max_width);
+    max-height: var(--responce_block_max_height);
     white-space: wrap;
     overflow: hidden;
     display: flex;
