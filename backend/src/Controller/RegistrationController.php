@@ -31,12 +31,20 @@ class RegistrationController extends AbstractController
         // если имя не уникально 
         $user = $userRepository->findOneByUsernameField($data['username']);
         if ($user) {
-            throw new HttpException(409, 'Заданное имя аккаунта занято');
+            return new JsonResponse([
+                'status' => 'Bad',
+                'main' => 'Указанное имя аккаунта занято.',
+                'holding' => true
+            ]);
         }
         // если почта не уникальна 
         $user = $userRepository->findOneByEmailField($data['email']);
         if ($user) {
-            throw new HttpException(409, 'Данная почта уже использовалась при регистрации.');
+            return new JsonResponse([
+                'status' => 'Bad',
+                'main' => 'Заданная почта уже использовалась при регистрации.',
+                'holding' => true
+            ]);
         }
         // задаем и инициализируем нового пользователя
         $user = new User();
@@ -49,7 +57,12 @@ class RegistrationController extends AbstractController
         $user->setConfirmToken($userActivationKey);
         // пытаемся отправить активацию на аккаунт
         if (!$emailer->sendConfirmMessage($user, $userActivationKey)) {
-            throw new HttpException(422, 'Указана не корректная/существующая почта');
+            return new JsonResponse([
+                'status' => 'Bad',
+                'main' => 'Невозможно отправить активацию на указанный адрес почты.',
+                'addition' => 'Похоже, адрес почты не корректен или не существует.',
+                'holding' => true
+            ]);
         } 
         // задаем и инициализируем информацию о пользователе
         $aboutUser = new AboutUser();
