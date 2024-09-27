@@ -28,7 +28,6 @@ class RegistrationController extends AbstractController
                              EMailer $emailer): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-
         // если имя не уникально 
         $user = $userRepository->findOneByUsernameField($data['username']);
         if ($user) {
@@ -39,7 +38,6 @@ class RegistrationController extends AbstractController
         if ($user) {
             throw new HttpException(409, 'Данная почта уже использовалась при регистрации.');
         }
-
         // задаем и инициализируем нового пользователя
         $user = new User();
         $user->setUsername($data['username']);
@@ -49,31 +47,31 @@ class RegistrationController extends AbstractController
         // хэшируем ключ активации и сохраняем
         $userActivationKey = md5(rand().time());
         $user->setConfirmToken($userActivationKey);
-        
+        // пытаемся отправить активацию на аккаунт
+        if (!$emailer->sendConfirmMessage($user, $userActivationKey)) {
+            throw new HttpException(422, 'Указана не корректная/существующая почта');
+        } 
         // задаем и инициализируем информацию о пользователе
         $aboutUser = new AboutUser();
         // по умолчанию имя пользователя = имя аккаунта
         $aboutUser->setName($data['username']);
         $user->setAboutUser($aboutUser);      
-
         // инициализируем комнату для новостей
         $room = new Room();
         $room->setName('Новости пользователя'.$user->getUsername());
         $room->setDialog(false);
         $room->setForNews(true);        
         $room->addUser($user);
-
+        // применение 
         $entityManager->persist($room);
         $entityManager->persist($user);
-        $entityManager->flush();    
-        
+        $entityManager->flush(); 
         // инициализируем список подписчиков
         $subscribersList = new SubscribersList();
         $subscribersList->setOwner($user);
         $user->setSubscribersList($subscribersList);
         $entityManager->persist($subscribersList);
-        $entityManager->flush();  
-        
+        $entityManager->flush();
         // инициализируем черный список
         $blackList = new BlackList();
         $blackList->setOwner($user);        
@@ -81,8 +79,7 @@ class RegistrationController extends AbstractController
         $entityManager->persist($blackList);
         $entityManager->flush(); 
         
-        $emailer->sendConfirmMessage($user, $userActivationKey);
-
+        // если дошли до сюда, то все впорядке
         return new JsonResponse(['status' => 'Ok',
             'main' => 'Мы выслали подверждение на указанный при регистрации емайл.',
             'addition' => 'Чтобы зайти под своим новым аккаунтом, нужно сначала активировать его.',
