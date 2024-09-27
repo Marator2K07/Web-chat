@@ -26,9 +26,14 @@ class EMailer
             context([
                 'user' => $user, 
                 'key' => $confirmToken
-            ]);         
+            ]);
 
-        // и наконец отправляем    
-        $this->mailer->send($email);
+        // и наконец пытаемся отправить активацию       
+        try {
+            $this->mailer->send($email);
+            return true;
+        } catch (\Throwable $th) {
+            return false;
+        }    
     }
 }
