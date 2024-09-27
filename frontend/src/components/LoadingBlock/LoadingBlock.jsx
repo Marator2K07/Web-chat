@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import classes from './LoadingBlock.module.css'
 import ResponseError from '../Response/ResponseError/ResponseError'
 import OkResponse from '../Response/OkResponse/OkResponse'
+import BadResponse from '../Response/BadResponse/BadResponse'
 import { Spin } from 'antd'
 import { SyncOutlined } from '@ant-design/icons'
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider'
@@ -57,7 +58,14 @@ export default function LoadingBlock({...props}) {
             { 
                 response && 
                 response.data && 
+                response.data.status === "Ok" &&
                 <OkResponse message={response.data} />
+            }
+            {
+                response && 
+                response.data && 
+                response.data.status === "Bad" &&
+                <BadResponse message={response.data} />
             }
         </div>
     )
