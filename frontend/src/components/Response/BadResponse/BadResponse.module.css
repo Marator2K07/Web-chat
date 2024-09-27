@@ -1,34 +1,51 @@
 .BadResponse {
-    padding: 25px;
-    background-color: rgb(255, 252, 223);
-    border: 2px solid rgb(194, 174, 0);   
-    border-radius: 10px;
-    color: rgb(194, 174, 0);
-    font-weight: 400;
-    font-family: emoji;
-    font-size: 19px;
-    max-width: 333px;
-    min-width: 222px;
-    text-wrap: true;
+    padding: var(--block_padding);
+    margin: var(--block_margin);
+    background-color: var(--background_second_color); 
+    box-shadow: 0px 0px var(--border_width) var(--border_width) var(--warning_color);
+    border-radius: var(--border_radius);
+    min-width: var(--responce_block_min_width);
+    min-height: var(--responce_block_min_height);
+    max-width: var(--responce_block_max_width);
+    max-height: var(--responce_block_max_height);
+    white-space: wrap;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    margin: 15px;
+    align-items: flex-start;  
 }
 
 .BadResponse button {
-    margin-top: 15px;
-    padding: 3px;
+    margin: var(--button_margin);
+    padding: var(--button_padding);
     width: max-content;
-    background-color: rgb(232,240,254);     
-    font-weight: 400;
-    font-family: emoji;
-    font-size: 19px;
-    align-self: center;
+    align-self: flex-end;
+    background-color: var(--background_second_color); 
+
+    color: var(--warning_color);
+    font-weight: var(--button_font_family);
+    font-family: var(--button_font_weight);
+    font-size: var(--button_font_size);
+
+    box-shadow: 0px 0px var(--border_width) var(--border_width) var(--warning_color);
+    border-top-left-radius: var(--border_radius);
+    border-bottom-left-radius: var(--border_radius);   
+}
+
+.BadResponse h4 {
+    color: var(--warning_color);
+    font-family: var(--h4_font_family);
+    font-weight: var(--h4_font_weight);
+    font-size: var(--h4_font_size);
+    margin: var(--h4_margin);    
+    padding: var(--h4_padding);
 }
 
 .BadResponse p {
-    margin-top: 2px;
-    margin-bottom: 8px;    
-    padding-bottom: 0px;
+    font-family: var(--p_font_family);
+    font-weight: var(--p_font_weight);
+    font-size: var(--p_font_size);
+    margin: var(--p_margin);    
+    padding: var(--p_padding);
+    color: var(--third_color);
 }
