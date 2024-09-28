@@ -24,7 +24,7 @@ export const USER_ACTIVATION_PAGE_URL = "/user_activation"
 export const AFTER_LOGIN_PAGE_URL = "/authorized_user";
 export const ANOTHER_USER_PAGE_URL = "/another_user";
 
-export const EXTRA_SHORT_DELAY = 250;
+export const EXTRA_SHORT_DELAY = 350;
 export const SHORT_DELAY = 1250;
 export const MEDIUM_DELAY = 2500;
 export const LONG_DELAY = 3500;
