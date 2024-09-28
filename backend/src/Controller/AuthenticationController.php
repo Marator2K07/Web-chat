@@ -23,19 +23,25 @@ class AuthenticationController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
         $user = $userRepository->findOneByUsernameField($data['username']);
-
-        if (!$user) {
-            throw new HttpException(401, 'Неверные идентификационные данные');
+        // в случае ошибочного ввода
+        if (!$user || !$passwordHasher->isPasswordValid($user, $data['password'])) {
+            return new JsonResponse([
+                'status' => 'Bad',
+                'main' => 'Неверные идентификационные данные.',
+                'holding' => true
+            ]);
         }
-
-        if (!$passwordHasher->isPasswordValid($user, $data['password'])) {
-            throw new HttpException(401, 'Неверные идентификационные данные');
-        }
-
+        // в случае не активации аккаунта
         if (!$user->isConfirmed()) {
-            throw new HttpException(409, 'Аккаунт не активирован');
+            return new JsonResponse([
+                'status' => 'Bad',
+                'main' => 'Невозможно осуществить вход.',
+                'addition' => 'Аккаунт не активирован.',
+                'holding' => true
+            ]);
         }
 
+        // если дошли до сюда, то все впорядке
         return new JsonResponse([
             'main' => 'Успешный вход.',
             'holding' => false,
