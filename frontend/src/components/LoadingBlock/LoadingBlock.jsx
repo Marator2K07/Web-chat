@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import classes from './LoadingBlock.module.css'
 import ResponseError from '../Response/ResponseError/ResponseError'
 import OkResponse from '../Response/OkResponse/OkResponse'
@@ -12,9 +12,11 @@ import { useActionControlContext } from '../../contexts/ActionControlContext/Act
 import AcceptActionForm from '../Form/AcceptActionForm/AcceptActionForm'
 
 export default function LoadingBlock({...props}) {       
-    const { loading, holding, toggleHolding } = useLoadingContext();     
+    const { loading, holding, toggleHolding } = useLoadingContext(); 
     const { response, error } = useResponseHandlerContext(); 
-    const { action, acceptActionForm } = useActionControlContext();                                     
+    const { action, acceptActionForm } = useActionControlContext(); 
+    const [showBadResponse, setShowBadResponse] = useState(true);
+    const [showError, setShowError] = useState(false);
 
     const disablePointerEvents = {
         pointerEvents: "none"
@@ -22,6 +24,10 @@ export default function LoadingBlock({...props}) {
     const enablePointerEvents = {
         pointerEvents: "initial"
     };
+    const handleShowError = () => {
+        setShowError(!showError);
+        setShowBadResponse(!showBadResponse);
+    }
 
     // управление задержкой (holding) экрана загрузки
     useEffect(() => {
@@ -46,14 +52,20 @@ export default function LoadingBlock({...props}) {
                             fontSize: LOADING_INDICATOR_SIZE,
                             color: LOADING_INDICATOR_COLOR
                         }} />
-                    } />
+                    }
+                />
             } 
             {
                 acceptActionForm && 
                 <AcceptActionForm handleSubmit={action} />
             }
             { 
-                error && <ResponseError message={error} />
+                showError &&
+                error && 
+                <ResponseError
+                    message={error}
+                    showErrorHandler={handleShowError}
+                />
             }
             { 
                 response && 
@@ -62,10 +74,15 @@ export default function LoadingBlock({...props}) {
                 <OkResponse message={response.data} />
             }
             {
+                showBadResponse &&
                 response && 
                 response.data && 
                 response.data.status === "Bad" &&
-                <BadResponse message={response.data} />
+                <BadResponse 
+                    message={response.data}
+                    error={error}
+                    showErrorHandler={handleShowError}
+                />
             }
         </div>
     )
