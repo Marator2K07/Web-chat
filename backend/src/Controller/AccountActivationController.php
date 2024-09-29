@@ -22,11 +22,11 @@ class AccountActivationController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
         $user = $userRepository->findOneByConfirmTokenField($data['confirmToken']);
-
+        // единственно возможный плохой исход
         if (!$user) {
             throw new HttpException(410, 'Аккаунта для активации уже не существует');
         }
-
+        // два положительных исхода
         if (!$user->isConfirmed()) {
             $user->setConfirmed(true);
             $entityManager->persist($user);
