@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Constants\Constants;
 use App\Repository\UserRepository;
+use App\Repository\AboutUserRepository;
+use App\Serializer\AboutUserNormalizer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -42,15 +44,20 @@ class AboutUserController extends AbstractController
                                      UserRepository $userRepository): JsonResponse
     {
         $user = $userRepository->findOneByUsernameField($username);
-        if (!$user) {
+        $aboutUser = $user->getAboutUser();
+
+        if (!$user || !$aboutUser) {
             throw new HttpException(422, 'Не удалось получить данные');
         } else {
+            // временно храним картинку в корректном для нормалайзера формате
+            $img = $aboutUser->getImage();
+            $aboutUser->setImageStr($img);
+            
             return new JsonResponse([
-                'aboutUser' => json_decode(
-                    $serializer->serialize(
-                        $user->getAboutUser(), 'json'
-                    ) 
-                )
+                'aboutUser' => 
+                    $serializer->normalize(
+                        $aboutUser, 'json'                    
+                    )
             ]);
         }
     }   
@@ -92,7 +99,7 @@ class AboutUserController extends AbstractController
         $entityManager->flush();
                    
         return new JsonResponse([
-            'status' => 'Ok',                
+            'status' => 'Ok', 
             'main' => 'Данные успешно сохранены.',
             'holding' => false,
             'delay' => Constants::SHORT_DELAY
