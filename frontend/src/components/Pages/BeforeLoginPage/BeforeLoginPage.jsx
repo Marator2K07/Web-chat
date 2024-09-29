@@ -16,8 +16,8 @@ export default function BeforeLoginPage({...props}) {
     } = useNavigationContext();
 
     useEffect(() => {
-         cookies.remove('username');
-         cookies.remove('token');
+        // cookies.remove('username');
+        // cookies.remove('token');
         let lastMainBlock = loadLastMainBlock('lastBeforeLoginBlock');
         if (lastMainBlock) {
             goNavigationWithAnimation(lastMainBlock);

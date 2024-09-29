@@ -14,8 +14,8 @@ export default function AboutUserView({handleAction, ...props}) {
 
     if (aboutUser) {
         return (
-            <div className={classes.AboutUserView} {...props}>
-                {
+            <div className={classes.AboutUserView} {...props}>                
+                {     
                     !aboutUser.image
                         ? <img
                             src={`${window.location.origin}/DefUserIcon256.png`}
@@ -41,7 +41,7 @@ export default function AboutUserView({handleAction, ...props}) {
                     <h4>День рождения:</h4>
                     <p>{
                         aboutUser.dateOfBirth ? dayjs(aboutUser.dateOfBirth)
-                                                    .format(DATE_FORMAT)
+                                                .format(DATE_FORMAT)
                                               : 'Не задано'
                     }</p>  
                 </div>                               
