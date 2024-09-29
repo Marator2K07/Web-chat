@@ -29,6 +29,9 @@ class AboutUser
     #[ORM\Column(type: Types::BLOB, nullable: true)]
     private $image = null;
 
+    // вспомогательное свойство для корректного хранения картинки
+    private string $imageStr = "";
+
     public function getId(): ?int
     {
         return $this->id;
@@ -95,5 +98,15 @@ class AboutUser
         $this->image = $image;
 
         return $this;
+    }
+
+    public function getImageStr(): string
+    {    
+        return base64_decode($this->imageStr);
+    }
+
+    public function setImageStr($image)
+    {
+        $this->imageStr = base64_encode($image);
     }
 }
