@@ -50,6 +50,11 @@
   --register_block_max_width: 35vw;
   --register_block_max_height: 50vh;
 
+  --welcome_block_min_width: 20vw;
+  --welcome_block_min_height: 30vh;
+  --welcome_block_max_width: 35vw;
+  --welcome_block_max_height: 50vh;
+
   --border_width: 2px;
   --border_radius: 18px;
   
