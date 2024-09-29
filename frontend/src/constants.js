@@ -58,3 +58,6 @@ export const FORM_INPUT_WARNING_COLOR = "rgb(231, 189, 198)";
 export const FORM_INPUT_NORMAL_COLOR = "rgb(232, 240, 254)";
 export const FORM_INPUT_WARNING_MESSAGE = "Обязательное поле";
 export const FORM_INPUT_MIN_TEXT_LENGTH = 5;
+
+export const RESPONSE_GOOD_STATUS = "Ok";
+export const RESPONSE_BAD_STATUS = "Bad";

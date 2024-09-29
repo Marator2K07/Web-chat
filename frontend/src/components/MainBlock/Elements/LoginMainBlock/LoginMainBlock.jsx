@@ -8,7 +8,8 @@ import {
     AFTER_LOGIN_PAGE_URL,
     EXTRA_SHORT_DELAY,
     LOGIN_CHECK_ROUTE,
-    LOGIN_ROUTE
+    LOGIN_ROUTE,
+    RESPONSE_GOOD_STATUS
 } from '../../../../constants';
 import Scrollable from '../../../Helper/Scrollable/Scrollable';
 import { validLoginForm } from './LoginFormState';
@@ -46,23 +47,25 @@ export default function LoginMainBlock({...props}) {
         await makePostRequest(
             LOGIN_ROUTE,
             credentials,
-            async () => {
-                stopLoading(); 
-                await makePostRequest(
-                    LOGIN_CHECK_ROUTE,
-                    credentials,
-                    (response) => {
-                        const { token, refreshToken } = response.data;                 
-                        setUserCookies(credentials.username, token, refreshToken); 
-                        setTimeout(() => {
-                            navigate(
-                                `${AFTER_LOGIN_PAGE_URL}/${credentials.username}`,
-                                { replace: true }
-                            );   
-                            resetResult();    
-                        }, EXTRA_SHORT_DELAY);                                                                                         
-                    }                    
-                )                
+            async (response) => {
+                if (response.data.status === RESPONSE_GOOD_STATUS) {
+                    stopLoading(); 
+                    await makePostRequest(
+                        LOGIN_CHECK_ROUTE,
+                        credentials,
+                        (response) => {
+                            const { token, refreshToken } = response.data; 
+                            setUserCookies(credentials.username, token, refreshToken); 
+                            setTimeout(() => {
+                                navigate(
+                                    `${AFTER_LOGIN_PAGE_URL}/${credentials.username}`,
+                                    { replace: true }
+                                );   
+                                resetResult();    
+                            }, EXTRA_SHORT_DELAY);                                                                                         
+                        }                    
+                    )  
+                }                              
             }
         );
         stopLoading();
