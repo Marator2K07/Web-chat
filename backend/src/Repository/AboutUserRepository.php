@@ -21,6 +21,16 @@ class AboutUserRepository extends ServiceEntityRepository
         parent::__construct($registry, AboutUser::class);
     }
 
+    public function findOneByUserId($userId): ?AboutUser
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.id = :val')
+            ->setParameter('val', $userId)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
 //    /**
 //     * @return AboutUser[] Returns an array of AboutUser objects
 //     */
@@ -33,16 +43,6 @@ class AboutUserRepository extends ServiceEntityRepository
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?AboutUser
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
 //        ;
 //    }
 }
