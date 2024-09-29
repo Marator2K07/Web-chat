@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import classes from './LoadingBlock.module.css'
 import ResponseError from '../Response/ResponseError/ResponseError'
 import OkResponse from '../Response/OkResponse/OkResponse'
@@ -7,7 +7,12 @@ import { Spin } from 'antd'
 import { SyncOutlined } from '@ant-design/icons'
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider'
 import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext/ResponseHandlerProvider'
-import { LOADING_INDICATOR_COLOR, LOADING_INDICATOR_SIZE } from '../../constants'
+import {
+    LOADING_INDICATOR_COLOR,
+    LOADING_INDICATOR_SIZE,
+    RESPONSE_BAD_STATUS,
+    RESPONSE_GOOD_STATUS
+} from '../../constants'
 import { useActionControlContext } from '../../contexts/ActionControlContext/ActionControlProvider'
 import AcceptActionForm from '../Form/AcceptActionForm/AcceptActionForm'
 
@@ -15,8 +20,6 @@ export default function LoadingBlock({...props}) {
     const { loading, holding, toggleHolding } = useLoadingContext(); 
     const { response, error } = useResponseHandlerContext(); 
     const { action, acceptActionForm } = useActionControlContext(); 
-    const [showBadResponse, setShowBadResponse] = useState(true);
-    const [showError, setShowError] = useState(false);
 
     const disablePointerEvents = {
         pointerEvents: "none"
@@ -24,10 +27,6 @@ export default function LoadingBlock({...props}) {
     const enablePointerEvents = {
         pointerEvents: "initial"
     };
-    const handleShowError = () => {
-        setShowError(!showError);
-        setShowBadResponse(!showBadResponse);
-    }
 
     // управление задержкой (holding) экрана загрузки
     useEffect(() => {
@@ -60,29 +59,20 @@ export default function LoadingBlock({...props}) {
                 <AcceptActionForm handleSubmit={action} />
             }
             { 
-                showError &&
                 error && 
-                <ResponseError
-                    message={error}
-                    showErrorHandler={handleShowError}
-                />
+                <ResponseError message={error} />
             }
             { 
                 response && 
                 response.data && 
-                response.data.status === "Ok" &&
+                response.data.status === RESPONSE_GOOD_STATUS &&
                 <OkResponse message={response.data} />
             }
             {
-                showBadResponse &&
                 response && 
                 response.data && 
-                response.data.status === "Bad" &&
-                <BadResponse 
-                    message={response.data}
-                    error={error}
-                    showErrorHandler={handleShowError}
-                />
+                response.data.status === RESPONSE_BAD_STATUS &&
+                <BadResponse message={response.data} />
             }
         </div>
     )

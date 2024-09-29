@@ -1,9 +1,8 @@
 import React from 'react'
 import classes from './BadResponse.module.css'
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider'
-import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout';
 
-export default function BadResponse({message, error, showErrorHandler, ...props}) {  
+export default function BadResponse({message, ...props}) {  
     const { toggleHolding } = useLoadingContext();
     
     if (!message.main) {
@@ -29,24 +28,12 @@ export default function BadResponse({message, error, showErrorHandler, ...props}
                 }                 
             </div> 
             {
-                <HorizontalLayout>
-                    {
-                        error &&
-                        <button 
-                            type="button"
-                            onClick={showErrorHandler}>
-                            Показать ошибку
-                        </button>
-                    }                    
-                    {
-                        message.hasOwnProperty("holding") &&
-                        <button
-                            type="button"
-                            onClick={() => toggleHolding(false, 0)}>
-                            Вернуться
-                        </button>
-                    }                    
-                </HorizontalLayout>                
+                message.hasOwnProperty("holding") &&
+                <button
+                    type="button"
+                    onClick={() => toggleHolding(false, 0)}>
+                    Вернуться
+                </button>
             }
         </div>        
     )

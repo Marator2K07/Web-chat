@@ -1,9 +1,8 @@
 import React from 'react'
 import classes from './ResponseError.module.css'
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider'
-import { EXTRA_SHORT_DELAY } from '../../../constants';
 
-export default function ResponseError({message, showErrorHandler, ...props}) {
+export default function ResponseError({message, ...props}) {
     const { toggleHolding } = useLoadingContext();
 
     return (
@@ -36,12 +35,7 @@ export default function ResponseError({message, showErrorHandler, ...props}) {
                     </p> 
                 </div>
             }            
-            <button type="button" onClick={() => {
-                toggleHolding(false)
-                setTimeout(() => {
-                    showErrorHandler()
-                }, EXTRA_SHORT_DELAY)                
-            }}>
+            <button type="button" onClick={() => toggleHolding(false)}>
                 Вернуться
             </button>            
         </div>
