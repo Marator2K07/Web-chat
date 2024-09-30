@@ -50,17 +50,22 @@
   --register_block_max_width: 35vw;
   --register_block_max_height: 50vh;
 
+  --recovery_block_min_width: 25vw;
+  --recovery_block_min_height: 30vh;
+  --recovery_block_max_width: 32vw;
+  --recovery_block_max_height: 50vh;
+
   --welcome_block_min_width: 20vw;
   --welcome_block_min_height: 30vh;
   --welcome_block_max_width: 35vw;
   --welcome_block_max_height: 50vh;
 
-  --personal_block_min_width: 30vw;
-  --personal_block_min_height: 35vh;
+  --personal_block_min_width: 16vw;
+  --personal_block_min_height: 12vh;
   --personal_block_max_width: 40vw;
   --personal_block_max_height: 50vh;
-  --personal_block_img_max_height: 50vh;
-  --personal_block_img_max_width: 37.8vw;
+  --personal_block_img_max_height: 49vh;
+  --personal_block_img_max_width: 36vw;
 
   --border_width: 2px;
   --border_radius: 18px;
