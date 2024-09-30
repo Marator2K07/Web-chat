@@ -57,6 +57,7 @@ export default function Loadable({isWorking,
             } 
             {
                 error &&
+                error.response &&
                 <h4>{error.response.data.detail}</h4>
             }
         </div>
