@@ -59,8 +59,8 @@ export default function AfterLoginPage({...props}) {
     }
 
     useEffect(() => {  
-        // cookies.remove('username');
-        // cookies.remove('token');
+        // cookies.remove(COOKIES_USERNAME);
+        // cookies.remove(COOKIES_TOKEN);
         updateUser();
         let lastMainBlock = loadLastMainBlock('lastAfterLoginBlock');
         if (lastMainBlock) {

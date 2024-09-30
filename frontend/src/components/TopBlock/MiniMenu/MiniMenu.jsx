@@ -4,7 +4,7 @@ import UserCard from './UserCard/UserCard';
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { useNavigate } from 'react-router-dom';
-import { BEFORE_LOGIN_PAGE_URL, LOGOUT_ROUTE } from '../../../constants';
+import { BEFORE_LOGIN_PAGE_URL, COOKIES_REFRESH_TOKEN, LOGOUT_ROUTE } from '../../../constants';
 import { cookies, removeUserCookies } from '../../../contexts/CookieContext';
 import MenuCollection from '../../Collection/MenuCollection/MenuCollection';
 import { useUserContext } from '../../../contexts/UserContext/UserProvider';
@@ -23,7 +23,7 @@ export default function MiniMenu({innerRef, ...props}) {
                 resetResult();
                 await makePostRequest(
                     LOGOUT_ROUTE,
-                    { refreshToken: cookies.get('refreshToken') },
+                    { refreshToken: cookies.get(COOKIES_REFRESH_TOKEN) },
                     () => {
                         clearUserContext();
                         removeUserCookies();                        

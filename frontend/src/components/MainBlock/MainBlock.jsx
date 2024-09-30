@@ -7,7 +7,7 @@ import { cookies } from '../../contexts/CookieContext';
 import { useNavigate } from 'react-router-dom';
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider';
 import { useMainBlockAnimationContext } from '../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
-import { AFTER_LOGIN_PAGE_URL, SHORT_DELAY } from '../../constants';
+import { AFTER_LOGIN_PAGE_URL, COOKIES_TOKEN, COOKIES_USERNAME, SHORT_DELAY } from '../../constants';
 import { useNavigationContext } from '../../contexts/NavigationContext/NavigationProvider';
 
 export default function MainBlock({...props}) {
@@ -27,8 +27,8 @@ export default function MainBlock({...props}) {
     }
 
     const smartNav = useCallback(() => {
-        let username = cookies.get('username');
-        let token = cookies.get('token');
+        let username = cookies.get(COOKIES_USERNAME);
+        let token = cookies.get(COOKIES_TOKEN);
         if (username && token && currentBlock.path === 'login') {
             startLoading();            
             setTimeout(() => {

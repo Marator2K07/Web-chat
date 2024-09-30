@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { cookies } from '../../../contexts/CookieContext';
 import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout';
 import dayjs from 'dayjs';
-import { DATE_FORMAT } from '../../../constants';
+import { COOKIES_USERNAME, DATE_FORMAT } from '../../../constants';
 
 export default function AboutUserView({handleAction, ...props}) {
     const { aboutUser, loadAboutUser } = useUserContext();
@@ -53,7 +53,7 @@ export default function AboutUserView({handleAction, ...props}) {
     } else {
         return (
             <Loadable
-                isWorking={cookies.get('username')}
+                isWorking={cookies.get(COOKIES_USERNAME)}
                 propertyName={'aboutUser'}
                 getDataUrl={`${location.pathname}/about`}
                 setDataFunc={loadAboutUser} />

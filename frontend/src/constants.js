@@ -1,6 +1,7 @@
 export const LOGIN_CHECK_ROUTE = "/api/login_check";
 export const LOGIN_ROUTE = "/login";
 export const LOGOUT_ROUTE = "/api/token/invalidate";
+export const UPDATE_STATUS_ROUTE = "/api/token/refresh";
 export const REGISTER_ROUTE = "/register";
 export const USER_ACTIVATION_ROUTE = "/user_activate";
 
@@ -61,3 +62,7 @@ export const FORM_INPUT_MIN_TEXT_LENGTH = 5;
 
 export const RESPONSE_GOOD_STATUS = "Ok";
 export const RESPONSE_BAD_STATUS = "Bad";
+
+export const COOKIES_USERNAME = "username";
+export const COOKIES_TOKEN = "token";
+export const COOKIES_REFRESH_TOKEN = "refreshToken";

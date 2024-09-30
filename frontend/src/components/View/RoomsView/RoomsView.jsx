@@ -7,7 +7,7 @@ import Loadable from '../../Helper/Loadable/Loadable';
 import { cookies } from '../../../contexts/CookieContext';
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { DELETE_ROOM_ROUTE_END } from '../../../constants';
+import { COOKIES_USERNAME, DELETE_ROOM_ROUTE_END } from '../../../constants';
 
 export default function RoomsView({handleAction, ...props}) {
     const { resetResult, makePostRequest } = useResponseHandlerContext();
@@ -49,7 +49,7 @@ export default function RoomsView({handleAction, ...props}) {
     } else {
         return (
             <Loadable
-                isWorking={cookies.get('username')}
+                isWorking={cookies.get(COOKIES_USERNAME)}
                 propertyName={'rooms'}
                 getDataUrl={`${location.pathname}/rooms`}
                 setDataFunc={loadRooms} /> 
