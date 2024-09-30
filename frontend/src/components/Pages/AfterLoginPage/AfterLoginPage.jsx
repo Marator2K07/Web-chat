@@ -15,7 +15,7 @@ import {
     GET_ABOUT_USER_ROUTE_END,
     SHORT_DELAY
 } from '../../../constants';
-import { loadLastMainBlock } from '../../../contexts/CookieContext';
+import { loadLastMainBlock, removeUserCookies } from '../../../contexts/CookieContext';
 import { useNavigate } from 'react-router-dom';
 import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
 import NavigationCollection from '../../Collection/NavigationCollection/NavigationCollection';
@@ -52,6 +52,7 @@ export default function AfterLoginPage({...props}) {
             () => {
                 setTimeout(() => {
                     navigate(BEFORE_LOGIN_PAGE_URL);
+                    removeUserCookies();
                 }, SHORT_DELAY);
             }
         );
