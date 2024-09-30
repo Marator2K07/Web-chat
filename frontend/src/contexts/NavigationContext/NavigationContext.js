@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
 import { useMainBlockAnimationContext } from "../MainBlockAnimationContext/MainBlockAnimationProvider";
-import { BEFORE_LOGIN_PAGE_START_INDEX, EXTRA_SHORT_DELAY } from "../../constants";
+import { BEFORE_LOGIN_PAGE_BLOCKS_COUNT, BEFORE_LOGIN_PAGE_START_INDEX, EXTRA_SHORT_DELAY } from "../../constants";
 import { cookies } from "../CookieContext";
 
 export const useCreateNavigationContext = function() {   
@@ -8,10 +8,11 @@ export const useCreateNavigationContext = function() {
         initBlock: { path: 'init', description: '', index: -1 },
         loginBlock: { path: 'login', description: 'Вход в аккаунт', index: 0 },
         registerBlock: { path: 'register', description: 'Регистрация', index: 1 },
-        welcomeBlock: { path: 'welcome', description: 'Добро пожаловать', index: 2 },
-        personalBlock: { path: 'personal', description: 'Личная страница', index: 3 },
-        communicationBlock: { path: 'communication', description: 'Общение', index: 4 },
-        newsBlock: { path: 'news', description: 'Новости', index: 5 },
+        recoveryBlock: { path: 'recovery', description: 'Восстановление', index: 2 },
+        welcomeBlock: { path: 'welcome', description: 'Добро пожаловать', index: 3 },
+        personalBlock: { path: 'personal', description: 'Личная страница', index: 4 },
+        communicationBlock: { path: 'communication', description: 'Общение', index: 5 },
+        newsBlock: { path: 'news', description: 'Новости', index: 6 },
         otherUserBlock: { path: 'otherUser', description: 'Другой пользователь', index: 11 }
     }) 
     const { initCondition, leftCondition, rightCondition } = useMainBlockAnimationContext();
@@ -20,7 +21,7 @@ export const useCreateNavigationContext = function() {
     const goNavigation = useCallback((block) => {
         setCurrentBlock(block);   
         // запоминаем последний блок в навигации
-        if (block.index <= BEFORE_LOGIN_PAGE_START_INDEX) {
+        if (block.index < BEFORE_LOGIN_PAGE_START_INDEX + BEFORE_LOGIN_PAGE_BLOCKS_COUNT - 1) {
             cookies.set('lastBeforeLoginBlock', block);
         } else {
             cookies.set('lastAfterLoginBlock', block);
@@ -39,7 +40,7 @@ export const useCreateNavigationContext = function() {
             }, EXTRA_SHORT_DELAY);
         }, EXTRA_SHORT_DELAY);  
         // запоминаем последний блок в навигации
-        if (block.index <= BEFORE_LOGIN_PAGE_START_INDEX) {
+        if (block.index < BEFORE_LOGIN_PAGE_START_INDEX + BEFORE_LOGIN_PAGE_BLOCKS_COUNT - 1) {
             cookies.set('lastBeforeLoginBlock', block);
         } else {
             cookies.set('lastAfterLoginBlock', block);

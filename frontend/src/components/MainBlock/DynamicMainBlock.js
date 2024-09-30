@@ -8,12 +8,14 @@ import СommunicationMainBlock from "./Elements/СommunicationMainBlock/Сommuni
 import NewsMainBlock from "./Elements/NewsMainBlock/NewsMainBlock";
 import OtherUserMainBlock from "./Elements/OtherUserMainBlock/OtherUserMainBlock";
 import InitMainBlock from "./Elements/InitMainBlock/InitMainBlock";
+import RecoveryMainBlock from "./Elements/RecoveryMainBlock/RecoveryMainBlock";
 
 // основные страницы/блоки приложения
 const components = {
     init: InitMainBlock,
     login: LoginMainBlock,
-    register: RegisterMainBlock,    
+    register: RegisterMainBlock,
+    recovery: RecoveryMainBlock,
     welcome: WelcomeMainBlock,
     personal: PersonalMainBlock,
     communication: СommunicationMainBlock, 
