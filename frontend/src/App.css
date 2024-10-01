@@ -2,7 +2,7 @@
   --background_main_color: rgb(64, 66, 68);
   --background_second_color: rgb(52, 54, 58);
   --background_third_color: rgb(223, 223, 223);
-  --background_tip_color: rgb(231, 189, 198);
+  --background_tip_color: rgb(108, 108, 108);
   --background_error_color: rgb(117, 97, 101);
   --background_load_color: rgb(64, 66, 68);
   --background_menu_color: rgb(94, 96, 99);
@@ -11,7 +11,7 @@
   --second_color: rgb(233, 185, 255);  
   --third_color: rgb(253, 247, 255);
   --fourth_color: rgb(179, 170, 184);
-  --tip_color: rgb(65, 79, 94);
+  --tip_color: rgb(228, 229, 216);
   --warning_color: rgb(216, 220, 113);
   --error_color: rgb(223, 104, 129);
 

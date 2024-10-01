@@ -1,7 +1,7 @@
 .TipsCollection p {    
     color: var(--tip_color);      
     background-color: var(--background_tip_color);
-    border: var(--border_width) solid var(--second_color);
+    border: var(--border_width) solid var(--tip_color);
     font-family: var(--p_font_family);
     font-weight: var(--p_font_weight);
     font-size: var(--p_font_size);
