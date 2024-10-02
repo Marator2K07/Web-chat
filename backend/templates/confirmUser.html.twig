@@ -8,9 +8,9 @@
 </head>
 <body>
 <div class="container">
-    <p>Добро пожаловать, {{ user.username }}!</p>
+    <p>Добро пожаловать, {{user.username}}!</p>
     <p>Чтобы завершить регистрацию, активируйте свой аккаунт перейдя по 
-        <a href="http://localhost:3000/user_activation?key={{key}}">
+        <a href="http://{{ip}}:{{port}}/user_activation?key={{key}}">
             данной ссылке
         </a>
     </p>
