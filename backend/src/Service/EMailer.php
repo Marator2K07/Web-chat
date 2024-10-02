@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Constants\Constants;
 use App\Entity\User;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
@@ -14,7 +15,9 @@ class EMailer
                                 private $serverEmail)
     { }
     
-    public function sendConfirmMessage(User $user, string $confirmToken)
+    public function sendConfirmMessage(User $user,
+                                       string $clientIp,
+                                       string $confirmToken)
     {  
         // создали основной экземпляр емайл
         $email = (new TemplatedEmail())->
@@ -25,6 +28,8 @@ class EMailer
         $email->htmlTemplate('confirmUser.html.twig')->
             context([
                 'user' => $user, 
+                'ip' => $clientIp,
+                'port' => Constants::HOST_RECEIVER_PORT,
                 'key' => $confirmToken
             ]);
 

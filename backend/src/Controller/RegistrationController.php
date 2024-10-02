@@ -56,7 +56,10 @@ class RegistrationController extends AbstractController
         $userActivationKey = md5(rand().time());
         $user->setConfirmToken($userActivationKey);
         // пытаемся отправить активацию на аккаунт
-        if (!$emailer->sendConfirmMessage($user, $userActivationKey)) {
+        $clientIp = $request->getClientIp();
+        if (!$emailer->sendConfirmMessage($user,
+                                          $clientIp,
+                                          $userActivationKey)) {
             return new JsonResponse([
                 'status' => 'Bad',
                 'main' => 'Невозможно отправить активацию на указанный адрес почты.',
