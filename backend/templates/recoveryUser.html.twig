@@ -10,7 +10,7 @@
 <div class="container">
     <p>Запрос на восстановление для аккаунта {{ user.username }}.</p>
     <p>Чтобы завершить процесс восстановления, просим вас перейти по 
-        <a href="http://{{ip}}:{{port}}/recovery?user={{user.id}}">
+        <a href="http://{{ip}}:{{port}}/recovery?user={{user.confirmToken}}h3{{user.id}}">
             данной ссылке
         </a>
     </p>
