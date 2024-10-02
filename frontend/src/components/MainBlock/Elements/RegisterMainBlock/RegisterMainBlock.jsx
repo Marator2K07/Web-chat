@@ -19,7 +19,7 @@ export default function RegisterMainBlock({...props}) {
     const { resetResult, makePostRequest } = useResponseHandlerContext();
     const [tips, setTips] = useState({}); // подсказки для пользователя
 
-    // идентификационные данные
+    // регистрационные данные
     const [credentials, setCredentials] = useState({ 
         username: '',
         email: '', 
@@ -27,7 +27,7 @@ export default function RegisterMainBlock({...props}) {
         passwordAgain: ''           
     });
 
-    // установка изменений в идентификационных данных
+    // установка изменений в регистрационных данных
     const handleChange = (e) => {
         setCredentials({
             ...credentials,

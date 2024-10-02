@@ -16,8 +16,8 @@ export default function StartRecoveryForm({formData,
                     value={formData.email} 
                     onChange={handleChange}
                 />
-                <p>Важное замечание: восстановление работает только с активированными аккаунтами
-                    (пользователь хоть раз заходил в свой профиль).</p>
+                <p>Важное замечание: восстановление работает
+                    только с активированными аккаунтами.</p>
                 <button type='button' onClick={handleSubmit}>
                     Восстановить 
                 </button>
