@@ -41,4 +41,28 @@ class EMailer
             return false;
         }    
     }
+
+    public function sendRecoveryMessage(User $user, string $clientIp)
+    {  
+        // создали основной экземпляр емайл
+        $email = (new TemplatedEmail())->
+            from($this->serverEmail)->
+            to($user->getEmail())->
+            subject('Подтверждение восстановления аккаунта');        
+        // используем twig шаблон 
+        $email->htmlTemplate('recoveryUser.html.twig')->
+            context([
+                'user' => $user, 
+                'ip' => $clientIp,
+                'port' => Constants::HOST_RECEIVER_PORT
+            ]);
+
+        // и наконец пытаемся отправить восстановление       
+        try {
+            $this->mailer->send($email);
+            return true;
+        } catch (\Throwable $th) {
+            return false;
+        }    
+    }
 }
