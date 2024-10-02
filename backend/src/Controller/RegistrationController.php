@@ -95,7 +95,7 @@ class RegistrationController extends AbstractController
         $entityManager->persist($blackList);
         $entityManager->flush(); 
         
-        // если дошли до сюда, то все впорядке
+        // если дошли досюда, то все впорядке
         return new JsonResponse(['status' => 'Ok',
             'main' => 'Мы выслали подверждение на указанный при регистрации емайл.',
             'addition' => 'Чтобы зайти под своим новым аккаунтом, нужно сначала активировать его.',

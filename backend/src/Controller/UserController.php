@@ -46,7 +46,7 @@ class UserController extends AbstractController
                          UserRepository $userRepository): JsonResponse
     {
         $user = $userRepository->findOneByUsernameField($username);
-
+        // пытаемся синхронизировать данные для текущего пользователя
         if (!$user) {
             throw new HttpException(422, 'Не удалось синхронизироваться');
         } else {
