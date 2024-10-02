@@ -49,6 +49,7 @@ export const DATE_FORMAT = "YYYY-MM-DD"
 export const LOGIN_FORM_NAME = "loginForm"; 
 export const REGISTRATION_FORM_NAME = "registrationForm";
 export const START_RECOVERY_FORM_NAME = "startRecoveryForm";
+export const END_RECOVERY_FORM_NAME = "endRecoveryForm";
 export const UPDATE_ABOUT_USER_FORM_NAME = "updateAboutUserForm";
 export const ACCEPT_ACTION_FORM_NAME = "acceptActionForm"; 
 export const NEW_ROOM_FORM_NAME = "newRoomForm";
