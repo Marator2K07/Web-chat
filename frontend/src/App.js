@@ -11,10 +11,12 @@ import { MainBlockAnimationProvider } from './contexts/MainBlockAnimationContext
 import { ActionControlProvider } from './contexts/ActionControlContext/ActionControlProvider';
 import { NavigationProvider } from './contexts/NavigationContext/NavigationProvider';
 import OtherUserPage from './components/Pages/OtherUserPage/OtherUserPage';
+import EndRecoveryPage from './components/Pages/EndRecoveryPage/EndRecoveryPage';
 import { 
     AFTER_LOGIN_PAGE_URL,
     ANOTHER_USER_PAGE_URL,
     BEFORE_LOGIN_PAGE_URL,
+    END_USER_RECOVERY_PAGE_URL,
     USER_ACTIVATION_PAGE_URL
 } from './constants';
 
@@ -30,12 +32,15 @@ function App() {
             <UserProvider>
             <AnimatePresence mode='wait' initial={false}>		
                 <Routes location={location} key={location.pathname}>                    
-                    <Route path={`${BEFORE_LOGIN_PAGE_URL}`} element={
+                    <Route path={BEFORE_LOGIN_PAGE_URL} element={
                         <BeforeLoginPage />
                     }/> 
-                    <Route path={`${USER_ACTIVATION_PAGE_URL}`} element={
+                    <Route path={USER_ACTIVATION_PAGE_URL} element={
                         <UserActivationPage />
                     }/>
+                    <Route path={END_USER_RECOVERY_PAGE_URL} element={
+                        <EndRecoveryPage />
+                    }/> 
                     <Route path={`${AFTER_LOGIN_PAGE_URL}/:username`} element={
                         <AfterLoginPage />                                               
                     }/>

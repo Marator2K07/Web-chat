@@ -22,7 +22,8 @@ export const SUBSCRIBE_ROUTE = "/subscribers_list/add"
 export const UNSUBSCRIBE_ROUTE = "/subscribers_list/remove"
 
 export const BEFORE_LOGIN_PAGE_URL = "/";
-export const USER_ACTIVATION_PAGE_URL = "/user_activation"
+export const USER_ACTIVATION_PAGE_URL = "/user_activation";
+export const END_USER_RECOVERY_PAGE_URL = "/user_recovery";
 export const AFTER_LOGIN_PAGE_URL = "/authorized_user";
 export const ANOTHER_USER_PAGE_URL = "/another_user";
 
