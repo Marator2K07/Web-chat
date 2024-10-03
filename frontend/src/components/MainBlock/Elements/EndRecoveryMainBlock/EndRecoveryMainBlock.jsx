@@ -13,7 +13,7 @@ import {
 // данный основной блок является эксклюзивным и доступен
 // только со страницы окончания восстановления аккаунта
 
-export default function EndRecoveryMainBlock({...props}) {
+export default function EndRecoveryMainBlock({user, ...props}) {
     const [tips, setTips] = useState({}); // подсказки для пользователя
 
     // новые данные аккаунта для восстановления
@@ -30,6 +30,15 @@ export default function EndRecoveryMainBlock({...props}) {
             [e.target.name]: e.target.value
         }); 
     }
+
+    // в случае обновления данных о пользователе подставляем никнейм в форму
+    useEffect(() => {
+        if (user) {            
+            setRecoveredUserData({
+                username: user.username
+            }); 
+        }        
+    }, [user])
 
     // проверка спустя паузу корректности ввода нового пароля
     useEffect(() => {
