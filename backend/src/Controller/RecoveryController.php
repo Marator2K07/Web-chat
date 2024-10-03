@@ -65,4 +65,42 @@ class RecoveryController extends AbstractController
             ]
         ]);
     }
+
+    #[Route('/recovery/synchronize', name: 'app_synchronize_recovery', methods: 'POST')]
+    public function user(Request $request, 
+                         SerializerInterface $serializer,
+                         UserRepository $userRepository): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        // расшифровка ключа для идентификации пользователя
+        $tokenPos = strpos($data['userTokenAndId'], Constants::MAIN_TAG);
+        $token = substr($data['userTokenAndId'], 0, $tokenPos);
+        $user = $userRepository->findOneByConfirmTokenField($token);
+        // пытаемся синхронизировать данные для текущего пользователя
+        if (!$user) {
+            return new JsonResponse([
+                'status' => 'Bad',
+                'main' => 'Что-то пошло не так...',
+                'addition' => 'Попробуйте отправить еще один запрос на восстановление. 
+                            Данная вкладка автоматически закроется через скорое время.',
+                'holding' => false,
+                'delay' => Constants::EXTRA_LONG_DELAY,
+                'closeTab' => true 
+            ]);
+        } else {
+            return new JsonResponse([
+                'status' => 'Ok',
+                'main' => 'Соединение подтверждено.',
+                'holding' => false,
+                'delay' => Constants::SHORT_DELAY,
+                'user' => json_decode(
+                    $serializer->serialize(
+                        $user,
+                        'json',
+                        ['groups' => ['user']]
+                    ) 
+                )
+            ]);
+        }
+    }
 }
