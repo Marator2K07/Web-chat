@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Constants\Constants;
 use App\Repository\UserRepository;
 use App\Service\EMailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -9,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 // НАпоминание: если holding = false,
 // то указывается еще одно свойство delay
@@ -42,7 +44,8 @@ class RecoveryController extends AbstractController
         }
         // пытаемся отправить восстановление на почту
         $clientIp = $request->getClientIp();
-        if (!$emailer->sendRecoveryMessage($user, $clientIp)) {
+        $token = md5(rand().time());
+        if (!$emailer->sendRecoveryMessage($user, $clientIp, $token)) {
             return new JsonResponse([
                 'status' => 'Bad',
                 'main' => 'Невозможно отправить восстановление на указанный адрес почты.',

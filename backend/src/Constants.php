@@ -9,4 +9,5 @@ class Constants
     const AVERAGE_DELAY = 2500;
     const LONG_DELAY = 3750;
     const HOST_RECEIVER_PORT = 3000;
+    const MAIN_TAG = 'h3';
 }

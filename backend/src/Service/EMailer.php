@@ -42,7 +42,9 @@ class EMailer
         }    
     }
 
-    public function sendRecoveryMessage(User $user, string $clientIp)
+    public function sendRecoveryMessage(User $user,
+                                        string $clientIp,
+                                        string $token)
     {  
         // создали основной экземпляр емайл
         $email = (new TemplatedEmail())->
@@ -54,7 +56,9 @@ class EMailer
             context([
                 'user' => $user, 
                 'ip' => $clientIp,
-                'port' => Constants::HOST_RECEIVER_PORT
+                'port' => Constants::HOST_RECEIVER_PORT,
+                'tag' => Constants::MAIN_TAG,
+                'token' => $token
             ]);
 
         // и наконец пытаемся отправить восстановление       
