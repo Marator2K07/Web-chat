@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './EndRecoveryPage.module.css'
 import EndRecoveryMainBlock from '../../MainBlock/Elements/EndRecoveryMainBlock/EndRecoveryMainBlock';
 import DownBlock from '../../DownBlock/DownBlock';
@@ -12,7 +12,8 @@ import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerCont
 
 export default function EndRecoveryPage({...props}) {
     const { holding, startLoading, stopLoading } = useLoadingContext();
-    const { resetResult, makePostRequest } = useResponseHandlerContext();    
+    const { resetResult, makePostRequest } = useResponseHandlerContext();
+    const [currentUser, setCurrentUser] = useState();
     const [searchParams] = useSearchParams(); // анализ переданных параметров в url
 
     // состояния компонента загрузки
@@ -28,7 +29,10 @@ export default function EndRecoveryPage({...props}) {
         resetResult();
         makePostRequest(
             SYNCHRONIZE_RECOVERY_ROUTE,
-            { userTokenAndId: userTokenAndId }
+            { userTokenAndId: userTokenAndId },
+            (response) => {
+                setCurrentUser(response.data.user);
+            }
         );
         stopLoading();        
     }
@@ -49,7 +53,7 @@ export default function EndRecoveryPage({...props}) {
             </motion.div>
             <Spacer sizeW='10px' sizeH='13%'/>
             <h3>Восстановление аккаунта</h3>
-            <EndRecoveryMainBlock />
+            <EndRecoveryMainBlock user={currentUser} />
             <Spacer sizeW='10px' sizeH='13%'/>
             <DownBlock />
         </div>
