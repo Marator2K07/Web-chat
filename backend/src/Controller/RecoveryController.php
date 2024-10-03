@@ -55,7 +55,8 @@ class RecoveryController extends AbstractController
         } 
         
         // если дошли досюда, то все впорядке
-        return new JsonResponse(['status' => 'Ok',
+        return new JsonResponse([
+            'status' => 'Ok',
             'main' => 'Мы выслали инструкцию для восстановления на указанный емайл.',
             'addition' => 'Просим во время восстановления аккаунта не закрывать данную страницу.',
             'holding' => true,
@@ -90,7 +91,7 @@ class RecoveryController extends AbstractController
         } else {
             return new JsonResponse([
                 'status' => 'Ok',
-                'main' => 'Соединение подтверждено.',
+                'main' => 'Соединение подтверждено',
                 'holding' => false,
                 'delay' => Constants::SHORT_DELAY,
                 'user' => json_decode(

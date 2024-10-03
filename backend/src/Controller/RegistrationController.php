@@ -96,7 +96,8 @@ class RegistrationController extends AbstractController
         $entityManager->flush(); 
         
         // если дошли досюда, то все впорядке
-        return new JsonResponse(['status' => 'Ok',
+        return new JsonResponse([
+            'status' => 'Ok',
             'main' => 'Мы выслали подверждение на указанный при регистрации емайл.',
             'addition' => 'Чтобы зайти под своим новым аккаунтом, нужно сначала активировать его.',
             'holding' => true,
