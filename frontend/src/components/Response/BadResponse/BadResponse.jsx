@@ -1,12 +1,20 @@
 import React from 'react'
 import classes from './BadResponse.module.css'
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider'
+import { EXTRA_LONG_DELAY } from '../../../constants';
 
 export default function BadResponse({message, ...props}) {  
     const { toggleHolding } = useLoadingContext();
     
     if (!message.main) {
         return;
+    }
+
+    // обработка возможного закрытия вкладки
+    if (message.closeTab) {
+        setTimeout(() => {
+            window.close();
+        }, EXTRA_LONG_DELAY);
     }
 
     return (
@@ -28,10 +36,11 @@ export default function BadResponse({message, ...props}) {
                 }                 
             </div> 
             {
-                message.hasOwnProperty("holding") &&
-                <button
-                    type="button"
-                    onClick={() => toggleHolding(false, 0)}>
+                message.holding &&
+                !message.closeTab &&
+                <button type="button" onClick={
+                    () => toggleHolding(false, 0)
+                    }>
                     Вернуться
                 </button>
             }
