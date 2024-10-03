@@ -36,6 +36,8 @@ security:
         - { path: ^/register,                          roles: PUBLIC_ACCESS }        
         - { path: ^/user_activate,                     roles: PUBLIC_ACCESS }
         - { path: ^/recovery/start,                    roles: PUBLIC_ACCESS }
+        - { path: ^/recovery/synchronize,              roles: PUBLIC_ACCESS }
+        - { path: ^/recovery/end,                      roles: PUBLIC_ACCESS }
         - { path: ^/,                                  roles: IS_AUTHENTICATED_FULLY }
 
 #when@test:
