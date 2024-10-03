@@ -10,5 +10,5 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    border-top: 2px solid var(--main_color);
+    border-top: var(--border_width) solid var(--main_color);
 }
