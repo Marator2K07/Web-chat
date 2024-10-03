@@ -3,7 +3,9 @@ export const LOGIN_ROUTE = "/login";
 export const LOGOUT_ROUTE = "/api/token/invalidate";
 export const UPDATE_STATUS_ROUTE = "/api/token/refresh";
 export const REGISTER_ROUTE = "/register";
-export const START_RECOVERY_ROUTE = "/recovery/start"
+export const START_RECOVERY_ROUTE = "/recovery/start";
+export const SYNCHRONIZE_RECOVERY_ROUTE = "/recovery/synchronize";
+export const END_RECOVERY_ROUTE = "/recovery/end";
 export const USER_ACTIVATION_ROUTE = "/user_activate";
 
 // далее используются конструкции для определения конца
