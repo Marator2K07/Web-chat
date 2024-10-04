@@ -13,6 +13,7 @@ export default function UserActivationPage({...props}) {
     const [searchParams] = useSearchParams(); // анализ переданных параметров в url
     const { holding, startLoading, stopLoading } = useLoadingContext();
 
+    // состояния компонента загрузки
     const animationStates = {
         visible: {opacity: 1},
         hidden: {opacity: 0}

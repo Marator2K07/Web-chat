@@ -91,21 +91,20 @@ export default function RoomBlock({...props}) {
     return (
         <div className={classes.RoomBlock} {...props}>
             <Scrollable>            
-                <h3> { !showRoomForm ? 'Текущие чаты'
-                                     : 'Создание нового чата'} 
+                <h3> {!showRoomForm ? 'Текущие чаты'
+                                    : 'Создание нового чата'} 
                 </h3>
                 {
-                    !showRoomForm ?
-                    <RoomsView handleAction={handleAction} />
-                    :
-                    <NewRoomForm
-                        formData={newRoomForm}
-                        otherData={userHandlerButtons}
-                        handleChange={handleChange}
-                        handleSubmit={handleSubmit}
-                        handleCancel={handleAction} />
+                    !showRoomForm 
+                    ? <RoomsView handleAction={handleAction} />
+                    : <NewRoomForm
+                          formData={newRoomForm}
+                          otherData={userHandlerButtons}
+                          handleChange={handleChange}
+                          handleSubmit={handleSubmit}
+                          handleCancel={handleAction} />
                 }
-            </Scrollable>            
+            </Scrollable> 
         </div>
     )
 }

@@ -20,6 +20,7 @@ export default function NewRoomForm({formData,
         setSearchLine(e.target.value);
         updateUsers();
     } 
+
     // подгрузка пользователей при поиске    
     const updateUsers = async() => {    
         resetResult();
@@ -61,10 +62,10 @@ export default function NewRoomForm({formData,
 
                 <HorizontalLayout>
                     <button type='button' onClick={handleSubmit}>
-                        Применить изменения
+                        Создать
                     </button>
                     <button type='button' onClick={handleCancel}>
-                        Назад
+                        Отмена
                     </button>
                 </HorizontalLayout>
             </form>

@@ -6,7 +6,12 @@ import MainBlock from '../../MainBlock/MainBlock';
 import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
 import NavigationCollection from '../../Collection/NavigationCollection/NavigationCollection';
 import { cookies, loadLastMainBlock } from '../../../contexts/CookieContext';
-import { BEFORE_LOGIN_PAGE_BLOCKS_COUNT, BEFORE_LOGIN_PAGE_START_INDEX } from '../../../constants';
+import { 
+    BEFORE_LOGIN_PAGE_BLOCKS_COUNT, 
+    BEFORE_LOGIN_PAGE_START_INDEX, 
+    COOKIES_TOKEN, 
+    COOKIES_USERNAME 
+} from '../../../constants';
 
 export default function BeforeLoginPage({...props}) {
     const { 
@@ -16,8 +21,8 @@ export default function BeforeLoginPage({...props}) {
     } = useNavigationContext();
 
     useEffect(() => {
-        // cookies.remove(COOKIES_USERNAME);
         // cookies.remove(COOKIES_TOKEN);
+        // cookies.remove(COOKIES_USERNAME);
         let lastMainBlock = loadLastMainBlock('lastBeforeLoginBlock');
         if (lastMainBlock) {
             goNavigationWithAnimation(lastMainBlock);
