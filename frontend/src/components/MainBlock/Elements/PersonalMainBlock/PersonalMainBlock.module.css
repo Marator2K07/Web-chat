@@ -16,8 +16,3 @@
     align-items: flex-start;
     justify-content: center;
 }
-
-.PersonalMainBlock img {
-    max-height: var(--personal_block_img_max_height);
-    max-width: var(--personal_block_img_max_width);
-}

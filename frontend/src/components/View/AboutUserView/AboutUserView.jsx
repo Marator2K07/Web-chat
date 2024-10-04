@@ -4,9 +4,8 @@ import Loadable from '../../Helper/Loadable/Loadable'
 import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 import { useLocation } from 'react-router-dom';
 import { cookies } from '../../../contexts/CookieContext';
-import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout';
-import dayjs from 'dayjs';
 import { COOKIES_USERNAME, DATE_FORMAT } from '../../../constants';
+import dayjs from 'dayjs';
 
 export default function AboutUserView({handleAction, ...props}) {
     const { aboutUser, loadAboutUser } = useUserContext();
@@ -23,27 +22,28 @@ export default function AboutUserView({handleAction, ...props}) {
                         : <img 
                             src={aboutUser.image}
                             alt="Not found" />
-                }
-                <HorizontalLayout>
-                    <div>                        
-                        <h4>Имя:</h4>
-                        <p>{aboutUser.name}</p>
-                    </div>
-                    <div>
-                        <h4>Фамилия:</h4>
-                        <p>{
-                            aboutUser.secondname ? aboutUser.secondname
-                                                 : 'Не задано'
-                        }</p>
-                    </div>                    
-                </HorizontalLayout>
+                }            
+                <div>                        
+                    <h4>Имя:</h4>
+                    <p>
+                        {aboutUser.name ? aboutUser.name
+                                        : 'Не задано'}
+                    </p>
+                </div>
+                <div>
+                    <h4>Фамилия:</h4>
+                    <p>
+                        {aboutUser.secondname ? aboutUser.secondname
+                                              : 'Не задано'}
+                    </p>
+                </div>                    
                 <div>
                     <h4>День рождения:</h4>
-                    <p>{
-                        aboutUser.dateOfBirth ? dayjs(aboutUser.dateOfBirth)
-                                                .format(DATE_FORMAT)
-                                              : 'Не задано'
-                    }</p>  
+                    <p>
+                        {aboutUser.dateOfBirth ? dayjs(aboutUser.dateOfBirth)
+                                                 .format(DATE_FORMAT)
+                                               : 'Не задано'}
+                    </p>  
                 </div>                               
                 <button type="button" onClick={handleAction}>
                     Изменить данные

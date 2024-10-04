@@ -1,6 +1,7 @@
 .Scrollable {
     max-height: var(--max_height);
     overflow: auto;
+    overflow-x: hidden;
 }
 
 .Scrollable::-webkit-scrollbar {
