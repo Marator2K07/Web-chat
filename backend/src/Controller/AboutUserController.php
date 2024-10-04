@@ -25,15 +25,20 @@ class AboutUserController extends AbstractController
                                      UserRepository $userRepository): JsonResponse
     {
         $user = $userRepository->findOneByUsernameField($username);
-        if (!$user) {
+        $aboutUser = $user->getAboutUser();
+        // обработка
+        if (!$user || !$aboutUser) {
             return new JsonResponse(null);
         } else {
+            // временно храним картинку в корректном для нормалайзера формате
+            $img = $aboutUser->getImage();
+            $aboutUser->setImageStr($img);
+
             return new JsonResponse([
-                'aboutUser' => json_decode(
-                    $serializer->serialize(
-                        $user->getAboutUser(), 'json'
-                    ) 
-                )
+                'aboutUser' => 
+                    $serializer->normalize(
+                        $aboutUser, 'json'                    
+                    )
             ]);
         }
     }
@@ -45,7 +50,7 @@ class AboutUserController extends AbstractController
     {
         $user = $userRepository->findOneByUsernameField($username);
         $aboutUser = $user->getAboutUser();
-
+        // обработка
         if (!$user || !$aboutUser) {
             throw new HttpException(422, 'Не удалось получить данные');
         } else {
