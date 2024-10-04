@@ -69,6 +69,7 @@
 
   --border_width: 2px;
   --border_radius: 18px;
+  --border_radius_small: 9px;
   
   --h2_font_family: DejaVu Sans Mono, monospace;
   --h2_font_weight: 500;
