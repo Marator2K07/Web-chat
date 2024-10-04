@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Constants\Constants;
 use App\Repository\UserRepository;
 use App\Service\EMailer;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -103,5 +104,44 @@ class RecoveryController extends AbstractController
                 )
             ]);
         }
+    }
+
+    #[Route('/recovery/end', name: 'app_recovery_end', methods: "POST")]
+    public function end(Request $request, 
+                        UserRepository $userRepository,
+                        EntityManagerInterface $entityManager,
+                        EMailer $emailer): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);        
+        $user = $userRepository->findOneByIdField($data['id']);
+        // на всякий случай проверяем пользователя
+        if (!$user) {
+            return new JsonResponse([
+                'status' => 'Bad',
+                'main' => 'Что-то пошло не так...',
+                'addition' => 'Попробуйте отправить еще один запрос на восстановление. 
+                            Данная вкладка автоматически закроется через скорое время.',
+                'holding' => false,
+                'delay' => Constants::EXTRA_LONG_DELAY,
+                'closeTab' => true 
+            ]);
+        }
+        // обновляем данные о пользователе
+        $user->setUsername($data['username']);
+        $user->setPassword($data['password']);
+        // применение изменений
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        // если дошли досюда, то все впорядке
+        return new JsonResponse([
+            'status' => 'Ok',
+            'main' => 'Восстановление успешно завершено.',
+            'addition' => 'Можете заходить с новыми: никнеймом и паролем.
+                        Данная вкладка автоматически закроется через скорое время.',
+            'holding' => false,
+            'delay' => Constants::EXTRA_LONG_DELAY,
+            'closeTab' => true 
+        ]);
     }
 }
