@@ -19,24 +19,16 @@ class UserController extends AbstractController
                            UserRepository $userRepository): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-
         $users = $userRepository
             ->findByNameOrSecondnameField($data['searchLine']);
-            
-        $foundedUsers = [];
-        foreach ($users as &$user) {
-            $userItem = $user;
-            $foundedUsers[] = $userItem;
-        }
-
+        // в данном методе в любом случае отправляем массив пользователей (даже пустой)
         return new JsonResponse([
-            'users' => json_decode(
-                $serializer->serialize(
-                    $foundedUsers,
+            'users' => 
+                $serializer->normalize(
+                    $users,
                     'json',
-                    ['groups' => ['user']]
+                    ['groups' => ['short']]
                 )
-            )
         ]);
     } 
 
