@@ -14,17 +14,17 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[Groups(['user', 'room'])]
+    #[Groups(['user', 'room', 'short'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Groups(['user', 'room'])]
+    #[Groups(['user', 'room', 'short'])]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $username = null;
 
-    #[Groups('user')]
+    #[Groups(['user', 'short'])]
     #[ORM\Column]
     private array $roles = [];
 
