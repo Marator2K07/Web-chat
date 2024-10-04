@@ -2,8 +2,11 @@ import React from 'react'
 import classes from './BadResponse.module.css'
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider'
 import { EXTRA_LONG_DELAY } from '../../../constants';
+import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout';
+import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
 
 export default function BadResponse({message, ...props}) {  
+    const { navigationBlocks, goNavigation } = useNavigationContext();
     const { toggleHolding } = useLoadingContext();
     
     if (!message.main) {
@@ -36,13 +39,30 @@ export default function BadResponse({message, ...props}) {
                 }                 
             </div> 
             {
-                message.holding &&
-                !message.closeTab &&
-                <button type="button" onClick={
-                    () => toggleHolding(false, 0)
-                    }>
-                    Вернуться
-                </button>
+                message.holding &&                
+                <HorizontalLayout>
+                    {
+                        !message.closeTab &&
+                        <button type="button" onClick={
+                            () => toggleHolding(false)
+                            }>
+                            Вернуться
+                        </button>
+                    }                    
+                    {
+                        message.button &&
+                        <button
+                            type="button"
+                            onClick={() => {
+                                toggleHolding(false);
+                                goNavigation(
+                                    navigationBlocks[message.button.key]
+                                ); 
+                            }}>
+                            {message.button.text}
+                        </button>
+                    }
+                </HorizontalLayout>
             }
         </div>        
     )
