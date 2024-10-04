@@ -19,9 +19,9 @@ use Symfony\Component\Serializer\SerializerInterface;
 class RecoveryController extends AbstractController
 {
     #[Route('/recovery/start', name: 'app_recovery_start', methods: "POST")]
-    public function startRecovery(Request $request, 
-                                  UserRepository $userRepository,     
-                                  EMailer $emailer): JsonResponse
+    public function start(Request $request, 
+                          UserRepository $userRepository,     
+                          EMailer $emailer): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $user = $userRepository->findOneByEmailField($data['email']);
@@ -69,9 +69,9 @@ class RecoveryController extends AbstractController
     }
 
     #[Route('/recovery/synchronize', name: 'app_synchronize_recovery', methods: 'POST')]
-    public function user(Request $request, 
-                         SerializerInterface $serializer,
-                         UserRepository $userRepository): JsonResponse
+    public function synchronize(Request $request, 
+                                SerializerInterface $serializer,
+                                UserRepository $userRepository): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         // расшифровка ключа для идентификации пользователя
