@@ -82,16 +82,20 @@ export default function EndRecoveryMainBlock({user, ...props}) {
         })
 
         // основная часть 
-        startLoading();
-        resetResult();
-        await makePostRequest(
-            END_RECOVERY_ROUTE, {
-                id: user.id,
-                username: recoveredUserData.username,
-                password: hashedPassword
-            }
-        );
-        stopLoading();  
+        if (!user) {
+            window.close();
+        } else {
+            startLoading();
+            resetResult();
+            await makePostRequest(
+                END_RECOVERY_ROUTE, {
+                    id: user.id,
+                    username: recoveredUserData.username,
+                    password: hashedPassword
+                }
+            );
+            stopLoading();  
+        }  
     }
     
     return (
