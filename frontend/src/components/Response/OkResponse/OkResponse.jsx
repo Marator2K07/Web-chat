@@ -3,6 +3,7 @@ import classes from './OkResponse.module.css'
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
 import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout';
+import { EXTRA_LONG_DELAY } from '../../../constants';
 
 export default function OkResponse({message, ...props}) {
     const { navigationBlocks, goNavigation } = useNavigationContext();
@@ -10,6 +11,13 @@ export default function OkResponse({message, ...props}) {
 
     if (!message.main) {
         return;
+    }
+
+    // обработка возможного закрытия вкладки
+    if (message.closeTab) {
+        setTimeout(() => {
+            window.close();
+        }, EXTRA_LONG_DELAY);
     }
 
     return (
@@ -31,13 +39,16 @@ export default function OkResponse({message, ...props}) {
                 }                 
             </div>  
             {
-                message.holding &&
+                message.holding &&                
                 <HorizontalLayout>
-                    <button 
-                        type="button"
-                        onClick={() => toggleHolding(false)}>
-                        Вернуться
-                    </button>
+                    {
+                        !message.closeTab &&
+                        <button type="button" onClick={
+                            () => toggleHolding(false)
+                            }>
+                            Вернуться
+                        </button>
+                    }                    
                     {
                         message.button &&
                         <button
