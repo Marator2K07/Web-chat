@@ -28,7 +28,12 @@ class AuthenticationController extends AbstractController
             return new JsonResponse([
                 'status' => 'Bad',
                 'main' => 'Неверные идентификационные данные.',
-                'holding' => true
+                'addition' => 'Если забыли данные для входа - переходите на вкладку восстановления.',
+                'holding' => true,
+                'button' => [
+                    'text' => 'Начать восстановление',
+                    'key' => 'recoveryBlock'
+                ]
             ]);
         }
         // в случае не активации аккаунта
