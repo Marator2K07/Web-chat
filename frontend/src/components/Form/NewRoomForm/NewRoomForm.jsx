@@ -8,12 +8,12 @@ import RadioAsButton from '../../Helper/RadioAsButton/RadioAsButton';
 
 export default function NewRoomForm({formData,
                                      otherData,
-                                     handleChange,
+                                     handleRoomNameChange,
+                                     handleSearchTagChange,
                                      handleSubmit,
                                      handleCancel,
                                      ...props}) {
     const { resetResult, makePostRequest } = useResponseHandlerContext();
-    const [searchTag, setSearchTag] = useState('name'); // по умолчанию тег поиска стоит по имени
     const [foundedUsers, setFoundedUsers] = useState({});    
     const [searchLine, setSearchLine] = useState('');
 
@@ -23,11 +23,6 @@ export default function NewRoomForm({formData,
         updateUsers();
     } 
 
-    // обработка нажатия на радио кнопку тэга поиска
-    const handleSearchTag = async (e) => {
-        setSearchTag(e.target.value);
-    }
-
     // подгрузка пользователей при поиске    
     const updateUsers = async() => {    
         resetResult();
@@ -35,7 +30,7 @@ export default function NewRoomForm({formData,
             USERS_SEARCH_ROUTE,
             { searchLine: searchLine },
             (response) => {
-                setFoundedUsers(response.data.users);
+                setFoundedUsers(response.data.users);        
             }
         )
     }
@@ -48,7 +43,7 @@ export default function NewRoomForm({formData,
                 <input
                     type='text'
                     value={formData.newRoomName}
-                    onChange={handleChange} />
+                    onChange={handleRoomNameChange} />
                 <h4>Участники:</h4>
                 <UsersCollection
                     users={formData.selectedUsers}
@@ -62,22 +57,22 @@ export default function NewRoomForm({formData,
                     name='searchFilter'
                     value='username'
                     text='нику'
-                    compairTag={searchTag} 
-                    handleCompairTag={handleSearchTag} />
+                    compairTag={formData.searchTag} 
+                    handleCompairTag={handleSearchTagChange} />
                 <RadioAsButton 
                     id='name' 
                     name='searchFilter'
                     value='name'
                     text='имени'
-                    compairTag={searchTag} 
-                    handleCompairTag={handleSearchTag} />
+                    compairTag={formData.searchTag} 
+                    handleCompairTag={handleSearchTagChange} />
                 <RadioAsButton 
                     id='secondname' 
                     name='searchFilter'
                     value='secondname'
                     text='фамилии'
-                    compairTag={searchTag} 
-                    handleCompairTag={handleSearchTag} />                                
+                    compairTag={formData.searchTag} 
+                    handleCompairTag={handleSearchTagChange} />                                
                 <input
                     type='text'
                     value={searchLine}
