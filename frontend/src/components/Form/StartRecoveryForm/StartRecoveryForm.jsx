@@ -3,7 +3,7 @@ import classes from './StartRecoveryForm.module.css'
 import { START_RECOVERY_FORM_NAME } from '../../../constants'
 
 export default function StartRecoveryForm({formData,
-                                           handleChange,
+                                           handleEmailChange,
                                            handleSubmit,
                                            ...props}) {
     return (
@@ -14,7 +14,7 @@ export default function StartRecoveryForm({formData,
                     type='email'
                     name='email'
                     value={formData.email} 
-                    onChange={handleChange}
+                    onChange={handleEmailChange}
                 />
                 <p>Важное замечание: восстановление работает
                     только с активированными аккаунтами.</p>

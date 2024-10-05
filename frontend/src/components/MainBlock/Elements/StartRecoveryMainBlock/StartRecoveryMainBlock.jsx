@@ -19,7 +19,7 @@ export default function StartRecoveryMainBlock({...props}) {
     });  
 
     // обработка данных формы
-    const handleChange = (e) => {
+    const handleEmailChange = (e) => {
         setRecoveryInfo({
             ...recoveryInfo,
             [e.target.name]: e.target.value
@@ -57,7 +57,7 @@ export default function StartRecoveryMainBlock({...props}) {
             <Scrollable>
                 <StartRecoveryForm
                     formData={recoveryInfo}
-                    handleChange={handleChange} 
+                    handleEmailChange={handleEmailChange} 
                     handleSubmit={handleSubmit} />
                 <TipsCollection tips={tips}/>
             </Scrollable>            
