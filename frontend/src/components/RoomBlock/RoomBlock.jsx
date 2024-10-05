@@ -17,6 +17,7 @@ export default function RoomBlock({...props}) {
     // данные, связанные с формой создания новой комнаты-чата
     const [newRoomForm, setNewRoomForm] = useState({
         selectedUsers: {},
+        searchTag: 'name', // по умолчанию тег поиска стоит по имени
         roomName: ''
     });
 
@@ -27,18 +28,17 @@ export default function RoomBlock({...props}) {
             selectedUsers: {
                 [user.username]: user,
                 ...prevUsers            
-            },
-            roomName: newRoomForm.roomName
+            }
         })        
     }
+
     // удаление уже добавленного пользователя из списка будущего чата
     const removeSelectedUser = (user) => {
         const prevUsers = newRoomForm.selectedUsers;
         let newSelected = { ...prevUsers }
         delete newSelected[user.username];
         setNewRoomForm({
-            selectedUsers: newSelected,
-            roomName: newRoomForm.roomName
+            selectedUsers: newSelected
         });
     } 
 
@@ -57,12 +57,22 @@ export default function RoomBlock({...props}) {
     });         
 
     // установка изменений в имени комнаты для формы
-    const handleChange = async (e) => {	
+    const handleRoomNameChange = async (e) => {	
         setNewRoomForm({
             selectedUsers: newRoomForm.selectedUsers,
+            searchTag: newRoomForm.searchTag,
             roomName: e.target.value
         });
     } 
+
+    // обработка нажатия на радио кнопку тэга поиска
+    const handleSearchTagChange = async (e) => {
+        setNewRoomForm({
+            selectedUsers: newRoomForm.selectedUsers,
+            searchTag: e.target.value,
+            roomName: newRoomForm.roomName
+        });
+    }
     
     // обработка состояния с выводом нужного компонента 
     function handleAction() {
@@ -100,7 +110,8 @@ export default function RoomBlock({...props}) {
                     : <NewRoomForm
                           formData={newRoomForm}
                           otherData={userHandlerButtons}
-                          handleChange={handleChange}
+                          handleRoomNameChange={handleRoomNameChange}
+                          handleSearchTagChange={handleSearchTagChange}
                           handleSubmit={handleSubmit}
                           handleCancel={handleAction} />
                 }
