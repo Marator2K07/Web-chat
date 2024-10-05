@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Constants\Constants;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,14 +34,18 @@ class AccountActivationController extends AbstractController
             $entityManager->flush(); 
             return new JsonResponse(['status' => 'Ok',
                 'main' => 'Аккаунт успешно активирован.',
-                'addition' => 'Можете закрывать данную страницу.',
-                'holding' => true
+                'addition' => 'Данная вкладка закроется автоматически через короткое время.',
+                'holding' => false,
+                'delay' => Constants::EXTRA_LONG_DELAY,
+                'closeTab' => true
             ]); 
         } else {
             return new JsonResponse(['status' => 'Ok',
                 'main' => 'Данный аккаунт уже активирован.',
-                'addition' => 'Можете закрывать данную страницу.',
-                'holding' => true
+                'addition' => 'Эта вкладка закроется автоматически через короткое время.',
+                'holding' => false,
+                'delay' => Constants::EXTRA_LONG_DELAY,
+                'closeTab' => true
             ]); 
         }
     }
