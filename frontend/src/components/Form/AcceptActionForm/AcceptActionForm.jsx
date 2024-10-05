@@ -7,6 +7,7 @@ import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvi
 export default function AcceptActionForm({handleSubmit, ...props}) {
     const { loading, toggleHolding } = useLoadingContext();    
 
+    // обработка отмены операции
     const handleCancel = () => {
         if (!loading) {
             toggleHolding(SHORT_DELAY);
