@@ -9,7 +9,8 @@ import {
     EXTRA_SHORT_DELAY,
     LOGIN_CHECK_ROUTE,
     LOGIN_ROUTE,
-    RESPONSE_GOOD_STATUS
+    RESPONSE_GOOD_STATUS,
+    SHORT_DELAY
 } from '../../../../constants';
 import Scrollable from '../../../Helper/Scrollable/Scrollable';
 import { validLoginForm } from './LoginFormState';
@@ -49,23 +50,25 @@ export default function LoginMainBlock({...props}) {
             credentials,
             async (response) => {
                 if (response.data.status === RESPONSE_GOOD_STATUS) {
-                    stopLoading(); 
-                    await makePostRequest(
-                        LOGIN_CHECK_ROUTE,
-                        credentials,
-                        (response) => {
-                            const { token, refreshToken } = response.data; 
-                            setUserCookies(credentials.username, token, refreshToken); 
-                            setTimeout(() => {
-                                navigate(
-                                    `${AFTER_LOGIN_PAGE_URL}/${credentials.username}`,
-                                    { replace: true }
-                                );   
-                                resetResult();    
-                            }, EXTRA_SHORT_DELAY);                                                                                         
-                        }                    
-                    )  
-                }                              
+                    setTimeout(async () => {
+                        stopLoading(); 
+                        await makePostRequest(
+                            LOGIN_CHECK_ROUTE,
+                            credentials,
+                            (response) => {
+                                const { token, refreshToken } = response.data; 
+                                setUserCookies(credentials.username, token, refreshToken); 
+                                setTimeout(() => {
+                                    navigate(
+                                        `${AFTER_LOGIN_PAGE_URL}/${credentials.username}`,
+                                        { replace: true }
+                                    );   
+                                    resetResult();    
+                                }, EXTRA_SHORT_DELAY); 
+                            } 
+                        )  
+                    }, SHORT_DELAY);
+                } 
             }
         );
         stopLoading();

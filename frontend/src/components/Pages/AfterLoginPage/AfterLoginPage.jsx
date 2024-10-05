@@ -40,14 +40,16 @@ export default function AfterLoginPage({...props}) {
             location.pathname,
             async (response) => {
                 loadUser(response.data.user);
-                if (!aboutUser) {
-                    await makeGetRequest(
-                        location.pathname + GET_ABOUT_USER_ROUTE_END,
-                        (response) => {
-                            loadAboutUser(response.data.aboutUser)
-                        }
-                    );
-                }                
+                setTimeout(async ()=> {
+                    if (!aboutUser) {
+                        await makeGetRequest(
+                            location.pathname + GET_ABOUT_USER_ROUTE_END,
+                            (response) => {
+                                loadAboutUser(response.data.aboutUser)
+                            }
+                        );
+                    } 
+                }, SHORT_DELAY);
             },
             () => {
                 setTimeout(() => {
