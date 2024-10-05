@@ -4,6 +4,7 @@ import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout'
 import { NEW_ROOM_FORM_NAME, USERS_SEARCH_ROUTE } from '../../../constants';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import UsersCollection from '../../Collection/UsersCollection/UsersCollection';
+import RadioAsButton from '../../Helper/RadioAsButton/RadioAsButton';
 
 export default function NewRoomForm({formData,
                                      otherData,
@@ -12,14 +13,20 @@ export default function NewRoomForm({formData,
                                      handleCancel,
                                      ...props}) {
     const { resetResult, makePostRequest } = useResponseHandlerContext();
-    const [foundedUsers, setFoundedUsers] = useState({});
+    const [searchTag, setSearchTag] = useState('name'); // по умолчанию тег поиска стоит по имени
+    const [foundedUsers, setFoundedUsers] = useState({});    
     const [searchLine, setSearchLine] = useState('');
 
-    // обработка изменений в поле поиска
+    // обработка изменений в поле поиска пользователей для добавления
     const handleSearch = async (e) => {
         setSearchLine(e.target.value);
         updateUsers();
     } 
+
+    // обработка нажатия на радио кнопку тэга поиска
+    const handleSearchTag = async (e) => {
+        setSearchTag(e.target.value);
+    }
 
     // подгрузка пользователей при поиске    
     const updateUsers = async() => {    
@@ -49,7 +56,28 @@ export default function NewRoomForm({formData,
                     button={otherData.removeUserButton} />
 
                 {/*встроенный участок поиска и добавления пользователей*/} 
-                <h4>Поиск по имени и фамилии:</h4>
+                <h4>Поиск по</h4>
+                <RadioAsButton 
+                    id='username' 
+                    name='searchFilter'
+                    value='username'
+                    text='нику'
+                    compairTag={searchTag} 
+                    handleCompairTag={handleSearchTag} />
+                <RadioAsButton 
+                    id='name' 
+                    name='searchFilter'
+                    value='name'
+                    text='имени'
+                    compairTag={searchTag} 
+                    handleCompairTag={handleSearchTag} />
+                <RadioAsButton 
+                    id='secondname' 
+                    name='searchFilter'
+                    value='secondname'
+                    text='фамилии'
+                    compairTag={searchTag} 
+                    handleCompairTag={handleSearchTag} />                                
                 <input
                     type='text'
                     value={searchLine}
