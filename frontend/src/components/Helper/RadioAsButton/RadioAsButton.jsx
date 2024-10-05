@@ -5,11 +5,34 @@ export default function RadioAsButton({id,
                                        name, 
                                        value, 
                                        text, 
+                                       compairTag,
+                                       handleCompairTag,
                                        ...props}) {
-    return (
-        <div className={classes.RadioAsButton} {...props}>
-            <input id={id} type='radio' name={name} value={value} checked/>
-            <label for={id}>{text}</label>
-        </div>
-    )
+    if (value === compairTag) {
+        return (
+            <div className={classes.RadioAsButton} {...props}>
+                <input 
+                    id={id}
+                    type='radio' 
+                    name={name} 
+                    value={value} 
+                    onChange={handleCompairTag} 
+                    defaultChecked />
+                <label htmlFor={id}>{text}</label>
+            </div>
+        )
+    } else {
+        return (
+            <div className={classes.RadioAsButton}                
+                {...props}>
+                <input 
+                    id={id} 
+                    type='radio' 
+                    name={name} 
+                    value={value} 
+                    onChange={handleCompairTag} />
+                <label htmlFor={id}>{text}</label>
+            </div>
+        )
+    }
 }
