@@ -27,3 +27,8 @@ export const removeUserCookies = function() {
     cookies.remove(COOKIES_TOKEN);
     cookies.remove(COOKIES_REFRESH_TOKEN);
 }
+
+export const removeNavigationCookies = function() {
+    cookies.remove('lastBeforeLoginBlock');
+    cookies.remove('lastAfterLoginBlock');
+}
