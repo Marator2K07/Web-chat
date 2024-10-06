@@ -40,15 +40,7 @@ export default function BadResponse({message, ...props}) {
             </div> 
             {
                 message.holding &&                
-                <HorizontalLayout>
-                    {
-                        !message.closeTab &&
-                        <button type="button" onClick={
-                            () => toggleHolding(false)
-                            }>
-                            Вернуться
-                        </button>
-                    }                    
+                <HorizontalLayout>                                       
                     {
                         message.button &&
                         <button
@@ -62,6 +54,14 @@ export default function BadResponse({message, ...props}) {
                             {message.button.text}
                         </button>
                     }
+                    {
+                        !message.closeTab &&
+                        <button type="button" onClick={
+                            () => toggleHolding(false)
+                            }>
+                            Вернуться
+                        </button>
+                    } 
                 </HorizontalLayout>
             }
         </div>        
