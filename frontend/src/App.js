@@ -19,6 +19,7 @@ import {
     END_USER_RECOVERY_PAGE_URL,
     USER_ACTIVATION_PAGE_URL
 } from './constants';
+import { TipsProvider } from './contexts/TipsContext/TipsProvider';
 
 function App() {
     const location = useLocation();
@@ -29,6 +30,7 @@ function App() {
             <MainBlockAnimationProvider>
             <NavigationProvider>
             <ActionControlProvider>
+            <TipsProvider>
             <UserProvider>
             <AnimatePresence mode='wait' initial={false}>		
                 <Routes location={location} key={location.pathname}>                    
@@ -50,6 +52,7 @@ function App() {
                 </Routes>
             </AnimatePresence>
             </UserProvider>
+            </TipsProvider>
             </ActionControlProvider> 
             </NavigationProvider>
             </MainBlockAnimationProvider>	
