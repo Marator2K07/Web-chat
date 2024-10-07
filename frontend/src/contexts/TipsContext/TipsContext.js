@@ -26,7 +26,7 @@ export const useCreateTipsContext = function(props) {
         if (ref) {
             let rect = ref.current.getBoundingClientRect();
             setLeftCoordinate(rect.left);
-            setTopCoordinate(rect.top); 
+            setTopCoordinate(rect.top + rect.height); 
         }
     }, []);
 
