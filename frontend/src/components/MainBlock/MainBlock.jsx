@@ -9,10 +9,13 @@ import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider
 import { useMainBlockAnimationContext } from '../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 import { AFTER_LOGIN_PAGE_URL, COOKIES_TOKEN, COOKIES_USERNAME, SHORT_DELAY } from '../../constants';
 import { useNavigationContext } from '../../contexts/NavigationContext/NavigationProvider';
+import TipsBlock from '../TipsBlock/TipsBlock';
+import { useTipsContext } from '../../contexts/TipsContext/TipsProvider';
 
 export default function MainBlock({...props}) {
     const { currentBlock } = useNavigationContext();    
     const { x, opacity, duration } = useMainBlockAnimationContext();    
+    const { tips } = useTipsContext();
     const {
         holding,
         toggleHolding,
@@ -21,8 +24,13 @@ export default function MainBlock({...props}) {
     } = useLoadingContext();
     const navigate = useNavigate();
 
-    const animationStates = {
+    const animationLoadStates = {
         visible: {opacity: 1},
+        hidden: {opacity: 0}
+    }
+
+    const animationStatesForTips = {
+        visible: {opacity: 0.7},
         hidden: {opacity: 0}
     }
 
@@ -62,10 +70,16 @@ export default function MainBlock({...props}) {
                 <DynamicComponent component={currentBlock.path} />
             </motion.div>
             <motion.div
-                variants={animationStates}
+                variants={animationLoadStates}
                 transition={{ ease: "linear", duration: 0.4 }}
                 animate={holding ? "visible" : "hidden"}>
                 <LoadingBlock />
+            </motion.div>
+            <motion.div
+                variants={animationStatesForTips}
+                transition={{ ease: "linear", duration: 0.5 }}
+                animate={tips.length > 0 ? "visible" : "hidden"}>
+                <TipsBlock />
             </motion.div>
         </div>
     )
