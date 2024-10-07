@@ -19,80 +19,65 @@ export const formParamIsEmpty = (formName, paramName) => {
 }
 
 export const formParamNotSmall = (formName,
-                                  paramName,
-                                  userInfo,
-                                  setTips) => {
-    let formInput = document.forms[formName][paramName];
+                                  formParamName,
+                                  tipName,
+                                  tipInfo,
+                                  addTip,
+                                  removeTip) => {
+    let formInput = document.forms[formName][formParamName];
     if (formInput.value.length <= FORM_INPUT_MIN_TEXT_LENGTH) {
-        // пишем подсказку
-        setTips(prevState => ({
-            ...prevState,
-            [paramName]: userInfo
-        }))
+        addTip(tipName, tipInfo);
         return false;
     }    
-    // таким образом убираем подсказку
-    setTips(nextState => {
-        let {password, ...newTips} = nextState;
-        return newTips;
-    });      
+    removeTip(tipName);  
+    return true;
+}
 
 const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 export const passwordComplicated = (formName,
-                                    paramName,
+                                    formParamName,
+                                    tipName,
                                     tipInfo,
                                     addTip,
                                     removeTip) => {
-    let formInput = document.forms[formName][paramName];
+    let formInput = document.forms[formName][formParamName];
     if (!strongPasswordRegex.test(formInput.value)) {
-        addTip(paramName, tipInfo);
+        addTip(tipName, tipInfo);
         return false;
     }
-    removeTip(paramName);
+    removeTip(tipName);
     return true;
 }
 
 export const passwordIsRepeated = (formName,
-                                   formPassName,
-                                   formPassNameAgain,
-                                   userInfo,
-                                   setTips) => {
-    var passInput = document.forms[formName][formPassName];
-    var passAgainInput = document.forms[formName][formPassNameAgain];    
+                                   formParamName,
+                                   formParamAgain,
+                                   tipName,
+                                   tipInfo,
+                                   addTip,
+                                   removeTip) => {
+    var passInput = document.forms[formName][formParamName];
+    var passAgainInput = document.forms[formName][formParamAgain];    
     if (passInput.value !== passAgainInput.value) {
-        // пишем подсказку
-        setTips(prevState => ({
-            ...prevState,
-            [formPassNameAgain]: userInfo
-        }))
+        addTip(tipName, tipInfo);
         return false;
     }     
-    // таким образом убираем подсказку
-    setTips(nextState => {
-        let {passwordAgain, ...newTips} = nextState;
-        return newTips;
-    });
+    removeTip(tipName);
     return true;
 } 
 
 export const formEmailIsCorrect = (formName,
-                                   paramName,
-                                   userInfo,
-                                   setTips) => {
-    let formInput = document.forms[formName][paramName];
+                                   formParamName,
+                                   tipName,
+                                   tipInfo,
+                                   addTip,
+                                   removeTip) => {
+    let formInput = document.forms[formName][formParamName];
     if (!(/^\S+@\S+\.\S+$/.test(formInput.value))) {
-        // пишем подсказку
-        setTips(prevState => ({
-            ...prevState,
-            [paramName]: userInfo
-        }))
+        addTip(tipName, tipInfo);
         return false;
     }
-    // таким образом убираем подсказку
-    setTips(nextState => {
-        let {email, ...newTips} = nextState;
-        return newTips;
-    });
+    removeTip(tipName);
     return true;
 }
 
