@@ -1,12 +1,11 @@
 .TipsBlock {
     background-color: var(--background_menu_color);
-    border-top-left-radius: var(--border_radius);
-    border-bottom-left-radius: var(--border_radius);
+    border-top-right-radius: var(--border_radius);
     border-bottom-right-radius: var(--border_radius);
     position: absolute;
     min-width: max-content;
-    min-height: max-content;
+    max-height: var(--max_tips_block_height);
     pointer-events: none;
     z-index: var(--mini_menu_z_index);
-    opacity: 0.5;
+    overflow: hidden;
 }

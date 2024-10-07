@@ -34,7 +34,7 @@
   --min_height: 25vh;
   --max_width: 45vw;
   --max_height: 50vh;
-
+  --max_tips_block_height: 24vh;
   --max_height_scroll: 55vh;
 
   --responce_block_min_width: 10vw;
@@ -50,7 +50,7 @@
   --register_block_min_width: 25vw;
   --register_block_min_height: 35vh;
   --register_block_max_width: 35vw;
-  --register_block_max_height: 50vh;
+  --register_block_max_height: 55vh;
 
   --recovery_block_min_width: 25vw;
   --recovery_block_min_height: 30vh;
