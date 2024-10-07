@@ -15,10 +15,12 @@ import {
 import Scrollable from '../../../Helper/Scrollable/Scrollable';
 import { validLoginForm } from './LoginFormState';
 import LoginForm from '../../../Form/LoginForm/LoginForm';
+import { useMainBlockAnimationContext } from '../../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 
 export default function LoginMainBlock({...props}) {
     const { startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
+    const { shake } = useMainBlockAnimationContext();
     const navigate = useNavigate(); 
 
     // идентификационные данные формы
@@ -38,7 +40,7 @@ export default function LoginMainBlock({...props}) {
     // обработка формы
     async function handleSubmit(e) {
         e.preventDefault();        
-        if (!validLoginForm()) {
+        if (!validLoginForm(shake)) {
             return;
         }
         
