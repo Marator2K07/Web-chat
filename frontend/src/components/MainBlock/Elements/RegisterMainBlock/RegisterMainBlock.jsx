@@ -5,19 +5,22 @@ import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingPr
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { EXTRA_SHORT_DELAY, REGISTER_ROUTE } from '../../../../constants';
 import Scrollable from '../../../Helper/Scrollable/Scrollable';
-import TipsCollection from '../../../Collection/TipsCollection/TipsCollection';
 import {
     validEmail,
     validPassword,
     validPasswordAgain,
-    validRegisterForm
+    validRegisterForm,
+    validUsername
 } from './RegisterFormState';
 import RegistrationForm from '../../../Form/RegistrationForm/RegistrationForm';
+import { useTipsContext } from '../../../../contexts/TipsContext/TipsProvider';
+import { useMainBlockAnimationContext } from '../../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 
 export default function RegisterMainBlock({...props}) {
     const { startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
-    const [tips, setTips] = useState({}); // подсказки для пользователя
+    const { shake } = useMainBlockAnimationContext();
+    const { addTip, removeTip } = useTipsContext();
 
     // регистрационные данные
     const [credentials, setCredentials] = useState({ 
@@ -35,36 +38,42 @@ export default function RegisterMainBlock({...props}) {
         }); 
     }
 
+    // проверка спустя паузу корректности ввода имени аккаунта
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            credentials.username !== "" && validUsername(addTip, removeTip);       
+        }, EXTRA_SHORT_DELAY);
+        return () => clearTimeout(timeout)
+    }, [credentials.username, addTip, removeTip]);
+
     // проверка спустя паузу корректности ввода емайла
     useEffect(() => {
         const timeout = setTimeout(() => {
-            credentials.email !== "" && validEmail(setTips);       
+            credentials.email !== "" && validEmail(addTip, removeTip);       
         }, EXTRA_SHORT_DELAY);
         return () => clearTimeout(timeout)
-    }, [credentials.email])
+    }, [credentials.email, addTip, removeTip])
 
     // проверка спустя паузу корректности ввода пароля
     useEffect(() => {
         const timeout = setTimeout(() => {
-            credentials.password !== "" && validPassword(setTips);     
+            credentials.password !== "" && validPassword(addTip, removeTip);     
         }, EXTRA_SHORT_DELAY);
         return () => clearTimeout(timeout)
-    }, [credentials.password])
+    }, [credentials.password, addTip, removeTip])
 
     // проверка спустя паузу корректности ввода повтора пароля
     useEffect(() => {
         const timeout = setTimeout(() => {
-            credentials.passwordAgain !== "" &&
-                validPasswordAgain(setTips) &&
-                validPassword(setTips);                   
+            credentials.passwordAgain !== "" && validPasswordAgain(addTip, removeTip);
         }, EXTRA_SHORT_DELAY);
         return () => clearTimeout(timeout)
-    }, [credentials.passwordAgain])
+    }, [credentials.passwordAgain, addTip, removeTip])
 
     // обработка формы
     async function handleSubmit(e) { 
         e.preventDefault();        
-        if (!validRegisterForm(setTips)) {
+        if (!validRegisterForm(shake, addTip, removeTip)) {
             return;
         }
         
@@ -98,7 +107,6 @@ export default function RegisterMainBlock({...props}) {
                     formData={credentials}
                     handleChange={handleChange}
                     handleSubmit={handleSubmit} />
-                <TipsCollection tips={tips}/>  
             </Scrollable>                               
         </div>
     )
