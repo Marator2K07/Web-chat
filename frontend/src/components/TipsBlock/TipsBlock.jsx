@@ -1,10 +1,10 @@
 import React from 'react'
 import classes from './TipsBlock.module.css'
-import Scrollable from '../Helper/Scrollable/Scrollable'
 import { useTipsContext } from '../../contexts/TipsContext/TipsProvider';
+import TipsCollection from '../Collection/TipsCollection/TipsCollection';
 
 export default function TipsBlock({...props}) {
-    const { leftCoordinate, topCoordinate } = useTipsContext();
+    const { tips, leftCoordinate, topCoordinate } = useTipsContext();
 
     const componentStyle = {
         left: leftCoordinate,
@@ -15,14 +15,7 @@ export default function TipsBlock({...props}) {
         <div className={classes.TipsBlock}
             style={componentStyle} 
             {...props}>
-            <Scrollable>
-                <h3>Tips</h3>
-                <h3>Tips</h3>
-                <h3>Tips</h3>
-                <h3>Tips</h3>
-                <h3>Tips</h3>
-                <h3>Tips</h3>
-            </Scrollable>
+            <TipsCollection tips={tips} />
         </div>
     )
 }

@@ -9,4 +9,5 @@
     padding: var(--p_padding);
     border-top-right-radius: var(--border_radius);
     border-bottom-right-radius: var(--border_radius);
+    overflow: auto;
 }
