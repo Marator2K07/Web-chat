@@ -36,6 +36,19 @@ export const formParamNotSmall = (formName,
         let {password, ...newTips} = nextState;
         return newTips;
     });      
+
+const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+export const passwordComplicated = (formName,
+                                    paramName,
+                                    tipInfo,
+                                    addTip,
+                                    removeTip) => {
+    let formInput = document.forms[formName][paramName];
+    if (!strongPasswordRegex.test(formInput.value)) {
+        addTip(paramName, tipInfo);
+        return false;
+    }
+    removeTip(paramName);
     return true;
 }
 
