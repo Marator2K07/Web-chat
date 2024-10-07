@@ -18,36 +18,37 @@ export const useCreateTipsContext = function(props) {
     // таким образом убираем подсказку
     const removeTip = useCallback((property) => {
         setTips(nextState => {
-            let {property, ...newTips} = nextState;
+            let {[property]: prop, ...newTips} = nextState;
             return newTips;
         });
     }, []);
 
     // прикрепление расположения блока подсказок
     const newTipsCoordinates = useCallback((ref) => {
-        if (ref) {
-            setCurrentRef(ref);
-            let rect = ref.current.getBoundingClientRect();
-            setLeftCoordinate(rect.left);
-            setTopCoordinate(rect.top + rect.height); 
-        }
+        setTimeout(() => {
+            if (ref) {
+                setCurrentRef(ref.current);
+                let rect = ref.current.getBoundingClientRect();
+                setLeftCoordinate(rect.left);
+                setTopCoordinate(rect.top + rect.height); 
+            }
+        }, MOST_SHORT_DELAY*3); 
     }, []);
 
     // обновление расположения блока подсказок
     const updateTipsCoordinates = useCallback(() => {
-        setTimeout(() => {
+        let timeout = setTimeout(() => {
             if (currentRef) {
-                let rect = currentRef.current.getBoundingClientRect();
+                let rect = currentRef.getBoundingClientRect();
                 setLeftCoordinate(rect.left);
                 setTopCoordinate(rect.top + rect.height); 
             }
-        }, MOST_SHORT_DELAY*3);        
+        }, MOST_SHORT_DELAY*3); 
+        return () => clearTimeout(timeout);
     }, [currentRef]);
 
     // сброс состояния
     const resetState = useCallback(() => {
-        setLeftCoordinate(0);
-        setTopCoordinate(0);
         setTips({});
     }, []);
 
