@@ -15,7 +15,7 @@ import { useTipsContext } from '../../contexts/TipsContext/TipsProvider';
 export default function MainBlock({...props}) {
     const { currentBlock } = useNavigationContext();    
     const { x, y, opacity, duration } = useMainBlockAnimationContext();    
-    const { tips } = useTipsContext();
+    const { tips, updateTipsCoordinates } = useTipsContext();
     const {
         holding,
         toggleHolding,
@@ -30,8 +30,8 @@ export default function MainBlock({...props}) {
     }
 
     const animationStatesForTips = {
-        visible: {opacity: 0.7},
-        hidden: {opacity: 0.5}
+        visible: {opacity: 0.9},
+        hidden: {opacity: 0}
     }
 
     const smartNav = useCallback(() => {
@@ -60,7 +60,9 @@ export default function MainBlock({...props}) {
     }, [smartNav]); 
 
     return (
-        <div className={classes.MainBlock} {...props}>
+        <div className={classes.MainBlock}
+            onWheel={updateTipsCoordinates}
+            {...props}>
             <motion.div
                 animate={{ x: x, y: y, opacity: opacity }}
                 transition={{
@@ -77,8 +79,9 @@ export default function MainBlock({...props}) {
             </motion.div>
             <motion.div
                 variants={animationStatesForTips}
-                transition={{ ease: "linear", duration: 0.5 }}
-                animate={tips.length > 0 ? "visible" : "hidden"}>
+                transition={{ ease: "linear", duration: 0.2 }}
+                animate={Object.keys(tips).length > 0 ? "visible"
+                                                      : "hidden"}>
                 <TipsBlock />
             </motion.div>
         </div>

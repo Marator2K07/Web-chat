@@ -27,7 +27,6 @@ function App() {
 
     // при изменении размера страницы или же скроллинге, блок подсказок подстраивается
     window.addEventListener('resize', updateTipsCoordinates);
-    window.addEventListener('wheel', updateTipsCoordinates);
 
     return (    
         <div className="App">
