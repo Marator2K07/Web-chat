@@ -1,7 +1,8 @@
 import { useCallback, useState } from "react";
 
 export const useCreateTipsContext = function(props) {
-    const [activeInput, setActiveInput] = useState(null);
+    const [leftCoordinate, setLeftCoordinate] = useState(0);
+    const [topCoordinate, setTopCoordinate] = useState(0);
     const [tips, setTips] = useState({});
 
     // пишем подсказку
@@ -20,13 +21,19 @@ export const useCreateTipsContext = function(props) {
         });
     }, []);
 
-    const newActiveInput = useCallback((ref) => {
-        setActiveInput(ref);
+    // обновление расположения блока подсказок
+    const updateTipsCoordinates = useCallback((ref) => {
+        if (ref) {
+            let rect = ref.current.getBoundingClientRect();
+            setLeftCoordinate(rect.left);
+            setTopCoordinate(rect.top); 
+        }
     }, []);
 
     return { tips,
              addTip,
              removeTip,
-             activeInput,
-             newActiveInput };
+             topCoordinate,
+             leftCoordinate,
+             updateTipsCoordinates };
 }
