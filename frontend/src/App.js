@@ -19,10 +19,16 @@ import {
     END_USER_RECOVERY_PAGE_URL,
     USER_ACTIVATION_PAGE_URL
 } from './constants';
-import { TipsProvider } from './contexts/TipsContext/TipsProvider';
+import { useTipsContext } from './contexts/TipsContext/TipsProvider';
 
 function App() {
+    const { updateTipsCoordinates } = useTipsContext();
     const location = useLocation();
+
+    // при изменении размера страницы или же скроллинге, блок подсказок подстраивается
+    window.addEventListener('resize', updateTipsCoordinates);
+    window.addEventListener('wheel', updateTipsCoordinates);
+
     return (    
         <div className="App">
             <LoadingProvider>
@@ -30,7 +36,6 @@ function App() {
             <MainBlockAnimationProvider>
             <NavigationProvider>
             <ActionControlProvider>
-            <TipsProvider>
             <UserProvider>
             <AnimatePresence mode='wait' initial={false}>		
                 <Routes location={location} key={location.pathname}>                    
@@ -52,7 +57,6 @@ function App() {
                 </Routes>
             </AnimatePresence>
             </UserProvider>
-            </TipsProvider>
             </ActionControlProvider> 
             </NavigationProvider>
             </MainBlockAnimationProvider>	
