@@ -35,6 +35,8 @@
   --max_width: 45vw;
   --max_height: 50vh;
 
+  --max_height_scroll: 55vh;
+
   --responce_block_min_width: 10vw;
   --responce_block_min_height: 10vh;
   --responce_block_max_width: 30vw;

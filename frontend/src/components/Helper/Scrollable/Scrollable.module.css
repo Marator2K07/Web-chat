@@ -1,5 +1,5 @@
 .Scrollable {
-    max-height: var(--max_height);
+    max-height: var(--max_height_scroll);
     overflow: auto;
     overflow-x: hidden;
 }
