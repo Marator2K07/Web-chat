@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react'
 import classes from './StartRecoveryMainBlock.module.css'
 import Scrollable from '../../../Helper/Scrollable/Scrollable'
 import StartRecoveryForm from '../../../Form/StartRecoveryForm/StartRecoveryForm'
-import TipsCollection from '../../../Collection/TipsCollection/TipsCollection';
 import { EXTRA_SHORT_DELAY, START_RECOVERY_ROUTE } from '../../../../constants';
 import { validEmail, validStartRecoveryForm } from './StartRecoveryFormState';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
+import { useMainBlockAnimationContext } from '../../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
+import { useTipsContext } from '../../../../contexts/TipsContext/TipsProvider';
 
 export default function StartRecoveryMainBlock({...props}) {
     const { startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
-    const [tips, setTips] = useState({}); // подсказки для пользователя
+    const { shake } = useMainBlockAnimationContext();
+    const { addTip, removeTip } = useTipsContext();
 
     // данные формы
     const [recoveryInfo, setRecoveryInfo] = useState({
@@ -29,15 +31,15 @@ export default function StartRecoveryMainBlock({...props}) {
     // проверка спустя паузу корректности ввода емайла
     useEffect(() => {
         const timeout = setTimeout(() => {
-            recoveryInfo.email !== "" && validEmail(setTips);       
+            recoveryInfo.email !== "" && validEmail(addTip, removeTip);       
         }, EXTRA_SHORT_DELAY);
         return () => clearTimeout(timeout)
-    }, [recoveryInfo.email])
+    }, [recoveryInfo.email, addTip, removeTip])
 
     // обработка формы
     async function handleSubmit(e) {
         e.preventDefault();  
-        if (!validStartRecoveryForm(setTips)) {
+        if (!validStartRecoveryForm(shake, addTip, removeTip)) {
             return;
         }
 
@@ -59,7 +61,6 @@ export default function StartRecoveryMainBlock({...props}) {
                     formData={recoveryInfo}
                     handleEmailChange={handleEmailChange} 
                     handleSubmit={handleSubmit} />
-                <TipsCollection tips={tips}/>
             </Scrollable>            
         </div>
     )
