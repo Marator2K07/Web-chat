@@ -32,9 +32,7 @@ export function validUsername(addTip, removeTip) {
     );
 }
 
-export function validPassword(addTip, removeTip) {
-    console.log(addTip);
-    
+export function validPassword(addTip, removeTip) {    
     let passComplicated = passwordComplicated(
         END_RECOVERY_FORM_NAME,
         'password',
@@ -56,8 +54,6 @@ export function validPassword(addTip, removeTip) {
 }
 
 export function validPasswordAgain(addTip, removeTip) {
-
-    console.log(addTip);
     let passRepeated = passwordIsRepeated(
         END_RECOVERY_FORM_NAME,
         'password',
