@@ -1,17 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './RoomBlock.module.css'
 import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
-import { NEW_ROOM_ROUTE_END } from '../../constants';
+import { EXTRA_SHORT_DELAY, NEW_ROOM_ROUTE_END } from '../../constants';
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider';
 import RoomsView from '../View/RoomsView/RoomsView';
 import Scrollable from '../Helper/Scrollable/Scrollable';
 import NewRoomForm from '../Form/NewRoomForm/NewRoomForm';
 import { useLocation } from 'react-router-dom';
+import { validNewRoomForm, validRoomName } from './NewRoomFormState';
+import { useTipsContext } from '../../contexts/TipsContext/TipsProvider';
+import { useMainBlockAnimationContext } from '../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 
 export default function RoomBlock({...props}) {
     const { startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
+    const { shake } = useMainBlockAnimationContext();
+    const { addTip, removeTip } = useTipsContext();
     const [showRoomForm, setShowRoomForm] = useState(false);
+    
     const location = useLocation();
 
     // данные, связанные с формой создания новой комнаты-чата
@@ -78,24 +84,37 @@ export default function RoomBlock({...props}) {
     function handleAction() {
         setShowRoomForm(!showRoomForm);
     }
+
+    // проверка спустя паузу корректности ввода названия нового чата
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            newRoomForm.roomName !== "" &&
+                validRoomName(addTip, removeTip);     
+        }, EXTRA_SHORT_DELAY);
+        return () => clearTimeout(timeout)
+    }, [newRoomForm.roomName, addTip, removeTip])
     
-    // обработка формы...
+    // обработка формы
     async function handleSubmit(e) {
         e.preventDefault();
+        if (!validNewRoomForm(shake, addTip, removeTip)) {
+            return;
+        }
         
+        // основная часть
         if (showRoomForm) {
             startLoading();
             resetResult();
             await makePostRequest(
-                location.pathname + NEW_ROOM_ROUTE_END,
-                {
+                location.pathname + NEW_ROOM_ROUTE_END, {
                     roomName: newRoomForm.roomName,
+                    searchTag: newRoomForm.searchTag,
                     users: newRoomForm.selectedUsers
                 }
             )
             stopLoading();
+            setShowRoomForm(!showRoomForm);  
         }
-        setShowRoomForm(!showRoomForm);       
     }    
 
     return (
@@ -114,7 +133,7 @@ export default function RoomBlock({...props}) {
                           handleSearchTagChange={handleSearchTagChange}
                           handleSubmit={handleSubmit}
                           handleCancel={handleAction} />
-                }
+                } 
             </Scrollable> 
         </div>
     )
