@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import classes from './NewRoomForm.module.css'
 import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout'
 import { NEW_ROOM_FORM_NAME, USERS_SEARCH_ROUTE } from '../../../constants';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import UsersCollection from '../../Collection/UsersCollection/UsersCollection';
 import RadioAsButton from '../../Helper/RadioAsButton/RadioAsButton';
+import { useTipsContext } from '../../../contexts/TipsContext/TipsProvider';
 
 export default function NewRoomForm({formData,
                                      otherData,
@@ -16,6 +17,8 @@ export default function NewRoomForm({formData,
     const { resetResult, makePostRequest } = useResponseHandlerContext();
     const [foundedUsers, setFoundedUsers] = useState({});    
     const [searchLine, setSearchLine] = useState('');
+    const inputRoomNameRef = useRef(null);
+    const { newTipsCoordinates, resetState } = useTipsContext();
 
     // обработка изменений в поле поиска пользователей для добавления
     const handleSearch = async (e) => {
@@ -27,8 +30,10 @@ export default function NewRoomForm({formData,
     const updateUsers = async() => {    
         resetResult();
         await makePostRequest(
-            USERS_SEARCH_ROUTE,
-            { searchLine: searchLine },
+            USERS_SEARCH_ROUTE, {
+                searchTag: formData.searchTag,
+                searchLine: searchLine
+            },
             (response) => {
                 setFoundedUsers(response.data.users);        
             }
@@ -36,14 +41,19 @@ export default function NewRoomForm({formData,
     }
 
     return (
-        <div className={classes.NewRoomForm} {...props}>
+        <div className={classes.NewRoomForm}
+            onBlur={resetState}
+            {...props}>
             <form name={NEW_ROOM_FORM_NAME}>                
                 {/*участок формы создания чата*/} 
                 <h4>Название комнаты для общения:</h4>
                 <input
+                    ref={inputRoomNameRef}
                     type='text'
+                    name='roomName'
                     value={formData.newRoomName}
-                    onChange={handleRoomNameChange} />
+                    onChange={handleRoomNameChange}
+                    onFocus={() => newTipsCoordinates(inputRoomNameRef)} />
                 <h4>Участники:</h4>
                 <UsersCollection
                     users={formData.selectedUsers}
