@@ -26,6 +26,7 @@
   --down_block_width: 100vw;
 
   --mini_menu_z_index: 1000;
+  --tips_block_z_index: 500;
 
   --block_padding: 15px;
   --block_margin: 10px;
@@ -35,6 +36,7 @@
   --max_width: 45vw;
   --max_height: 50vh;
   --max_tips_block_height: 24vh;
+  --max_tips_width: 54vh;
   --max_height_scroll: 55vh;
 
   --responce_block_min_width: 10vw;
@@ -55,7 +57,7 @@
   --recovery_block_min_width: 25vw;
   --recovery_block_min_height: 30vh;
   --recovery_block_max_width: 32vw;
-  --recovery_block_max_height: 50vh;
+  --recovery_block_max_height: 55vh;
 
   --welcome_block_min_width: 20vw;
   --welcome_block_min_height: 30vh;

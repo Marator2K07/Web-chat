@@ -6,6 +6,6 @@
     min-width: max-content;
     max-height: var(--max_tips_block_height);
     pointer-events: none;
-    z-index: var(--mini_menu_z_index);
+    z-index: var(--tips_block_z_index);
     overflow: hidden;
 }
