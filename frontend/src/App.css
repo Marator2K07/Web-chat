@@ -66,10 +66,15 @@
 
   --personal_block_min_width: 16vw;
   --personal_block_min_height: 12vh;
-  --personal_block_max_width: 40vw;
-  --personal_block_max_height: 50vh;
+  --personal_block_max_width: 45vw;
+  --personal_block_max_height: 55vh;
   --personal_block_img_max_height: 46vh;
   --personal_block_img_max_width: 36vw;
+
+  --communication_block_min_width: 16vw;
+  --communication_block_min_height: 12vh;
+  --communication_block_max_width: 45vw;
+  --communication_block_max_height: 55vh;
 
   --border_width: 2px;
   --border_radius: 18px;

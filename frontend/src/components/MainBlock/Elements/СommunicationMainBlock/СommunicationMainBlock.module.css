@@ -1,10 +1,10 @@
 .СommunicationMainBlock {
     border: var(--border_width) solid var(--background_second_color);
     padding: var(--block_padding);
-    max-width: var(--max_width);
-    max-height: var(--max_height); 
-    min-width: var(--min_width);
-    min-height: var(--min_height);
+    max-width: var(--communication_block_max_width);
+    max-height: var(--communication_block_max_height); 
+    min-width: var(--communication_block_min_width);
+    min-height: var(--communication_block_min_height);
     box-shadow: 0px 0px var(--border_width) var(--border_width) var(--main_color);
     background-color: var(--background_second_color);
     border-radius: var(--border_radius);
