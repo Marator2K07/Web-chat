@@ -2,24 +2,27 @@ import React, { useEffect, useState } from 'react'
 import classes from './EndRecoveryMainBlock.module.css'
 import bcrypt from 'bcryptjs-react';
 import Scrollable from '../../../Helper/Scrollable/Scrollable'
-import EndRecoveryForm from '../../../Form/EndRecoveryForm/EndRecoveryForm'
-import TipsCollection from '../../../Collection/TipsCollection/TipsCollection';
+import EndRecoveryForm from '../../../Form/EndRecoveryForm/EndRecoveryForm';
 import { END_RECOVERY_ROUTE, EXTRA_SHORT_DELAY } from '../../../../constants';
 import {
     validEndRecoveryForm, 
     validPassword, 
-    validPasswordAgain
+    validPasswordAgain,
+    validUsername
 } from './EndRecoveryFormState';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
+import { useMainBlockAnimationContext } from '../../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
+import { useTipsContext } from '../../../../contexts/TipsContext/TipsProvider';
 
-// данный основной блок является эксклюзивным и доступен
+// данный основной блок является отдельным и доступен
 // только со страницы окончания восстановления аккаунта
 
 export default function EndRecoveryMainBlock({user, ...props}) {
     const { startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
-    const [tips, setTips] = useState({}); // подсказки для пользователя
+    const { shake } = useMainBlockAnimationContext();
+    const { addTip, removeTip } = useTipsContext();
 
     // новые данные аккаунта для восстановления
     const [recoveredUserData, setRecoveredUserData] = useState({ 
@@ -40,34 +43,44 @@ export default function EndRecoveryMainBlock({user, ...props}) {
     useEffect(() => {
         if (user) {            
             setRecoveredUserData({
+                ...recoveredUserData,
                 username: user.username
             }); 
-        }        
-    }, [user])
+        };    
+        // eslint-disable-next-line react-hooks/exhaustive-deps     
+    }, [user]);
+
+    // проверка спустя паузу корректности ввода нового никнейма
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            recoveredUserData.username !== "" &&
+                validUsername(addTip, removeTip);     
+        }, EXTRA_SHORT_DELAY);
+        return () => clearTimeout(timeout)
+    }, [recoveredUserData.username, addTip, removeTip])
 
     // проверка спустя паузу корректности ввода нового пароля
     useEffect(() => {
         const timeout = setTimeout(() => {
             recoveredUserData.password !== "" &&
-                validPassword(setTips);     
+                validPassword(addTip, removeTip);     
         }, EXTRA_SHORT_DELAY);
         return () => clearTimeout(timeout)
-    }, [recoveredUserData.password])
+    }, [recoveredUserData.password, addTip, removeTip])
 
     // проверка спустя паузу корректности ввода повтора пароля
     useEffect(() => {
         const timeout = setTimeout(() => {
             recoveredUserData.passwordAgain !== "" &&
-                validPasswordAgain(setTips) &&
-                validPassword(setTips);                   
+                validPasswordAgain(addTip, removeTip);           
         }, EXTRA_SHORT_DELAY);
         return () => clearTimeout(timeout)
-    }, [recoveredUserData.passwordAgain])
+    }, [recoveredUserData.passwordAgain, addTip, removeTip])
 
     // обработка формы
     const handleSubmit = async (e) => {
         e.preventDefault();        
-        if (!validEndRecoveryForm(setTips)) {
+        if (!validEndRecoveryForm(shake, addTip, removeTip)) {
             return;
         }
 
@@ -105,7 +118,6 @@ export default function EndRecoveryMainBlock({user, ...props}) {
                     formData={recoveredUserData}
                     handleChange={handleChange} 
                     handleSubmit={handleSubmit} />
-                <TipsCollection tips={tips} />
             </Scrollable>
         </div>
     )
