@@ -1,8 +1,9 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import classes from './UpdateAboutUserForm.module.css'
 import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout'
-import { UPDATE_ABOUT_USER_FORM_NAME } from '../../../constants'
+import { EXTRA_SHORT_DELAY, UPDATE_ABOUT_USER_FORM_NAME } from '../../../constants'
 import { useTipsContext } from '../../../contexts/TipsContext/TipsProvider';
+import { tipForSecondname } from '../../MainBlock/Elements/PersonalMainBlock/PersonalFormState';
 
 export default function UpdateAboutUserForm({formData,
                                              handleChange,
@@ -11,7 +12,17 @@ export default function UpdateAboutUserForm({formData,
                                              ...props}) {
     const inputSecondnameRef = useRef(null); 
     const { newTipsCoordinates, resetState } = useTipsContext();
-                            
+    const { addTip, removeTip } = useTipsContext();
+    const [secondnameInputFocus, setSecondnameInputFocus] = useState(false);
+                      
+    // простая подсказка для поля фамилии
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            tipForSecondname(addTip, removeTip, secondnameInputFocus);      
+        }, EXTRA_SHORT_DELAY);
+        return () => clearTimeout(timeout)
+    }, [addTip, removeTip, secondnameInputFocus]);
+
     return (
         <div className={classes.UpdateAboutUserForm}
             onBlur={resetState}
@@ -30,7 +41,11 @@ export default function UpdateAboutUserForm({formData,
                     name='secondname'
                     value={formData.secondname}
                     onChange={handleChange}
-                    onFocus={() => newTipsCoordinates(inputSecondnameRef)} />
+                    onFocus={() => {
+                        newTipsCoordinates(inputSecondnameRef)
+                        setSecondnameInputFocus(true) 
+                    }}
+                    onBlur={() => setSecondnameInputFocus(false)} />
                 <p>Дата рождения:</p>
                 <input
                     type='date'
