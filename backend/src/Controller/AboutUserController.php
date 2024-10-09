@@ -74,35 +74,32 @@ class AboutUserController extends AbstractController
                                       UserRepository $userRepository): JsonResponse
     {
         $user = $userRepository->findOneByUsernameField($username);  
-        $data = json_decode($request->getContent(), true);        
-        if (!$user) {
+        $aboutUser = $user->getAboutUser();
+        $data = json_decode($request->getContent(), true);
+        // предпроверка
+        if (!$user || !$aboutUser) {
             throw new HttpException(422, 'Не удалось обновить данные');
         }
-
-        $aboutUser = $user->getAboutUser();
-
+        // обработка имени пользователя
         $newName = $data['name'];         
         if ($newName !== "") {
             $aboutUser->setName($newName); 
         }
-
+        // обработка фамилии пользователя (может быть пустым)
         $newSecondName = $data['secondname'];
-        if ($newSecondName !== "") {
-            $aboutUser->setSecondname($newSecondName); 
-        }
-
+        $aboutUser->setSecondname($newSecondName); 
+        // обработка даты рождения 
         $newDateOfBirth = $data['dateOfBirth'];
         if ($newDateOfBirth !== "Invalid Date") {
             $aboutUser->setDateOfBirth(date_create($newDateOfBirth)); 
         }
-
+        // и наконец обработка аватарки пользователя
         $newImage = $data['image'];
         if ($newImage !== null) {
             $aboutUser->setImage(($newImage)); 
         }
-
+        // применение и возврат положительного результата
         $entityManager->flush();
-                   
         return new JsonResponse([
             'status' => 'Ok', 
             'main' => 'Данные успешно сохранены.',
