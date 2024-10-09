@@ -11,10 +11,12 @@ import UpdateAboutUserForm from '../../../Form/UpdateAboutUserForm/UpdateAboutUs
 import Scrollable from '../../../Helper/Scrollable/Scrollable';
 import { useLocation } from 'react-router-dom';
 import { validUpdateAboutUserForm } from './PersonalFormState';
+import { useMainBlockAnimationContext } from '../../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 
 export default function PersonalMainBlock({...props}) {
     const { startLoading, stopLoading } = useLoadingContext();	
     const { resetResult, makePostRequest } = useResponseHandlerContext();
+    const { shake } = useMainBlockAnimationContext();
     const { aboutUser, loadAboutUser } = useUserContext();    
     const [canBeChanged, setCanBeChanged] = useState(false);
     const location = useLocation();
@@ -49,7 +51,7 @@ export default function PersonalMainBlock({...props}) {
     async function handleSubmit(e) {
         e.preventDefault();
         // предпроверка перед отправкой запроса
-        if (!validUpdateAboutUserForm()) {
+        if (!validUpdateAboutUserForm(shake)) {
             return;
         }
 
