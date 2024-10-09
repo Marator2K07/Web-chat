@@ -11,10 +11,12 @@ import { SYNCHRONIZE_RECOVERY_ROUTE } from '../../../constants';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import TipsBlock from '../../TipsBlock/TipsBlock';
 import { useTipsContext } from '../../../contexts/TipsContext/TipsProvider';
+import { useMainBlockAnimationContext } from '../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 
 export default function EndRecoveryPage({...props}) {
     const { holding, startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
+    const { x, y, opacity, duration } = useMainBlockAnimationContext(); 
     const { tips } = useTipsContext();
     const [currentUser, setCurrentUser] = useState();
     const [searchParams] = useSearchParams(); // анализ переданных параметров в url
@@ -60,8 +62,15 @@ export default function EndRecoveryPage({...props}) {
                 <LoadingBlock />
             </motion.div>
             <Spacer sizeW='10px' sizeH='13%'/>
-            <h3>Восстановление аккаунта</h3>
-            <EndRecoveryMainBlock user={currentUser} />
+            <motion.div
+                animate={{ x: x, y: y, opacity: opacity }}
+                transition={{
+                    duration: duration,
+                    ease: [0.11, 0.9, 0.4, 1.11]
+                }}>
+                <h3>Восстановление аккаунта</h3>
+                <EndRecoveryMainBlock user={currentUser} />
+            </motion.div>
             <motion.div
                 variants={animationStatesForTips}
                 transition={{ ease: "linear", duration: 0.2 }}
