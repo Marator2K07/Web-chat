@@ -18,6 +18,19 @@ export const formParamIsEmpty = (formName, paramName) => {
     }
 }
 
+export const tipForInput = (tipName,
+                            tipInfo,
+                            addTip,
+                            removeTip,
+                            flag) => {
+    if (flag) {
+        addTip(tipName, tipInfo);
+        return false;
+    }    
+    removeTip(tipName);  
+    return true;
+};
+
 export const formParamNotSmall = (formName,
                                   formParamName,
                                   tipName,
