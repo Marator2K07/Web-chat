@@ -9,16 +9,24 @@ import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvi
 import { useSearchParams } from 'react-router-dom';
 import { SYNCHRONIZE_RECOVERY_ROUTE } from '../../../constants';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
+import TipsBlock from '../../TipsBlock/TipsBlock';
+import { useTipsContext } from '../../../contexts/TipsContext/TipsProvider';
 
 export default function EndRecoveryPage({...props}) {
     const { holding, startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
+    const { tips } = useTipsContext();
     const [currentUser, setCurrentUser] = useState();
     const [searchParams] = useSearchParams(); // анализ переданных параметров в url
 
     // состояния компонента загрузки
     const animationStates = {
         visible: {opacity: 1},
+        hidden: {opacity: 0}
+    }
+
+    const animationStatesForTips = {
+        visible: {opacity: 0.9},
         hidden: {opacity: 0}
     }
 
@@ -54,6 +62,13 @@ export default function EndRecoveryPage({...props}) {
             <Spacer sizeW='10px' sizeH='13%'/>
             <h3>Восстановление аккаунта</h3>
             <EndRecoveryMainBlock user={currentUser} />
+            <motion.div
+                variants={animationStatesForTips}
+                transition={{ ease: "linear", duration: 0.2 }}
+                animate={Object.keys(tips).length > 0 ? "visible"
+                                                      : "hidden"}>
+                <TipsBlock />
+            </motion.div>
             <Spacer sizeW='10px' sizeH='13%'/>
             <DownBlock />
         </div>
