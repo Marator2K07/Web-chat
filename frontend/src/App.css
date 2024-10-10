@@ -35,7 +35,8 @@
   --max_height: 50vh;
   --max_tips_block_height: 24vh;
   --max_tips_width: 54vh;
-  --max_height_scroll: 55vh;
+
+  --all_blocks_max_height: 50vh;
 
   --responce_block_min_width: 10vw;
   --responce_block_min_height: 10vh;
