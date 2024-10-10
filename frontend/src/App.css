@@ -36,26 +36,26 @@
   --max_tips_block_height: 24vh;
   --max_tips_width: 54vh;
 
-  --all_blocks_max_height: 50vh;
+  --all_blocks_max_height: 55vh;
 
   --responce_block_min_width: 10vw;
   --responce_block_min_height: 10vh;
   --responce_block_max_width: 30vw;
   --responce_block_max_height: 40vh;
 
-  --login_block_min_width: 20vw;
-  --login_block_min_height: 25vh;
+  --login_block_min_width: 23vw;
+  --login_block_min_height: fit-content;
   --login_block_max_width: 30vw;
   --login_block_max_height: 40vh;
 
-  --register_block_min_width: 25vw;
-  --register_block_min_height: 35vh;
+  --register_block_min_width: 22vw;
+  --register_block_min_height: fit-content;
   --register_block_max_width: 35vw;
   --register_block_max_height: 55vh;
 
   --recovery_block_min_width: 25vw;
-  --recovery_block_min_height: 30vh;
-  --recovery_block_max_width: 32vw;
+  --recovery_block_min_height: fit-content;
+  --recovery_block_max_width: 30vw;
   --recovery_block_max_height: 55vh;
 
   --welcome_block_min_width: 20vw;
