@@ -27,7 +27,7 @@ export default function AccountImageButton({...props}) {
                         setMenuOffset('btn', "miniMenu")
                     }}> 
                     <img src={`${window.location.origin}/DefUserIcon.png`} alt="" />
-                    <p>&#10094; &#10094; &#10094;</p>
+                    <p>&#10094;&#10094;</p>
                 </button> 
             </CSSTransition>
             <CSSTransition

@@ -15,15 +15,15 @@
   --warning_color: rgb(216, 220, 113);
   --error_color: rgb(223, 104, 129);
 
-  --top_block_height: 9vh;
-  --top_block_width: 100vw;
-  --top_block_offset: -36.5px;
+  --top_block_height: auto;
+  --top_block_width: 100%;
+  --top_block_offset: -36.3px;
 
   --main_block_height: 80.95vh;
   --main_block_width: 100vw;
 
-  --down_block_height: 9.4vh;
-  --down_block_width: 100vw;
+  --down_block_height: auto;
+  --down_block_width: 100%;
 
   --mini_menu_z_index: 1000;
   --tips_block_z_index: 500;
