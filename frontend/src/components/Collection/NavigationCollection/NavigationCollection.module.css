@@ -1,7 +1,9 @@
 .NavigationCollection {
+    background-color: var(--background_main_color);
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    margin-bottom: var(--top_block_offset);    
+    justify-content: center; 
+    height: var(--navigation_height);
+    padding-bottom: var(--navigation_bottom_padding);
 }

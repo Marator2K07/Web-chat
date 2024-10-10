@@ -16,11 +16,9 @@
   --error_color: rgb(223, 104, 129);
 
   --top_block_height: auto;
-  --top_block_width: 100%;
-  --top_block_offset: -36.3px;
 
-  --main_block_height: 80.95vh;
-  --main_block_width: 100vw;
+  --navigation_bottom_padding: 3px;
+  --navigation_height: auto;
 
   --down_block_height: auto;
   --down_block_width: 100%;
