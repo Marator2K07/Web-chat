@@ -1,7 +1,10 @@
 .Scrollable {
+    background-color: var(--background_second_color);
     max-height: var(--all_blocks_max_height);
+    border-radius: var(--border_radius);
     overflow: auto;
     overflow-x: hidden;
+    padding: var(--border_scrollable_width);
 }
 
 .Scrollable::-webkit-scrollbar {
