@@ -20,6 +20,7 @@ import {
     USER_ACTIVATION_PAGE_URL
 } from './constants';
 import { useTipsContext } from './contexts/TipsContext/TipsProvider';
+import { setMenuOffset } from './utils';
 
 function App() {
     const { updateTipsCoordinates } = useTipsContext();
@@ -27,6 +28,7 @@ function App() {
 
     // при изменении размера страницы или же скроллинге, блок подсказок подстраивается
     window.addEventListener('resize', updateTipsCoordinates);
+    window.addEventListener('resize', () => setMenuOffset('btn', "miniMenu"));
 
     return (    
         <div className="App">

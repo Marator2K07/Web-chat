@@ -95,13 +95,15 @@ export const formEmailIsCorrect = (formName,
 }
 
 export function setMenuOffset(idBtn, idMenu) {
-    const btnRect = document.getElementById(idBtn).getBoundingClientRect();
-    const menuElem = document.getElementById(idMenu);
-    menuElem.style.left = btnRect.left - 
-                          menuElem.getBoundingClientRect().width +
-                          btnRect.width + "px";   
-    menuElem.style.top = btnRect.top +                         
-                         btnRect.height - 2 + "px";                          
+    let btnElem = document.getElementById(idBtn);
+    let menuElem = document.getElementById(idMenu);
+    if (btnElem && menuElem) {
+        menuElem.style.left = btnElem.getBoundingClientRect().left - 
+                            menuElem.getBoundingClientRect().width +
+                            btnElem.getBoundingClientRect().width + "px";   
+        menuElem.style.top = btnElem.getBoundingClientRect().top + 
+                            btnElem.getBoundingClientRect().height - 2 + "px";    
+    } 
 }
 
 export function getElementWidthById(elemId) {
