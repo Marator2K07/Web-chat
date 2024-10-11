@@ -60,6 +60,11 @@
   --recovery_block_max_width: 30vw;
   --recovery_block_max_height: 55vh;
 
+  --getting_started_block_min_width: 20vw;
+  --getting_started_block_min_height: fit-content;
+  --getting_started_block_max_width: 33vw;
+  --getting_started_block_max_height: 55vh;
+
   --welcome_block_min_width: 20vw;
   --welcome_block_min_height: 30vh;
   --welcome_block_max_width: 35vw;

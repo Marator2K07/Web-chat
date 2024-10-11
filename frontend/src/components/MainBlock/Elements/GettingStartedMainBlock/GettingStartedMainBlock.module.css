@@ -1,0 +1,20 @@
+.GettingStartedMainBlock {
+    border: var(--border_width) solid var(--background_second_color);
+    padding: var(--block_padding);
+    max-width: var(--getting_started_block_max_width);
+    max-height: var(--getting_started_block_max_height); 
+    min-width: var(--getting_started_min_width);
+    min-height: var(--getting_started_min_height);
+    box-shadow: 0px 0px var(--border_width) var(--border_width) var(--main_color);
+    background-color: var(--background_second_color);
+    border-radius: var(--border_radius);
+}
+
+.GettingStartedMainBlock h2 {
+    color: var(--second_color);
+    font-weight: var(--h2_font_weight);
+    font-family: var(--h2_font_family);
+    font-size: var(--h2_font_size);
+    margin: var(--h2_margin);
+    padding: var(--h2_padding);
+}
