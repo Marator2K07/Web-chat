@@ -1,4 +1,5 @@
 .MainBlock {
+    position: relative;
     background-color:var(--background_main_color);
     flex-grow: 1;
     display: flex;

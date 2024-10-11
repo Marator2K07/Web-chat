@@ -4,6 +4,7 @@ import ResponseError from '../Response/ResponseError/ResponseError'
 import OkResponse from '../Response/OkResponse/OkResponse'
 import BadResponse from '../Response/BadResponse/BadResponse'
 import Scrollable from '../Helper/Scrollable/Scrollable';
+import Spacer from '../Helper/Spacer/Spacer';
 import { Spin } from 'antd'
 import { SyncOutlined } from '@ant-design/icons'
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider'
@@ -77,7 +78,8 @@ export default function LoadingBlock({...props}) {
                 response.data.status === RESPONSE_BAD_STATUS &&
                 <BadResponse message={response.data} />
             }
-            </Scrollable>
+            </Scrollable> 
+            <Spacer sizeH='5%' />           
         </div>
     )
 }
