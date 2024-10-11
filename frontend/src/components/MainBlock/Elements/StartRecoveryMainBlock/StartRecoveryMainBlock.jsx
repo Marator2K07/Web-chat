@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import classes from './StartRecoveryMainBlock.module.css'
-import Scrollable from '../../../Helper/Scrollable/Scrollable'
-import StartRecoveryForm from '../../../Form/StartRecoveryForm/StartRecoveryForm'
+import classes from './StartRecoveryMainBlock.module.css';
+import StartRecoveryForm from '../../../Form/StartRecoveryForm/StartRecoveryForm';
 import { EXTRA_SHORT_DELAY, START_RECOVERY_ROUTE } from '../../../../constants';
 import { validEmail, validStartRecoveryForm } from './StartRecoveryFormState';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
@@ -56,12 +55,10 @@ export default function StartRecoveryMainBlock({...props}) {
 
     return (
         <div className={classes.StartRecoveryMainBlock} {...props}>
-            <Scrollable>
-                <StartRecoveryForm
-                    formData={recoveryInfo}
-                    handleEmailChange={handleEmailChange} 
-                    handleSubmit={handleSubmit} />
-            </Scrollable>            
+            <StartRecoveryForm
+                formData={recoveryInfo}
+                handleEmailChange={handleEmailChange} 
+                handleSubmit={handleSubmit} />        
         </div>
     )
 }

@@ -4,7 +4,6 @@ import classes from './RegisterMainBlock.module.css'
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { EXTRA_SHORT_DELAY, REGISTER_ROUTE } from '../../../../constants';
-import Scrollable from '../../../Helper/Scrollable/Scrollable';
 import {
     validEmail,
     validPassword,
@@ -102,12 +101,10 @@ export default function RegisterMainBlock({...props}) {
 
     return (  
         <div className={classes.RegisterMainBlock} {...props}>
-            <Scrollable>
-                <RegistrationForm
-                    formData={credentials}
-                    handleChange={handleChange}
-                    handleSubmit={handleSubmit} />
-            </Scrollable>                               
+            <RegistrationForm
+                formData={credentials}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit} />                          
         </div>
     )
 }

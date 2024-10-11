@@ -12,7 +12,6 @@ import {
     RESPONSE_GOOD_STATUS,
     SHORT_DELAY
 } from '../../../../constants';
-import Scrollable from '../../../Helper/Scrollable/Scrollable';
 import { validLoginForm } from './LoginFormState';
 import LoginForm from '../../../Form/LoginForm/LoginForm';
 import { useMainBlockAnimationContext } from '../../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
@@ -78,12 +77,10 @@ export default function LoginMainBlock({...props}) {
 
     return (
         <div className={classes.LoginMainBlock} {...props}>
-            <Scrollable>
-                <LoginForm 
-                    formData={credentials}
-                    handleChange={handleChange}
-                    handleSubmit={handleSubmit} />
-            </Scrollable>                
+            <LoginForm 
+                formData={credentials}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit} />            
         </div>
     )
 }
