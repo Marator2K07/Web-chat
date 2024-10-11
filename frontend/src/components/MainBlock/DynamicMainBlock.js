@@ -9,6 +9,7 @@ import NewsMainBlock from "./Elements/NewsMainBlock/NewsMainBlock";
 import OtherUserMainBlock from "./Elements/OtherUserMainBlock/OtherUserMainBlock";
 import InitMainBlock from "./Elements/InitMainBlock/InitMainBlock";
 import StartRecoveryMainBlock from "./Elements/StartRecoveryMainBlock/StartRecoveryMainBlock";
+import GettingStartedMainBlock from "./Elements/GettingStartedMainBlock/GettingStartedMainBlock";
 
 // основные страницы/блоки приложения
 const components = {
@@ -16,6 +17,7 @@ const components = {
     login: LoginMainBlock,
     register: RegisterMainBlock,
     recovery: StartRecoveryMainBlock,
+    gettingStarted: GettingStartedMainBlock,
     welcome: WelcomeMainBlock,
     personal: PersonalMainBlock,
     communication: СommunicationMainBlock, 

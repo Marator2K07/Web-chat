@@ -46,7 +46,7 @@ export const ONE_MONTH_AGE = 2592000;
 export const BEFORE_LOGIN_PAGE_START_INDEX = 1;
 export const BEFORE_LOGIN_PAGE_BLOCKS_COUNT = 3;
 export const AFTER_LOGIN_PAGE_START_INDEX = 4;
-export const AFTER_LOGIN_PAGE_BLOCKS_COUNT = 4;
+export const AFTER_LOGIN_PAGE_BLOCKS_COUNT = 5;
 
 export const DATE_FORMAT = "YYYY-MM-DD"
 

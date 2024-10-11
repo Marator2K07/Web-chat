@@ -9,10 +9,11 @@ export const useCreateNavigationContext = function() {
         loginBlock: { path: 'login', description: 'Вход в аккаунт', index: 0 },
         registerBlock: { path: 'register', description: 'Регистрация', index: 1 },
         recoveryBlock: { path: 'recovery', description: 'Восстановление', index: 2 },
-        welcomeBlock: { path: 'welcome', description: 'Добро пожаловать', index: 3 },
-        personalBlock: { path: 'personal', description: 'Личная страница', index: 4 },
-        communicationBlock: { path: 'communication', description: 'Общение', index: 5 },
-        newsBlock: { path: 'news', description: 'Новости', index: 6 },
+        gettingStartedBlock: { path: 'gettingStarted', description: 'Ознакомление', index: 3 },
+        welcomeBlock: { path: 'welcome', description: 'Добро пожаловать', index: 4 },
+        personalBlock: { path: 'personal', description: 'Личная страница', index: 5 },
+        communicationBlock: { path: 'communication', description: 'Общение', index: 6 },
+        newsBlock: { path: 'news', description: 'Новости', index: 7 },
         otherUserBlock: { path: 'otherUser', description: 'Другой пользователь', index: 11 }
     }) 
     const { initCondition, leftCondition, rightCondition } = useMainBlockAnimationContext();
