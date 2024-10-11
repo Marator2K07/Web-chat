@@ -3,6 +3,7 @@ import classes from './LoadingBlock.module.css'
 import ResponseError from '../Response/ResponseError/ResponseError'
 import OkResponse from '../Response/OkResponse/OkResponse'
 import BadResponse from '../Response/BadResponse/BadResponse'
+import Scrollable from '../Helper/Scrollable/Scrollable';
 import { Spin } from 'antd'
 import { SyncOutlined } from '@ant-design/icons'
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider'
@@ -41,7 +42,9 @@ export default function LoadingBlock({...props}) {
     return (
         <div style={holding ? enablePointerEvents
                             : disablePointerEvents}
-            className={classes.LoadingBlock} {...props}>   
+            className={classes.LoadingBlock}
+            {...props}> 
+            <Scrollable>
             {
                 loading && 
                 <Spin
@@ -74,6 +77,7 @@ export default function LoadingBlock({...props}) {
                 response.data.status === RESPONSE_BAD_STATUS &&
                 <BadResponse message={response.data} />
             }
+            </Scrollable>
         </div>
     )
 }
