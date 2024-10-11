@@ -88,9 +88,13 @@
   --communication_block_max_height: 55vh;
 
   --border_width: 2px;
-  --border_scrollable_width: 3px;
   --border_radius: 18px;
   --border_radius_small: 9px;
+
+  --scrollable_padding_top: 20px;
+  --scrollable_padding_down: 20px;
+  --scrollable_padding_right: 8px;
+  --scrollable_padding_left: 4px;
   
   --h2_font_family: DejaVu Sans Mono, monospace;
   --h2_font_weight: 500;
