@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { MOST_SHORT_DELAY } from "../../constants";
+import { MOST_SHORT_DELAY, TIPS_OFFSET_FACTOR } from "../../constants";
 
 export const useCreateTipsContext = function(props) {
     const [currentRef, setCurrentRef] = useState(null);
@@ -30,7 +30,7 @@ export const useCreateTipsContext = function(props) {
                 setCurrentRef(ref.current);
                 let rect = ref.current.getBoundingClientRect();
                 setLeftCoordinate(rect.left);
-                setTopCoordinate(rect.top + rect.height); 
+                setTopCoordinate(rect.bottom - rect.height*TIPS_OFFSET_FACTOR); 
             }
         }, MOST_SHORT_DELAY*3); 
     }, []);
@@ -41,7 +41,7 @@ export const useCreateTipsContext = function(props) {
             if (currentRef) {
                 let rect = currentRef.getBoundingClientRect();
                 setLeftCoordinate(rect.left);
-                setTopCoordinate(rect.top + rect.height); 
+                setTopCoordinate(rect.top - rect.height*TIPS_OFFSET_FACTOR); 
             }
         }, MOST_SHORT_DELAY*3); 
         return () => clearTimeout(timeout);

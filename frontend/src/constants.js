@@ -74,3 +74,5 @@ export const RESPONSE_BAD_STATUS = "Bad";
 export const COOKIES_USERNAME = "username";
 export const COOKIES_TOKEN = "token";
 export const COOKIES_REFRESH_TOKEN = "refreshToken";
+
+export const TIPS_OFFSET_FACTOR = 3.4;
