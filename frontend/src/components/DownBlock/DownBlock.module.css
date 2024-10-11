@@ -5,6 +5,7 @@
     font-size: var(--p_font_size);
     font-family: var(--p_font_family);
     max-height: var(--down_block_height);
+    width: var(--down_block_width);
     z-index: var(--down_block_z_index);
     text-align: center;
     display: flex;

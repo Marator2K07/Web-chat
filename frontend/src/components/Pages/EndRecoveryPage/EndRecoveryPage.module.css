@@ -1,11 +1,10 @@
 .EndRecoveryPage {
     background-color: var(--background_main_color);
-    width: var(--user_activation_page_width);
     height: var(--user_activation_page_height);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content:space-between
+    justify-content: space-between;
 }
 
 .EndRecoveryPage form {
