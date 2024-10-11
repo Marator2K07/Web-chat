@@ -12,4 +12,7 @@
     justify-content: space-evenly;
     align-items: center;
     border-top: var(--border_width) solid var(--main_color);
+    box-shadow: 0px var(--down_block_shadow_offset) 
+    var(--down_block_shadow_size) var(--down_block_shadow_size)
+    var(--background_main_color);
 }

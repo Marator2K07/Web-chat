@@ -16,14 +16,19 @@
   --error_color: rgb(223, 104, 129);
 
   --top_block_height: auto;
-  --top_block_z_index: 250;
+  --top_block_z_index: 275;
 
   --navigation_bottom_padding: 3px;
   --navigation_height: auto;
+  --navigation_z_index: 250;
+  --navigation_shadow_offset: 2vh;
+  --navigation_shadow_size: 3vh;
 
   --down_block_height: auto;
   --down_block_width: 100%;
   --down_block_z_index: 250;
+  --down_block_shadow_offset: -2vh;
+  --down_block_shadow_size: 3vh;
 
   --mini_menu_z_index: 1000;
   --tips_block_z_index: 500;
