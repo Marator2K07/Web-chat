@@ -95,6 +95,10 @@
   --scrollable_padding_down: 20px;
   --scrollable_padding_right: 8px;
   --scrollable_padding_left: 4px;
+
+  --scrollable_horizontal_padding_bottom: 5px;
+  --scrollable_horizontal_padding_right: 2px;
+  --scrollable_horizontal_padding_left: 2px;
   
   --h2_font_family: DejaVu Sans Mono, monospace;
   --h2_font_weight: 500;

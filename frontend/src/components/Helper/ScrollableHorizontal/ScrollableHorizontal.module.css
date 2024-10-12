@@ -1,0 +1,20 @@
+.ScrollableHorizontal {
+    display: flex;
+    background-color: var(--background_main_color);
+    min-height: fit-content;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: var(--scrollable_horizontal_padding_bottom);
+    padding-left: var(--scrollable_horizontal_padding_left);
+    padding-right: var(--scrollable_horizontal_padding_right);
+}
+
+.ScrollableHorizontal::-webkit-scrollbar {
+    height: 10px;
+    background-color: var(--background_second_color);    
+}
+
+.ScrollableHorizontal::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    border: 2px solid var(--main_color);
+}
