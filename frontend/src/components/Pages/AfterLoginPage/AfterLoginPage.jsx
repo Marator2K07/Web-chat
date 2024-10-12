@@ -69,7 +69,7 @@ export default function AfterLoginPage({...props}) {
         if (lastMainBlock) {
             goNavigationWithAnimation(lastMainBlock);
         } else {
-            goNavigationWithAnimation(navigationBlocks.welcomeBlock)
+            goNavigationWithAnimation(navigationBlocks.gettingStartedBlock);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
