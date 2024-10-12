@@ -1,5 +1,4 @@
-.СommunicationMainBlock {
-    border: var(--border_width) solid var(--background_second_color);
+.СommunicationMainBlock {    
     padding: var(--block_padding);
     max-width: var(--communication_block_max_width);
     max-height: var(--communication_block_max_height); 

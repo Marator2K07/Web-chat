@@ -4,7 +4,6 @@ import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext
 import { EXTRA_SHORT_DELAY, NEW_ROOM_ROUTE_END } from '../../constants';
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider';
 import RoomsView from '../View/RoomsView/RoomsView';
-import Scrollable from '../Helper/Scrollable/Scrollable';
 import NewRoomForm from '../Form/NewRoomForm/NewRoomForm';
 import { useLocation } from 'react-router-dom';
 import { validNewRoomForm, validRoomName } from './NewRoomFormState';
@@ -119,22 +118,20 @@ export default function RoomBlock({...props}) {
 
     return (
         <div className={classes.RoomBlock} {...props}>
-            <Scrollable>            
-                <h3> {!showRoomForm ? 'Текущие чаты'
-                                    : 'Создание нового чата'} 
-                </h3>
-                {
-                    !showRoomForm 
+            <h3> {!showRoomForm ? 'Текущие чаты'
+                                : 'Создание нового чата'}
+            </h3>
+            {
+                !showRoomForm
                     ? <RoomsView handleAction={handleAction} />
                     : <NewRoomForm
-                          formData={newRoomForm}
-                          otherData={userHandlerButtons}
-                          handleRoomNameChange={handleRoomNameChange}
-                          handleSearchTagChange={handleSearchTagChange}
-                          handleSubmit={handleSubmit}
-                          handleCancel={handleAction} />
-                } 
-            </Scrollable> 
+                        formData={newRoomForm}
+                        otherData={userHandlerButtons}
+                        handleRoomNameChange={handleRoomNameChange}
+                        handleSearchTagChange={handleSearchTagChange}
+                        handleSubmit={handleSubmit}
+                        handleCancel={handleAction} />
+            }
         </div>
     )
 }

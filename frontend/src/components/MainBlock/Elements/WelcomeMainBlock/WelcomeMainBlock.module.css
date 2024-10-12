@@ -1,5 +1,4 @@
 .WelcomeMainBlock {
-    border: var(--border_width) solid var(--background_second_color);
     padding: var(--block_padding);
     max-width: var(--welcome_block_max_width);
     max-height: var(--welcome_block_max_height); 

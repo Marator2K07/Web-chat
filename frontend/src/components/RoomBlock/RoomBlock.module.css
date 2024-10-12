@@ -1,6 +1,4 @@
 .RoomBlock {
-    min-width: var(--min_width);
-    min-height: var(--min_height);
     background-color: var(--background_second_color);
 }
 

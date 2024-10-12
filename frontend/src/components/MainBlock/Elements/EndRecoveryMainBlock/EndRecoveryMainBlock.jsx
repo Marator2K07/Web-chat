@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import classes from './EndRecoveryMainBlock.module.css'
 import bcrypt from 'bcryptjs-react';
-import Scrollable from '../../../Helper/Scrollable/Scrollable'
 import EndRecoveryForm from '../../../Form/EndRecoveryForm/EndRecoveryForm';
 import { END_RECOVERY_ROUTE, EXTRA_SHORT_DELAY } from '../../../../constants';
 import {
@@ -113,12 +112,10 @@ export default function EndRecoveryMainBlock({user, ...props}) {
     
     return (
         <div className={classes.EndRecoveryMainBlock} {...props}>
-            <Scrollable>
-                <EndRecoveryForm
-                    formData={recoveredUserData}
-                    handleChange={handleChange} 
-                    handleSubmit={handleSubmit} />
-            </Scrollable>
+            <EndRecoveryForm
+                formData={recoveredUserData}
+                handleChange={handleChange} 
+                handleSubmit={handleSubmit} />
         </div>
     )
 }

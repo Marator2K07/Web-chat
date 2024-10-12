@@ -8,7 +8,6 @@ import { convertBlobToBase64 } from '../../../../utils';
 import AboutUserView from '../../../View/AboutUserView/AboutUserView';
 import dayjs from 'dayjs';
 import UpdateAboutUserForm from '../../../Form/UpdateAboutUserForm/UpdateAboutUserForm';
-import Scrollable from '../../../Helper/Scrollable/Scrollable';
 import { useLocation } from 'react-router-dom';
 import { validUpdateAboutUserForm } from './PersonalFormState';
 import { useMainBlockAnimationContext } from '../../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
@@ -76,18 +75,16 @@ export default function PersonalMainBlock({...props}) {
 
     return (	
         <div className={classes.PersonalMainBlock} {...props}>
-            <Scrollable>
-                {                
-                    canBeChanged ? 
-                    <UpdateAboutUserForm
-                        formData={aboutUserFromForm}
-                        handleChange={handleChange}
-                        handleSubmit={handleSubmit}
-                        handleCancel={handleAction} />				
-                    : 				
-                    <AboutUserView handleAction={handleAction} />
-                }    
-            </Scrollable>                  
+            { 
+                canBeChanged ? 
+                <UpdateAboutUserForm
+                    formData={aboutUserFromForm}
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                    handleCancel={handleAction} />				
+                : 				
+                <AboutUserView handleAction={handleAction} />
+            }              
         </div>
 	)              
 }
