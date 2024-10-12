@@ -1,0 +1,13 @@
+.NameValueMiniBlock {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border-radius: var(--border_radius);
+    width: fit-content;
+    border: var(--border_width) solid var(--background_menu_color);
+}
+
+.NameValueMiniBlock h4, .NameValueMiniBlock p {
+    padding: 0 0 0 5px;
+    margin: 2px;
+}

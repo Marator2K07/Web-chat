@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { cookies } from '../../../contexts/CookieContext';
 import { COOKIES_USERNAME, DATE_FORMAT } from '../../../constants';
 import dayjs from 'dayjs';
+import NameValueLine from '../../Helper/NameValueLine/NameValueLine';
 
 export default function AboutUserView({handleAction, ...props}) {
     const { aboutUser, loadAboutUser } = useUserContext();
@@ -22,14 +23,12 @@ export default function AboutUserView({handleAction, ...props}) {
                         : <img 
                             src={aboutUser.image}
                             alt="Not found" />
-                }            
-                <div>                        
-                    <h4>Имя:</h4>
-                    <p>
-                        {aboutUser.name ? aboutUser.name
-                                        : 'Не задано'}
-                    </p>
-                </div>
+                }  
+                <NameValueLine 
+                    name='Имя:'
+                    value={aboutUser.name ? aboutUser.name
+                                          : 'Не задано'} />          
+
                 <div>
                     <h4>Фамилия:</h4>
                     <p>
