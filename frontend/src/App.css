@@ -45,10 +45,10 @@
 
   --all_blocks_max_height: 60vh;
 
-  --responce_block_min_width: fit-content;
+  --responce_block_min_width: 24vw;
   --responce_block_min_height: fit-content;
-  --responce_block_max_width: 31vw;
-  --responce_block_max_height: fit-content;
+  --responce_block_max_width: 32vw;
+  --responce_block_max_height: 40vh;
 
   --login_block_min_width: 23vw;
   --login_block_min_height: fit-content;

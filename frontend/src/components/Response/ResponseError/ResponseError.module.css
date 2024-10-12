@@ -8,11 +8,9 @@
     min-height: var(--responce_block_min_height);
     max-width: var(--responce_block_max_width);
     max-height: var(--responce_block_max_height);
-    white-space: wrap;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;    
+    align-items: flex-start; 
 }
 
 .ResponseError button {
@@ -48,4 +46,7 @@
     margin: var(--p_margin);    
     padding: var(--p_padding);
     color: var(--third_color);
+    max-width: var(--responce_block_max_width);
+    word-wrap: break-word;
+    white-space: pre-wrap;
 }
