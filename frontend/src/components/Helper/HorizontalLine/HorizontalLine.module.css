@@ -1,0 +1,4 @@
+.HorizontalLine {
+    display: flex;
+    flex-direction: row;
+}
