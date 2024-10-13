@@ -7,6 +7,7 @@
     padding-bottom: var(--scrollable_horizontal_padding_bottom);
     padding-left: var(--scrollable_horizontal_padding_left);
     padding-right: var(--scrollable_horizontal_padding_right);
+    user-select: none;
 }
 
 .ScrollableHorizontal::-webkit-scrollbar {
