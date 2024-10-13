@@ -28,13 +28,13 @@ export default function UpdateAboutUserForm({formData,
             onBlur={resetState}
             {...props}>
             <form name={UPDATE_ABOUT_USER_FORM_NAME}>
-                <p>Имя:</p>
+                <h4>Имя:</h4>
                 <input
                     type='name'
                     name='name'
                     value={formData.name}
                     onChange={handleChange} />
-                <p>Фамилия:</p>
+                <h4>Фамилия:</h4>
                 <input
                     ref={inputSecondnameRef}
                     type='text'
@@ -46,20 +46,20 @@ export default function UpdateAboutUserForm({formData,
                         setSecondnameInputFocus(true) 
                     }}
                     onBlur={() => setSecondnameInputFocus(false)} />
-                <p>Дата рождения:</p>
+                <h4>Дата рождения:</h4>
                 <input
                     type='date'
                     name='dateOfBirth'
                     value={formData.dateOfBirth}
                     onChange={handleChange} />
-                <p>Аватарка:</p>
+                <h4>Аватарка:</h4>
                 <input
                     type='file'
                     name='image'
                     onInput={handleChange} />
                 <HorizontalLayout>
                     <button type='button' onClick={handleSubmit}>
-                        Применить изменения
+                        Применить
                     </button>
                     <button type='button' onClick={handleCancel}>
                         Назад

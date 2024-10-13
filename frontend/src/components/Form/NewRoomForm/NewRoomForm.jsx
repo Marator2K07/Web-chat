@@ -46,7 +46,7 @@ export default function NewRoomForm({formData,
             {...props}>
             <form name={NEW_ROOM_FORM_NAME}>                
                 {/*участок формы создания чата*/} 
-                <h4>Название комнаты для общения:</h4>
+                <h4>Название комнаты:</h4>
                 <input
                     ref={inputRoomNameRef}
                     type='text'
@@ -57,7 +57,7 @@ export default function NewRoomForm({formData,
                 <h4>Участники:</h4>
                 <UsersCollection
                     users={formData.selectedUsers}
-                    clue={'...Нет никого кроме вас...'}
+                    clue={'...Пока только вы...'}
                     button={otherData.removeUserButton} />
 
                 {/*встроенный участок поиска и добавления пользователей*/} 

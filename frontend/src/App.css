@@ -44,8 +44,9 @@
   --max_tips_width: 54vh;
 
   --all_blocks_max_height: 60vh;
+  --all_forms_left_padding: 5px;
 
-  --responce_block_min_width: 24vw;
+  --responce_block_min_width: fit-content;
   --responce_block_min_height: fit-content;
   --responce_block_max_width: 32vw;
   --responce_block_max_height: 40vh;
