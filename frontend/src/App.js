@@ -10,6 +10,7 @@ import { ResponseHandlerProvider } from './contexts/ResponseHandlerContext/Respo
 import { MainBlockAnimationProvider } from './contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 import { ActionControlProvider } from './contexts/ActionControlContext/ActionControlProvider';
 import { NavigationProvider } from './contexts/NavigationContext/NavigationProvider';
+import { ScrollProvider } from './contexts/ScrollContext/ScrollProvider';
 import OtherUserPage from './components/Pages/OtherUserPage/OtherUserPage';
 import EndRecoveryPage from './components/Pages/EndRecoveryPage/EndRecoveryPage';
 import { 
@@ -38,6 +39,7 @@ function App() {
             <NavigationProvider>
             <ActionControlProvider>
             <UserProvider>
+            <ScrollProvider>
             <AnimatePresence mode='wait' initial={false}>		
                 <Routes location={location} key={location.pathname}>                    
                     <Route path={BEFORE_LOGIN_PAGE_URL} element={
@@ -57,6 +59,7 @@ function App() {
                     }/>
                 </Routes>
             </AnimatePresence>
+            </ScrollProvider>
             </UserProvider>
             </ActionControlProvider> 
             </NavigationProvider>
