@@ -1,4 +1,4 @@
-.Scrollable {
+.ScrollableVertical {
     background-color: var(--background_main_color);
     max-height: var(--all_blocks_max_height);
     overflow: auto;
@@ -9,12 +9,12 @@
     padding-left: var(--scrollable_padding_left);
 }
 
-.Scrollable::-webkit-scrollbar {
+.ScrollableVertical::-webkit-scrollbar {
     width: 10px;
     background-color: var(--background_second_color);    
 }
 
-.Scrollable::-webkit-scrollbar-thumb {
+.ScrollableVertical::-webkit-scrollbar-thumb {
     border-radius: 10px;
     border: 2px solid var(--main_color);
 }

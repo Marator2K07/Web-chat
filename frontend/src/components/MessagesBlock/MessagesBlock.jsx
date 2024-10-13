@@ -5,7 +5,7 @@ import MessagesCollection from '../Collection/MessagesCollection/MessagesCollect
 import { useResponseHandlerContext } from '../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { GET_MESSAGES_FOR_ROOM_ROUTE, MEDIUM_DELAY, NEW_MESSAGE_ROUTE } from '../../constants';
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider';
-import Scrollable from '../Helper/Scrollable/Scrollable';
+import ScrollableVertical from '../Helper/ScrollableVertical/ScrollableVertical';
 
 export default function MessagesBlock({room, ...props}) { 
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();
@@ -81,11 +81,11 @@ export default function MessagesBlock({room, ...props}) {
             <h4>{room 
                 ? room.name 
                 : 'Не выбрано ни одной комнаты'}</h4>
-            <Scrollable>
+            <ScrollableVertical>
                 <MessagesCollection
                     messages={messages}
                     clue={'...Нет ни одного сообщения...'}/>
-            </Scrollable>                
+            </ScrollableVertical>                
             <input
                 type='text'
                 name='message'

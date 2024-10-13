@@ -11,7 +11,7 @@ import { AFTER_LOGIN_PAGE_URL, COOKIES_TOKEN, COOKIES_USERNAME, SHORT_DELAY } fr
 import { useNavigationContext } from '../../contexts/NavigationContext/NavigationProvider';
 import TipsBlock from '../TipsBlock/TipsBlock';
 import { useTipsContext } from '../../contexts/TipsContext/TipsProvider';
-import Scrollable from '../Helper/Scrollable/Scrollable';
+import ScrollableVertical from '../Helper/ScrollableVertical/ScrollableVertical';
 
 export default function MainBlock({...props}) {
     const { currentBlock } = useNavigationContext();    
@@ -70,9 +70,9 @@ export default function MainBlock({...props}) {
                     duration: duration,
                     ease: [0.11, 0.9, 0.4, 1.11]
                 }}>
-                <Scrollable>
+                <ScrollableVertical>
                     <DynamicComponent component={currentBlock.path} />
-                </Scrollable>
+                </ScrollableVertical>
             </motion.div>
             <motion.div
                 variants={animationLoadStates}
