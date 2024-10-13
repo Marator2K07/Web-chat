@@ -20,8 +20,8 @@ export default function ScrollableHorizontal({...props}) {
             onMouseMove={(e) => {
                 if (dragging) {
                     e.preventDefault();
-                    let y = e.pageX;
-                    const walk = (y-startX) * 2;
+                    let x = e.pageX;
+                    const walk = (x-startX) * 2;
                     thisComponent.current.scrollLeft = scrollX - walk;
                 }
             }}
