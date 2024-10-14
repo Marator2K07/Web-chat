@@ -6,8 +6,5 @@
     justify-content: center; 
     z-index: var(--navigation_z_index);
     height: var(--navigation_height);
-    padding-bottom: var(--navigation_bottom_padding);    
-    box-shadow: 0px var(--navigation_shadow_offset) 
-    var(--navigation_shadow_size) var(--navigation_shadow_size) 
-    var(--background_main_color);
+    padding-bottom: var(--navigation_bottom_padding); 
 }

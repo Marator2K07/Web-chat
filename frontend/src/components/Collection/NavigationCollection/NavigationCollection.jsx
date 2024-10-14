@@ -5,12 +5,14 @@ import { SHORT_DELAY  } from '../../../constants';
 import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
 import NavigationItem from './NavigationItem/NavigationItem';
 import ScrollableHorizontal from '../../Helper/ScrollableHorizontal/ScrollableHorizontal';
+import { useScrollContext } from '../../../contexts/ScrollContext/ScrollProvider';
 
 export default function NavigationCollection({currentIndex,
                                               startIndex,
                                               endIndex,
                                               ...props}) {
     const { navigationBlocks } = useNavigationContext();
+    const { topEdge } = useScrollContext();
     const animationStates = {
         visible: index => ({
             opacity: 1,
@@ -28,8 +30,15 @@ export default function NavigationCollection({currentIndex,
         pointerEvents: "initial"
     };
 
+    const addStyle = {
+        boxShadow: topEdge ? "none"
+            : "0px var(--navigation_shadow_offset) var(--navigation_shadow_size) var(--navigation_shadow_size) var(--background_main_color)"
+    }
+
     return (
-        <div className={classes.NavigationCollection} {...props}>
+        <div className={classes.NavigationCollection}
+            style={addStyle} 
+            {...props}>
             <ScrollableHorizontal>
                 {Object.keys(navigationBlocks)
                     .slice(startIndex, endIndex)
