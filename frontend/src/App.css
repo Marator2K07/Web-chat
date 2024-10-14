@@ -21,14 +21,14 @@
   --navigation_bottom_padding: 3px;
   --navigation_height: auto;
   --navigation_z_index: 250;
-  --navigation_shadow_offset: 2vh;
-  --navigation_shadow_size: 3vh;
+  --navigation_shadow_offset: 3vw;
+  --navigation_shadow_size: 7vh;
 
   --down_block_height: auto;
   --down_block_width: 100%;
   --down_block_z_index: 250;
-  --down_block_shadow_offset: -2vh;
-  --down_block_shadow_size: 3vh;
+  --down_block_shadow_offset: -3vh;
+  --down_block_shadow_size: 7vh;
 
   --mini_menu_z_index: 1000;
   --tips_block_z_index: 500;
@@ -43,7 +43,7 @@
   --max_tips_block_height: 24vh;
   --max_tips_width: 54vh;
 
-  --all_blocks_max_height: 60vh;
+  --all_blocks_max_height: 65vh;
   --all_forms_left_padding: 5px;
 
   --responce_block_min_width: fit-content;
@@ -86,7 +86,7 @@
   --communication_block_min_width: 16vw;
   --communication_block_min_height: fit-content;
   --communication_block_max_width: 38vw;
-  --communication_block_max_height: 55vh;
+  --communication_block_max_height: 65vh;
 
   --border_width: 2px;
   --border_radius: 18px;
