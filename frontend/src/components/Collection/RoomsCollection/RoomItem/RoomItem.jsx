@@ -10,9 +10,7 @@ export default function RoomItem({item, button, ...props}) {
         <div
             className={classes.RoomItem}
             onClick={() => {loadCurrentRoom(item)}} {...props}>
-            <div>
-                <p>{item.name}</p>
-            </div>
+            <p>{item.name}</p>
             {
                 button &&
                 <MiniButton

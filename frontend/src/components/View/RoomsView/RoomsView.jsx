@@ -33,7 +33,7 @@ export default function RoomsView({handleAction, ...props}) {
         stopLoading();
     }
     const [removeRoomButton] = useState({
-        name: "Удалить",
+        name: "-",
         action: removeSelectedRoom
     });
 

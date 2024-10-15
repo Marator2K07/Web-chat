@@ -3,9 +3,14 @@
     height: max-content;
     background-color: var(--background_main_color); 
     cursor: pointer;   
-    border-radius: var(--border_radius);  
+    border-radius: var(--border_radius); 
     display: flex;
+    max-width: var(--communication_block_max_width);
     align-items: center;
     justify-content: space-between;
     box-shadow: 0px 0px var(--border_width) var(--border_width) var(--main_color);
+}
+
+.RoomItem p {
+    word-break: break-all;
 }
