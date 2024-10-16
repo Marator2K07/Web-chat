@@ -6,6 +6,7 @@ import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerCont
 import UsersCollection from '../../Collection/UsersCollection/UsersCollection';
 import RadioAsButton from '../../Helper/RadioAsButton/RadioAsButton';
 import { useTipsContext } from '../../../contexts/TipsContext/TipsProvider';
+import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 
 export default function NewRoomForm({formData,
                                      otherData,
@@ -19,6 +20,7 @@ export default function NewRoomForm({formData,
     const [searchLine, setSearchLine] = useState('');
     const inputRoomNameRef = useRef(null);
     const { newTipsCoordinates, resetState } = useTipsContext();
+    const { user } = useUserContext();
 
     // обработка изменений в поле поиска пользователей для добавления
     const handleSearch = async (e) => {
@@ -31,6 +33,7 @@ export default function NewRoomForm({formData,
         resetResult();
         await makePostRequest(
             USERS_SEARCH_ROUTE, {
+                thisUserId: user.id,
                 searchTag: formData.searchTag,
                 searchLine: searchLine
             },
