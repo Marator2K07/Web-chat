@@ -8,6 +8,8 @@
     padding-right: var(--scrollable_padding_right);
     padding-left: var(--scrollable_padding_left);
     user-select: none;
+    display: flex;
+    flex-direction: column;
 }
 
 .ScrollableVertical::-webkit-scrollbar {

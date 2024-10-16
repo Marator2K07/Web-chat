@@ -1,5 +1,5 @@
 .EndRecoveryMainBlock {
-    border: var(--border_width) solid var(--background_second_color);
+    align-self: center;
     padding: var(--block_padding);    
     max-width: var(--recovery_block_max_width);
     max-height: var(--recovery_block_max_height); 

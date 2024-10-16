@@ -7,11 +7,6 @@
     justify-content: space-between;
 }
 
-.EndRecoveryPage form {
-    display: flex;
-    flex-direction: column;
-}
-
 .EndRecoveryPage form input {
     margin: var(--input_margin);
     padding: var(--input_padding);

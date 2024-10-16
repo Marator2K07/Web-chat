@@ -12,6 +12,7 @@ import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerCont
 import TipsBlock from '../../TipsBlock/TipsBlock';
 import { useTipsContext } from '../../../contexts/TipsContext/TipsProvider';
 import { useMainBlockAnimationContext } from '../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
+import ScrollableVertical from '../../Helper/ScrollableVertical/ScrollableVertical';
 
 export default function EndRecoveryPage({...props}) {
     const { holding, startLoading, stopLoading } = useLoadingContext();
@@ -68,8 +69,10 @@ export default function EndRecoveryPage({...props}) {
                     duration: duration,
                     ease: [0.11, 0.9, 0.4, 1.11]
                 }}>
-                <h3>Восстановление аккаунта</h3>
-                <EndRecoveryMainBlock user={currentUser} />
+                <ScrollableVertical>
+                    <h3>Восстановление аккаунта</h3>
+                    <EndRecoveryMainBlock user={currentUser} />
+                </ScrollableVertical>
             </motion.div>
             <motion.div
                 variants={animationStatesForTips}
