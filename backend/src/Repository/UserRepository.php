@@ -76,6 +76,22 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getOneOrNullResult();
     }
 
+    // поиск пользователей по совпадению по полю - имя
+    public function findManyByNameField($thisUserId, $searchStr): array
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u, a')            
+            ->join('u.about_user', 'a')
+            ->andWhere("u.id != :thisUserId")
+            ->andWhere("a.name LIKE :searchStr")
+            ->setParameter('thisUserId', $thisUserId)
+            ->setParameter('searchStr', $searchStr.'%')
+            ->orderBy('a.name', 'ASC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    } 
+
     /**
      * @return User[] Returns an array of User objects
      */
