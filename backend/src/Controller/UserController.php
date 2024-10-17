@@ -19,9 +19,37 @@ class UserController extends AbstractController
                            UserRepository $userRepository): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-        $users = $userRepository
-            ->findByNameOrSecondnameField($data['searchLine']);
-        // в данном методе в любом случае отправляем массив пользователей (даже пустой)
+        // подготовка
+        $searchTag = $data['searchTag'];
+        $thisUserId = $data['thisUserId'];
+        $searchLine = $data['searchLine'];
+        $users = [];
+        // поиск в зависимости от тега
+        switch ($searchTag) {
+            case Constants::USERNAME_SEARCH_TAG:
+                $users = $userRepository->findManyByUsernameField(
+                    $thisUserId,
+                    $searchLine
+                );
+                break;
+            case Constants::NAME_SEARCH_TAG:
+                $users = $userRepository->findManyByNameField(
+                    $thisUserId,
+                    $searchLine
+                );
+                break;
+            case Constants::SECONDNAME_SEARCH_TAG:
+                $users = $userRepository->findManyBySecondnameField(
+                    $thisUserId,
+                    $searchLine
+                );
+                break;
+            
+            default:
+                break;
+        }
+        
+        // в данном методе в любом случае отправляем даже пустой массив пользователей
         return new JsonResponse([
             'users' => 
                 $serializer->normalize(
