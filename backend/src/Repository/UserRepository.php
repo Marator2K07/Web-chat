@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Constants\Constants;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -76,35 +77,50 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getOneOrNullResult();
     }
 
+    // поиск пользователей по совпадению по полю - никнейм
+    public function findManyByUsernameField($thisUserId, $searchStr): array
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u')
+            ->andWhere("u.id != :thisUserId")
+            ->andWhere("u.username LIKE :searchStr")
+            ->setParameter('thisUserId', $thisUserId)
+            ->setParameter('searchStr', $searchStr.'%')
+            ->orderBy('u.username', 'ASC')
+            ->setMaxResults(Constants::DEFAULT_SEARCH_SIZE)
+            ->getQuery()
+            ->getResult();
+    } 
+
     // поиск пользователей по совпадению по полю - имя
     public function findManyByNameField($thisUserId, $searchStr): array
     {
         return $this->createQueryBuilder('u')
-            ->select('u, a')            
+            ->select('u, a') 
             ->join('u.about_user', 'a')
             ->andWhere("u.id != :thisUserId")
             ->andWhere("a.name LIKE :searchStr")
             ->setParameter('thisUserId', $thisUserId)
             ->setParameter('searchStr', $searchStr.'%')
             ->orderBy('a.name', 'ASC')
-            ->setMaxResults(3)
+            ->setMaxResults(Constants::DEFAULT_SEARCH_SIZE)
             ->getQuery()
             ->getResult();
     } 
-
-    /**
-     * @return User[] Returns an array of User objects
-     */
-    public function findByNameOrSecondnameField($searchStr): array
+    
+    // поиск пользователей по совпадению по полю - фамилия
+    public function findManyBySecondnameField($thisUserId, $searchStr): array
     {
-        return $this->createQueryBuilder('u')            
-            ->select('u, a')            
+        return $this->createQueryBuilder('u')
+            ->select('u, a') 
             ->join('u.about_user', 'a')
-            ->andWhere("CONCAT(a.name, ' ', a.secondname) LIKE :val")
-            ->setParameter('val', '%'.$searchStr.'%')
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(3)
+            ->andWhere("u.id != :thisUserId")
+            ->andWhere("a.secondname LIKE :searchStr")
+            ->setParameter('thisUserId', $thisUserId)
+            ->setParameter('searchStr', $searchStr.'%')
+            ->orderBy('a.secondname', 'ASC')
+            ->setMaxResults(Constants::DEFAULT_SEARCH_SIZE)
             ->getQuery()
             ->getResult();
-    }    
+    } 
 }
