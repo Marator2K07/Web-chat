@@ -2,7 +2,6 @@ import React from 'react'
 import classes from './UserItem.module.css'
 import MiniButton from '../../../Helper/MiniButton/MiniButton';
 import Spacer from '../../../Helper/Spacer/Spacer';
-import { useNavigate } from 'react-router-dom';
 import { ANOTHER_USER_PAGE_URL } from '../../../../constants';
 import { useNavigationContext } from '../../../../contexts/NavigationContext/NavigationProvider';
 import { useUserContext } from '../../../../contexts/UserContext/UserProvider';
@@ -13,7 +12,6 @@ export default function UserItem({user,
                                   ...props}) {
     const { navigationBlocks, goNavigationWithAnimation } = useNavigationContext();
     const { user: thisUser } = useUserContext();
-    const navigate = useNavigate();
 
     // в случае если пользователь не установил картинку - ставим
     // картинку по умолчанию из файлов проекта
@@ -26,7 +24,8 @@ export default function UserItem({user,
         if (user.username === username) {
             goNavigationWithAnimation(navigationBlocks.personalBlock);
         } else {
-            navigate(`${ANOTHER_USER_PAGE_URL}?username=${username}`);
+            let url = `${ANOTHER_USER_PAGE_URL}/username=${user.username}`;
+            window.open(url);
         }        
     }
 
