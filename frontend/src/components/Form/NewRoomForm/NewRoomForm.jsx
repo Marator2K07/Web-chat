@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import classes from './NewRoomForm.module.css'
 import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout'
 import { NEW_ROOM_FORM_NAME, USERS_SEARCH_ROUTE } from '../../../constants';
@@ -42,6 +42,14 @@ export default function NewRoomForm({formData,
             }
         )
     }
+    
+    // перезагрузка пользователей в случае смены тега поиска
+    useEffect(() => {
+        if (searchLine.length > 0) {
+            updateUsers(); 
+        }
+        // eslint-disable-next-line
+    }, [formData.searchTag])
 
     return (
         <div className={classes.NewRoomForm}
