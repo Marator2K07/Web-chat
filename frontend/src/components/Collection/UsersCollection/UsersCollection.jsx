@@ -12,22 +12,22 @@ export default function UsersCollection({users,
     return (
         <div className={classes.UsersCollection} {...props}>
             <TransitionGroup>
-                    {Object.keys(users).map((key, index) => (
-                        <CSSTransition
-                            key={index}
-                            timeout={MEDIUM_TIMEOUT}
-                            classNames="UsersCollection">
-                                <UserItemView 
-                                    thisUser={users[key]}
-                                    button={button} />
-                        </CSSTransition>
-                    ))}
-            </TransitionGroup>        
+                {Object.keys(users).map((key, index) => (
+                    <CSSTransition
+                        key={index}
+                        timeout={MEDIUM_TIMEOUT}
+                        classNames="UsersCollection">
+                        <UserItemView
+                            thisUser={users[key]}
+                            button={button} />
+                    </CSSTransition>
+                ))}
+            </TransitionGroup>
             {
                 Object.keys(users).length > 0
                     ? ''
                     : <p>{clue}</p>
-            } 
+            }
         </div>
     )
 }

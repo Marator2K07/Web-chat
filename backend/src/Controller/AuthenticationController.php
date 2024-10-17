@@ -31,7 +31,7 @@ class AuthenticationController extends AbstractController
                 'addition' => 'Если забыли данные для входа - переходите на вкладку восстановления.',
                 'holding' => true,
                 'button' => [
-                    'text' => 'Начать восстановление',
+                    'text' => 'Восстановление',
                     'key' => 'recoveryBlock'
                 ]
             ]);

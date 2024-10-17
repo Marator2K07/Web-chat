@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Constants\Constants;
 use App\Repository\UserRepository;
-use App\Repository\AboutUserRepository;
-use App\Serializer\AboutUserNormalizer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

@@ -1,6 +1,5 @@
 import React from 'react'
-import classes from './OtherUserMainBlock.module.css'
-import { useNavigationContext } from '../../../../contexts/NavigationContext/NavigationProvider';
+import classes from './OtherUserMainBlock.module.css';
 import { useUserContext } from '../../../../contexts/UserContext/UserProvider';
 import { useLoadingContext } from '../../../../contexts/LoadingContext/LoadingProvider';
 import { useResponseHandlerContext } from '../../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
@@ -10,7 +9,6 @@ export default function OtherUserMainBlock({...props}) {
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();
     const { user, bufferUser } = useUserContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext(); 
-    const { goNavigation } = useNavigationContext(); 
     
     const onSubscribeChange = async (e) => {
         console.log(e.target.checked);

@@ -23,7 +23,7 @@ export default function OtherUserPage({...props}) {
         startLoading();
         resetResult();
         makeGetRequest(
-            `${GET_OTHER_USER_ROUTE }/${username}`,
+            `${GET_OTHER_USER_ROUTE}/${username}`,
             (response) => {
                 loadBufferUser(response.data);
                 toggleHolding(false, SHORT_DELAY);
@@ -36,15 +36,15 @@ export default function OtherUserPage({...props}) {
     // вызов перехода в нужный блок при загрузке
     useLayoutEffect(() => {  
         loadUserInfo();       
-        goNavigation('otherUserBlock')
+        goNavigation('otherUserBlock');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <div className={classes.OtherUserPage} {...props}>
-            <TopBlock/>
-            <MainBlock/>
-            <DownBlock/>
+            <TopBlock />
+            <MainBlock />
+            <DownBlock />
         </div>
     )
 }
