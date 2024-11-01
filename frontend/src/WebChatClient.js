@@ -25,27 +25,27 @@ WebChatClient.interceptors.request.use(
 // если срок действия ключа истек, то пытаемся получить новый
 WebChatClient.interceptors.response.use(
     (response) => response,
-    async (error) => {        
+    async (error) => {
         const originalRequest = error.config;
         // условие ниже эквивалентно истечению срока ключа (токена)
         if (error.status === 401 &&
             !originalRequest._retry &&
             typeof cookies.get(COOKIES_REFRESH_TOKEN) !== "undefined") {
-            originalRequest._retry = true;            
+            originalRequest._retry = true;
             try {
                 // пытаемся получить новый ключ
-                const refreshToken = cookies.get(COOKIES_REFRESH_TOKEN);             
+                const refreshToken = cookies.get(COOKIES_REFRESH_TOKEN);
                 const responseInner = await WebChatClient
-                    .post(UPDATE_STATUS_ROUTE, {refreshToken});
+                    .post(UPDATE_STATUS_ROUTE, { refreshToken });
                 cookies.set(COOKIES_TOKEN, responseInner.data.token, { maxAge: FIVE_MIN_AGE });
                 // с новым ключом повторяем предыдущий запрос 
-                originalRequest.headers.Authorization = 
+                originalRequest.headers.Authorization =
                     `Bearer ${responseInner.data.token}`;
                 return WebChatClient(originalRequest);
             } catch (errorInner) {
                 console.log(errorInner);
-            }            
-        }       
+            }
+        }
         // если поймали "свою ошибку" то просто возращаем ее
         if (error.name === "AxiosError") {
             throw error;

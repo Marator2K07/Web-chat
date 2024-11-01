@@ -5,8 +5,8 @@ const Context = React.createContext(null);
 
 export const MainBlockAnimationProvider = ({ children, ...props }) => {
     const context = useCreateMainBlockAnimationContext(props);
-    return <Context.Provider value={ context }>
-        { children }
+    return <Context.Provider value={context}>
+        {children}
     </Context.Provider>;
 };
 
@@ -15,6 +15,6 @@ export function useMainBlockAnimationContext() {
     const context = React.useContext(Context);
     if (!context) {
         throw new Error('Use main block animation context within provider');
-    } 
+    }
     return context;
 }

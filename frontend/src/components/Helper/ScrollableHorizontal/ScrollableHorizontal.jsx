@@ -1,16 +1,16 @@
 import React, { useRef, useState } from 'react'
 import classes from './ScrollableHorizontal.module.css'
 
-export default function ScrollableHorizontal({...props}) {
+export default function ScrollableHorizontal({ ...props }) {
     const thisComponent = useRef(null);
     const [dragging, setDragging] = useState(false);
     const [startX, setStartX] = useState();
     const [scrollX, setScrollX] = useState();
 
     return (
-        <div 
+        <div
             ref={thisComponent}
-            className={classes.ScrollableHorizontal} 
+            className={classes.ScrollableHorizontal}
             onMouseDown={(e) => {
                 setDragging(true);
                 setStartX(e.pageX - thisComponent.current.offsetLeft);
@@ -21,12 +21,13 @@ export default function ScrollableHorizontal({...props}) {
                 if (dragging) {
                     e.preventDefault();
                     let x = e.pageX;
-                    const walk = (x-startX) * 2;
+                    const walk = (x - startX) * 2;
                     thisComponent.current.scrollLeft = scrollX - walk;
                 }
             }}
-            {...props}>
-            
+            {...props}
+        >
+
         </div>
     )
 }

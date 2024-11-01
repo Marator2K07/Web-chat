@@ -5,8 +5,8 @@ const Context = React.createContext(null);
 
 export const ResponseHandlerProvider = ({ children, ...props }) => {
     const context = useCreateResponseHandlerContext(props);
-    return <Context.Provider value={ context }>
-        { children }
+    return <Context.Provider value={context}>
+        {children}
     </Context.Provider>;
 };
 
@@ -15,6 +15,6 @@ export function useResponseHandlerContext() {
     const context = React.useContext(Context);
     if (!context) {
         throw new Error('Use response handler context within provider');
-    } 
+    }
     return context;
 }

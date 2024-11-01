@@ -13,7 +13,7 @@ import { NavigationProvider } from './contexts/NavigationContext/NavigationProvi
 import { ScrollProvider } from './contexts/ScrollContext/ScrollProvider';
 import OtherUserPage from './components/Pages/OtherUserPage/OtherUserPage';
 import EndRecoveryPage from './components/Pages/EndRecoveryPage/EndRecoveryPage';
-import { 
+import {
     AFTER_LOGIN_PAGE_URL,
     ANOTHER_USER_PAGE_URL,
     BEFORE_LOGIN_PAGE_URL,
@@ -26,47 +26,46 @@ import { setMenuOffset } from './utils';
 function App() {
     const { updateTipsCoordinates } = useTipsContext();
     const location = useLocation();
-
     // при изменении размера страницы или же скроллинге, блок подсказок подстраивается
     window.addEventListener('resize', updateTipsCoordinates);
     window.addEventListener('resize', () => setMenuOffset('btn', "miniMenu"));
 
-    return (    
+    return (
         <div className="App">
             <LoadingProvider>
-            <ResponseHandlerProvider>
-            <MainBlockAnimationProvider>
-            <NavigationProvider>
-            <ActionControlProvider>
-            <UserProvider>
-            <ScrollProvider>
-            <AnimatePresence mode='wait' initial={false}>		
-                <Routes location={location} key={location.pathname}>                    
-                    <Route path={BEFORE_LOGIN_PAGE_URL} element={
-                        <BeforeLoginPage />
-                    }/> 
-                    <Route path={USER_ACTIVATION_PAGE_URL} element={
-                        <UserActivationPage />
-                    }/>
-                    <Route path={END_USER_RECOVERY_PAGE_URL} element={
-                        <EndRecoveryPage />
-                    }/> 
-                    <Route path={`${AFTER_LOGIN_PAGE_URL}/:username`} element={
-                        <AfterLoginPage />                                               
-                    }/>
-                    <Route path={`${ANOTHER_USER_PAGE_URL}/:username`} element={
-                        <OtherUserPage />                        
-                    }/>
-                </Routes>
-            </AnimatePresence>
-            </ScrollProvider>
-            </UserProvider>
-            </ActionControlProvider> 
-            </NavigationProvider>
-            </MainBlockAnimationProvider>	
-            </ResponseHandlerProvider>				
+                <ResponseHandlerProvider>
+                    <MainBlockAnimationProvider>
+                        <NavigationProvider>
+                            <ActionControlProvider>
+                                <UserProvider>
+                                    <ScrollProvider>
+                                        <AnimatePresence mode='wait' initial={false}>
+                                            <Routes location={location} key={location.pathname}>
+                                                <Route path={BEFORE_LOGIN_PAGE_URL} element={
+                                                    <BeforeLoginPage />
+                                                } />
+                                                <Route path={USER_ACTIVATION_PAGE_URL} element={
+                                                    <UserActivationPage />
+                                                } />
+                                                <Route path={END_USER_RECOVERY_PAGE_URL} element={
+                                                    <EndRecoveryPage />
+                                                } />
+                                                <Route path={`${AFTER_LOGIN_PAGE_URL}/:username`} element={
+                                                    <AfterLoginPage />
+                                                } />
+                                                <Route path={`${ANOTHER_USER_PAGE_URL}/:username`} element={
+                                                    <OtherUserPage />
+                                                } />
+                                            </Routes>
+                                        </AnimatePresence>
+                                    </ScrollProvider>
+                                </UserProvider>
+                            </ActionControlProvider>
+                        </NavigationProvider>
+                    </MainBlockAnimationProvider>
+                </ResponseHandlerProvider>
             </LoadingProvider>
-    	</div>
+        </div>
     );
 }
 

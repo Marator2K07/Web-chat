@@ -20,27 +20,28 @@ import { useNavigate } from 'react-router-dom';
 import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
 import NavigationCollection from '../../Collection/NavigationCollection/NavigationCollection';
 
-export default function AfterLoginPage({...props}) {
+export default function AfterLoginPage({ ...props }) {
     const { startLoading, stopLoading } = useLoadingContext();
-    const { resetResult, makeGetRequest } = useResponseHandlerContext();  
+    const { resetResult, makeGetRequest } = useResponseHandlerContext();
     const { aboutUser, loadUser, loadAboutUser } = useUserContext();
     const {
         currentBlock,
         navigationBlocks,
         goNavigationWithAnimation
-    } = useNavigationContext();   
+    } = useNavigationContext();
     const navigate = useNavigate();
-    const location = useLocation();     
+    const location = useLocation();
 
     // первым делом подгружаем все данные о пользователе
-    const updateUser = async () => {                
+    const updateUser = async () => {
         startLoading();
         resetResult();
+
         await makeGetRequest(
             location.pathname,
             async (response) => {
                 loadUser(response.data.user);
-                setTimeout(async ()=> {
+                setTimeout(async () => {
                     if (!aboutUser) {
                         await makeGetRequest(
                             location.pathname + GET_ABOUT_USER_ROUTE_END,
@@ -48,7 +49,7 @@ export default function AfterLoginPage({...props}) {
                                 loadAboutUser(response.data.aboutUser)
                             }
                         );
-                    } 
+                    }
                 }, SHORT_DELAY);
             },
             () => {
@@ -58,10 +59,11 @@ export default function AfterLoginPage({...props}) {
                 }, SHORT_DELAY);
             }
         );
+
         stopLoading();
     }
 
-    useEffect(() => {  
+    useEffect(() => {
         // cookies.remove(COOKIES_USERNAME);
         // cookies.remove(COOKIES_TOKEN);
         updateUser();
@@ -78,12 +80,12 @@ export default function AfterLoginPage({...props}) {
         <div className={classes.AfterLoginPage} {...props}>
             <TopBlock />
             <NavigationCollection
-                currentIndex={currentBlock.index-
+                currentIndex={currentBlock.index -
                     BEFORE_LOGIN_PAGE_BLOCKS_COUNT}
                 startIndex={AFTER_LOGIN_PAGE_START_INDEX}
-                endIndex={AFTER_LOGIN_PAGE_START_INDEX+
+                endIndex={AFTER_LOGIN_PAGE_START_INDEX +
                     AFTER_LOGIN_PAGE_BLOCKS_COUNT}
-            />  
+            />
             <MainBlock />
             <DownBlock />
         </div>

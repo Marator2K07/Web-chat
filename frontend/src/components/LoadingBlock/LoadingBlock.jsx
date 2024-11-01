@@ -18,21 +18,21 @@ import {
 import { useActionControlContext } from '../../contexts/ActionControlContext/ActionControlProvider'
 import AcceptActionForm from '../Form/AcceptActionForm/AcceptActionForm'
 
-export default function LoadingBlock({...props}) {       
-    const { loading, holding, toggleHolding } = useLoadingContext(); 
-    const { response, error } = useResponseHandlerContext(); 
-    const { action, acceptActionForm } = useActionControlContext(); 
+export default function LoadingBlock({ ...props }) {
+    const { loading, holding, toggleHolding } = useLoadingContext();
+    const { response, error } = useResponseHandlerContext();
+    const { action, acceptActionForm } = useActionControlContext();
 
     const disablePointerEvents = {
         pointerEvents: "none"
-    };    
+    };
     const enablePointerEvents = {
         pointerEvents: "initial"
     };
 
     // управление задержкой (holding) экрана загрузки
     useEffect(() => {
-        if(!loading && response && response.data) {
+        if (!loading && response && response.data) {
             toggleHolding(
                 response.data.holding,
                 response.data.delay
@@ -41,45 +41,50 @@ export default function LoadingBlock({...props}) {
     }, [loading, response, toggleHolding])
 
     return (
-        <div style={holding ? enablePointerEvents
-                            : disablePointerEvents}
+        <div
+            style={
+                holding
+                    ? enablePointerEvents
+                    : disablePointerEvents
+            }
             className={classes.LoadingBlock}
-            {...props}> 
+            {...props}
+        >
             <ScrollableVertical>
-            {
-                loading && 
-                <Spin
-                    size='large'
-                    indicator={
-                        <SyncOutlined spin style={{ 
-                            fontSize: LOADING_INDICATOR_SIZE,
-                            color: LOADING_INDICATOR_COLOR
-                        }} />
-                    }
-                />
-            } 
-            {
-                acceptActionForm && 
-                <AcceptActionForm handleSubmit={action} />
-            }
-            { 
-                error && 
-                <ResponseError message={error} />
-            }
-            { 
-                response && 
-                response.data && 
-                response.data.status === RESPONSE_GOOD_STATUS &&
-                <OkResponse message={response.data} />
-            }
-            {
-                response && 
-                response.data && 
-                response.data.status === RESPONSE_BAD_STATUS &&
-                <BadResponse message={response.data} />
-            }
-            </ScrollableVertical> 
-            <Spacer sizeH='5%' />           
+                {
+                    loading &&
+                    <Spin
+                        size='large'
+                        indicator={
+                            <SyncOutlined spin style={{
+                                fontSize: LOADING_INDICATOR_SIZE,
+                                color: LOADING_INDICATOR_COLOR
+                            }} />
+                        }
+                    />
+                }
+                {
+                    acceptActionForm &&
+                    <AcceptActionForm handleSubmit={action} />
+                }
+                {
+                    error &&
+                    <ResponseError message={error} />
+                }
+                {
+                    response &&
+                    response.data &&
+                    response.data.status === RESPONSE_GOOD_STATUS &&
+                    <OkResponse message={response.data} />
+                }
+                {
+                    response &&
+                    response.data &&
+                    response.data.status === RESPONSE_BAD_STATUS &&
+                    <BadResponse message={response.data} />
+                }
+            </ScrollableVertical>
+            <Spacer sizeH='5%' />
         </div>
     )
 }

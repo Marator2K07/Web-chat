@@ -16,17 +16,17 @@ import { validLoginForm } from './LoginFormState';
 import LoginForm from '../../../Form/LoginForm/LoginForm';
 import { useMainBlockAnimationContext } from '../../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 
-export default function LoginMainBlock({...props}) {
+export default function LoginMainBlock({ ...props }) {
     const { startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
     const { shake } = useMainBlockAnimationContext();
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     // идентификационные данные формы
     const [credentials, setCredentials] = useState({
         username: '',
         password: ''
-    });    
+    });
 
     // обработка идентификационных данных формы
     const handleChange = (e) => {
@@ -34,53 +34,54 @@ export default function LoginMainBlock({...props}) {
             ...credentials,
             [e.target.name]: e.target.value
         });
-    }    
+    }
 
     // обработка формы
     async function handleSubmit(e) {
-        e.preventDefault();        
+        e.preventDefault();
         if (!validLoginForm(shake)) {
             return;
         }
-        
-        // основная часть
         startLoading();
         resetResult();
+        // основная часть
         await makePostRequest(
             LOGIN_ROUTE,
             credentials,
             async (response) => {
                 if (response.data.status === RESPONSE_GOOD_STATUS) {
                     setTimeout(async () => {
-                        stopLoading(); 
+                        stopLoading();
                         await makePostRequest(
                             LOGIN_CHECK_ROUTE,
                             credentials,
                             (response) => {
-                                const { token, refreshToken } = response.data; 
-                                setUserCookies(credentials.username, token, refreshToken); 
+                                const { token, refreshToken } = response.data;
+                                setUserCookies(credentials.username, token, refreshToken);
                                 setTimeout(() => {
                                     navigate(
                                         `${AFTER_LOGIN_PAGE_URL}/${credentials.username}`,
                                         { replace: true }
-                                    );   
-                                    resetResult();    
-                                }, EXTRA_SHORT_DELAY); 
-                            } 
-                        )  
+                                    );
+                                    resetResult();
+                                }, EXTRA_SHORT_DELAY);
+                            }
+                        )
                     }, SHORT_DELAY);
-                } 
+                }
             }
         );
+
         stopLoading();
     };
 
     return (
         <div className={classes.LoginMainBlock} {...props}>
-            <LoginForm 
+            <LoginForm
                 formData={credentials}
                 handleChange={handleChange}
-                handleSubmit={handleSubmit} />            
+                handleSubmit={handleSubmit}
+            />
         </div>
     )
 }

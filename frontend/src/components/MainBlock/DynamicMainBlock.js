@@ -20,16 +20,17 @@ const components = {
     gettingStarted: GettingStartedMainBlock,
     welcome: WelcomeMainBlock,
     personal: PersonalMainBlock,
-    communication: СommunicationMainBlock, 
+    communication: СommunicationMainBlock,
     news: NewsMainBlock,
     otherUser: OtherUserMainBlock
 }
+
 // посредник, через который мы сможем рендерить нужный компонент
 function DynamicComponent(props) {
     const SelectedComponent = components[props.component];
     return <AppAnimatedLayout>
-               <SelectedComponent/>
-           </AppAnimatedLayout>
+        <SelectedComponent />
+    </AppAnimatedLayout>
 }
 
 export default DynamicComponent;

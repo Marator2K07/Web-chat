@@ -8,15 +8,17 @@ import RadioAsButton from '../../Helper/RadioAsButton/RadioAsButton';
 import { useTipsContext } from '../../../contexts/TipsContext/TipsProvider';
 import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 
-export default function NewRoomForm({formData,
-                                     otherData,
-                                     handleRoomNameChange,
-                                     handleSearchTagChange,
-                                     handleSubmit,
-                                     handleCancel,
-                                     ...props}) {
+export default function NewRoomForm({
+    formData,
+    otherData,
+    handleRoomNameChange,
+    handleSearchTagChange,
+    handleSubmit,
+    handleCancel,
+    ...props
+}) {
     const { resetResult, makePostRequest } = useResponseHandlerContext();
-    const [foundedUsers, setFoundedUsers] = useState({});    
+    const [foundedUsers, setFoundedUsers] = useState({});
     const [searchLine, setSearchLine] = useState('');
     const inputRoomNameRef = useRef(null);
     const { newTipsCoordinates, resetState } = useTipsContext();
@@ -26,37 +28,39 @@ export default function NewRoomForm({formData,
     const handleSearch = async (e) => {
         setSearchLine(e.target.value);
         updateUsers();
-    } 
+    }
 
     // подгрузка пользователей при поиске    
-    const updateUsers = async() => {    
+    const updateUsers = async () => {
         resetResult();
         await makePostRequest(
             USERS_SEARCH_ROUTE, {
-                thisUserId: user.id,
-                searchTag: formData.searchTag,
-                searchLine: searchLine
-            },
+            thisUserId: user.id,
+            searchTag: formData.searchTag,
+            searchLine: searchLine
+        },
             (response) => {
-                setFoundedUsers(response.data.users);        
+                setFoundedUsers(response.data.users);
             }
         )
     }
-    
+
     // перезагрузка пользователей в случае смены тега поиска
     useEffect(() => {
         if (searchLine.length > 0) {
-            updateUsers(); 
+            updateUsers();
         }
         // eslint-disable-next-line
     }, [formData.searchTag])
 
     return (
-        <div className={classes.NewRoomForm}
+        <div
+            className={classes.NewRoomForm}
             onBlur={resetState}
-            {...props}>
-            <form name={NEW_ROOM_FORM_NAME}>                
-                {/*участок формы создания чата*/} 
+            {...props}
+        >
+            <form name={NEW_ROOM_FORM_NAME}>
+                {/*участок формы создания чата*/}
                 <h4>Название комнаты:</h4>
                 <input
                     ref={inputRoomNameRef}
@@ -64,45 +68,54 @@ export default function NewRoomForm({formData,
                     name='roomName'
                     value={formData.newRoomName}
                     onChange={handleRoomNameChange}
-                    onFocus={() => newTipsCoordinates(inputRoomNameRef)} />
+                    onFocus={() => newTipsCoordinates(inputRoomNameRef)}
+                />
+
                 <h4>Участники:</h4>
                 <UsersCollection
                     users={formData.selectedUsers}
                     clue={'...Пока только вы...'}
-                    button={otherData.removeUserButton} />
+                    button={otherData.removeUserButton}
+                />
 
-                {/*встроенный участок поиска и добавления пользователей*/} 
+                {/*встроенный участок поиска и добавления пользователей*/}
                 <h4>Поиск по</h4>
-                <RadioAsButton 
-                    id='username' 
+                <RadioAsButton
+                    id='username'
                     name='searchFilter'
                     value='username'
                     text='нику'
-                    compairTag={formData.searchTag} 
-                    handleCompairTag={handleSearchTagChange} />
-                <RadioAsButton 
-                    id='name' 
+                    compairTag={formData.searchTag}
+                    handleCompairTag={handleSearchTagChange}
+                />
+                <RadioAsButton
+                    id='name'
                     name='searchFilter'
                     value='name'
                     text='имени'
-                    compairTag={formData.searchTag} 
-                    handleCompairTag={handleSearchTagChange} />
-                <RadioAsButton 
-                    id='secondname' 
+                    compairTag={formData.searchTag}
+                    handleCompairTag={handleSearchTagChange}
+                />
+                <RadioAsButton
+                    id='secondname'
                     name='searchFilter'
                     value='secondname'
                     text='фамилии'
-                    compairTag={formData.searchTag} 
-                    handleCompairTag={handleSearchTagChange} />                                
+                    compairTag={formData.searchTag}
+                    handleCompairTag={handleSearchTagChange}
+                />
+
                 <input
                     type='text'
                     value={searchLine}
-                    onChange={handleSearch} />
+                    onChange={handleSearch}
+                />
                 <h4>Результаты поиска:</h4>
                 <UsersCollection
-                    users={foundedUsers}                        
+                    users={foundedUsers}
                     clue={'...Никого нет...'}
-                    button={otherData.addUserButton} />
+                    button={otherData.addUserButton}
+                />
 
                 <HorizontalLayout>
                     <button type='button' onClick={handleSubmit}>

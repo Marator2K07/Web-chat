@@ -15,18 +15,18 @@ import RegistrationForm from '../../../Form/RegistrationForm/RegistrationForm';
 import { useTipsContext } from '../../../../contexts/TipsContext/TipsProvider';
 import { useMainBlockAnimationContext } from '../../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 
-export default function RegisterMainBlock({...props}) {
+export default function RegisterMainBlock({ ...props }) {
     const { startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
     const { shake } = useMainBlockAnimationContext();
     const { addTip, removeTip } = useTipsContext();
 
     // регистрационные данные
-    const [credentials, setCredentials] = useState({ 
+    const [credentials, setCredentials] = useState({
         username: '',
-        email: '', 
+        email: '',
         password: '',
-        passwordAgain: ''           
+        passwordAgain: ''
     });
 
     // установка изменений в регистрационных данных
@@ -34,13 +34,14 @@ export default function RegisterMainBlock({...props}) {
         setCredentials({
             ...credentials,
             [e.target.name]: e.target.value
-        }); 
+        });
     }
 
     // проверка спустя паузу корректности ввода имени аккаунта
     useEffect(() => {
         const timeout = setTimeout(() => {
-            credentials.username !== "" && validUsername(addTip, removeTip);       
+            credentials.username !== "" &&
+                validUsername(addTip, removeTip);
         }, EXTRA_SHORT_DELAY);
         return () => clearTimeout(timeout)
     }, [credentials.username, addTip, removeTip]);
@@ -48,7 +49,8 @@ export default function RegisterMainBlock({...props}) {
     // проверка спустя паузу корректности ввода емайла
     useEffect(() => {
         const timeout = setTimeout(() => {
-            credentials.email !== "" && validEmail(addTip, removeTip);       
+            credentials.email !== "" &&
+                validEmail(addTip, removeTip);
         }, EXTRA_SHORT_DELAY);
         return () => clearTimeout(timeout)
     }, [credentials.email, addTip, removeTip])
@@ -56,7 +58,8 @@ export default function RegisterMainBlock({...props}) {
     // проверка спустя паузу корректности ввода пароля
     useEffect(() => {
         const timeout = setTimeout(() => {
-            credentials.password !== "" && validPassword(addTip, removeTip);     
+            credentials.password !== "" &&
+                validPassword(addTip, removeTip);
         }, EXTRA_SHORT_DELAY);
         return () => clearTimeout(timeout)
     }, [credentials.password, addTip, removeTip])
@@ -64,47 +67,48 @@ export default function RegisterMainBlock({...props}) {
     // проверка спустя паузу корректности ввода повтора пароля
     useEffect(() => {
         const timeout = setTimeout(() => {
-            credentials.passwordAgain !== "" && validPasswordAgain(addTip, removeTip);
+            credentials.passwordAgain !== "" &&
+                validPasswordAgain(addTip, removeTip);
         }, EXTRA_SHORT_DELAY);
         return () => clearTimeout(timeout)
     }, [credentials.passwordAgain, addTip, removeTip])
 
     // обработка формы
-    async function handleSubmit(e) { 
-        e.preventDefault();        
+    async function handleSubmit(e) {
+        e.preventDefault();
         if (!validRegisterForm(shake, addTip, removeTip)) {
             return;
         }
-        
         // хэшируем пароль перед отправкой
         var hashedPassword;
         await bcrypt.hash(credentials.password, 10)
-        .then((response) => {
-            hashedPassword = response;
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-
+            .then((response) => {
+                hashedPassword = response;
+            })
+            .catch((error) => {
+                console.log(error);
+            })
         // основная часть
         startLoading();
         resetResult();
         await makePostRequest(
             REGISTER_ROUTE, {
-                username: credentials.username,
-                email: credentials.email,
-                password: hashedPassword
-            }
+            username: credentials.username,
+            email: credentials.email,
+            password: hashedPassword
+        }
         );
-        stopLoading();  
+
+        stopLoading();
     };
 
-    return (  
+    return (
         <div className={classes.RegisterMainBlock} {...props}>
             <RegistrationForm
                 formData={credentials}
                 handleChange={handleChange}
-                handleSubmit={handleSubmit} />                          
+                handleSubmit={handleSubmit}
+            />
         </div>
     )
 }

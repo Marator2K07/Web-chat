@@ -10,13 +10,13 @@ import { validNewRoomForm, validRoomName } from './NewRoomFormState';
 import { useTipsContext } from '../../contexts/TipsContext/TipsProvider';
 import { useMainBlockAnimationContext } from '../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 
-export default function RoomBlock({...props}) {
+export default function RoomBlock({ ...props }) {
     const { startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
     const { shake } = useMainBlockAnimationContext();
     const { addTip, removeTip } = useTipsContext();
     const [showRoomForm, setShowRoomForm] = useState(false);
-    
+
     const location = useLocation();
 
     // данные, связанные с формой создания новой комнаты-чата
@@ -32,9 +32,9 @@ export default function RoomBlock({...props}) {
         setNewRoomForm({
             selectedUsers: {
                 [user.username]: user,
-                ...prevUsers            
+                ...prevUsers
             }
-        })        
+        })
     }
 
     // удаление уже добавленного пользователя из списка будущего чата
@@ -45,7 +45,7 @@ export default function RoomBlock({...props}) {
         setNewRoomForm({
             selectedUsers: newSelected
         });
-    } 
+    }
 
     // дополнительные данные, для управления списком выбранных юзеров
     const [addUserButton] = useState({
@@ -59,16 +59,16 @@ export default function RoomBlock({...props}) {
     const [userHandlerButtons] = useState({
         addUserButton: addUserButton,
         removeUserButton: removeUserButton
-    });         
+    });
 
     // установка изменений в имени комнаты для формы
-    const handleRoomNameChange = async (e) => {	
+    const handleRoomNameChange = async (e) => {
         setNewRoomForm({
             selectedUsers: newRoomForm.selectedUsers,
             searchTag: newRoomForm.searchTag,
             roomName: e.target.value
         });
-    } 
+    }
 
     // обработка нажатия на радио кнопку тэга поиска
     const handleSearchTagChange = async (e) => {
@@ -78,7 +78,7 @@ export default function RoomBlock({...props}) {
             roomName: newRoomForm.roomName
         });
     }
-    
+
     // обработка состояния с выводом нужного компонента 
     function handleAction() {
         setShowRoomForm(!showRoomForm);
@@ -88,39 +88,40 @@ export default function RoomBlock({...props}) {
     useEffect(() => {
         const timeout = setTimeout(() => {
             newRoomForm.roomName !== "" &&
-                validRoomName(addTip, removeTip);     
+                validRoomName(addTip, removeTip);
         }, EXTRA_SHORT_DELAY);
         return () => clearTimeout(timeout)
     }, [newRoomForm.roomName, addTip, removeTip])
-    
+
     // обработка формы
     async function handleSubmit(e) {
         e.preventDefault();
         if (!validNewRoomForm(shake, addTip, removeTip)) {
             return;
         }
-        
         // основная часть
         if (showRoomForm) {
             startLoading();
             resetResult();
             await makePostRequest(
                 location.pathname + NEW_ROOM_ROUTE_END, {
-                    roomName: newRoomForm.roomName,
-                    searchTag: newRoomForm.searchTag,
-                    users: newRoomForm.selectedUsers
-                }
+                roomName: newRoomForm.roomName,
+                searchTag: newRoomForm.searchTag,
+                users: newRoomForm.selectedUsers
+            }
             )
             stopLoading();
-            setShowRoomForm(!showRoomForm);  
+            setShowRoomForm(!showRoomForm);
         }
-    }    
+    }
 
     return (
         <div className={classes.RoomBlock} {...props}>
-            <h3> {!showRoomForm ? 'Текущие чаты'
-                                : 'Создание нового чата'}
-            </h3>
+            <h3> {
+                !showRoomForm
+                    ? 'Текущие чаты'
+                    : 'Создание нового чата'
+            }</h3>
             {
                 !showRoomForm
                     ? <RoomsView handleAction={handleAction} />
@@ -130,7 +131,8 @@ export default function RoomBlock({...props}) {
                         handleRoomNameChange={handleRoomNameChange}
                         handleSearchTagChange={handleSearchTagChange}
                         handleSubmit={handleSubmit}
-                        handleCancel={handleAction} />
+                        handleCancel={handleAction}
+                    />
             }
         </div>
     )

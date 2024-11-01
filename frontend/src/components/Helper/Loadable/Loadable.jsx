@@ -9,20 +9,23 @@ import {
 } from '../../../constants';
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 
-export default function Loadable({isWorking,
-                                  propertyName,
-                                  getDataUrl,
-                                  setDataFunc,
-                                  ...props}) {
-    const { makeGetRequest } = useResponseHandlerContext();  
+export default function Loadable({
+    isWorking,
+    propertyName,
+    getDataUrl,
+    setDataFunc,
+    ...props
+}) {
+    const { makeGetRequest } = useResponseHandlerContext();
     const [isReady, setReady] = useState(false);
     const [error, setError] = useState(null);
-    
+
     const loadData = async () => {
         if (!isWorking) {
             return;
         }
         setReady(false);
+
         await makeGetRequest(
             getDataUrl,
             (response) => {
@@ -32,13 +35,14 @@ export default function Loadable({isWorking,
                 setError(error);
             }
         )
+
         setReady(true);
     }
 
-    useEffect(() => {        
-        setTimeout(() => {            
-            loadData();            
-        }, EXTRA_SHORT_DELAY);    
+    useEffect(() => {
+        setTimeout(() => {
+            loadData();
+        }, EXTRA_SHORT_DELAY);
         // eslint-disable-next-line react-hooks/exhaustive-deps    
     }, []);
 
@@ -53,13 +57,14 @@ export default function Loadable({isWorking,
                             fontSize: LOADING_INDICATOR_SIZE,
                             color: LOADING_INDICATOR_COLOR
                         }} />
-                    } />                
-            } 
+                    }
+                />
+            }
             {
                 error &&
                 error.response &&
                 <h4>{error.response.data.detail}</h4>
             }
         </div>
-    )        
+    )
 }

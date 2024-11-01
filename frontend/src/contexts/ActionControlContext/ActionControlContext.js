@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
 
-export const useCreateActionControlContext = function() {
+export const useCreateActionControlContext = function () {
     const [acceptActionForm, setAcceptActionForm] = useState(false);
     const [action, setAction] = useState(null);
 
@@ -11,15 +11,17 @@ export const useCreateActionControlContext = function() {
     const acceptionReceived = useCallback(() => {
         setAcceptActionForm(false);
         setAction(null);
-    }, []); 
+    }, []);
 
     const saveAction = useCallback((action) => {
         setAction(action);
     }, []);
 
-    return { action,
-             acceptActionForm,
-             acceptionRequired,
-             acceptionReceived,
-             saveAction };
+    return {
+        action,
+        acceptActionForm,
+        acceptionRequired,
+        acceptionReceived,
+        saveAction
+    };
 }

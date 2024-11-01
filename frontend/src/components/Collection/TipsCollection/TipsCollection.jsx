@@ -4,7 +4,7 @@ import classes from './TipsCollection.module.css'
 import './TipsCollectionCSSTransition.css';
 import { SHORT_TIMEOUT } from '../../../constants';
 
-export default function TipsCollection({tips, ...props}) {
+export default function TipsCollection({ tips, ...props }) {
     return (
         <div className={classes.TipsCollection} {...props}>
             <TransitionGroup>
@@ -12,7 +12,8 @@ export default function TipsCollection({tips, ...props}) {
                     <CSSTransition
                         key={index}
                         timeout={SHORT_TIMEOUT}
-                        classNames="TipsCollection">
+                        classNames="TipsCollection"
+                    >
                         <div key={key}>
                             <p>{tips[key]}</p>
                         </div>

@@ -4,7 +4,7 @@ import { useScrollContext } from '../../../contexts/ScrollContext/ScrollProvider
 import { useNavigationContext } from '../../../contexts/NavigationContext/NavigationProvider';
 import { EXTRA_SHORT_DELAY } from '../../../constants';
 
-export default function ScrollableVertical({...props}) {
+export default function ScrollableVertical({ ...props }) {
     const { currentBlock } = useNavigationContext();
     const { handleScroll } = useScrollContext();
     const thisComponent = useRef(null);
@@ -20,9 +20,9 @@ export default function ScrollableVertical({...props}) {
     }, [currentBlock, handleScroll]);
 
     return (
-        <div 
+        <div
             ref={thisComponent}
-            className={classes.ScrollableVertical} 
+            className={classes.ScrollableVertical}
             onMouseDown={(e) => {
                 setDragging(true);
                 setStartY(e.pageY - thisComponent.current.offsetTop);
@@ -37,7 +37,7 @@ export default function ScrollableVertical({...props}) {
                 if (dragging) {
                     e.preventDefault();
                     let y = e.pageY;
-                    const walk = (y-startY) * 2;
+                    const walk = (y - startY) * 2;
                     thisComponent.current.scrollTop = scrollY - walk;
                     // управляем контекстом при драг энд ропе
                     handleScroll(thisComponent);
@@ -51,7 +51,9 @@ export default function ScrollableVertical({...props}) {
                 // еще управляем контекстом при изменении размеров компонента
                 handleScroll(thisComponent);
             }}
-            {...props}>
+            {...props}
+        >
+
         </div>
     )
 }

@@ -7,7 +7,7 @@ import { GET_MESSAGES_FOR_ROOM_ROUTE, MEDIUM_DELAY, NEW_MESSAGE_ROUTE } from '..
 import { useLoadingContext } from '../../contexts/LoadingContext/LoadingProvider';
 import ScrollableVertical from '../Helper/ScrollableVertical/ScrollableVertical';
 
-export default function MessagesBlock({room, ...props}) { 
+export default function MessagesBlock({ room, ...props }) {
     const { toggleHolding, startLoading, stopLoading } = useLoadingContext();
     const {
         resetResult,
@@ -19,7 +19,7 @@ export default function MessagesBlock({room, ...props}) {
     const [count, setCount] = useState();
 
     // для отслеживания нового сообщения
-    const [newMessage, setNewMessage] = useState(''); 
+    const [newMessage, setNewMessage] = useState('');
 
     // установка изменений в идентификационных данных
     const handleChange = (e) => {
@@ -27,13 +27,14 @@ export default function MessagesBlock({room, ...props}) {
     }
 
     // обработка отправки сообщения
-    const handleSend = async() => {
+    const handleSend = async () => {
         console.log('SENDINNNNNNG');
         startLoading();
         resetResult();
+
         await makePostRequest(
             NEW_MESSAGE_ROUTE,
-            { 
+            {
                 username: user.username,
                 roomId: room.id,
                 information: newMessage
@@ -45,18 +46,19 @@ export default function MessagesBlock({room, ...props}) {
                 });
                 toggleHolding(false, MEDIUM_DELAY);
                 setNewMessage(''); // при успешной отправке обнуляем сообщение
-                setCount(count+1);
+                setCount(count + 1);
             },
             toggleHolding(false, MEDIUM_DELAY)
         )
+
         stopLoading();
     }
 
     // подгрузка сообщений
-    const updateMessages = async() => {
+    const updateMessages = async () => {
         resetResult();
         await makeGetRequest(
-            `${GET_MESSAGES_FOR_ROOM_ROUTE}/${room.id}`,            
+            `${GET_MESSAGES_FOR_ROOM_ROUTE}/${room.id}`,
             (response) => {
                 setMessages(response.data.messages);
                 console.log(response.data.messages);
@@ -69,7 +71,7 @@ export default function MessagesBlock({room, ...props}) {
         if (room) {
             console.log(room);
             updateMessages();
-        }        
+        }
     }, [room]);
 
     if (!room) {
@@ -77,20 +79,24 @@ export default function MessagesBlock({room, ...props}) {
     }
 
     return (
-        <div className={classes.MessagesBlock} {...props}>            
-            <h4>{room 
-                ? room.name 
-                : 'Не выбрано ни одной комнаты'}</h4>
+        <div className={classes.MessagesBlock} {...props}>
+            <h4>{
+                room
+                    ? room.name
+                    : 'Не выбрано ни одной комнаты'
+            }</h4>
             <ScrollableVertical>
                 <MessagesCollection
                     messages={messages}
-                    clue={'...Нет ни одного сообщения...'}/>
-            </ScrollableVertical>                
+                    clue={'...Нет ни одного сообщения...'}
+                />
+            </ScrollableVertical>
             <input
                 type='text'
                 name='message'
                 value={newMessage}
-                onChange={handleChange}/>
+                onChange={handleChange}
+            />
             <button type='button' onClick={handleSend}>
                 Поделиться
             </button>

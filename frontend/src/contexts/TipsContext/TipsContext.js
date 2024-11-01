@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { MOST_SHORT_DELAY, TIPS_OFFSET_FACTOR } from "../../constants";
 
-export const useCreateTipsContext = function(props) {
+export const useCreateTipsContext = function (props) {
     const [currentRef, setCurrentRef] = useState(null);
     const [leftCoordinate, setLeftCoordinate] = useState(0);
     const [topCoordinate, setTopCoordinate] = useState(0);
@@ -18,7 +18,7 @@ export const useCreateTipsContext = function(props) {
     // таким образом убираем подсказку
     const removeTip = useCallback((property) => {
         setTips(nextState => {
-            let {[property]: prop, ...newTips} = nextState;
+            let { [property]: prop, ...newTips } = nextState;
             return newTips;
         });
     }, []);
@@ -30,9 +30,9 @@ export const useCreateTipsContext = function(props) {
                 setCurrentRef(ref.current);
                 let rect = ref.current.getBoundingClientRect();
                 setLeftCoordinate(rect.left);
-                setTopCoordinate(rect.bottom - rect.height*TIPS_OFFSET_FACTOR); 
+                setTopCoordinate(rect.bottom - rect.height * TIPS_OFFSET_FACTOR);
             }
-        }, MOST_SHORT_DELAY*3); 
+        }, MOST_SHORT_DELAY * 3);
     }, []);
 
     // обновление расположения блока подсказок
@@ -41,9 +41,10 @@ export const useCreateTipsContext = function(props) {
             if (currentRef) {
                 let rect = currentRef.getBoundingClientRect();
                 setLeftCoordinate(rect.left);
-                setTopCoordinate(rect.top - rect.height*TIPS_OFFSET_FACTOR); 
+                setTopCoordinate(rect.top - rect.height * TIPS_OFFSET_FACTOR);
             }
-        }, MOST_SHORT_DELAY*3); 
+        }, MOST_SHORT_DELAY * 3);
+
         return () => clearTimeout(timeout);
     }, [currentRef]);
 
@@ -52,12 +53,14 @@ export const useCreateTipsContext = function(props) {
         setTips({});
     }, []);
 
-    return { tips,
-             addTip,
-             removeTip,
-             topCoordinate,
-             leftCoordinate,
-             newTipsCoordinates,
-             updateTipsCoordinates,
-             resetState };
+    return {
+        tips,
+        addTip,
+        removeTip,
+        topCoordinate,
+        leftCoordinate,
+        newTipsCoordinates,
+        updateTipsCoordinates,
+        resetState
+    };
 }

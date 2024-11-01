@@ -3,16 +3,16 @@ import {
     formParamIsEmpty,
     formParamNotSmall,
     passwordComplicated,
-    passwordIsRepeated 
+    passwordIsRepeated
 } from "../../../../utils";
 
 export function validEndRecoveryForm(problemHandler, addTip, removeTip) {
     let usernameIsOk = !formParamIsEmpty(END_RECOVERY_FORM_NAME, 'username') &&
-                        validUsername(addTip, removeTip);
+        validUsername(addTip, removeTip);
     let passwordIsOk = !formParamIsEmpty(END_RECOVERY_FORM_NAME, 'password') &&
-                        validPassword(addTip, removeTip);        
+        validPassword(addTip, removeTip);
     let passwordAgainIsOk = !formParamIsEmpty(END_RECOVERY_FORM_NAME, 'passwordAgain') &&
-                             validPasswordAgain(addTip, removeTip);
+        validPasswordAgain(addTip, removeTip);
     if (usernameIsOk && passwordIsOk && passwordAgainIsOk) {
         return true;
     } else {
@@ -32,7 +32,7 @@ export function validUsername(addTip, removeTip) {
     );
 }
 
-export function validPassword(addTip, removeTip) {    
+export function validPassword(addTip, removeTip) {
     let passComplicated = passwordComplicated(
         END_RECOVERY_FORM_NAME,
         'password',

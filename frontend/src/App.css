@@ -6,9 +6,9 @@
   --background_error_color: rgb(117, 97, 101);
   --background_load_color: rgb(64, 66, 68);
   --background_menu_color: rgb(94, 96, 99);
- 
+
   --main_color: rgb(214, 124, 255);
-  --second_color: rgb(233, 185, 255);  
+  --second_color: rgb(233, 185, 255);
   --third_color: rgb(253, 247, 255);
   --fourth_color: rgb(179, 170, 184);
   --tip_color: rgb(228, 229, 216);
@@ -100,41 +100,41 @@
   --scrollable_horizontal_padding_bottom: 5px;
   --scrollable_horizontal_padding_right: 2px;
   --scrollable_horizontal_padding_left: 2px;
-  
+
   --h2_font_family: DejaVu Sans Mono, monospace;
   --h2_font_weight: 500;
   --h2_font_size: 25px;
   --h2_margin: 10px;
-  --h2_padding: 5px;  
+  --h2_padding: 5px;
 
   --h3_font_family: DejaVu Sans Mono, monospace;
   --h3_font_weight: 500;
-  --h3_font_size: 22px; 
+  --h3_font_size: 22px;
   --h3_margin: 10px;
-  --h3_padding: 5px; 
+  --h3_padding: 5px;
 
   --h4_font_family: DejaVu Sans Mono, monospace;
   --h4_font_weight: 400;
   --h4_font_size: 20px;
   --h4_margin: 5px 5px 0px 0px;
-  --h4_padding: 5px;  
-  
+  --h4_padding: 5px;
+
   --p_font_family: DejaVu Sans Mono, monospace;
   --p_font_weight: 400;
-  --p_font_size: 19px; 
+  --p_font_size: 19px;
   --p_margin: 5px;
-  --p_padding: 3px; 
+  --p_padding: 3px;
 
   --input_font_family: DejaVu Sans Mono, monospace;
   --input_font_weight: 400;
-  --input_font_size: 19px; 
+  --input_font_size: 19px;
   --input_margin: 5px;
   --input_padding: 3px;
   --input_text_color: black;
 
   --button_font_family: DejaVu Sans Mono, monospace;
   --button_font_weight: 400;
-  --button_font_size: 19px; 
+  --button_font_size: 19px;
   --button_margin: 15px 5px;
   --button_padding: 5px;
   --button_text_color: black;
@@ -150,14 +150,14 @@
   --user_card_margin: 10px;
   --user_card_min_width: 177px;
   --user_card_max_width: 222px;
-  --user_card_min_height: 40px;  
+  --user_card_min_height: 40px;
 
   --user_card_img_margin: 6px;
   --user_card_img_max_width: 44px;
   --user_card_img_max_height: 44px;
 
   --menu_item_padding: 7px;
-  --menu_item_margin: 0px 10px 10px 10px; 
+  --menu_item_margin: 0px 10px 10px 10px;
 
   --user_item_margin: 10px 5px;
   --user_item_image_max_height: 36px;

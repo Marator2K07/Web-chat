@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react"
 import WebChatClient from "../../WebChatClient";
 
-export const useCreateResponseHandlerContext = function() {    
+export const useCreateResponseHandlerContext = function () {
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
 
@@ -11,51 +11,55 @@ export const useCreateResponseHandlerContext = function() {
     }, []);
 
     const makeGetRequest = useCallback(async (
-                                       url,
-                                       responseFunc = null,
-                                       errorFunc = null
-                                       ) => {
+        url,
+        responseFunc = null,
+        errorFunc = null
+    ) => {
         await WebChatClient.get(url)
-        .then(function (response) {
-            setResponse(response);
-            if (responseFunc) {
-                responseFunc(response);
-            }  
-        })
-        .catch(function (error) {
-            setError(error);
-            console.log(error);
-            if (errorFunc) {
-                errorFunc(error);
-            }
-        });
+            .then(function (response) {
+                setResponse(response);
+                if (responseFunc) {
+                    responseFunc(response);
+                }
+            })
+            .catch(function (error) {
+                console.log(error); // 
+
+                setError(error);
+                if (errorFunc) {
+                    errorFunc(error);
+                }
+            });
     }, []);
 
     const makePostRequest = useCallback(async (
-                                        url,
-                                        data,
-                                        responseFunc = null,
-                                        errorFunc = null
-                                        ) => {        
+        url,
+        data,
+        responseFunc = null,
+        errorFunc = null
+    ) => {
         await WebChatClient.post(url, data)
-        .then(function (response) {
-            setResponse(response);
-            if (responseFunc) {
-                responseFunc(response);
-            }  
-        })
-        .catch(function (error) {
-            setError(error);
-            console.log(error);
-            if (errorFunc) {
-                errorFunc(error);
-            }
-        });
+            .then(function (response) {
+                setResponse(response);
+                if (responseFunc) {
+                    responseFunc(response);
+                }
+            })
+            .catch(function (error) {
+                console.log(error); //
+
+                setError(error);
+                if (errorFunc) {
+                    errorFunc(error);
+                }
+            });
     }, []);
 
-    return { response,
-             error,
-             resetResult,
-             makeGetRequest,
-             makePostRequest };
+    return {
+        response,
+        error,
+        resetResult,
+        makeGetRequest,
+        makePostRequest
+    };
 }

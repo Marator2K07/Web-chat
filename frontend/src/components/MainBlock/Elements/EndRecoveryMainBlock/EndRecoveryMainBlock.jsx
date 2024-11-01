@@ -4,8 +4,8 @@ import bcrypt from 'bcryptjs-react';
 import EndRecoveryForm from '../../../Form/EndRecoveryForm/EndRecoveryForm';
 import { END_RECOVERY_ROUTE, EXTRA_SHORT_DELAY } from '../../../../constants';
 import {
-    validEndRecoveryForm, 
-    validPassword, 
+    validEndRecoveryForm,
+    validPassword,
     validPasswordAgain,
     validUsername
 } from './EndRecoveryFormState';
@@ -17,17 +17,17 @@ import { useTipsContext } from '../../../../contexts/TipsContext/TipsProvider';
 // данный основной блок является отдельным и доступен
 // только со страницы окончания восстановления аккаунта
 
-export default function EndRecoveryMainBlock({user, ...props}) {
+export default function EndRecoveryMainBlock({ user, ...props }) {
     const { startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
     const { shake } = useMainBlockAnimationContext();
     const { addTip, removeTip } = useTipsContext();
 
     // новые данные аккаунта для восстановления
-    const [recoveredUserData, setRecoveredUserData] = useState({ 
+    const [recoveredUserData, setRecoveredUserData] = useState({
         username: '',
         password: '',
-        passwordAgain: ''           
+        passwordAgain: ''
     });
 
     // установка изменений в новых данных
@@ -35,17 +35,17 @@ export default function EndRecoveryMainBlock({user, ...props}) {
         setRecoveredUserData({
             ...recoveredUserData,
             [e.target.name]: e.target.value
-        }); 
+        });
     }
 
     // в случае обновления данных о пользователе подставляем никнейм в форму
     useEffect(() => {
-        if (user) {            
+        if (user) {
             setRecoveredUserData({
                 ...recoveredUserData,
                 username: user.username
-            }); 
-        };    
+            });
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps     
     }, [user]);
 
@@ -53,7 +53,7 @@ export default function EndRecoveryMainBlock({user, ...props}) {
     useEffect(() => {
         const timeout = setTimeout(() => {
             recoveredUserData.username !== "" &&
-                validUsername(addTip, removeTip);     
+                validUsername(addTip, removeTip);
         }, EXTRA_SHORT_DELAY);
         return () => clearTimeout(timeout)
     }, [recoveredUserData.username, addTip, removeTip])
@@ -62,7 +62,7 @@ export default function EndRecoveryMainBlock({user, ...props}) {
     useEffect(() => {
         const timeout = setTimeout(() => {
             recoveredUserData.password !== "" &&
-                validPassword(addTip, removeTip);     
+                validPassword(addTip, removeTip);
         }, EXTRA_SHORT_DELAY);
         return () => clearTimeout(timeout)
     }, [recoveredUserData.password, addTip, removeTip])
@@ -71,28 +71,26 @@ export default function EndRecoveryMainBlock({user, ...props}) {
     useEffect(() => {
         const timeout = setTimeout(() => {
             recoveredUserData.passwordAgain !== "" &&
-                validPasswordAgain(addTip, removeTip);           
+                validPasswordAgain(addTip, removeTip);
         }, EXTRA_SHORT_DELAY);
         return () => clearTimeout(timeout)
     }, [recoveredUserData.passwordAgain, addTip, removeTip])
 
     // обработка формы
     const handleSubmit = async (e) => {
-        e.preventDefault();        
+        e.preventDefault();
         if (!validEndRecoveryForm(shake, addTip, removeTip)) {
             return;
         }
-
         // хэшируем новый пароль перед отправкой
         let hashedPassword;
         await bcrypt.hash(recoveredUserData.password, 10)
-        .then((response) => {
-            hashedPassword = response;
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-
+            .then((response) => {
+                hashedPassword = response;
+            })
+            .catch((error) => {
+                console.log(error);
+            })
         // основная часть 
         if (!user) {
             window.close();
@@ -101,21 +99,23 @@ export default function EndRecoveryMainBlock({user, ...props}) {
             resetResult();
             await makePostRequest(
                 END_RECOVERY_ROUTE, {
-                    id: user.id,
-                    username: recoveredUserData.username,
-                    password: hashedPassword
-                }
+                id: user.id,
+                username: recoveredUserData.username,
+                password: hashedPassword
+            }
             );
-            stopLoading();  
-        }  
+
+            stopLoading();
+        }
     }
-    
+
     return (
         <div className={classes.EndRecoveryMainBlock} {...props}>
             <EndRecoveryForm
                 formData={recoveredUserData}
-                handleChange={handleChange} 
-                handleSubmit={handleSubmit} />
+                handleChange={handleChange}
+                handleSubmit={handleSubmit} 
+            />
         </div>
     )
 }

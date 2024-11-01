@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 export const AppAnimatedLayout = ({ children }) => {
 	return (
-		<motion.div			
+		<motion.div
 			initial={{
 				scale: 0.5,
 				opacity: 0,
@@ -15,7 +15,7 @@ export const AppAnimatedLayout = ({ children }) => {
 				scale: 0.5,
 				opacity: 0,
 			}}
-			transition={{ duration: 0.5 }}			
+			transition={{ duration: 0.5 }}
 		>
 			<div className='container'>{children}</div>
 		</motion.div>

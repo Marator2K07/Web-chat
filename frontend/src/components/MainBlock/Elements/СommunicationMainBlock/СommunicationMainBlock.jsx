@@ -4,7 +4,7 @@ import RoomBlock from '../../../RoomBlock/RoomBlock'
 import MessagesBlock from '../../../MessagesBlock/MessagesBlock'
 import { useUserContext } from '../../../../contexts/UserContext/UserProvider'
 
-export default function СommunicationMainBlock({...props}) {
+export default function СommunicationMainBlock({ ...props }) {
     const { currentRoom } = useUserContext();
 
     return (

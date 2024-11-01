@@ -6,9 +6,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { TipsProvider } from './contexts/TipsContext/TipsProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(	
+root.render(
 	<TipsProvider>
-		<BrowserRouter>		
+		<BrowserRouter>
 			<App />
 		</BrowserRouter>
 	</TipsProvider>

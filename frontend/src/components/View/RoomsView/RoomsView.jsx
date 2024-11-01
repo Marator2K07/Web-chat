@@ -9,9 +9,9 @@ import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvi
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { COOKIES_USERNAME, DELETE_ROOM_ROUTE_END } from '../../../constants';
 
-export default function RoomsView({handleAction, ...props}) {
+export default function RoomsView({ handleAction, ...props }) {
     const { resetResult, makePostRequest } = useResponseHandlerContext();
-    const { startLoading, stopLoading } = useLoadingContext();    
+    const { startLoading, stopLoading } = useLoadingContext();
     const { rooms, loadRooms } = useUserContext();
     const location = useLocation();
 
@@ -19,6 +19,7 @@ export default function RoomsView({handleAction, ...props}) {
     const removeSelectedRoom = async (selectedRoom) => {
         startLoading();
         resetResult();
+
         await makePostRequest(
             location.pathname + DELETE_ROOM_ROUTE_END,
             { room: selectedRoom },
@@ -30,6 +31,7 @@ export default function RoomsView({handleAction, ...props}) {
                 loadRooms(newRooms);
             }
         )
+
         stopLoading();
     }
     const [removeRoomButton] = useState({
@@ -40,7 +42,10 @@ export default function RoomsView({handleAction, ...props}) {
     if (rooms) {
         return (
             <div className={classes.RoomsView} {...props}>
-                <RoomsCollection items={rooms} button={removeRoomButton} />
+                <RoomsCollection
+                    items={rooms}
+                    button={removeRoomButton}
+                />
                 <button type="button" onClick={handleAction}>
                     Создать новый
                 </button>
@@ -52,7 +57,8 @@ export default function RoomsView({handleAction, ...props}) {
                 isWorking={cookies.get(COOKIES_USERNAME)}
                 propertyName={'rooms'}
                 getDataUrl={`${location.pathname}/rooms`}
-                setDataFunc={loadRooms} /> 
+                setDataFunc={loadRooms}
+            />
         )
     }
 }

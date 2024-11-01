@@ -3,7 +3,7 @@ import { formEmailIsCorrect, formParamIsEmpty } from "../../../../utils";
 
 export function validStartRecoveryForm(problemHandler, addTip, removeTip) {
     let emailIsOk = !formParamIsEmpty(START_RECOVERY_FORM_NAME, 'email') &&
-                     validEmail(addTip, removeTip);
+        validEmail(addTip, removeTip);
     if (emailIsOk) {
         return true;
     } else {

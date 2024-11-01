@@ -13,9 +13,9 @@ import TipsBlock from '../TipsBlock/TipsBlock';
 import { useTipsContext } from '../../contexts/TipsContext/TipsProvider';
 import ScrollableVertical from '../Helper/ScrollableVertical/ScrollableVertical';
 
-export default function MainBlock({...props}) {
-    const { currentBlock } = useNavigationContext();    
-    const { x, y, opacity, duration } = useMainBlockAnimationContext();    
+export default function MainBlock({ ...props }) {
+    const { currentBlock } = useNavigationContext();
+    const { x, y, opacity, duration } = useMainBlockAnimationContext();
     const { tips, updateTipsCoordinates } = useTipsContext();
     const {
         holding,
@@ -26,46 +26,56 @@ export default function MainBlock({...props}) {
     const navigate = useNavigate();
 
     const animationLoadStates = {
-        visible: {opacity: 1},
-        hidden: {opacity: 0}
+        visible: { opacity: 1 },
+        hidden: { opacity: 0 }
     }
 
     const animationStatesForTips = {
-        visible: {opacity: 0.9},
-        hidden: {opacity: 0}
+        visible: { opacity: 0.9 },
+        hidden: { opacity: 0 }
     }
 
     const smartNav = useCallback(() => {
         let username = cookies.get(COOKIES_USERNAME);
         let token = cookies.get(COOKIES_TOKEN);
+
         if (username && token && currentBlock.path === 'login') {
-            startLoading();            
+            startLoading();
             setTimeout(() => {
                 stopLoading();
                 toggleHolding(false, 0);
-                navigate(`${AFTER_LOGIN_PAGE_URL}/${username}`, { replace: true });                
+                navigate(
+                    `${AFTER_LOGIN_PAGE_URL}/${username}`,
+                    { replace: true }
+                );
             }, SHORT_DELAY);
-        } 
+        }
     }, [
         navigate,
         currentBlock,
         startLoading,
         stopLoading,
         toggleHolding
-    ]); 
+    ]);
 
     // автоматический переход на страницу аккаунта в случае 
     // не выхода из аккаунта и закрытии браузера
     useEffect(() => {
         smartNav();
-    }, [smartNav]); 
+    }, [smartNav]);
 
     return (
-        <div className={classes.MainBlock}
+        <div
+            className={classes.MainBlock}
             onWheel={updateTipsCoordinates}
-            {...props}>
+            {...props}
+        >
             <motion.div
-                animate={{ x: x, y: y, opacity: opacity }}
+                animate={{
+                    x: x,
+                    y: y,
+                    opacity: opacity
+                }}
                 transition={{
                     duration: duration,
                     ease: [0.11, 0.9, 0.4, 1.11]
@@ -83,8 +93,12 @@ export default function MainBlock({...props}) {
             <motion.div
                 variants={animationStatesForTips}
                 transition={{ ease: "linear", duration: 0.2 }}
-                animate={Object.keys(tips).length > 0 ? "visible"
-                                                      : "hidden"}>
+                animate={
+                    Object.keys(tips).length > 0
+                        ? "visible"
+                        : "hidden"
+                }
+            >
                 <TipsBlock />
             </motion.div>
         </div>

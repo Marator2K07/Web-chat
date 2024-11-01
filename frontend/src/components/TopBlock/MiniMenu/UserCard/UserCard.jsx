@@ -5,7 +5,7 @@ import { useNavigationContext } from '../../../../contexts/NavigationContext/Nav
 import { cookies } from '../../../../contexts/CookieContext';
 import { COOKIES_TOKEN, COOKIES_USERNAME } from '../../../../constants';
 
-export default function UserCard({...props}) {
+export default function UserCard({ ...props }) {
     const { user, aboutUser } = useUserContext();
     const { navigationBlocks, goNavigationWithAnimation } = useNavigationContext();
 
@@ -26,17 +26,19 @@ export default function UserCard({...props}) {
     return (
         <div className={classes.UserCard}
             onClick={handleNavigation}
-            {...props}> 
+            {...props}>
             <div>
                 <img src={userImg} alt="" />
-            </div>           
+            </div>
             <div>
                 <p>
-                    {user
-                        ? `${user.username}`
-                        : 'Не авторизовано'}                        
+                    {
+                        user
+                            ? `${user.username}`
+                            : 'Не авторизовано'
+                    }
                 </p>
-            </div>            
+            </div>
         </div>
     )
 }

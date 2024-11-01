@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react"
 import { MOST_SHORT_DELAY } from "../../constants";
 
-export const useCreateScrollContext = function(props) {
+export const useCreateScrollContext = function (props) {
     const [topEdge, setTopEdge] = useState(true);
     const [bottomEdge, setBottomEdge] = useState(true);
-    
+
     // обработка прокрутки по ссылке
     const handleScroll = useCallback((ref) => {
         let scrollComponent = ref.current;
@@ -14,6 +14,7 @@ export const useCreateScrollContext = function(props) {
             scrollComponent.scrollHeight - 1) {
             setTopEdge(true);
             setBottomEdge(true);
+
             return;
         }
         // небольшая задержка обязательна для более корректной работы
@@ -22,7 +23,7 @@ export const useCreateScrollContext = function(props) {
             if (scrollComponent.scrollTop === 0) {
                 setTopEdge(true);
                 setBottomEdge(false);
-            } 
+            }
             // если нижняя граница прокрутки
             else if (scrollComponent.scrollTop + scrollComponent.clientHeight >=
                 scrollComponent.scrollHeight - 1) {
@@ -31,12 +32,14 @@ export const useCreateScrollContext = function(props) {
             } else {
                 setTopEdge(false);
                 setBottomEdge(false);
-            }            
+            }
         }, MOST_SHORT_DELAY * 3);
         return () => clearTimeout(timeout);
     }, [])
 
-    return { topEdge,
-             bottomEdge,
-             handleScroll };
+    return {
+        topEdge,
+        bottomEdge,
+        handleScroll
+    };
 }

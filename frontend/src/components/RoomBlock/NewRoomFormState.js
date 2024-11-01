@@ -2,8 +2,8 @@ import { NEW_ROOM_FORM_NAME } from "../../constants";
 import { formParamIsEmpty, formParamNotSmall } from "../../utils";
 
 export function validNewRoomForm(problemHandler, addTip, removeTip) {
-    let roomNameIsOk = !formParamIsEmpty(NEW_ROOM_FORM_NAME, 'roomName') &&
-                        validRoomName(addTip, removeTip);
+    let roomNameIsOk = !formParamIsEmpty(NEW_ROOM_FORM_NAME, 'roomName')
+        && validRoomName(addTip, removeTip);
     if (roomNameIsOk) {
         return true;
     } else {

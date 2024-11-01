@@ -14,23 +14,23 @@ import { useTipsContext } from '../../../contexts/TipsContext/TipsProvider';
 import { useMainBlockAnimationContext } from '../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 import ScrollableVertical from '../../Helper/ScrollableVertical/ScrollableVertical';
 
-export default function EndRecoveryPage({...props}) {
+export default function EndRecoveryPage({ ...props }) {
     const { holding, startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
-    const { x, y, opacity, duration } = useMainBlockAnimationContext(); 
+    const { x, y, opacity, duration } = useMainBlockAnimationContext();
     const { tips } = useTipsContext();
     const [currentUser, setCurrentUser] = useState();
     const [searchParams] = useSearchParams(); // анализ переданных параметров в url
 
     // состояния компонента загрузки
     const animationStates = {
-        visible: {opacity: 1},
-        hidden: {opacity: 0}
+        visible: { opacity: 1 },
+        hidden: { opacity: 0 }
     }
 
     const animationStatesForTips = {
-        visible: {opacity: 0.9},
-        hidden: {opacity: 0}
+        visible: { opacity: 0.9 },
+        hidden: { opacity: 0 }
     }
 
     // обработка синхронизации данных 
@@ -38,6 +38,7 @@ export default function EndRecoveryPage({...props}) {
         let userTokenAndId = searchParams.get('user');
         startLoading();
         resetResult();
+
         makePostRequest(
             SYNCHRONIZE_RECOVERY_ROUTE,
             { userTokenAndId: userTokenAndId },
@@ -45,24 +46,33 @@ export default function EndRecoveryPage({...props}) {
                 setCurrentUser(response.data.user);
             }
         );
-        stopLoading();        
+
+        stopLoading();
     }
 
     // вызов синхронизации при запуске страницы
-    useEffect(() => {        
-        handleSynchronize(); 
+    useEffect(() => {
+        handleSynchronize();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <div className={classes.EndRecoveryPage} {...props}>
-            <motion.div 
+            <motion.div
                 variants={animationStates}
-                animate={holding ? "visible"
-                                 : "hidden"}>
+                animate={
+                    holding
+                        ? "visible"
+                        : "hidden"
+                }
+            >
                 <LoadingBlock />
             </motion.div>
-            <Spacer sizeW='10px' sizeH='13%'/>
+            <Spacer
+                sizeW='10px'
+                sizeH='13%'
+            />
+
             <motion.div
                 animate={{ x: x, y: y, opacity: opacity }}
                 transition={{
@@ -74,14 +84,23 @@ export default function EndRecoveryPage({...props}) {
                     <EndRecoveryMainBlock user={currentUser} />
                 </ScrollableVertical>
             </motion.div>
+
             <motion.div
                 variants={animationStatesForTips}
                 transition={{ ease: "linear", duration: 0.2 }}
-                animate={Object.keys(tips).length > 0 ? "visible"
-                                                      : "hidden"}>
+                animate={
+                    Object.keys(tips).length > 0
+                        ? "visible"
+                        : "hidden"
+                }
+            >
                 <TipsBlock />
             </motion.div>
-            <Spacer sizeW='10px' sizeH='13%'/>
+
+            <Spacer
+                sizeW='10px'
+                sizeH='13%'
+            />
             <DownBlock />
         </div>
     )

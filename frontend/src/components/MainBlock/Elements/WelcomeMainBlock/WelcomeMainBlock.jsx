@@ -2,7 +2,7 @@ import React from 'react'
 import classes from './WelcomeMainBlock.module.css'
 import { useUserContext } from '../../../../contexts/UserContext/UserProvider';
 
-export default function WelcomeMainBlock({...props}) {
+export default function WelcomeMainBlock({ ...props }) {
     const { user, aboutUser } = useUserContext();
 
     return (
@@ -26,7 +26,7 @@ export default function WelcomeMainBlock({...props}) {
                         return <p>Информация о пользователе пока отсутствует</p>
                     }
                 })()
-            }   
+            }
             <p>Другой информации для отображения пока нет или не предусмотрено.</p>
             <p>Соблюдайте правила и приятного общения.</p>
         </div>

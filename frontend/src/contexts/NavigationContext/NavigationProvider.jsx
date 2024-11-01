@@ -5,8 +5,8 @@ const Context = React.createContext(null);
 
 export const NavigationProvider = ({ children, ...props }) => {
     const context = useCreateNavigationContext(props);
-    return <Context.Provider value={ context }>
-        { children }
+    return <Context.Provider value={context}>
+        {children}
     </Context.Provider>;
 };
 
@@ -15,6 +15,6 @@ export function useNavigationContext() {
     const context = React.useContext(Context);
     if (!context) {
         throw new Error('Use navigation context within provider');
-    } 
+    }
     return context;
 }

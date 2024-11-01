@@ -10,7 +10,7 @@ import NameValueMiniBlock from '../../Helper/NameValueMiniBlock/NameValueMiniBlo
 import HorizontalLine from '../../Helper/HorizontalLine/HorizontalLine';
 import VerticalLine from '../../Helper/VerticalLine/VerticalLine';
 
-export default function AboutUserView({handleAction, ...props}) {
+export default function AboutUserView({ handleAction, ...props }) {
     const { aboutUser, loadAboutUser } = useUserContext();
     const location = useLocation();
 
@@ -22,26 +22,35 @@ export default function AboutUserView({handleAction, ...props}) {
                         !aboutUser.image
                             ? <img
                                 src={`${window.location.origin}/DefUserIcon256.png`}
-                                alt="Not found" />
+                                alt="Not found"
+                            />
                             : <img
                                 src={aboutUser.image}
-                                alt="Not found" />
+                                alt="Not found"
+                            />
                     }
                     <VerticalLine>
                         <NameValueMiniBlock
                             name='Имя:'
-                            value={aboutUser.name ? aboutUser.name
-                                : 'Не задано'} />
+                            value={aboutUser.name
+                                ? aboutUser.name
+                                : 'Не задано'}
+                        />
+
                         <NameValueMiniBlock
                             name='Фамилия:'
-                            value={aboutUser.secondname ? aboutUser.secondname
-                                : 'Не задано'} />
+                            value={aboutUser.secondname
+                                ? aboutUser.secondname
+                                : 'Не задано'}
+                        />
+
                         <NameValueMiniBlock
                             name='День рождения:'
-                            value={aboutUser.dateOfBirth ? dayjs(aboutUser.dateOfBirth)
-                                .format(DATE_FORMAT)
-                                : 'Не задано'} />
-
+                            value={aboutUser.dateOfBirth
+                                ? dayjs(aboutUser.dateOfBirth)
+                                    .format(DATE_FORMAT)
+                                : 'Не задано'}
+                        />
                         <button type="button" onClick={handleAction}>
                             Изменить
                         </button>
@@ -57,5 +66,5 @@ export default function AboutUserView({handleAction, ...props}) {
                 getDataUrl={`${location.pathname}/about`}
                 setDataFunc={loadAboutUser} />
         )
-    }    
+    }
 }

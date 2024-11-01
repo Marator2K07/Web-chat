@@ -18,7 +18,7 @@ export const DELETE_ROOM_ROUTE_END = "/room/delete";
 export const GET_USER_NEWS_MESSAGES_ROUTE = "/authorized_user/news/messages/get";
 export const GET_MESSAGES_FOR_ROOM_ROUTE = "/message/all/get"
 export const USERS_SEARCH_ROUTE = "/user/all/search";
-export const GET_OTHER_USER_ROUTE  = "/user/get"
+export const GET_OTHER_USER_ROUTE = "/user/get"
 export const NEW_MESSAGE_ROUTE = "/message/new"
 export const SUBSCRIBE_ROUTE = "/subscribers_list/add"
 export const UNSUBSCRIBE_ROUTE = "/subscribers_list/remove"
@@ -50,12 +50,12 @@ export const AFTER_LOGIN_PAGE_BLOCKS_COUNT = 5;
 
 export const DATE_FORMAT = "YYYY-MM-DD"
 
-export const LOGIN_FORM_NAME = "loginForm"; 
+export const LOGIN_FORM_NAME = "loginForm";
 export const REGISTRATION_FORM_NAME = "registrationForm";
 export const START_RECOVERY_FORM_NAME = "startRecoveryForm";
 export const END_RECOVERY_FORM_NAME = "endRecoveryForm";
 export const UPDATE_ABOUT_USER_FORM_NAME = "updateAboutUserForm";
-export const ACCEPT_ACTION_FORM_NAME = "acceptActionForm"; 
+export const ACCEPT_ACTION_FORM_NAME = "acceptActionForm";
 export const NEW_ROOM_FORM_NAME = "newRoomForm";
 
 export const PINK_EBONY_COLOR = "#704949";
@@ -76,3 +76,6 @@ export const COOKIES_TOKEN = "token";
 export const COOKIES_REFRESH_TOKEN = "refreshToken";
 
 export const TIPS_OFFSET_FACTOR = 3.4;
+
+export const SHAKE_ELEMENT_MIN_VALUE = -22;
+export const SHAKE_ELEMENT_MAX_VALUE = 22;

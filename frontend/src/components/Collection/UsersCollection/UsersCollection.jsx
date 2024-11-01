@@ -5,10 +5,12 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { MEDIUM_TIMEOUT } from '../../../constants';
 import UserItemView from '../../View/UserItemView/UserItemView';
 
-export default function UsersCollection({users,
-                                         clue,
-                                         button,
-                                         ...props}) {
+export default function UsersCollection({
+    users,
+    clue,
+    button,
+    ...props
+}) {
     return (
         <div className={classes.UsersCollection} {...props}>
             <TransitionGroup>
@@ -16,10 +18,12 @@ export default function UsersCollection({users,
                     <CSSTransition
                         key={index}
                         timeout={MEDIUM_TIMEOUT}
-                        classNames="UsersCollection">
+                        classNames="UsersCollection"
+                    >
                         <UserItemView
                             thisUser={users[key]}
-                            button={button} />
+                            button={button}
+                        />
                     </CSSTransition>
                 ))}
             </TransitionGroup>

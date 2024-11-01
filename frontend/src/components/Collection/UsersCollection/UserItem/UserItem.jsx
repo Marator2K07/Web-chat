@@ -6,10 +6,12 @@ import { ANOTHER_USER_PAGE_URL } from '../../../../constants';
 import { useNavigationContext } from '../../../../contexts/NavigationContext/NavigationProvider';
 import { useUserContext } from '../../../../contexts/UserContext/UserProvider';
 
-export default function UserItem({user,
-                                  aboutUser,
-                                  button,
-                                  ...props}) {
+export default function UserItem({
+    user,
+    aboutUser,
+    button,
+    ...props
+}) {
     const { navigationBlocks, goNavigationWithAnimation } = useNavigationContext();
     const { user: thisUser } = useUserContext();
 
@@ -17,36 +19,51 @@ export default function UserItem({user,
     // картинку по умолчанию из файлов проекта
     const userImg = !aboutUser.image
         ? `${window.location.origin}/DefUserIcon.png`
-        :  aboutUser.image    
+        : aboutUser.image
 
     // навигация при нажатии на обьект загруженного юзера
-    function navigateHandler(username) {        
+    function navigateHandler(username) {
         if (user.username === username) {
             goNavigationWithAnimation(navigationBlocks.personalBlock);
         } else {
             let url = `${ANOTHER_USER_PAGE_URL}/username=${user.username}`;
             window.open(url);
-        }        
+        }
     }
 
     return (
-        <div className={classes.UserItem}
+        <div
+            className={classes.UserItem}
             onClick={() => navigateHandler(thisUser.username)}
-            {...props}>
-            <Spacer sizeH='1px' sizeW='10px' />
+            {...props}
+        >
+            <Spacer
+                sizeH='1px'
+                sizeW='10px'
+            />
             <img src={userImg} alt="Not found" />
-            <Spacer sizeH='1px' sizeW='10px' />
+            <Spacer
+                sizeH='1px'
+                sizeW='10px'
+            />
             <div>
                 <p>{aboutUser.name} {aboutUser.secondname}</p>
             </div>
-            <Spacer sizeH='1px' sizeW='10px' />
+            <Spacer
+                sizeH='1px'
+                sizeW='10px'
+            />
             {
                 button &&
                 <MiniButton
                     button={button}
-                    data={user} /> 
-            } 
-            <Spacer sizeH='1px' sizeW='10px' />
+                    data={user}
+                />
+            }
+            <Spacer
+                sizeH='1px'
+                sizeW='10px'
+            />
         </div>
     )
 }

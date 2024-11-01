@@ -4,8 +4,8 @@ import { ACCEPT_ACTION_FORM_NAME, SHORT_DELAY } from '../../../constants'
 import HorizontalLayout from '../../Helper/HorizontalLayout/HorizontalLayout'
 import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvider';
 
-export default function AcceptActionForm({handleSubmit, ...props}) {
-    const { loading, toggleHolding } = useLoadingContext();    
+export default function AcceptActionForm({ handleSubmit, ...props }) {
+    const { loading, toggleHolding } = useLoadingContext();
 
     // обработка отмены операции
     const handleCancel = () => {
@@ -13,7 +13,7 @@ export default function AcceptActionForm({handleSubmit, ...props}) {
             toggleHolding(SHORT_DELAY);
         }
     }
-    
+
     return (
         <div className={classes.AcceptActionForm} {...props}>
             <form name={ACCEPT_ACTION_FORM_NAME}>
@@ -25,7 +25,7 @@ export default function AcceptActionForm({handleSubmit, ...props}) {
                     <button type='button' onClick={handleCancel}>
                         Отмена
                     </button>
-                </HorizontalLayout> 
+                </HorizontalLayout>
             </form>
         </div>
     )

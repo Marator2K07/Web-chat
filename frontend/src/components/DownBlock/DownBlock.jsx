@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import classes from './DownBlock.module.css'
 import { useScrollContext } from '../../contexts/ScrollContext/ScrollProvider'
 
-export default function DownBlock({...props}) {
+export default function DownBlock({ ...props }) {
     const { bottomEdge } = useScrollContext();
     const [boxShadowStyle, setBoxShadowStyle] = useState("none");
 
@@ -11,14 +11,19 @@ export default function DownBlock({...props}) {
     }
 
     useEffect(() => {
-        setBoxShadowStyle(bottomEdge ? "none"
-            : "0px var(--down_block_shadow_offset) var(--down_block_shadow_size) var(--down_block_shadow_size) var(--background_main_color)");
+        setBoxShadowStyle(
+            bottomEdge
+                ? "none"
+                : "0px var(--down_block_shadow_offset) var(--down_block_shadow_size) var(--down_block_shadow_size) var(--background_main_color)"
+        );
     }, [bottomEdge]);
 
     return (
-        <div className={classes.DownBlock}
+        <div
+            className={classes.DownBlock}
             style={componentStyle}
-            {...props}>
+            {...props}
+        >
             <div className='left'>
                 <p>© 2024 Copyright: AwesomeChat.test</p>
             </div>
@@ -26,5 +31,5 @@ export default function DownBlock({...props}) {
                 Test
             </div>
         </div>
-    ) 
+    )
 }

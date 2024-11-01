@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
 
-export const useCreateLoadingContext = function() {
+export const useCreateLoadingContext = function () {
     const [loading, setLoading] = useState(false);
     const [holding, setHolding] = useState(false);
 
@@ -11,17 +11,19 @@ export const useCreateLoadingContext = function() {
 
     const stopLoading = useCallback(() => {
         setLoading(false);
-    }, []); 
+    }, []);
 
-    const toggleHolding = useCallback((value, timeOffset = 0) => {        
+    const toggleHolding = useCallback((value, timeOffset = 0) => {
         setTimeout(() => {
             setHolding(value);
         }, timeOffset);
     }, []);
 
-    return { loading,
-             holding,
-             startLoading,
-             stopLoading,
-             toggleHolding };
+    return {
+        loading,
+        holding,
+        startLoading,
+        stopLoading,
+        toggleHolding
+    };
 }

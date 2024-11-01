@@ -9,7 +9,7 @@ import { cookies, removeUserCookies } from '../../../contexts/CookieContext';
 import MenuCollection from '../../Collection/MenuCollection/MenuCollection';
 import { useUserContext } from '../../../contexts/UserContext/UserProvider';
 
-export default function MiniMenu({innerRef, ...props}) {     
+export default function MiniMenu({ innerRef, ...props }) {
     const { startLoading, stopLoading } = useLoadingContext();
     const { resetResult, makePostRequest } = useResponseHandlerContext();
     const { user, clearUserContext } = useUserContext();
@@ -18,27 +18,36 @@ export default function MiniMenu({innerRef, ...props}) {
     const items = {
         logout: {
             info: "Выйти из аккаунта",
-            action: async() => {
+            action: async () => {
                 startLoading();
                 resetResult();
+
                 await makePostRequest(
                     LOGOUT_ROUTE,
                     { refreshToken: cookies.get(COOKIES_REFRESH_TOKEN) },
                     () => {
                         clearUserContext();
-                        removeUserCookies();                        
+                        removeUserCookies();
                         navigate(BEFORE_LOGIN_PAGE_URL, { replace: true });
                     }
                 );
+
                 stopLoading();
             }
         }
     }
-    
+
     return (
-        <div ref={innerRef} className={classes.MiniMenu} {...props}>
+        <div
+            ref={innerRef}
+            className={classes.MiniMenu}
+            {...props}
+        >
             <UserCard />
-            {user && <MenuCollection items={items} />}
+            {
+                user &&
+                <MenuCollection items={items} />
+            }
         </div>
     )
 }

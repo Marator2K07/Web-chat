@@ -6,7 +6,7 @@ import { setMenuOffset } from '../../utils';
 import AccountImageButton from './AccountImageButton/AccountImageButton';
 import { useNavigationContext } from '../../contexts/NavigationContext/NavigationProvider';
 
-const TopBlock = ({...props}) => {
+const TopBlock = ({ ...props }) => {
     const { currentBlock } = useNavigationContext();
     const [descHeaderWidth, setDescHeaderWidth] = useState(null);
     const descHeaderRef = useRef();
@@ -22,20 +22,30 @@ const TopBlock = ({...props}) => {
 
     return (
         <div className={classes.TopBlock} {...props}>
-            <Spacer sizeH='10px' sizeW='30px' />    
+            <Spacer
+                sizeH='10px'
+                sizeW='30px'
+            />            
             <div className='left'>
                 <p>AwesomeChat</p>
-            </div>     
-            <motion.div animate={{ width: descHeaderWidth }}
-                onAnimationComplete={() => setMenuOffset('btn', "miniMenu")} />
+            </div>
+
+            <motion.div
+                animate={{ width: descHeaderWidth }}
+                onAnimationComplete={() => setMenuOffset('btn', "miniMenu")}
+            />
             <div ref={descHeaderRef}>
-                <p>{currentBlock.description}</p> 
-            </div>             
-            <motion.div animate={{ width: descHeaderWidth+33 }} />                                 
-            <div className='right'>            
+                <p>{currentBlock.description}</p>
+            </div>
+
+            <motion.div animate={{ width: descHeaderWidth + 33 }} />
+            <div className='right'>
                 <AccountImageButton />
             </div>
-            <Spacer sizeH='10px' sizeW='30px' />      
+            <Spacer
+                sizeH='10px'
+                sizeW='30px'
+            />
         </div>
     )
 }

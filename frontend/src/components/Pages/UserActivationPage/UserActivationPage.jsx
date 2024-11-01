@@ -8,15 +8,15 @@ import { useLoadingContext } from '../../../contexts/LoadingContext/LoadingProvi
 import { useResponseHandlerContext } from '../../../contexts/ResponseHandlerContext/ResponseHandlerProvider';
 import { USER_ACTIVATION_ROUTE } from '../../../constants';
 
-export default function UserActivationPage({...props}) {     
-    const { resetResult, makePostRequest } = useResponseHandlerContext();    
+export default function UserActivationPage({ ...props }) {
+    const { resetResult, makePostRequest } = useResponseHandlerContext();
     const [searchParams] = useSearchParams(); // анализ переданных параметров в url
     const { holding, startLoading, stopLoading } = useLoadingContext();
 
     // состояния компонента загрузки
     const animationStates = {
-        visible: {opacity: 1},
-        hidden: {opacity: 0}
+        visible: { opacity: 1 },
+        hidden: { opacity: 0 }
     }
 
     // обработка активации
@@ -24,26 +24,28 @@ export default function UserActivationPage({...props}) {
         let confirmToken = searchParams.get('key');
         startLoading();
         resetResult();
+
         makePostRequest(
             USER_ACTIVATION_ROUTE,
             { confirmToken: confirmToken }
         );
-        stopLoading();        
+
+        stopLoading();
     }
 
     // вызов активации при запуске страницы
-    useEffect(() => {        
-        handleActivation(); 
+    useEffect(() => {
+        handleActivation();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <div className={classes.UserActivationPage} {...props}>
-            <h3>Активация аккаунта</h3>    
-            <motion.div 
+            <h3>Активация аккаунта</h3>
+            <motion.div
                 variants={animationStates}
                 animate={holding ? "visible"
-                                 : "hidden"}>
+                    : "hidden"}>
                 <LoadingBlock />
             </motion.div>
         </div>

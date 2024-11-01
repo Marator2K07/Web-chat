@@ -9,13 +9,13 @@ import {
 
 export function validRegisterForm(problemHandler, addTip, removeTip) {
     let usernameIsOk = !formParamIsEmpty(REGISTRATION_FORM_NAME, 'username') &&
-                        validUsername(addTip, removeTip);
+        validUsername(addTip, removeTip);
     let emailIsOk = !formParamIsEmpty(REGISTRATION_FORM_NAME, 'email') &&
-                     validEmail(addTip, removeTip);
+        validEmail(addTip, removeTip);
     let passwordIsOk = !formParamIsEmpty(REGISTRATION_FORM_NAME, 'password') &&
-                        validPassword(addTip, removeTip);        
+        validPassword(addTip, removeTip);
     let passwordAgainIsOk = !formParamIsEmpty(REGISTRATION_FORM_NAME, 'passwordAgain') &&
-                             validPasswordAgain(addTip, removeTip);
+        validPasswordAgain(addTip, removeTip);
     if (usernameIsOk && emailIsOk && passwordIsOk && passwordAgainIsOk) {
         return true;
     } else {
