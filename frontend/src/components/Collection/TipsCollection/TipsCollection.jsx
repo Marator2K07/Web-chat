@@ -3,6 +3,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import classes from './TipsCollection.module.css'
 import './TipsCollectionCSSTransition.css';
 import { SHORT_TIMEOUT } from '../../../constants';
+import TipItem from './TipItem/TipItem';
 
 export default function TipsCollection({ tips, ...props }) {
     return (
@@ -14,9 +15,7 @@ export default function TipsCollection({ tips, ...props }) {
                         timeout={SHORT_TIMEOUT}
                         classNames="TipsCollection"
                     >
-                        <div key={key}>
-                            <p>{tips[key]}</p>
-                        </div>
+                        <TipItem item={tips[key]} />
                     </CSSTransition>
                 ))}
             </TransitionGroup>
