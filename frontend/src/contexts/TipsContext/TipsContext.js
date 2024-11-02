@@ -41,7 +41,7 @@ export const useCreateTipsContext = function (props) {
             if (currentRef) {
                 let rect = currentRef.getBoundingClientRect();
                 setLeftCoordinate(rect.left);
-                setTopCoordinate(rect.top - rect.height * TIPS_OFFSET_FACTOR);
+                setTopCoordinate(rect.bottom - rect.height * TIPS_OFFSET_FACTOR);
             }
         }, MOST_SHORT_DELAY * 3);
 
