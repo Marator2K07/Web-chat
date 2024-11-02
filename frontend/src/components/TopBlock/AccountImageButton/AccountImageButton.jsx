@@ -36,6 +36,7 @@ export default function AccountImageButton({ ...props }) {
                     <p>&#10094;&#10094;</p>
                 </button>
             </CSSTransition>
+            
             <CSSTransition
                 in={hov}
                 nodeRef={anotherRef}

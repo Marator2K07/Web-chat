@@ -49,6 +49,7 @@ export default function NavigationCollection({
                     .slice(startIndex, endIndex)
                     .map((key, index) => (
                         <motion.div
+                            key={key}
                             custom={{ currentIndex, index }}
                             variants={animationStates}
                             style={currentIndex !== index

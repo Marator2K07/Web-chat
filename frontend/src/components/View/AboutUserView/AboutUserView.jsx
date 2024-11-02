@@ -64,7 +64,8 @@ export default function AboutUserView({ handleAction, ...props }) {
                 isWorking={cookies.get(COOKIES_USERNAME)}
                 propertyName={'aboutUser'}
                 getDataUrl={`${location.pathname}/about`}
-                setDataFunc={loadAboutUser} />
+                setDataFunc={loadAboutUser}
+            />
         )
     }
 }
