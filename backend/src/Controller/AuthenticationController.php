@@ -2,12 +2,11 @@
 
 namespace App\Controller;
 
-use App\Constants\Constants;
 use App\Repository\UserRepository;
+use App\Validator\LoginValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,15 +15,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AuthenticationController extends AbstractController
 {
-    #[Route(path: '/login', name: 'app_login', methods: "POST")]
-    public function login(Request $request,
-                          UserRepository $userRepository,                      
-                          UserPasswordHasherInterface $passwordHasher): JsonResponse
-    {
+    #[Route(path: '/login', name: 'login', methods: 'POST')]
+    public function login(
+        Request $request,
+        UserRepository $userRepository,
+        UserPasswordHasherInterface $passwordHasher,
+        LoginValidator $loginValidator
+    ): JsonResponse {
         $data = json_decode($request->getContent(), true);
-        $user = $userRepository->findOneByUsernameField($data['username']);
-        // в случае ошибочного ввода
-        if (!$user || !$passwordHasher->isPasswordValid($user, $data['password'])) {
+        $user = $userRepository->findOneByUsernameField($data[USERNAME_TAG]);
+
+        $errors = $loginValidator->validate($data);
+        if (!is_bool($errors)) {
+            return new JsonResponse(['validationErrors' => $errors]);
+        }
+
+        if (!$user || !$passwordHasher->isPasswordValid($user, $data[PASSWORD_TAG])) {
             return new JsonResponse([
                 'status' => 'Bad',
                 'main' => 'Неверные идентификационные данные.',
@@ -51,8 +57,8 @@ class AuthenticationController extends AbstractController
             'status' => 'Ok',
             'main' => 'Успешный вход.',
             'holding' => false,
-            'delay' => Constants::SHORT_DELAY
-        ]); 
+            'delay' => SHORT_DELAY
+        ]);
     }
 
     // для выхода из аккаунта уже есть метод 

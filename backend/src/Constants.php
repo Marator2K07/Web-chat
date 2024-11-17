@@ -10,6 +10,8 @@ define("HOST_RECEIVER_PORT", 3000);
 
 define("MAIN_TAG", "h3");
 define("NAME_TAG", "name");
+define("USERNAME_TAG","username");
+define("PASSWORD_TAG","password");
 define("SECONDNAME_TAG", "secondname");
 define("BIRTHDAY_TAG","dateOfBirth");
 define("CONFIRMTOKEN_TAG","confirmToken");
