@@ -12,7 +12,6 @@ import {
     RESPONSE_GOOD_STATUS,
     SHORT_DELAY
 } from '../../../../constants';
-import { validLoginForm } from './LoginFormState';
 import LoginForm from '../../../Form/LoginForm/LoginForm';
 import { useMainBlockAnimationContext } from '../../../../contexts/MainBlockAnimationContext/MainBlockAnimationProvider';
 
@@ -22,7 +21,7 @@ export default function LoginMainBlock({ ...props }) {
     const { shake } = useMainBlockAnimationContext();
     const navigate = useNavigate();
 
-    // идентификационные данные формы
+    const [validationErrors, setValidationErrors] = useState([]);
     const [credentials, setCredentials] = useState({
         username: '',
         password: ''
@@ -39,9 +38,6 @@ export default function LoginMainBlock({ ...props }) {
     // обработка формы
     async function handleSubmit(e) {
         e.preventDefault();
-        if (!validLoginForm(shake)) {
-            return;
-        }
         startLoading();
         resetResult();
         // основная часть
@@ -49,7 +45,10 @@ export default function LoginMainBlock({ ...props }) {
             LOGIN_ROUTE,
             credentials,
             async (response) => {
-                if (response.data.status === RESPONSE_GOOD_STATUS) {
+                setValidationErrors(response.data.validationErrors);
+                if (response.data.validationErrors) {
+                    shake();
+                } else if (response.data.status === RESPONSE_GOOD_STATUS) {
                     setTimeout(async () => {
                         stopLoading();
                         await makePostRequest(
@@ -79,6 +78,7 @@ export default function LoginMainBlock({ ...props }) {
         <div className={classes.LoginMainBlock} {...props}>
             <LoginForm
                 formData={credentials}
+                errorsData={validationErrors}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
             />
