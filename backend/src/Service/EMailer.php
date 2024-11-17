@@ -2,34 +2,34 @@
 
 namespace App\Service;
 
-use App\Constants\Constants;
 use App\Entity\User;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Twig\Environment;
 
 class EMailer
-{    
-    public function __construct(private MailerInterface $mailer,
-                                private Environment $twig,
-                                private $serverEmail)
-    { }
-    
-    public function sendConfirmMessage(User $user,
-                                       string $clientIp,
-                                       string $confirmToken)
-    {  
+{
+    public function __construct(
+        private MailerInterface $mailer,
+        private Environment $twig,
+        private $serverEmail
+    ) {}
+
+    public function sendConfirmMessage(
+        User $user,
+        string $clientIp,
+        string $confirmToken
+    ) {
         // создали основной экземпляр емайл
-        $email = (new TemplatedEmail())->
-            from($this->serverEmail)->
-            to($user->getEmail())->
-            subject('Подтверждение регистрации аккаунта');        
+        $email = (new TemplatedEmail())
+            ->from($this->serverEmail)
+            ->to($user->getEmail())
+            ->subject('Подтверждение регистрации аккаунта');
         // используем twig шаблон 
-        $email->htmlTemplate('confirmUser.html.twig')->
-            context([
-                'user' => $user, 
+        $email->htmlTemplate('confirmUser.html.twig')->context([
+                'user' => $user,
                 'ip' => $clientIp,
-                'port' => Constants::HOST_RECEIVER_PORT,
+                'port' => HOST_RECEIVER_PORT,
                 'key' => $confirmToken
             ]);
 
@@ -39,25 +39,25 @@ class EMailer
             return true;
         } catch (\Throwable $th) {
             return false;
-        }    
+        }
     }
 
-    public function sendRecoveryMessage(User $user,
-                                        string $clientIp,
-                                        string $token)
-    {  
+    public function sendRecoveryMessage(
+        User $user,
+        string $clientIp,
+        string $token
+    ) {
         // создали основной экземпляр емайл
-        $email = (new TemplatedEmail())->
-            from($this->serverEmail)->
-            to($user->getEmail())->
-            subject('Подтверждение восстановления аккаунта');        
+        $email = (new TemplatedEmail())
+            ->from($this->serverEmail)
+            ->to($user->getEmail())
+            ->subject('Подтверждение восстановления аккаунта');        
         // используем twig шаблон 
-        $email->htmlTemplate('recoveryUser.html.twig')->
-            context([
-                'user' => $user, 
+        $email->htmlTemplate('recoveryUser.html.twig')->context([
+                'user' => $user,
                 'ip' => $clientIp,
-                'port' => Constants::HOST_RECEIVER_PORT,
-                'tag' => Constants::MAIN_TAG,
+                'port' => HOST_RECEIVER_PORT,
+                'tag' => MAIN_TAG,
                 'token' => $token
             ]);
 
@@ -67,6 +67,6 @@ class EMailer
             return true;
         } catch (\Throwable $th) {
             return false;
-        }    
+        }
     }
 }
