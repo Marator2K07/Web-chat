@@ -16,40 +16,80 @@ class RegistrationValidator implements Validator
 
     public function validate(array $data): mixed
     {
-        // подготовка
-        $username = $data[USERNAME_TAG];
-        $comparisonUsername = $data[COMPARISON_USERNAME_TAG];
-        $email = $data[EMAIL_TAG];
-        $comparisonEmail = $data[COMPARISON_EMAIL_TAG];
-        $password = $data[PASSWORD_TAG];
-        $passwordAgain = $data[PASSWORDAGAIN_TAG];
-        // непосредственно, валидация
         $errors = [];
-        if ($username === null || $username === "") {
-            $errors[USERNAME_TAG][] = "Никнейм обязателен для ввода";
-        } else if ($username !== $comparisonUsername) {
-            $errors[USERNAME_TAG][] = "Данный никнейм уже занят";
-        }
-        if ($email === null || $email === "") {
-            $errors[EMAIL_TAG][] = "Почта обязательна для ввода";
-        } else if ($email !== $comparisonEmail) {
-            $errors[EMAIL_TAG][] = "Выбранная почта уже используется";
-        } else if (!preg_match(self::EMAIL_REGEX, $email)) {
-            $errors[EMAIL_TAG][] = "Неверный формат почты (example@sobaka.internet)";
-        }
-        if ($password === null || $password === "") {
-            $errors[PASSWORD_TAG][] = "Поле пароля не может быть пустым";
-        } else if (!preg_match(self::PASSWORD_REGEX, $password)) {
-            $errors[PASSWORD_TAG][] = "Пароль должен содержать минимум 8 символов, включая заглавные и строчные буквы, цифры и специальные символы (@$!%*?&)";
-        }
-        if ($password !== $passwordAgain) {
-            $errors[PASSWORDAGAIN_TAG][] = "Пароли не совпадают";
-        }
+
+        $errors = array_merge($errors, $this->validateUsername($data));
+        $errors = array_merge($errors, $this->validateEmail($data));
+        $errors = array_merge($errors, $this->validatePassword($data));
+        $errors = array_merge($errors, $this->validatePasswordAgain($data));
 
         if (count($errors) > 0) {
             return $errors;
         }
 
         return true;
+    }
+
+    private function validateUsername(array $data): array
+    {
+        $username = $data[USERNAME_TAG] ?? null;
+        $comparisonUsername = $data[COMPARISON_USERNAME_TAG] ?? null;
+        $errors = [];
+
+        if ($username === null || $username === "") {
+            $errors[USERNAME_TAG][] = "Никнейм обязателен для ввода";
+        }
+        if ($username === $comparisonUsername) {
+            $errors[USERNAME_TAG][] = "Данный никнейм уже занят";
+        }
+
+        return $errors;
+    }
+
+    private function validateEmail(array $data): array
+    {
+        $email = $data[EMAIL_TAG] ?? null;
+        $comparisonEmail = $data[COMPARISON_EMAIL_TAG] ?? null;
+        $errors = [];
+
+        if ($email === null || $email === "") {
+            $errors[EMAIL_TAG][] = "Почта обязательна для ввода";
+        }
+        if ($email === $comparisonEmail) {
+            $errors[EMAIL_TAG][] = "Выбранная почта уже используется";
+        }
+        if (!preg_match(self::EMAIL_REGEX, $email)) {
+            $errors[EMAIL_TAG][] = "Неверный формат почты (example@sobaka.internet)";
+        }
+
+        return $errors;
+    }
+
+    private function validatePassword(array $data): array
+    {
+        $password = $data[PASSWORD_TAG] ?? null;
+        $errors = [];
+
+        if ($password === null || $password === "") {
+            $errors[PASSWORD_TAG][] = "Поле пароля не может быть пустым";
+        }
+        if (!preg_match(self::PASSWORD_REGEX, $password)) {
+            $errors[PASSWORD_TAG][] = "Пароль должен содержать минимум 8 символов, включая заглавные и строчные буквы, цифры и специальные символы (@$!%*?&)";
+        }
+
+        return $errors;
+    }
+
+    private function validatePasswordAgain(array $data): array
+    {
+        $password = $data[PASSWORD_TAG] ?? null;
+        $passwordAgain = $data[PASSWORDAGAIN_TAG] ?? null;
+        $errors = [];
+
+        if ($password !== $passwordAgain) {
+            $errors[PASSWORDAGAIN_TAG][] = "Пароли не совпадают";
+        }
+
+        return $errors;
     }
 }

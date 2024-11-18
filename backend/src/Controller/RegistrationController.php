@@ -14,7 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 // НАпоминание: если holding = false,
@@ -27,7 +27,7 @@ class RegistrationController extends AbstractController
         Request $request,
         UserRepository $userRepository,
         EntityManagerInterface $entityManager,
-        UserPasswordHasher $passwordHasher,
+        UserPasswordHasherInterface $passwordHasher,
         RegistrationValidator $registrationValidator,
         EMailer $emailer
     ): JsonResponse {
@@ -35,8 +35,8 @@ class RegistrationController extends AbstractController
         $userOne = $userRepository->findOneByUsernameField($data[USERNAME_TAG]);
         $userTwo = $userRepository->findOneByEmailField($data[EMAIL_TAG]);
 
-        $data[COMPARISON_USERNAME_TAG] = $userOne->getUsername();
-        $data[COMPARISON_EMAIL_TAG] = $userTwo->getEmail();
+        $data[COMPARISON_USERNAME_TAG] = $userOne ? $userOne->getUsername() : null;
+        $data[COMPARISON_EMAIL_TAG] = $userTwo ? $userTwo->getEmail() : null;
         $errors = $registrationValidator->validate($data);
         if (!is_bool($errors)) {
             return new JsonResponse(['validationErrors' => $errors]);
