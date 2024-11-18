@@ -10,16 +10,21 @@ define("HOST_RECEIVER_PORT", 3000);
 
 define("MAIN_TAG", "h3");
 define("NAME_TAG", "name");
-define("USERNAME_TAG","username");
-define("PASSWORD_TAG","password");
+define("USERNAME_TAG", "username");
+define("EMAIL_TAG", "email");
+define("PASSWORD_TAG", "password");
+define("PASSWORDAGAIN_TAG", "passwordAgain");
 define("SECONDNAME_TAG", "secondname");
-define("BIRTHDAY_TAG","dateOfBirth");
-define("CONFIRMTOKEN_TAG","confirmToken");
-define("IMAGE_TAG","image");
+define("BIRTHDAY_TAG", "dateOfBirth");
+define("CONFIRMTOKEN_TAG", "confirmToken");
+define("IMAGE_TAG", "image");
+
+define("COMPARISON_USERNAME_TAG", "comparisonUsername");
+define("COMPARISON_EMAIL_TAG", "comparisonEmail");
 
 define("DEFAULT_SEARCH_SIZE", 3);
 define("NAME_SEARCH_TAG", "name");
 define("USERNAME_SEARCH_TAG", "username");
 define("SECONDNAME_SEARCH_TAG", "secondname");
 
-define("INVALID_DATE","Invalid Date");
+define("INVALID_DATE", "Invalid Date");
