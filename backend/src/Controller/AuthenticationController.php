@@ -52,7 +52,6 @@ class AuthenticationController extends AbstractController
             ]);
         }
 
-        // если дошли до сюда, то все впорядке
         return new JsonResponse([
             'status' => 'Ok',
             'main' => 'Успешный вход.',
