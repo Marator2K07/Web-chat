@@ -2,9 +2,11 @@ import React, { useRef } from 'react'
 import classes from './RegistrationForm.module.css'
 import { REGISTRATION_FORM_NAME } from '../../../constants'
 import { useTipsContext } from '../../../contexts/TipsContext/TipsProvider';
+import TipsCollection from '../../Collection/TipsCollection/TipsCollection';
 
 export default function RegistrationForm({
     formData,
+    errorsData,
     handleChange,
     handleSubmit,
     ...props
@@ -31,6 +33,11 @@ export default function RegistrationForm({
                     onChange={handleChange}
                     onFocus={() => newTipsCoordinates(inputUsernameRef)}
                 />
+                {
+                    errorsData &&
+                    errorsData['username'] &&
+                    <TipsCollection tips={errorsData['username']} />
+                }
 
                 <h4>Задайте почту для привязки:</h4>
                 <input
@@ -41,6 +48,11 @@ export default function RegistrationForm({
                     onChange={handleChange}
                     onFocus={() => newTipsCoordinates(inputEmailRef)}
                 />
+                {
+                    errorsData &&
+                    errorsData['email'] &&
+                    <TipsCollection tips={errorsData['email']} />
+                }
 
                 <h4>А теперь придумайте пароль:</h4>
                 <input
@@ -51,6 +63,11 @@ export default function RegistrationForm({
                     onChange={handleChange}
                     onFocus={() => newTipsCoordinates(inputPasswordRef)}
                 />
+                {
+                    errorsData &&
+                    errorsData['password'] &&
+                    <TipsCollection tips={errorsData['password']} />
+                }
 
                 <h4>И повторите его:</h4>
                 <input
@@ -61,6 +78,12 @@ export default function RegistrationForm({
                     onChange={handleChange}
                     onFocus={() => newTipsCoordinates(inputPasswordAgainRef)}
                 />
+                {
+                    errorsData &&
+                    errorsData['passwordAgain'] &&
+                    <TipsCollection tips={errorsData['passwordAgain']} />
+                }
+
                 <button type='button' onClick={handleSubmit}>
                     Зарегистрироваться
                 </button>
