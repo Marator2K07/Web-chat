@@ -9,11 +9,11 @@ use App\Entity\SubscribersList;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\EMailer;
+use App\Validator\RegistrationValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 // НАпоминание: если holding = false,
@@ -21,81 +21,75 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register', methods: "POST")]
-    public function register(Request $request, 
-                             UserRepository $userRepository,     
-                             EntityManagerInterface $entityManager,
-                             EMailer $emailer): JsonResponse
-    {
+    #[Route('/register', name: 'register', methods: 'POST')]
+    public function register(
+        Request $request,
+        UserRepository $userRepository,
+        EntityManagerInterface $entityManager,
+        RegistrationValidator $registrationValidator,
+        EMailer $emailer
+    ): JsonResponse {
         $data = json_decode($request->getContent(), true);
-        // если имя не уникально 
-        $user = $userRepository->findOneByUsernameField($data['username']);
-        if ($user) {
-            return new JsonResponse([
-                'status' => 'Bad',
-                'main' => 'Указанное имя аккаунта занято.',
-                'holding' => true
-            ]);
+        $userOne = $userRepository->findOneByUsernameField($data[USERNAME_TAG]);
+        $userTwo = $userRepository->findOneByEmailField($data[EMAIL_TAG]);
+
+        $data[COMPARISON_USERNAME_TAG] = $userOne->getUsername();
+        $data[COMPARISON_EMAIL_TAG] = $userTwo->getEmail();
+        $errors = $registrationValidator->validate($data);
+        if (!is_bool($errors)) {
+            return new JsonResponse(['validationErrors' => $errors]);
         }
-        // если почта не уникальна 
-        $user = $userRepository->findOneByEmailField($data['email']);
-        if ($user) {
-            return new JsonResponse([
-                'status' => 'Bad',
-                'main' => 'Заданная почта уже использовалась при регистрации.',
-                'holding' => true
-            ]);
-        }
-        // задаем и инициализируем нового пользователя
+
+        // создаем пользователя
         $user = new User();
-        $user->setUsername($data['username']);
-        $user->setEmail($data['email']);
+        $user->setUsername($data[USERNAME_TAG]);
+        $user->setEmail($data[EMAIL_TAG]);
         $user->setConfirmed(false); // по умолчанию аккаунт не активирован
-        $user->setPassword($data['password']);
-        // хэшируем ключ активации и сохраняем
-        $userActivationKey = md5(rand().time());
+        $user->setPassword($data[PASSWORD_TAG]);
+        $userActivationKey = md5(rand() . time());
         $user->setConfirmToken($userActivationKey);
+        // информация о пользователе
+        $aboutUser = new AboutUser();
+        $aboutUser->setName($data[USERNAME_TAG]);
+        $user->setAboutUser($aboutUser);
+        // инициализаци новостной комнаты 
+        $room = new Room();
+        $room->setName('Новости пользователя' . $user->getUsername());
+        $room->setDialog(false);
+        $room->setForNews(true);
+        $room->addUser($user);
+        // инициализируем список подписчиков
+        $subscribersList = new SubscribersList();
+        $subscribersList->setOwner($user);
+        $user->setSubscribersList($subscribersList);
+        // инициализируем черный список
+        $blackList = new BlackList();
+        $blackList->setOwner($user);
+        $user->setBlackList($blackList);
+
         // пытаемся отправить активацию на аккаунт
         $clientIp = $request->getClientIp();
-        if (!$emailer->sendConfirmMessage($user,
-                                          $clientIp,
-                                          $userActivationKey)) {
+        if (!$emailer->sendConfirmMessage(
+            $user,
+            $clientIp,
+            $userActivationKey
+        )) {
             return new JsonResponse([
                 'status' => 'Bad',
                 'main' => 'Невозможно отправить активацию на указанный адрес почты.',
                 'addition' => 'Похоже, адрес почты не корректен или не существует.',
                 'holding' => true
             ]);
-        } 
-        // задаем и инициализируем информацию о пользователе
-        $aboutUser = new AboutUser();
-        // по умолчанию имя пользователя = имя аккаунта
-        $aboutUser->setName($data['username']);
-        $user->setAboutUser($aboutUser);      
-        // инициализируем комнату для новостей
-        $room = new Room();
-        $room->setName('Новости пользователя'.$user->getUsername());
-        $room->setDialog(false);
-        $room->setForNews(true);        
-        $room->addUser($user);
-        // применение 
-        $entityManager->persist($room);
+        }
+
+        // сохраняем все сущности одним запросом
         $entityManager->persist($user);
-        $entityManager->flush(); 
-        // инициализируем список подписчиков
-        $subscribersList = new SubscribersList();
-        $subscribersList->setOwner($user);
-        $user->setSubscribersList($subscribersList);
+        $entityManager->persist($aboutUser);
+        $entityManager->persist($room);
         $entityManager->persist($subscribersList);
-        $entityManager->flush();
-        // инициализируем черный список
-        $blackList = new BlackList();
-        $blackList->setOwner($user);        
-        $user->setBlackList($blackList);
         $entityManager->persist($blackList);
-        $entityManager->flush(); 
-        
-        // если дошли досюда, то все впорядке
+        $entityManager->flush();
+
         return new JsonResponse([
             'status' => 'Ok',
             'main' => 'Мы выслали подверждение на указанный при регистрации емайл.',
