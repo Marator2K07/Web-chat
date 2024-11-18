@@ -10,6 +10,7 @@ class RegistrationValidator implements Validator
     // (?=.*[@$!%*?&]): Должен быть хотя бы один специальный символ из указанного набора.
     // [A-Za-z\d@$!%*?&]{8,}$: Должно быть минимум 8 символов из указанного набора (буквы, цифры и специальные символы).
     private const PASSWORD_REGEX = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
+    private const EMAIL_REGEX = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
 
     public function __construct() {}
 
@@ -33,6 +34,8 @@ class RegistrationValidator implements Validator
             $errors[EMAIL_TAG][] = "Почта обязательна для ввода";
         } else if ($email !== $comparisonEmail) {
             $errors[EMAIL_TAG][] = "Выбранная почта уже используется";
+        } else if (!preg_match(self::EMAIL_REGEX, $email)) {
+            $errors[EMAIL_TAG][] = "Неверный формат почты (example@sobaka.internet)";
         }
         if ($password === null || $password === "") {
             $errors[PASSWORD_TAG][] = "Поле пароля не может быть пустым";

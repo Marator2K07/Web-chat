@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\Routing\Annotation\Route;
 
 // НАпоминание: если holding = false,
@@ -26,6 +27,7 @@ class RegistrationController extends AbstractController
         Request $request,
         UserRepository $userRepository,
         EntityManagerInterface $entityManager,
+        UserPasswordHasher $passwordHasher,
         RegistrationValidator $registrationValidator,
         EMailer $emailer
     ): JsonResponse {
@@ -45,7 +47,10 @@ class RegistrationController extends AbstractController
         $user->setUsername($data[USERNAME_TAG]);
         $user->setEmail($data[EMAIL_TAG]);
         $user->setConfirmed(false); // по умолчанию аккаунт не активирован
-        $user->setPassword($data[PASSWORD_TAG]);
+        $user->setPassword($passwordHasher->hashPassword(
+            $user,
+            $data[PASSWORD_TAG]
+        ));
         $userActivationKey = md5(rand() . time());
         $user->setConfirmToken($userActivationKey);
         // информация о пользователе
