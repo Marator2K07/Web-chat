@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Constants\Constants;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,37 +15,43 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccountActivationController extends AbstractController
 {
-    #[Route('/user_activate', name: 'app_user_activate')]
-    public function activation(Request $request,
-                               EntityManagerInterface $entityManager,
-                               UserRepository $userRepository): JsonResponse
-    {
+    #[Route('/user_activate', name: 'user_activation')]
+    public function activation(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository
+    ): JsonResponse {
         $data = json_decode($request->getContent(), true);
-        $user = $userRepository->findOneByConfirmTokenField($data['confirmToken']);
-        // единственно возможный плохой исход
+        $user = $userRepository->findOneByConfirmTokenField($data[CONFIRMTOKEN_TAG]);
+
         if (!$user) {
-            throw new HttpException(410, 'Аккаунта для активации уже не существует');
+            throw new HttpException(
+                GONE_STATUS_CODE,
+                'Аккаунта для активации уже не существует'
+            );
         }
-        // два положительных исхода
+
         if (!$user->isConfirmed()) {
             $user->setConfirmed(true);
-            $entityManager->persist($user);
-            $entityManager->flush(); 
-            return new JsonResponse(['status' => 'Ok',
+            $entityManager->flush();
+
+            return new JsonResponse([
+                'status' => 'Ok',
                 'main' => 'Аккаунт успешно активирован.',
                 'addition' => 'Данная вкладка закроется автоматически через короткое время.',
                 'holding' => false,
-                'delay' => Constants::EXTRA_LONG_DELAY,
+                'delay' => EXTRA_LONG_DELAY,
                 'closeTab' => true
-            ]); 
+            ]);
         } else {
-            return new JsonResponse(['status' => 'Ok',
+            return new JsonResponse([
+                'status' => 'Ok',
                 'main' => 'Данный аккаунт уже активирован.',
                 'addition' => 'Эта вкладка закроется автоматически через короткое время.',
                 'holding' => false,
-                'delay' => Constants::EXTRA_LONG_DELAY,
+                'delay' => EXTRA_LONG_DELAY,
                 'closeTab' => true
-            ]); 
+            ]);
         }
     }
 }
