@@ -9,6 +9,9 @@ define("EXTRA_LONG_DELAY", 7000);
 define("HOST_RECEIVER_PORT", 3000);
 
 define("MAIN_TAG", "h3");
+define("ID_TAG","id");
+define("USER_TAG","user");
+define("USERTOKEN_AND_ID_TAG","userTokenAndId");
 define("NAME_TAG", "name");
 define("USERNAME_TAG", "username");
 define("EMAIL_TAG", "email");
