@@ -1,3 +1,7 @@
+.TipsCollection {
+    align-self: flex-start;
+}
+
 .TipsCollection p {    
     color: var(--tip_color);      
     background-color: var(--background_tip_color);
