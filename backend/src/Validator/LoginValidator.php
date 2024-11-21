@@ -8,11 +8,10 @@ class LoginValidator implements Validator
 
     public function validate(array $data): mixed
     {
-        // подготовка
         $username = $data[USERNAME_TAG] ?? null;
         $password = $data[PASSWORD_TAG] ?? null;
-        // непосредственно, валидация
         $errors = [];
+        
         if ($username === null || $username === "") {
             $errors[USERNAME_TAG][] = "Никнейм обязателен для ввода";
         }
