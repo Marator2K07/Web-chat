@@ -2,9 +2,11 @@ import React, { useEffect, useRef } from 'react'
 import classes from './EndRecoveryForm.module.css'
 import { END_RECOVERY_FORM_NAME } from '../../../constants'
 import { useTipsContext } from '../../../contexts/TipsContext/TipsProvider';
+import TipsCollection from '../../Collection/TipsCollection/TipsCollection';
 
 export default function EndRecoveryForm({
     formData,
+    errorsData,
     handleChange,
     handleSubmit,
     ...props
@@ -36,6 +38,11 @@ export default function EndRecoveryForm({
                     onChange={handleChange}
                     onFocus={() => newTipsCoordinates(inputUsernameRef)}
                 />
+                {
+                    errorsData &&
+                    errorsData['username'] &&
+                    <TipsCollection tips={errorsData['username']} />
+                }
 
                 <h4>Введите новый пароль:</h4>
                 <input
@@ -46,6 +53,11 @@ export default function EndRecoveryForm({
                     onChange={handleChange}
                     onFocus={() => newTipsCoordinates(inputPasswordRef)}
                 />
+                {
+                    errorsData &&
+                    errorsData['password'] &&
+                    <TipsCollection tips={errorsData['password']} />
+                }
 
                 <h4>И повторите его:</h4>
                 <input
@@ -56,6 +68,12 @@ export default function EndRecoveryForm({
                     onChange={handleChange}
                     onFocus={() => newTipsCoordinates(inputPasswordAgainRef)}
                 />
+                {
+                    errorsData &&
+                    errorsData['passwordAgain'] &&
+                    <TipsCollection tips={errorsData['passwordAgain']} />
+                }
+
                 <button type='button' onClick={handleSubmit}>
                     Применить
                 </button>
