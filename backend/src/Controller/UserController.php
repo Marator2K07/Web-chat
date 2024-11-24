@@ -26,19 +26,19 @@ class UserController extends AbstractController
         $users = [];
         // поиск в зависимости от тега
         switch ($searchTag) {
-            case Constants::USERNAME_SEARCH_TAG:
+            case USERNAME_SEARCH_TAG:
                 $users = $userRepository->findManyByUsernameField(
                     $thisUserId,
                     $searchLine
                 );
                 break;
-            case Constants::NAME_SEARCH_TAG:
+            case NAME_SEARCH_TAG:
                 $users = $userRepository->findManyByNameField(
                     $thisUserId,
                     $searchLine
                 );
                 break;
-            case Constants::SECONDNAME_SEARCH_TAG:
+            case SECONDNAME_SEARCH_TAG:
                 $users = $userRepository->findManyBySecondnameField(
                     $thisUserId,
                     $searchLine
@@ -74,7 +74,7 @@ class UserController extends AbstractController
                 'status' => 'Ok',
                 'main' => 'Успешная синхронизация.',
                 'holding' => false,
-                'delay' => Constants::SHORT_DELAY,
+                'delay' => SHORT_DELAY,
                 'user' => json_decode(
                     $serializer->serialize(
                         $user,

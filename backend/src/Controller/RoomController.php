@@ -75,7 +75,7 @@ class RoomController extends AbstractController
             'status' => 'Ok',
             'main' => 'Комната успешно создана.',            
             'holding' => false,
-            'delay' => Constants::SHORT_DELAY
+            'delay' => SHORT_DELAY
         ]);
     }
 }
